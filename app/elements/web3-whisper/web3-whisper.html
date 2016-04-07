@@ -65,13 +65,12 @@
         },
 
 
-        whisperpost: function(nick, input) {
+        whisperpost: function(topic, input) {
           return this.web3.shh.post({
             "from": this.identity,
-            "topics": [this.web3.fromAscii(this.topic)],
+            "topics": [this.web3.fromAscii(topic)],
             "payload": this.web3.fromAscii(JSON.stringify({
-              topic: this.topic,
-              nick: nick,
+              topic: topic,
               input: input
             })),
             "ttl": 100,

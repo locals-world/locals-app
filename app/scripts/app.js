@@ -30,11 +30,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   app.generate = function(){
     app.secretcode = (Math.floor(Math.random() * (999999 - 99999)) + 99999).toString();
-    app.consolelog('Code generated '+ app.secretcode);
+    app.consolelog('Code generated '+ app.secretcode);  
   };
 
   app.requestsync = function(){
-    app.$.whisper.whisperpost(this.account, 'I want to sync with you');
+    app.$.whisper.whisperpost(app.incomingsecret, 'I want to sync with you');
   };
   // Scroll page to top and expand header
   app.scrollPageToTop = function() {
