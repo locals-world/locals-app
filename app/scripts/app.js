@@ -44,4 +44,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     document.getElementById('app').scrollTop = 0;
   };
 
+  app.onDataRouteClick = function() {
+    var drawerPanel = document.querySelector('#paperDrawerPanel');
+    if (drawerPanel.narrow) {
+      drawerPanel.closeDrawer();
+    }
+  };
+
 })(document);
