@@ -1,0 +1,81 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="web3-whisper">
+
+  <script>
+    (function() {
+      'use strict';
+
+
+
+      Polymer({
+        is: 'web3-whisper',
+
+
+        properties: {
+          web3: {
+            type: Object,
+            observer: '_web3'
+          },
+          topic: {
+            type: String,
+            observer: '_topic'
+          }
+        },
+
+        ready: function(){
+        },
+
+        _topic: function(){
+          var self = this;
+          if(this.web3){
+            var filter = this.web3.shh.filter({
+              "topics": [this.web3.fromAscii(this.topic)],
+            });
+
+            console.log(this.topic);
+
+            filter.watch(function(error, result) {
+              if (!error)
+                console.log("topic:", JSON.parse(self.web3.toAscii(result.topics)), "PAYload", JSON.parse(self.web3.toAscii(result.payload)));
+            });
+          }
+        },
+
+        _web3: function() {
+
+          var self = this;
+          console.log('web3 started');
+
+          this.identity = this.web3.shh.newIdentity();
+
+          this.whisperpost('chatbot', ' has joined the room');
+        },
+
+        attached: function() {
+          this.oldnick = this.nickname;
+          setInterval(this.scrollTop, 50);
+          //setInterval(this.botPost.bind(this), 60000);
+        },
+
+        _sendmessage: function() {
+          var postresult = this.whisperpost(this.nickname, this.chatinput);
+        },
+
+
+        whisperpost: function(nick, input) {
+          return this.web3.shh.post({
+            "from": this.identity,
+            "topics": [this.web3.fromAscii(this.topic)],
+            "payload": this.web3.fromAscii(JSON.stringify({
+              nick: nick,
+              input: input
+            })),
+            "ttl": 100,
+            "priority": 1000
+          });
+        }
+      });
+    })();
+  </script>
+</dom-module>
