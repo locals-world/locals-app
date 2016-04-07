@@ -10,16 +10,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-localstorage/iron-localstorage.html">
-<script src="../../scripts/crypto-aes.js"></script>
+<script src="crypto-aes.js"></script>
 
 <dom-module id="alabs-localstorageapi">
   <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
-    <div>Hello from <span>{{foo}}</span></div>
+    <iron-localstorage 
+      id="localstorage" 
+      name="alabs-data" value="{{encdata}}" 
+      on-iron-localstorage-load-empty="initEmpty">
+    </iron-localstorage>
   </template>
   <script>
   (function() {
@@ -29,12 +28,103 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       is: 'alabs-localstorageapi',
 
       properties: {
-        foo: {
-          type: String,
-          value: 'alabs-localstorageapi',
-          notify: true
-        }
+
+      data: {
+        type: Object,
+        notify: true,
+        observer: "_dataChanged"
+      },
+
+      publickey: {
+        type: String,
+        observer: "_publickey"
+      },
+
+      privatekey: {
+        type: String,
+        observer: "_privatekey"
+      },
+
+      encdata: {
+        type: String,
+        notify: true,
+        observer: "_encdataChanged"
       }
+
+    },
+
+    _privatekey: function(){
+      //console.log(this.privatekey);
+    },
+
+    _publickey: function(){
+      //console.log(this.publickey);
+    },
+
+    initEmpty: function(){
+      //lomqtt = document.querySelector("lo-mqtt");
+      console.log("Init activated");
+      // lomqtt.subscribe('userobject/'+this.publickey, 2, function(e){
+      //   console.log("Init data: ",e);
+      // });
+      var data = { collection: {}, peers: [], godfather: [], lastupdate: Date.now() };
+      this.data = data;
+      this.fire('init-data');
+      this.writeData();
+      //data written
+    },
+
+    writeData: function(){
+        //lomqtt = document.querySelector("lo-mqtt");
+
+        //console.log("Pincode:", this.privatekey);
+        var privatekey = this.privatekey;
+        //console.log('Localstorage API write: ', this.data);
+        var object = this.data;
+        var stringifiedobject = JSON.stringify(object);
+        //console.log(stringifiedobject);
+        var encrypted = CryptoJS.AES.encrypt(stringifiedobject, privatekey);
+        //console.log('Localstorage API encrypted: ',encrypted.toString());
+        this.encdata = encrypted.toString();
+        //lomqtt.send(this.publickey, this.encdata);
+        //lomqtt.send('userobject/'+this.publickey, "USERUPDATE|"+this.encdata, 0);
+        //var peers = this.data.peers;
+        //this.$.loxmpp.sendgroupMessage(this.publickey, "SYNCUPDATE", null, null, this.encdata);
+        // for (var i = peers.length - 1; i >= 0; i--) {
+        //   if(peers[i]!=this.deviceid+"@opantwerpen.be"){
+        //     console.log('Save ook bij: ',peers[i]);
+        //     this.$.loxmpp.sendMessage(peers[i], "SYNCUPDATE", null, null, this.encdata);
+        //   };
+        // };
+        this.readData();
+    },
+
+    readData: function(){
+      if(!this.encdata){
+        this.initEmpty();
+      } else {
+        var privatekey = this.privatekey;
+        var decrypted = CryptoJS.AES.decrypt(this.encdata, privatekey);
+        var decrtostring = decrypted.toString(CryptoJS.enc.Utf8);
+        var data = JSON.parse(decrtostring, function(k, v) {
+          return v;       // return the unchanged property value.
+        });
+        this.data = data;
+        console.log(JSON.stringify(data));
+      };
+    },
+
+    _encdataChanged: function(){
+      this.readData();
+    },
+
+    _dataChanged: function(){
+      this.fire("data-changed");
+    },
+
+    attached: function(){
+
+    }
     });
   })();
   </script>
