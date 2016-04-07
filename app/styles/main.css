@@ -12,3 +12,13 @@ body {
   font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: #333;
 }
+
+.console {
+	background-color: #999;
+	color: white;
+	border-top: 1px solid grey;
+	padding-top: 20px;
+	padding: 20px;
+	font-size: 12px;
+	font-family: Courier;
+}

@@ -70,6 +70,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <paper-drawer-panel id="paperDrawerPanel">
       <paper-header-panel drawer>
         <paper-toolbar>Menu</paper-toolbar>
+        <div class="vetical layout">
         <paper-menu>
           <a data-route="home" href="/" on-click="onDataRouteClick">
             <iron-icon icon="home"></iron-icon>
@@ -84,11 +85,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <span>sync</span>
           </a>
         </paper-menu>
+        <div class="console layout flex" id="console"></div>
+      </div>
       </paper-header-panel>
       <paper-header-panel main>
         <paper-toolbar>
           <paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
-          <div class="flex">My App</div>
+          <div class="flex">Locales</div>
         </paper-toolbar>
         
         <iron-pages selected="{{route}}" attr-for-selected="data-route">

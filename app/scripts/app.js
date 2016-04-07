@@ -24,6 +24,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   // See https://github.com/Polymer/polymer/issues/1381
   window.addEventListener('WebComponentsReady', function() {
     app.generate();
+    app.consolelog('Console ready');
     // imports are loaded and elements have been registered
   });
 
@@ -49,6 +50,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     if (drawerPanel.narrow) {
       drawerPanel.closeDrawer();
     }
+  };
+
+  app.consolelog = function(log){
+    var cons = document.querySelector('#console');
+    var p = document.createElement("P");
+    var t = document.createTextNode(Date.now()+ ': ' + log);
+    p.appendChild(t);
+    //cons.appendChild(p);
+    cons.insertBefore(p, cons.childNodes[0]);
   };
 
 })(document);
