@@ -69,9 +69,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <paper-drawer-panel id="paperDrawerPanel">
       <paper-header-panel drawer>
-        <paper-toolbar>Menu</paper-toolbar>
-        <div class="vetical layout">
-        <paper-menu>
+        <paper-toolbar id="drawerToolbar">
+        <span class="paper-font-title">Menu</span>
+        </paper-toolbar>
+        <paper-menu attr-for-selected="data-route" selected="[[route]]">
           <a data-route="home" href="/" on-click="onDataRouteClick">
             <iron-icon icon="home"></iron-icon>
             <span>home</span>
@@ -86,7 +87,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </a>
         </paper-menu>
         <div class="console layout flex" id="console"></div>
-      </div>
       </paper-header-panel>
       <paper-header-panel main>
         <paper-toolbar>

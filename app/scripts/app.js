@@ -24,17 +24,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   // See https://github.com/Polymer/polymer/issues/1381
   window.addEventListener('WebComponentsReady', function() {
     app.generate();
-    app.consolelog('Console ready');
+    app.consolelog('Components ready');
     // imports are loaded and elements have been registered
   });
 
-  // Close drawer after menu item is selected if drawerPanel is narrow
-  app.onDataRouteClick = function() {
-    
-  };
-
   app.generate = function(){
     app.secretcode = Math.floor(Math.random() * (999999 - 99999)) + 99999;
+    app.consolelog('Code generated '+ app.secretcode);
   };
 
   app.requestsync = function(){
@@ -46,6 +42,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   };
 
   app.onDataRouteClick = function() {
+    app.consolelog('New route '+ app.route);
     var drawerPanel = document.querySelector('#paperDrawerPanel');
     if (drawerPanel.narrow) {
       drawerPanel.closeDrawer();
