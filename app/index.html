@@ -63,7 +63,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <span id="browser-sync-binding"></span>
   <template is="dom-bind" id="app">
 
-    <web3-wallet walletname="localswallet" password="seed" host="http://109.123.70.141:8545" account="{{account}}" web3="{{web3}}" keystore="{{keystore}}"></web3-wallet>
+    <web3-wallet walletname="devicewallet" password="seed" host="http://109.123.70.141:8545" account="{{account}}" web3="{{web3}}" keystore="{{keystore}}"></web3-wallet>
 
     <web3-whisper web3="{{web3}}" topic="{{secretcode}}" id="whisper"></web3-whisper>
 
@@ -73,7 +73,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <span class="paper-font-title">Menu</span>
         </paper-toolbar>
         <paper-menu attr-for-selected="data-route" selected="[[route]]">
-          <a data-route="home" href="/" on-click="onDataRouteClick">
+          <a data-route="init" href="/" on-click="onDataRouteClick">
+            <iron-icon icon="home"></iron-icon>
+            <span>init</span>
+          </a>
+          <a data-route="home" href="/home" on-click="onDataRouteClick">
             <iron-icon icon="home"></iron-icon>
             <span>home</span>
           </a>
@@ -96,11 +100,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         
         <iron-pages selected="{{route}}" attr-for-selected="data-route">
 
-        <section data-route="home">
+        <section data-route="init">
           <h1>Welcome to Locals</h1>
           <p>Device account: 0x<span>{{account}}</span></p>
           <paper-button raised on-tap="sync">Sync with other device</paper-button>
           <paper-button raised on-tap="init">Initialise this device</paper-button>
+        </section>
+
+        <section data-route="home">
+          <h1>Welcome again to locals.</h1>
+          <paper-input bind-value="{{testfield}}" label="Testfield"></paper-input>
+          <p>{{storedfield}}</p>
+          <paper-button raised on-tap="save">Save to userobject</paper-button>
         </section>
 
         <section data-route="sync">
@@ -118,6 +129,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </section>
 
         </iron-pages>
+
       </paper-header-panel>
     </paper-drawer-panel>
 
