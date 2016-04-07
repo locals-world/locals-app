@@ -67,7 +67,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       // lomqtt.subscribe('userobject/'+this.publickey, 2, function(e){
       //   console.log("Init data: ",e);
       // });
-      var data = { collection: {}, peers: [], godfather: [], lastupdate: Date.now() };
+      var data = { testfield: '', lastupdate: Date.now() };
       this.data = data;
       this.fire('init-data');
       this.writeData();

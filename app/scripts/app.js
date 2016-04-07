@@ -58,4 +58,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     cons.insertBefore(p, cons.childNodes[0]);
   };
 
+  app.save = function(){
+    app.$.localapi.writeData();
+  };
+
+  app.generatekey = function(){
+    app.privatekey = uuid.v4();
+  };
+
+
 })(document);
