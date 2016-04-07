@@ -67,30 +67,59 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <web3-whisper web3="{{web3}}" topic="{{secretcode}}" id="whisper"></web3-whisper>
 
-    <iron-pages selected="{{route}}" attr-for-selected="data-route">
+    <paper-drawer-panel id="paperDrawerPanel">
+      <paper-header-panel drawer>
+        <paper-toolbar id="drawerToolbar">
+        <span class="paper-font-title">Menu</span>
+        </paper-toolbar>
+        <paper-menu attr-for-selected="data-route" selected="[[route]]">
+          <a data-route="home" href="/" on-click="onDataRouteClick">
+            <iron-icon icon="home"></iron-icon>
+            <span>home</span>
+          </a>
+          <a data-route="master" href="/master" on-click="onDataRouteClick">
+            <iron-icon icon="home"></iron-icon>
+            <span>master</span>
+          </a>
+          <a data-route="sync" href="/sync" on-click="onDataRouteClick">
+            <iron-icon icon="home"></iron-icon>
+            <span>sync</span>
+          </a>
+        </paper-menu>
+        <div class="console layout flex" id="console"></div>
+      </paper-header-panel>
+      <paper-header-panel main>
+        <paper-toolbar>
+          <paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
+          <div class="flex">Locales</div>
+        </paper-toolbar>
+        
+        <iron-pages selected="{{route}}" attr-for-selected="data-route">
 
-    <section data-route="home">
-      <h1>Welcome to Locals</h1>
-      <p>Device account: 0x<span>{{account}}</span></p>
-      <paper-button raised on-tap="sync">Sync with other device</paper-button>
-      <paper-button raised on-tap="init">Initialise this device</paper-button>
-    </section>
+        <section data-route="home">
+          <h1>Welcome to Locals</h1>
+          <p>Device account: 0x<span>{{account}}</span></p>
+          <paper-button raised on-tap="sync">Sync with other device</paper-button>
+          <paper-button raised on-tap="init">Initialise this device</paper-button>
+        </section>
 
-    <section data-route="sync">
-      <h1>Sync with other device</h1>
-      <p>Check the other device for the secret</p>
-      <paper-input label="Secret" bind-value="{{incomingsecret}}"></paper-input>
-      <paper-button raised on-tap="requestsync">Request sync</paper-button>
-    </section>
+        <section data-route="sync">
+          <h1>Sync with other device</h1>
+          <p>Check the other device for the secret</p>
+          <paper-input label="Secret" bind-value="{{incomingsecret}}"></paper-input>
+          <paper-button raised on-tap="requestsync">Request sync</paper-button>
+        </section>
 
-    <section data-route="master">
-      <h1>Sync with other device</h1>
-      <p>Tell the other device this secret</p>
-      <h2>{{secretcode}}</h2>
-      <paper-button raised on-tap="generate">(Re)generate secret</paper-button>
-    </section>
+        <section data-route="master">
+          <h1>Sync with other device</h1>
+          <p>Tell the other device this secret</p>
+          <h2>{{secretcode}}</h2>
+          <paper-button raised on-tap="generate">(Re)generate secret</paper-button>
+        </section>
 
-    </iron-pages>
+        </iron-pages>
+      </paper-header-panel>
+    </paper-drawer-panel>
 
   </template>
 
