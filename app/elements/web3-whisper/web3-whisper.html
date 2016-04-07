@@ -33,11 +33,13 @@
               "topics": [this.web3.fromAscii(this.topic)],
             });
 
-            console.log(this.topic);
+            console.log("Ik abbonneer me op " ,this.topic);
 
             filter.watch(function(error, result) {
-              if (!error)
-                console.log("topic:", JSON.parse(self.web3.toAscii(result.topics)), "PAYload", JSON.parse(self.web3.toAscii(result.payload)));
+              if (!error){
+                var payload = JSON.parse(self.web3.toAscii(result.payload));
+                console.log("topic:", payload.topic, "PAYload", payload.input);
+              }
             });
           }
         },
@@ -49,7 +51,7 @@
 
           this.identity = this.web3.shh.newIdentity();
 
-          this.whisperpost('chatbot', ' has joined the room');
+         
         },
 
         attached: function() {
@@ -68,6 +70,7 @@
             "from": this.identity,
             "topics": [this.web3.fromAscii(this.topic)],
             "payload": this.web3.fromAscii(JSON.stringify({
+              topic: this.topic,
               nick: nick,
               input: input
             })),

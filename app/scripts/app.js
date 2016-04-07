@@ -33,7 +33,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   };
 
   app.generate = function(){
-    app.secretcode = Math.floor(Math.random() * (999999 - 99999)) + 99999;
+    app.secretcode = (Math.floor(Math.random() * (999999 - 99999)) + 99999).toString();
   };
 
   app.requestsync = function(){
