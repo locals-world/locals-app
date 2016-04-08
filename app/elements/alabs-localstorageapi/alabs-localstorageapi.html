@@ -10,15 +10,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-localstorage/iron-localstorage.html">
+<link rel="import" href="../../bower_components/ipfs-upload/ipfs-upload.html">
+
 <script src="crypto-aes.js"></script>
 
 <dom-module id="alabs-localstorageapi">
   <template>
+    <ipfs-upload hidefileinput id="ipfsupload" host="/ip4/109.123.70.141/tcp/5001" ipfs="{{ipfs}}">
+
     <iron-localstorage 
       id="localstorage" 
       name="alabs-data" value="{{encdata}}" 
       on-iron-localstorage-load-empty="initEmpty">
     </iron-localstorage>
+
   </template>
   <script>
   (function() {
@@ -49,6 +54,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         type: String,
         notify: true,
         observer: "_encdataChanged"
+      },
+
+      ipfshash: {
+        type: String,
+        notify: true
       }
 
     },
@@ -76,7 +86,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     writeData: function(){
         //lomqtt = document.querySelector("lo-mqtt");
-
+        var self = this;
         //console.log("Pincode:", this.privatekey);
         var privatekey = this.privatekey;
         //console.log('Localstorage API write: ', this.data);
@@ -87,6 +97,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         //console.log('Localstorage API encrypted: ',encrypted.toString());
         this.encdata = encrypted.toString();
         //lomqtt.send(this.publickey, this.encdata);
+        this.savetoipfs(this.encdata, function(e){
+          self.ipfshash = e;
+        });
         //lomqtt.send('userobject/'+this.publickey, "USERUPDATE|"+this.encdata, 0);
         //var peers = this.data.peers;
         //this.$.loxmpp.sendgroupMessage(this.publickey, "SYNCUPDATE", null, null, this.encdata);
@@ -122,9 +135,32 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       this.fire("data-changed");
     },
 
-    attached: function(){
+    getipfs: function(){
+      this.ipfs.name.resolve('QmYprJFf6tUJoVzCobG6BuAtnyz4NcSAMst9nD6mkrnxUX',function(err, res) {
+        if (err || !res) return console.error(err)
+        console.log('got something from IPNS', res);
+    });
 
+    },
+
+    storeipns: function(){
+      this.ipfs.name.publish('/ipfs/QmW5kqnBkceCAbLNN9cD8Vn6Dy2nvvxQ4kDN5xqSUvjpcF', function(err, res) {
+        if (err || !res) return console.error(err)
+        console.log('got something from IPNS', res);
+    });
+    },
+
+    savetoipfs: function(ipfsbuffer, fn){
+      var ipfsbuffer = JSON.stringify(ipfsbuffer);
+      console.log(ipfsbuffer);
+      this.ipfs.add([new this.ipfs.Buffer(ipfsbuffer)], function(err, res) {
+        if (err || !res) return console.error(err)
+        console.log('added to IPFS');
+        console.log(res[0].Hash);
+        fn(res[0].Hash);
+      });
     }
+
     });
   })();
   </script>

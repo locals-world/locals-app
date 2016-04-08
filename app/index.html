@@ -67,14 +67,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <iron-localstorage name="locals-privatekey" value="{{privatekey}}"
     on-iron-localstorage-load-empty="generatekey"></iron-localstorage>
-    
+
     <web3-wallet walletname="devicewallet" password="seed" host="http://109.123.70.141:8545" account="{{account}}" web3="{{web3}}" keystore="{{keystore}}"></web3-wallet>
 
     <web3-whisper web3="{{web3}}" topic="{{secretcode}}" id="whisper"></web3-whisper>
 
     <alabs-localstorageapi data="{{data}}" publickey="{{account}}" privatekey="{{privatekey}}" id="localapi"></alabs-localstorageapi>
-
-    
 
     <paper-drawer-panel id="paperDrawerPanel">
       <paper-header-panel drawer>
@@ -118,7 +116,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         <section data-route="home">
           <h1>Welcome again to locals.</h1>
-          <paper-input bind-value="{{data.testfield}}" label="Testfield">{{data.testfield}}</paper-input>
+          <paper-input bind-value="{{data.testfield}}" value="{{data.testfield}}" label="Testfield">{{data.testfield}}</paper-input>
           <p>{{data.testfield}}</p>
           <paper-button raised on-tap="save">Save to userobject</paper-button>
         </section>
