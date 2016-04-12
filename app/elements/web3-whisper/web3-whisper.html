@@ -39,7 +39,7 @@
               if (!error){
                 var payload = JSON.parse(self.web3.toAscii(result.payload));
                 //console.log("topic:", payload.topic, "PAYload", payload.input);
-                self.fire('msg-received', {topic: payload.topic, input: payload.input});
+                self.fire('msg-received', {topic: payload.topic, input: JSON.parse(payload.input)});
               }
             });
           }
