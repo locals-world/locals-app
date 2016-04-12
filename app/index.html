@@ -62,7 +62,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 </head>
 
 <body unresolved class="fullbleed layout vertical">
-  <!-- <span id="browser-sync-binding"></span> -->
+  <span id="browser-sync-binding"></span>
   <template is="dom-bind" id="app">
 
     <iron-localstorage name="locals-privatekey" value="{{privatekey}}"
@@ -70,7 +70,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <web3-wallet walletname="devicewallet" password="seed" host="http://109.123.70.141:8545" account="{{account}}" web3="{{web3}}" keystore="{{keystore}}"></web3-wallet>
 
-    <web3-whisper web3="{{web3}}" topic="{{secretcode}}" id="whisper"></web3-whisper>
+    <web3-whisper web3="{{web3}}" on-msg-received="msgreceived" topic="{{secretcode}}" id="whisper" ></web3-whisper>
 
     <alabs-localstorageapi data="{{data}}" publickey="{{account}}" privatekey="{{privatekey}}" id="localapi"></alabs-localstorageapi>
 
