@@ -34,7 +34,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   };
 
   app.requestsync = function(){
-    app.$.whisper.whisperpost(app.incomingsecret, 'I want to sync with you');
+    app.$.whisper.whisperpost(app.incomingsecret, { 'command': 'sync', 'sender': app.secretcode });
   };
   // Scroll page to top and expand header
   app.scrollPageToTop = function() {
@@ -64,6 +64,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   app.generatekey = function(){
     app.privatekey = uuid.v4();
+  };
+
+  app.msgreceived = function(e){
+    console.log(e.detail.topic, e.detail.payload);
   };
 
 

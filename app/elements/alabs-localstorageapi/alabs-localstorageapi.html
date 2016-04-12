@@ -24,6 +24,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       on-iron-localstorage-load-empty="initEmpty">
     </iron-localstorage>
 
+    <iron-localstorage 
+      id="localstorage" 
+      name="ipfs-hash" value="{{ipfshash}}">
+    </iron-localstorage>
+
   </template>
   <script>
   (function() {
@@ -113,10 +118,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     },
 
     readData: function(){
+      var self = this;
       if(!this.encdata){
         this.initEmpty();
       } else {
         var privatekey = this.privatekey;
+        //console.log("getting this from ipfs: ", 
+          //this.ipfs.cat("QmW5kqnBkceCAbLNN9cD8Vn6Dy2nvvxQ4kDN5xqSUvjpcF", function(err, buffer) {
+  //if (err) throw err;
+ // console.log(JSON.stringify(buffer));   // "Testing..."
+//}));
+          // this.ipfs.cat(this.ipfshash, function(err, res){
+          //   console.log(self.ipfs.Buffer(res).toArrayBuffer());
+          // }));
         var decrypted = CryptoJS.AES.decrypt(this.encdata, privatekey);
         var decrtostring = decrypted.toString(CryptoJS.enc.Utf8);
         var data = JSON.parse(decrtostring, function(k, v) {
@@ -147,7 +161,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       this.ipfs.name.publish('/ipfs/QmW5kqnBkceCAbLNN9cD8Vn6Dy2nvvxQ4kDN5xqSUvjpcF', function(err, res) {
         if (err || !res) return console.error(err)
         console.log('got something from IPNS', res);
-    });
+    });s
     },
 
     savetoipfs: function(ipfsbuffer, fn){
