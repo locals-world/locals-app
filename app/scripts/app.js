@@ -85,12 +85,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     app.iomsg = { 'msg': 'Device with ID ' + data.publickey + ' wants to sync with this device' };
     app.incomingdata = data;
     app.route = 'iomsg';
-
-    app.data = { 'what' : 'ever'};
+    app.encdata = { 'private' : this.privatekey,  'ipfshash': this.ipfshash };
 
     var encrypt = new JSEncrypt();
     encrypt.setPublicKey(data.publickey);
-    var encrypted = encrypt.encrypt(JSON.stringify(app.data));
+    var encrypted = encrypt.encrypt(JSON.stringify(app.encdata));
 
     console.log('the encrypted payload is',encrypted);
 
@@ -118,7 +117,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   // Sending device-to-device
   app.iook = function(){
-    app.incomingdata;
+    //app.data;
+    whisper.whisperpost(this.incomingsecret, JSON.stringify({
+          'command': 'sync',
+          'data': this.encdata 
+    }));
   };
 
 })(document);
