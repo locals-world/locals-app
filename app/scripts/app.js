@@ -101,11 +101,31 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   app.sync = function(data){
     app.iomsg = { 'msg': 'Device with ID ' + data + ' wants to sync with this device' };
     app.route = 'iomsg';
+    app.data = { 'what' : 'ever'};
+
+    var encrypt = new JSEncrypt();
+    encrypt.setPublicKey(data.publickey);
+    var encrypted = encrypt.encrypt(JSON.stringify(app.data));
+
+    console.log('the encrypted payload is',encrypted);
+
+    // whisper send
+
   };
 
   // incoming private + ipfs hash encrypted with my pub key
   app.syncreceived = function(data){
     console.log("incomingsyncreceived: ", data);
+
+    // Decrypt with the private key...
+    var decrypt = new JSEncrypt();
+    decrypt.setPrivateKey(app.privatekey);
+    var uncrypted = decrypt.decrypt(data.encrypted);
+
+    console.log('encrypted=', data.encrypted);
+    console.log('decrypted=', uncrypted);
+
+
   };
 
   // incoming update event
