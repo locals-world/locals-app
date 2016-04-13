@@ -81,9 +81,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   };
 
   // functions activated by device-to-device communication
-  
+  // incoming sync request  
+  app.sync = function(data){
+    app.iomsg = { 'msg': 'Device with ID ' + data + ' wants to sync with this device' };
+    app.route = 'iomsg';
+  };
 
-
-
+  // incoming update event
 
 })(document);

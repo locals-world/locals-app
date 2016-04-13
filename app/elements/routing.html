@@ -41,8 +41,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       app.scrollPageToTop();
     });
 
+    page('/iomsg', function (data) {
+      app.route = 'iomsg';
+      app.scrollPageToTop();
+    });
+
     page('/contact', function () {
       app.route = 'contact';
+      app.scrollPageToTop();
+    });
+
+    page('/stats', function () {
+      app.route = 'stats';
       app.scrollPageToTop();
     });
 
