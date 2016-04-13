@@ -83,7 +83,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   // incoming sync request  
   app.sync = function(data){
     app.iomsg = { 'msg': 'Device with ID ' + data.publickey + ' wants to sync with this device' };
+    app.incomingdata = data;
     app.route = 'iomsg';
+
   };
 
   // incoming private + ipfs hash encrypted with my pub key
@@ -96,7 +98,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   // Sending device-to-device
   app.iook = function(){
-
+    app.incomingdata;
   };
 
 })(document);
