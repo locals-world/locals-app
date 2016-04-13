@@ -33,22 +33,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     app.consolelog('Code generated '+ app.secretcode);  
   };
 
-    app.requestsync = function() {
-
-      // generate a temp pub/priv keypair
-      var crypt = new JSEncrypt({default_key_size: 512});
-      app.pubkey = crypt.getPublicKey();
-      app.privkey = crypt.getPrivateKey();
-
-      app.$.whisper.whisperpost(app.incomingsecret, JSON.stringify({
-        'command': 'sync',
-        'data': {
-          'channel': app.secretcode,
-          'publickey': app.pubkey
-        }
-      }));
-    };
-
   // Scroll page to top and expand header
   app.scrollPageToTop = function() {
     document.getElementById('app').scrollTop = 0;
@@ -91,7 +75,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       case 'syncreceived':
         app.syncreceived(data);
         break;
-
     }
 
   };
@@ -99,8 +82,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   // functions activated by device-to-device communication
   // incoming sync request  
   app.sync = function(data){
-    app.iomsg = { 'msg': 'Device with ID ' + data + ' wants to sync with this device' };
+    app.iomsg = { 'msg': 'Device with ID ' + data.publickey + ' wants to sync with this device' };
+    app.incomingdata = data;
     app.route = 'iomsg';
+
     app.data = { 'what' : 'ever'};
 
     var encrypt = new JSEncrypt();
@@ -115,6 +100,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   // incoming private + ipfs hash encrypted with my pub key
   app.syncreceived = function(data){
+
     console.log("incomingsyncreceived: ", data);
 
     // Decrypt with the private key...
@@ -125,9 +111,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     console.log('encrypted=', data.encrypted);
     console.log('decrypted=', uncrypted);
 
-
   };
 
   // incoming update event
+
+
+  // Sending device-to-device
+  app.iook = function(){
+    app.incomingdata;
+  };
 
 })(document);

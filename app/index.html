@@ -128,10 +128,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </section>
 
         <section data-route="sync">
-          <h1>Sync with other device</h1>
-          <p>Check the other device for the secret</p>
-          <paper-input label="Secret" bind-value="{{incomingsecret}}"></paper-input>
-          <paper-button raised on-tap="requestsync">Request sync</paper-button>
+          <locals-sync web3="{{web3}}"></locals-sync>
         </section>
 
         <section data-route="master">
