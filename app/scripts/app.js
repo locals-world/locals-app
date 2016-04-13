@@ -38,7 +38,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       // generate a temp pub/priv keypair
       var crypt = new JSEncrypt({default_key_size: 512});
       app.pubkey = crypt.getPublicKey();
-      app.privkey = crypt.getprivateKey();
+      app.privkey = crypt.getPrivateKey();
 
       app.$.whisper.whisperpost(app.incomingsecret, JSON.stringify({
         'command': 'sync',
