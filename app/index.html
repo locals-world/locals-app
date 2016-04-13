@@ -63,8 +63,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 </head>
 
 <body unresolved class="fullbleed layout vertical">
-  <span id="browser-sync-binding"></span>
-  <template is="dom-bind" id="app">
+<!--   <span id="browser-sync-binding"></span>
+ -->  <template is="dom-bind" id="app">
 
     <iron-localstorage name="locals-privatekey" value="{{privatekey}}"
     on-iron-localstorage-load-empty="generatekey"></iron-localstorage>
@@ -95,6 +95,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <iron-icon icon="home"></iron-icon>
             <span>sync</span>
           </a>
+          <a data-route="stats" href="/stats" on-click="onDataRouteClick">
+            <iron-icon icon="home"></iron-icon>
+            <span>stats</span>
+          </a>
         </paper-menu>
         
         <div class="console layout flex" id="console"></div>
@@ -110,7 +114,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <section data-route="init">
           <h1>Welcome to Locals</h1>
           <p>Device account: 0x<span>{{account}}</span></p>
-          <paper-button raised on-tap="sync">Sync with other device</paper-button>
+          <a data-route="sync" href="/sync" on-click="onDataRouteClick">
+            <paper-button raised>Sync with other device</paper-button>
+          </a>
           <paper-button raised on-tap="init">Initialise this device</paper-button>
         </section>
 
@@ -133,6 +139,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <p>Tell the other device this secret</p>
           <h2>{{secretcode}}</h2>
           <paper-button raised on-tap="generate">(Re)generate secret</paper-button>
+        </section>
+
+        <section data-route="iomsg">
+          <h1>Locals/IO</h1>
+          <p>incoming...</p>
+          <p>{{iomsg.msg}}</p>
+          <paper-button raised on-tap="iocancel"><iron-icon icon="icons:clear"></iron-icon></paper-button>
+          <paper-button raised on-tap="iook"><iron-icon icon="icons:check"></iron-icon></paper-button>
+        </section>
+
+        <section data-route="stats">
+          <h1>LocalStats</h1>
+          <p>Account: <span>{{account}}</span></p>
+          <a data-route="/home" href="/home" on-click="onDataRouteClick">
+            <paper-button raised>Home</paper-button>
+          </a>
         </section>
 
         </iron-pages>
