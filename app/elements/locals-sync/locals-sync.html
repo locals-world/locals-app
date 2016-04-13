@@ -30,8 +30,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       is: 'locals-sync',
 
       properties: {
-        foo: {
-          type: String,
+        channel: {
+          type: Number,
           value: 'locals-sync',
           notify: true
         }
@@ -49,7 +49,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         whisper.whisperpost(this.incomingsecret, JSON.stringify({
           'command': 'sync',
           'data': {
-            'channel': this.secretcode,
+            'channel': this.channel,
             'publickey': this.pubkey
           }
         }));

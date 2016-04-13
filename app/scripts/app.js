@@ -60,7 +60,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   };
 
   app.generatekey = function(){
-    app.privatekey = uuid.v4();
+    app.password = uuid.v4();
   };
 
   app.msgreceived = function(e){
@@ -84,16 +84,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   app.sync = function(data){
     app.iomsg = { 'msg': 'Device with ID ' + data.publickey + ' wants to sync with this device' };
     app.incomingdata = data;
-    app.route = 'iomsg';
-    app.encdata = { 'private' : this.privatekey,  'ipfshash': this.ipfshash };
+    app.incomingsecret = data.channel;
+    
+    app.encdata = { 'password' : this.password,  'ipfshash': this.ipfshash };
 
+    
     var encrypt = new JSEncrypt();
     encrypt.setPublicKey(data.publickey);
+    console.log(data.publickey);
     var encrypted = encrypt.encrypt(JSON.stringify(app.encdata));
-
+    app.encdata = encrypted;
     console.log('the encrypted payload is',encrypted);
 
     // whisper send
+    app.route = 'iomsg';
 
   };
 
@@ -104,7 +108,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     // Decrypt with the private key...
     var decrypt = new JSEncrypt();
-    decrypt.setPrivateKey(app.privatekey);
+    //decrypt.setPrivateKey(app.privatekey);
     var uncrypted = decrypt.decrypt(data.encrypted);
 
     console.log('encrypted=', data.encrypted);
@@ -118,9 +122,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   // Sending device-to-device
   app.iook = function(){
     //app.data;
-    whisper.whisperpost(this.incomingsecret, JSON.stringify({
-          'command': 'sync',
-          'data': this.encdata 
+    console.log(app.incomingsecret);
+
+    app.$.whisper.whisperpost(app.incomingsecret, JSON.stringify({
+          'command': 'syncreceived',
+          'data': app.encdata 
     }));
   };
 
