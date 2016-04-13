@@ -85,20 +85,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     app.iomsg = { 'msg': 'Device with ID ' + data.publickey + ' wants to sync with this device' };
     app.incomingdata = data;
     app.incomingsecret = data.channel;
-    
-    app.encdata = { 'password' : this.password,  'ipfshash': this.ipfshash };
-
-    
-    var encrypt = new JSEncrypt();
-    encrypt.setPublicKey(data.publickey);
-    console.log(data.publickey);
-    var encrypted = encrypt.encrypt(JSON.stringify(app.encdata));
-    app.encdata = encrypted;
-    console.log('the encrypted payload is',encrypted);
-
-    // whisper send
     app.route = 'iomsg';
-
   };
 
   // incoming private + ipfs hash encrypted with my pub key
@@ -123,6 +110,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   app.iook = function(){
     //app.data;
     console.log(app.incomingsecret);
+
+    app.encdata = { 'password' : this.password,  'ipfshash': this.ipfshash };
+
+    var encrypt = new JSEncrypt();
+    encrypt.setPublicKey(data.publickey);
+    console.log(data.publickey);
+    var encrypted = encrypt.encrypt(JSON.stringify(app.encdata));
+    app.encdata = encrypted;
+    console.log('the encrypted payload is',encrypted);
+
+    // whisper send
 
     app.$.whisper.whisperpost(app.incomingsecret, JSON.stringify({
           'command': 'syncreceived',

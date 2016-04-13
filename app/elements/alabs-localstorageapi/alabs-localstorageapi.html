@@ -50,9 +50,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         observer: "_publickey"
       },
 
-      privatekey: {
+      password: {
         type: String,
-        observer: "_privatekey"
+        observer: "_password"
       },
 
       encdata: {
@@ -69,8 +69,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     },
 
-    _privatekey: function(){
-      //console.log(this.privatekey);
+    _password: function(){
+      //console.log(this.password);
     },
 
     _publickey: function(){
@@ -93,13 +93,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     writeData: function(){
         //lomqtt = document.querySelector("lo-mqtt");
         var self = this;
-        //console.log("Pincode:", this.privatekey);
-        var privatekey = this.privatekey;
+        //console.log("Pincode:", this.password);
+        var password = this.password;
         //console.log('Localstorage API write: ', this.data);
         var object = this.data;
         var stringifiedobject = JSON.stringify(object);
         //console.log(stringifiedobject);
-        var encrypted = CryptoJS.AES.encrypt(stringifiedobject, privatekey);
+        var encrypted = CryptoJS.AES.encrypt(stringifiedobject, password);
         //console.log('Localstorage API encrypted: ',encrypted.toString());
         this.encdata = encrypted.toString();
         //lomqtt.send(this.publickey, this.encdata);
@@ -123,7 +123,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       if(!this.encdata){
         this.initEmpty();
       } else {
-        var privatekey = this.privatekey;
+        var password = this.password;
         //console.log("getting this from ipfs: ", 
           //this.ipfs.cat("QmW5kqnBkceCAbLNN9cD8Vn6Dy2nvvxQ4kDN5xqSUvjpcF", function(err, buffer) {
   //if (err) throw err;
@@ -132,7 +132,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           // this.ipfs.cat(this.ipfshash, function(err, res){
           //   console.log(self.ipfs.Buffer(res).toArrayBuffer());
           // }));
-        var decrypted = CryptoJS.AES.decrypt(this.encdata, privatekey);
+        var decrypted = CryptoJS.AES.decrypt(this.encdata, password);
         var decrtostring = decrypted.toString(CryptoJS.enc.Utf8);
         var data = JSON.parse(decrtostring, function(k, v) {
           return v;       // return the unchanged property value.
