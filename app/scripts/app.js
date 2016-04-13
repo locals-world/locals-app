@@ -33,9 +33,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     app.consolelog('Code generated '+ app.secretcode);  
   };
 
-  app.requestsync = function(){
-    app.$.whisper.whisperpost(app.incomingsecret, JSON.stringify({ 'command': 'sync', 'data': app.secretcode }));
-  };
+    app.requestsync = function() {
+
+      // generate a temp pub/priv keypair
+      var crypt = new JSEncrypt({default_key_size: 512});
+      app.pubkey = crypt.getPublicKey();
+      app.privkey = crypt.getprivateKey();
+
+      app.$.whisper.whisperpost(app.incomingsecret, JSON.stringify({
+        'command': 'sync',
+        'data': {
+          'channel': app.secretcode,
+          'publickey': app.pubkey
+        }
+      }));
+    };
 
   // Scroll page to top and expand header
   app.scrollPageToTop = function() {
@@ -72,10 +84,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     var command = e.detail.input.command;
     var data = e.detail.input.data;
 
-    switch(command){
+    switch (command) {
       case 'sync':
-      app.sync(data);
-      break;
+        app.sync(data);
+        break;
+      case 'syncreceived':
+        break;
+
     }
 
   };
