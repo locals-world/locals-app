@@ -11,7 +11,7 @@
     "web3-wallet": "^0.0.5",
     "ipfs-upload": "^0.0.10",
     "node-uuid": "^1.4.7",
-    "travist/jsencrypt": "https://github.com/travist/jsencrypt.git#^2.2.0"
+    "jsencrypt": "^2.2.0"
   },
   "devDependencies": {
     "web-component-tester": "*",

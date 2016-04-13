@@ -89,6 +89,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         app.sync(data);
         break;
       case 'syncreceived':
+        app.syncreceived(data);
         break;
 
     }
@@ -100,6 +101,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   app.sync = function(data){
     app.iomsg = { 'msg': 'Device with ID ' + data + ' wants to sync with this device' };
     app.route = 'iomsg';
+  };
+
+  // incoming private + ipfs hash encrypted with my pub key
+  app.syncreceived = function(data){
+    console.log("incomingsyncreceived: ", data);
   };
 
   // incoming update event
