@@ -51,7 +51,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <!-- endbuild -->
 
   <script src="bower_components/node-uuid/uuid.js"></script>
-  <script type="text/javascript" src="bower_components/jsencrypt/bin/jsencrypt.js"></script>
 
   <!-- will be replaced with elements/elements.vulcanized.html -->
   <link rel="import" href="elements/elements.html">
@@ -63,101 +62,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 </head>
 
 <body unresolved class="fullbleed layout vertical">
-<!--   <span id="browser-sync-binding"></span>
- -->  <template is="dom-bind" id="app">
+  
+  <span id="browser-sync-binding"></span>
 
-    <iron-localstorage name="locals-password" value="{{password}}"
-    on-iron-localstorage-load-empty="generatekey"></iron-localstorage>
+  <template is="dom-bind" id="app">
 
-    <web3-wallet walletname="devicewallet" password="seed" host="http://109.123.70.141:8545" account="{{account}}" web3="{{web3}}" keystore="{{keystore}}"></web3-wallet>
-
-    <web3-whisper web3="{{web3}}" on-msg-received="msgreceived" topic="{{secretcode}}" id="whisper" ></web3-whisper>
-
-    <alabs-localstorageapi ipfshash="{{ipfshash}}" data="{{data}}" publickey="{{account}}" password="{{password}}" id="localapi"></alabs-localstorageapi>
-
-    <paper-drawer-panel id="paperDrawerPanel" force-narrow>
-      <paper-header-panel drawer>
-
-        <paper-menu attr-for-selected="data-route" selected="[[route]]">
-          <a data-route="init" href="/" on-click="onDataRouteClick">
-            <iron-icon icon="home"></iron-icon>
-            <span>init</span>
-          </a>
-          <a data-route="home" href="/home" on-click="onDataRouteClick">
-            <iron-icon icon="home"></iron-icon>
-            <span>home</span>
-          </a>
-          <a data-route="master" href="/master" on-click="onDataRouteClick">
-            <iron-icon icon="home"></iron-icon>
-            <span>master</span>
-          </a>
-          <a data-route="sync" href="/sync" on-click="onDataRouteClick">
-            <iron-icon icon="home"></iron-icon>
-            <span>sync</span>
-          </a>
-          <a data-route="stats" href="/stats" on-click="onDataRouteClick">
-            <iron-icon icon="home"></iron-icon>
-            <span>stats</span>
-          </a>
-        </paper-menu>
-        
-        <div class="console layout flex" id="console"></div>
-      </paper-header-panel>
-      <paper-header-panel main>
-        <paper-toolbar>
-          <paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
-          <div class="flex">Locals</div>
-        </paper-toolbar>
-        
-        <iron-pages selected="{{route}}" attr-for-selected="data-route">
-
-        <section data-route="init">
-          <h1>Welcome to Locals</h1>
-          <p>Device account: 0x<span>{{account}}</span></p>
-          <a data-route="sync" href="/sync" on-click="onDataRouteClick">
-            <paper-button raised>Sync with other device</paper-button>
-          </a>
-          <paper-button raised on-tap="init">Initialise this device</paper-button>
-        </section>
-
-        <section data-route="home">
-          <h1>Welcome again to locals.</h1>
-          <paper-input bind-value="{{data.testfield}}" value="{{data.testfield}}" label="Testfield">{{data.testfield}}</paper-input>
-          <p>{{data.testfield}}</p>
-          <paper-button raised on-tap="save">Save to userobject</paper-button>
-        </section>
-
-        <section data-route="sync">
-          <locals-sync web3="{{web3}}" channel="{{secretcode}}"></locals-sync>
-        </section>
-
-        <section data-route="master">
-          <h1>Sync with other device</h1>
-          <p>Tell the other device this secret</p>
-          <h2>{{secretcode}}</h2>
-          <paper-button raised on-tap="generate">(Re)generate secret</paper-button>
-        </section>
-
-        <section data-route="iomsg">
-          <h1>Locals/IO</h1>
-          <p>incoming...</p>
-          <p>{{iomsg.msg}}</p>
-          <paper-button raised on-tap="iocancel"><iron-icon icon="icons:clear"></iron-icon></paper-button>
-          <paper-button raised on-tap="iook"><iron-icon icon="icons:check"></iron-icon></paper-button>
-        </section>
-
-        <section data-route="stats">
-          <h1>LocalStats</h1>
-          <p>Account: <span>{{account}}</span></p>
-          <a data-route="/home" href="/home" on-click="onDataRouteClick">
-            <paper-button raised>Home</paper-button>
-          </a>
-        </section>
-
-        </iron-pages>
-
-      </paper-header-panel>
-    </paper-drawer-panel>
+    <iron-localstorage 
+      id="localstorage"
+      name="locals-password" 
+      value="{{password}}"
+      on-iron-localstorage-load-empty="generate"
+      on-iron-localstorage-load="homestate">
+    </iron-localstorage>
 
   </template>
 

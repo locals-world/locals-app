@@ -11,7 +11,8 @@
     "web3-wallet": "^0.0.5",
     "ipfs-upload": "^0.0.10",
     "node-uuid": "^1.4.7",
-    "jsencrypt": "^2.2.0"
+    "jsencrypt": "^2.2.0",
+    "locals-sync": "https://github.com/locals-world/locals-elements-sync.git"
   },
   "devDependencies": {
     "web-component-tester": "*",
