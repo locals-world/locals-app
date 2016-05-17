@@ -10,6 +10,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
 
 <dom-module id="locals-newuser">
   <template>
@@ -27,8 +28,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </section>
 
       <section state="1">
-        <h1>Okee, je kan beginnen!</h1>
-        <button on-tap="restart">Herstart de app</button>
+        <h1>Choose a password</h1>
+        <paper-input label="passwd" bind-value="{{passwd}}" type="password"></paper-input>
+        <button on-tap="savepass">Continue</button>
       </section>
 
       <section state="2">
@@ -58,7 +60,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       newuser: function(){
-        document.getElementById('localstorage').value = uuid.v4();
+        this.state = 1;
+      },
+
+      savepass: function(){
+        document.getElementById('localstorage').value = this.passwd;
         this.restart();
       },
 
