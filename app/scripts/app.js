@@ -48,6 +48,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   app.homestate = function(){
     console.log("Existing user");
+    importPage("/elements/locals-user/locals-user.html").then(function(){
+      var element = document.createElement("locals-user");
+      element.id = "user";
+      document.body.appendChild(element);
+    }, function(err){
+      console.log(err, "error");
+    });
   };
 
 })(document);

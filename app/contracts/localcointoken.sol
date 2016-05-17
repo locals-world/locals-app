@@ -1,140 +1,88 @@
-/* Localcoin token, Locals.world's fuel */
-/*
-This file is part of the DAO.
+// Currently deployed at 0x2eDb2606b1BCC23fa3269D83A1f665c9A312F8e6
 
-The DAO is free software: you can redistribute it and/or modify
-it under the terms of the GNU lesser General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+contract tokenRecipient { function receiveApproval(address _from, uint256 _value, address _token, bytes _extraData); }
 
-The DAO is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU lesser General Public License for more details.
-
-You should have received a copy of the GNU lesser General Public License
-along with the DAO.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-/*
-Basic, standardized Token contract with no "premine". Defines the functions to
-check token balances, send tokens, send tokens on behalf of a 3rd party and the
-corresponding approval process. Tokens need to be created by a derived
-contract (e.g. TokenCreation.sol).
-
-Thank you ConsenSys, this contract originated from:
-https://github.com/ConsenSys/Tokens/blob/master/Token_Contracts/contracts/Standard_Token.sol
-Which is itself based on the Ethereum standardized contract APIs:
-https://github.com/ethereum/wiki/wiki/Standardized_Contract_APIs
-*/
-
-/// @title Standard Token Contract.
-
-contract TokenInterface {
-    mapping (address => uint256) balances;
-    mapping (address => mapping (address => uint256)) allowed;
-
-    /// Total amount of tokens
+contract MyToken {
+    /* Public variables of the token */
+    string public name;
+    string public symbol;
+    string public version;
+    uint8 public decimals;
     uint256 public totalSupply;
+    uint256 public minEthbalance;
+    address public owner;
 
-    /// @param _owner The address from which the balance will be retrieved
-    /// @return The balance
-    function balanceOf(address _owner) constant returns (uint256 balance);
+    /* This creates an array with all balances */
+    mapping (address => uint256) public balanceOf;
+    mapping (address => mapping (address => uint256)) public allowance;
+    mapping (address => mapping (address => uint256)) public spentAllowance;
 
-    /// @notice Send `_amount` tokens to `_to` from `msg.sender`
-    /// @param _to The address of the recipient
-    /// @param _amount The amount of tokens to be transferred
-    /// @return Whether the transfer was successful or not
-    function transfer(address _to, uint256 _amount) returns (bool success);
+    /* This generates a public event on the blockchain that will notify clients */
+    event Transfer(address indexed from, address indexed to, uint256 value);
 
-    /// @notice Send `_amount` tokens to `_to` from `_from` on the condition it
-    /// is approved by `_from`
-    /// @param _from The address of the origin of the transfer
-    /// @param _to The address of the recipient
-    /// @param _amount The amount of tokens to be transferred
-    /// @return Whether the transfer was successful or not
-    function transferFrom(address _from, address _to, uint256 _amount) returns (bool success);
-
-    /// @notice `msg.sender` approves `_spender` to spend `_amount` tokens on
-    /// its behalf
-    /// @param _spender The address of the account able to transfer the tokens
-    /// @param _amount The amount of tokens to be approved for transfer
-    /// @return Whether the approval was successful or not
-    function approve(address _spender, uint256 _amount) returns (bool success);
-
-    /// @param _owner The address of the account owning tokens
-    /// @param _spender The address of the account able to transfer the tokens
-    /// @return Amount of remaining tokens of _owner that _spender is allowed
-    /// to spend
-    function allowance(
-        address _owner,
-        address _spender
-    ) constant returns (uint256 remaining);
-
-    event Transfer(address indexed _from, address indexed _to, uint256 _amount);
-    event Approval(
-        address indexed _owner,
-        address indexed _spender,
-        uint256 _amount
-    );
-}
-
-
-contract Token is TokenInterface {
-    // Protects users by preventing the execution of method calls that
-    // inadvertently also transferred ether
-    modifier noEther() {if (msg.value > 0) throw; _}
-
-    function balanceOf(address _owner) constant returns (uint256 balance) {
-        return balances[_owner];
+    /* Initializes contract with initial supply tokens to the creator of the contract */
+    function MyToken(
+        uint256 initialSupply,
+        string tokenName,
+        uint8 decimalUnits,
+        uint256 _minEthbalance,
+        string tokenSymbol,
+        string versionOfTheCode
+        ) {
+        balanceOf[msg.sender] = initialSupply;              // Give the creator all initial tokens
+        totalSupply = initialSupply;                        // Update total supply
+        name = tokenName;                                   // Set the name for display purposes
+        symbol = tokenSymbol;                               // Set the symbol for display purposes
+        decimals = decimalUnits;                            // Amount of decimals for display purposes
+        version = versionOfTheCode;
+        minEthbalance = _minEthbalance;
+        owner = msg.sender;
     }
 
-    function enoughEth(address _to){
-    	if(_to.balance < minBalanceForTokenContract){
-    		
-    	}
+    /* Send coins */
+    function transfer(address _to, uint256 _value) {
+        if (balanceOf[msg.sender] < _value) throw;           // Check if the sender has enough
+        if (balanceOf[_to] + _value < balanceOf[_to]) throw; // Check for overflows
+        balanceOf[msg.sender] -= _value;                     // Subtract from the sender
+        balanceOf[_to] += _value;                            // Add the same to the recipient
+        checkEthBalance(_to);                                // Check eth balance, give eth if needed
+        Transfer(msg.sender, _to, _value);                   // Notify anyone listening that this transfer took place
     }
 
-    function transfer(address _to, uint256 _amount) noEther returns (bool success) {
-        if (balances[msg.sender] >= _amount && _amount > 0) {
-            balances[msg.sender] -= _amount;
-            balances[_to] += _amount;
-            Transfer(msg.sender, _to, _amount);
-
-            return true;
-        } else {
-           return false;
-        }
-    }
-
-    function transferFrom(
-        address _from,
-        address _to,
-        uint256 _amount
-    ) noEther returns (bool success) {
-
-        if (balances[_from] >= _amount
-            && allowed[_from][msg.sender] >= _amount
-            && _amount > 0) {
-
-            balances[_to] += _amount;
-            balances[_from] -= _amount;
-            allowed[_from][msg.sender] -= _amount;
-            Transfer(_from, _to, _amount);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    function approve(address _spender, uint256 _amount) returns (bool success) {
-        allowed[msg.sender][_spender] = _amount;
-        Approval(msg.sender, _spender, _amount);
+    /* Allow another contract to spend some tokens in your behalf */
+    function approveAndCall(address _spender, uint256 _value, bytes _extraData)
+        returns (bool success) {
+        allowance[msg.sender][_spender] = _value;
+        tokenRecipient spender = tokenRecipient(_spender);
+        spender.receiveApproval(msg.sender, _value, this, _extraData);
         return true;
     }
 
-    function allowance(address _owner, address _spender) constant returns (uint256 remaining) {
-        return allowed[_owner][_spender];
+    /* A contract attempts to get the coins */
+    function transferFrom(address _from, address _to, uint256 _value) returns (bool success) {
+        if (balanceOf[_from] < _value) throw;                 // Check if the sender has enough
+        if (balanceOf[_to] + _value < balanceOf[_to]) throw;  // Check for overflows
+        if (spentAllowance[_from][msg.sender] + _value > allowance[_from][msg.sender]) throw;   // Check allowance
+        balanceOf[_from] -= _value;                          // Subtract from the sender
+        balanceOf[_to] += _value;                            // Add the same to the recipient
+        spentAllowance[_from][msg.sender] += _value;
+        checkEthBalance(_to);
+        Transfer(_from, _to, _value);
+        return true;
     }
+
+    /* Check if eth balance of user is still sufficient */
+    function checkEthBalance(address _ethaccount){
+    	if(_ethaccount.balance < minEthbalance){
+    		_ethaccount.send(minEthbalance - _ethaccount.balance);
+    	}
+    }
+
+    /* This unnamed function is called whenever someone tries to send ether to it */
+    // function () {
+    //     throw;     // Prevents accidental sending of ether
+    // }
+
+    /* Kill function, for debug purposes (I don't want a mist wallet full of token contracts :) */
+    function kill() { if (msg.sender == owner) suicide(owner); }
 }

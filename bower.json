@@ -17,5 +17,8 @@
   "devDependencies": {
     "web-component-tester": "*",
     "test-fixture": "PolymerElements/test-fixture#^1.0.0"
+  },
+  "resolutions": {
+    "web3-wallet": "^0.0.8"
   }
 }

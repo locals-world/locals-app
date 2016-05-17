@@ -1,0 +1,115 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-localstorage/iron-localstorage.html">
+<link rel="import" href="../../bower_components/web3-wallet/web3-wallet.html">
+
+<dom-module id="locals-user">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <iron-localstorage 
+      name="locals-password" 
+      value="{{passwd}}">
+    </iron-localstorage>
+
+    <web3-wallet 
+      id="web3wallet"
+      walletname="locals-wallet"
+      password="{{passwd}}" 
+      account="{{account}}" 
+      balance="{{balance}}" 
+      keystore="{{keystore}}" 
+      host="http://109.123.70.141:8545"
+      web3="{{web3}}">
+    </web3-wallet>
+    
+    <div>Your account: <span>{{fixedaddress}}</span></div>
+    <div>Your Eth balance: <span>{{ethbalans}}</span></div>
+    <div>Your Localcoin balance: <span>{{locbalans}}</span></div>
+
+  </template>
+  <script>
+  (function() {
+    'use strict';
+
+    Polymer({
+      is: 'locals-user',
+
+      properties: {
+        web3: {
+          type: Object,
+          notify: true,
+          observer: '_web3'
+        },
+        account: {
+          type: String,
+          observer: '_account'
+        },
+        balans: {
+          type: Number, 
+          observer: '_balans'
+        },
+        tokenaddr: {
+          type: String,
+          value: '0x396e0F756097910EC079ad9432A176D14867D656'
+        },
+        tokenabi: {
+          type: Object,
+          value: [ { "constant": false, "inputs": [ { "name": "newSellPrice", "type": "uint256" }, { "name": "newBuyPrice", "type": "uint256" } ], "name": "setPrices", "outputs": [], "type": "function" }, { "constant": true, "inputs": [], "name": "name", "outputs": [ { "name": "", "type": "string", "value": "LocalCoin0.1" } ], "type": "function" }, { "constant": true, "inputs": [], "name": "totalSupply", "outputs": [ { "name": "", "type": "uint256", "value": "100000000" } ], "type": "function" }, { "constant": false, "inputs": [ { "name": "_from", "type": "address" }, { "name": "_to", "type": "address" }, { "name": "_value", "type": "uint256" } ], "name": "transferFrom", "outputs": [ { "name": "success", "type": "bool" } ], "type": "function" }, { "constant": true, "inputs": [], "name": "decimals", "outputs": [ { "name": "", "type": "uint8", "value": "2" } ], "type": "function" }, { "constant": false, "inputs": [ { "name": "_spender", "type": "address" }, { "name": "_value", "type": "uint256" } ], "name": "approveAndCall", "outputs": [ { "name": "success", "type": "bool" } ], "type": "function" }, { "constant": true, "inputs": [], "name": "sellPrice", "outputs": [ { "name": "", "type": "uint256", "value": "500000000000000000" } ], "type": "function" }, { "constant": true, "inputs": [ { "name": "", "type": "address" } ], "name": "balanceOf", "outputs": [ { "name": "", "type": "uint256", "value": "0" } ], "type": "function" }, { "constant": false, "inputs": [ { "name": "target", "type": "address" }, { "name": "mintedAmount", "type": "uint256" } ], "name": "mintToken", "outputs": [], "type": "function" }, { "constant": true, "inputs": [], "name": "buyPrice", "outputs": [ { "name": "", "type": "uint256", "value": "500000000000000000" } ], "type": "function" }, { "constant": true, "inputs": [], "name": "owner", "outputs": [ { "name": "", "type": "address", "value": "0x03f3be66f4dca6e7f5c15bd4950d78f66709ea44" } ], "type": "function" }, { "constant": true, "inputs": [], "name": "symbol", "outputs": [ { "name": "", "type": "string", "value": "Δ" } ], "type": "function" }, { "constant": false, "inputs": [], "name": "buy", "outputs": [], "type": "function" }, { "constant": false, "inputs": [ { "name": "_to", "type": "address" }, { "name": "_value", "type": "uint256" } ], "name": "transfer", "outputs": [], "type": "function" }, { "constant": true, "inputs": [ { "name": "", "type": "address" } ], "name": "frozenAccount", "outputs": [ { "name": "", "type": "bool", "value": false } ], "type": "function" }, { "constant": true, "inputs": [ { "name": "", "type": "address" }, { "name": "", "type": "address" } ], "name": "spentAllowance", "outputs": [ { "name": "", "type": "uint256", "value": "0" } ], "type": "function" }, { "constant": true, "inputs": [ { "name": "", "type": "address" }, { "name": "", "type": "address" } ], "name": "allowance", "outputs": [ { "name": "", "type": "uint256", "value": "0" } ], "type": "function" }, { "constant": false, "inputs": [ { "name": "amount", "type": "uint256" } ], "name": "sell", "outputs": [], "type": "function" }, { "constant": false, "inputs": [ { "name": "target", "type": "address" }, { "name": "freeze", "type": "bool" } ], "name": "freezeAccount", "outputs": [], "type": "function" }, { "constant": false, "inputs": [ { "name": "newOwner", "type": "address" } ], "name": "transferOwnership", "outputs": [], "type": "function" }, { "inputs": [ { "name": "initialSupply", "type": "uint256", "index": 0, "typeShort": "uint", "bits": "256", "displayName": "initial Supply", "template": "elements_input_uint", "value": "100000000" }, { "name": "tokenName", "type": "string", "index": 1, "typeShort": "string", "bits": "", "displayName": "token Name", "template": "elements_input_string", "value": "LocalCoin0.1" }, { "name": "decimalUnits", "type": "uint8", "index": 2, "typeShort": "uint", "bits": "8", "displayName": "decimal Units", "template": "elements_input_uint", "value": "2" }, { "name": "tokenSymbol", "type": "string", "index": 3, "typeShort": "string", "bits": "", "displayName": "token Symbol", "template": "elements_input_string", "value": "Δ" }, { "name": "centralMinter", "type": "address", "index": 4, "typeShort": "address", "bits": "", "displayName": "central Minter", "template": "elements_input_address", "value": "0x03F3be66f4DCA6e7f5C15BD4950d78F66709ea44" } ], "type": "constructor" }, { "anonymous": false, "inputs": [ { "indexed": true, "name": "from", "type": "address" }, { "indexed": true, "name": "to", "type": "address" }, { "indexed": false, "name": "value", "type": "uint256" } ], "name": "Transfer", "type": "event" }, { "anonymous": false, "inputs": [ { "indexed": false, "name": "target", "type": "address" }, { "indexed": false, "name": "frozen", "type": "bool" } ], "name": "FrozenFunds", "type": "event" } ]
+        }
+      },
+
+      ready: function(){
+
+      },
+
+      _account: function(){
+        this.fixedaddress = this.fixaddress(this.account);
+      },
+
+      _web3: function(){
+        this.balans = this.$.web3wallet.updateBalance();
+        this.getLocalbalance();
+      },
+
+      getLocalbalance: function(){
+        //Get Localcoin token balance
+        var MyCoinContract = this.web3.eth.contract(this.tokenabi);
+        var myCoinContractInstance = MyCoinContract.at(this.tokenaddr);
+        var account = this.fixaddress(this.account);
+        var coinbalance = myCoinContractInstance.balanceOf(account).toNumber();
+        this.locbalans = coinbalance / 100;
+      },
+
+      _balans: function(){
+        this.ethbalans = this.balans / 1e18;
+      },
+
+      fixaddress: function(address) {
+        function strStartsWith(str, prefix) {
+          return str.indexOf(prefix) === 0;
+        }
+
+        if (!strStartsWith(address, '0x')) {
+          return ('0x' + address);
+        }
+        return address;
+      }
+
+    });
+  })();
+  </script>
+</dom-module>
