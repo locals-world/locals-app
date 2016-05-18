@@ -12,7 +12,8 @@
     "ipfs-upload": "^0.0.13",
     "node-uuid": "^1.4.7",
     "jsencrypt": "^2.2.0",
-    "locals-sync": "https://github.com/locals-world/locals-elements-sync.git"
+    "locals-sync": "https://github.com/locals-world/locals-elements-sync.git",
+    "locals-avatar": "https://github.com/locals-world/locals-avatar.git"
   },
   "devDependencies": {
     "web-component-tester": "*",

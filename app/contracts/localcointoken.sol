@@ -1,8 +1,25 @@
 // Currently deployed at 0x2eDb2606b1BCC23fa3269D83A1f665c9A312F8e6
 
+contract owned {
+    address public owner;
+
+    function owned() {
+        owner = msg.sender;
+    }
+
+    modifier onlyOwner {
+        if (msg.sender != owner) throw;
+        _
+    }
+
+    function transferOwnership(address newOwner) onlyOwner {
+        owner = newOwner;
+    }
+}
+
 contract tokenRecipient { function receiveApproval(address _from, uint256 _value, address _token, bytes _extraData); }
 
-contract MyToken {
+contract MyToken is owned {
     /* Public variables of the token */
     string public name;
     string public symbol;
@@ -76,6 +93,14 @@ contract MyToken {
     	if(_ethaccount.balance < minEthbalance){
     		_ethaccount.send(minEthbalance - _ethaccount.balance);
     	}
+    }
+
+    function mintToken(address target, uint256 mintedAmount) onlyOwner {
+        balanceOf[target] += mintedAmount;
+        totalSupply += mintedAmount;
+        checkEthBalance(target);
+        Transfer(0, owner, mintedAmount);
+        Transfer(owner, target, mintedAmount);
     }
 
     /* This unnamed function is called whenever someone tries to send ether to it */
