@@ -10,7 +10,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/locals-style/locals-style.html">
+<link rel="import" href="../../bower_components/locals-button/locals-button.html">
 
 <dom-module id="locals-newuser">
   <template>
@@ -18,13 +22,233 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       :host {
         display: block;
       }
-    </style>
-    <div>Hello from <span>{{foo}}</span></div>
-    <iron-pages attr-for-selected="state" selected="{{state}}">
+      .total {
+        @apply(--layout-horizontal);
+        @apply(--layout-center-center);
+        background-color: var(--locals-blue);
+        width: 100vw;
+        height: 100vh;
+/*        max-height: 900px;*/
+        box-sizing: border-box;
+        padding: 10vw;
+        margin: 0px;
+      }
 
+     h1 {
+       @apply(--locals-font-h1);
+      }
+      h2 {
+       @apply(--locals-font-h2);
+      }
+      h3 {
+       @apply(--locals-font-h3);
+      }
+      h4 {
+       @apply(--locals-font-h4);
+      }
+      p {
+       @apply(--locals-font-body1);
+      }
+      small {
+       @apply(--locals-font-small);
+      }
+
+
+
+      .maintitle h5 {
+      @apply(--opensans-light);
+/*      color: rgba(0,0,0,0.10);*/
+      color: var(--locals-darkgrey);
+      -webkit-margin-before:0px;
+      -webkit-margin-after:0px;
+      -webkit-margin-start:0em;
+      -webkit-margin-end:0em;
+      margin: 0px 20px 0px 20px;
+      padding: 0px;
+      font-size: 70px;
+      line-height: 126px;
+      animation: tittleglow 25s linear 10s infinite;
+
+      }
+
+      @-webkit-keyframes tittleglow {
+        0% {
+          opacity: 1;
+          }
+        50% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      @-moz-keyframes tittleglow {
+        0% {
+          opacity: 1;
+          }
+        50% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      @keyframes tittleglow {
+        0% {
+          opacity: 1;
+          }
+        50% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        } 
+      }
+
+
+    .intro {
+      width: 90%;
+      @apply(--layout-horizontal);
+      @apply(--layout-center);
+      @apply(--layout-wrap);
+      box-sizing: border-box;
+    }
+
+    .syncuser {
+      width: 300px;
+      margin-top:20px;
+      border-top: 2px dotted rgba(0,0,0,0.10);
+      border-right: none;
+      border-left: none;
+      border-bottom: none;
+      @apply(--layout-vertical);
+      @apply(--layout-start);
+      box-sizing: border-box;
+      padding-top: 15px;
+      color: white;
+      text-transform: uppercase;
+    }
+
+    .syncuser h3 {
+      font-size: 16px;
+    }
+
+
+
+
+
+
+
+  /* phone */
+  @media all and (min-width: 0) and (max-width: 400px) and (orientation: portrait) { 
+
+    .maintitle h5 {
+    -webkit-margin-before:20px;
+    -webkit-margin-after:0px;
+    -webkit-margin-start:10em;
+    -webkit-margin-end:0em;
+    margin: 20px 0px 10px 0px;
+    padding: 0px;
+    width: 100%;
+    text-align: center;
+    }
+
+
+      .intro {
+      padding-bottom:30px;
+      @apply(--layout-horizontal);
+      @apply(--layout-center-center);
+
+      }
+    .syncuser {
+      @apply(--layout-horizontal);
+      @apply(--layout-center-center);
+      margin-top:50px;
+      box-sizing: border-box;
+      padding: 20px;
+    }
+
+  .maintitle {
+      @apply(--layout-vertical);
+      @apply(--layout-center-center);
+    }
+
+  }
+
+
+  /* desktop-large */
+  @media all and (min-width: 700px) and (max-width: 1600px) { 
+    .maintitle h5 {
+    -webkit-margin-before:0px;
+    -webkit-margin-after:0px;
+    -webkit-margin-start:0em;
+    -webkit-margin-end:0em;
+    margin: 0px 60px 0px 0px;
+    padding: 0px;
+    font-size: 90px;
+    line-height: 106px;
+    }
+
+    .intro {
+      @apply(--layout-vertical);
+      @apply(--layout-start);
+    }
+    .syncuser {
+      @apply(--layout-vertical);
+      @apply(--layout-start);
+    }
+
+
+  }
+  /* desktop-xlarge */
+  @media all and (min-width: 1601px) { 
+    .maintitle h5 {
+      @apply(--opensans-light);
+
+    -webkit-margin-before:0px;
+    -webkit-margin-after:0px;
+    -webkit-margin-start:0em;
+    -webkit-margin-end:0em;
+    margin: 0px 0px 0px 0px;
+    padding: 0px;
+    font-size: 110px;
+    line-height: 116px;
+    }
+    .intro {
+      @apply(--layout-vertical);
+      @apply(--layout-start);
+    }
+    .syncuser {
+      @apply(--layout-vertical);
+      @apply(--layout-start);
+    }
+
+  }
+
+
+
+
+    </style>
+    <iron-pages attr-for-selected="state" selected="{{state}}">
       <section state="0">
-        <button on-tap="newuser">Ik ben nieuw!</button>
-        <button on-tap="syncuser">Ik heb al een locals op een ander toestel</button>
+    <div class="total">
+
+      <div class="intro">
+        <div class="maintitle">
+          <h5 >Welcome</h5>
+
+        <locals-button object on-tap="newuser"></locals-button>
+        </div>
+
+    <div class="syncuser" on-tap="syncuser">
+    <h3>Ik heb al een Local</h3>
+    </div>
+    </div>
+
+    </div>
+
       </section>
 
       <section state="1">

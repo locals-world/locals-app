@@ -10,10 +10,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-localstorage/iron-localstorage.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../../bower_components/web3-wallet/web3-wallet.html">
 <link rel="import" href="../../bower_components/ipfs-upload/ipfs-upload.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/locals-avatar/locals-avatar.html">
+<link rel="import" href="../../bower_components/locals-button/locals-button.html">
+<link rel="import" href="../../bower_components/locals-scroller/locals-scroller.html">
 
 <dom-module id="locals-user">
   <template>
@@ -21,6 +24,59 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       :host {
         display: block;
       }
+
+      .topbar {
+        width: 100vw;
+        height: 100px;
+        background-color: #a8daf0;
+        @apply(--layout-horizontal);
+        @apply(--layout-center);
+        @apply(--layout-end-justified);
+        box-sizing: border-box;
+        padding: 10px 20px 10px 0px;
+        }
+
+      .scrollarea {
+        width: 100vw;
+        min-height: 800px;
+        background: url(../../images/locals-bg.png);
+        background-size: auto 800px;
+        background-repeat: repeat-x;
+        @apply(--layout-horizontal);
+        @apply(--layout-center-justified);
+        box-sizing: border-box;
+        padding-top:200px;
+      }
+
+
+
+@media all and (min-height: 0) and (max-height: 600px) { 
+      .scrollarea {
+        min-height: 400px;
+        background-size: auto 400px;
+        padding-top:20px;
+      }
+}
+
+@media all and (min-height: 601px) and (max-height: 1000px) { 
+      .scrollarea {
+        min-height: 450px;
+        background-size: auto 450px;
+        padding-top:80px;
+      }
+}
+
+
+  /* desktop-large */
+  @media all and (min-height: 1281px) { 
+      .scrollarea {
+        min-height: 800px;
+        background-size: auto 800px;
+      }
+  }
+
+
+
     </style>
 
     <iron-localstorage 
@@ -49,7 +105,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       web3="{{web3}}">
     </web3-wallet>
     
-    <div>Your account: <span>{{fixedaddress}}</span></div>
+<!--     <div>Your account: <span>{{fixedaddress}}</span></div>
     <div>Your Eth balance: <span>{{ethbalans}}</span></div>
     <div>Your Localcoin balance: <span>{{locbalans}}</span></div>
 
@@ -57,16 +113,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <h1>You don't have LocalCoin.</h1>
       <p>Ask LocalTokenAdmin to get you some.</p>
       <p><i>"can i haz localtokens on this address <span>{{fixedaddress}}</span>?"</i></p>
-    </template>
+    </template> -->
 
-    <template is="dom-if" if="{{!nolocalcoin}}">
+<!--     <template is="dom-if" if="{{!nolocalcoin}}">
       <h1>You have LocalCoin.</h1>
       <p>So you can backup!</p>
       <paper-button raised on-tap="backup"></paper-button>
-    </template>
+    </template> -->
 
+<div class="topbar">
+  <locals-button icon="plus"></locals-button>
+</div>
+<div class="scrollarea">
     <locals-avatar on-state-changed="test"></locals-avatar>
-
+</div>
   </template>
   <script>
   (function() {

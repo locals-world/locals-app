@@ -13,7 +13,10 @@
     "node-uuid": "^1.4.7",
     "jsencrypt": "^2.2.0",
     "locals-sync": "https://github.com/locals-world/locals-elements-sync.git",
-    "locals-avatar": "https://github.com/locals-world/locals-avatar.git"
+    "locals-avatar": "https://github.com/locals-world/locals-avatar.git",
+    "locals-style": "https://github.com/locals-world/locals-style.git",
+    "locals-button": "https://github.com/locals-world/locals-button.git#^0.0.5",
+    "locals-scroller": "https://github.com/locals-world/locals-scroller.git"
   },
   "devDependencies": {
     "web-component-tester": "*",
