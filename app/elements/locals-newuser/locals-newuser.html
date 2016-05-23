@@ -10,6 +10,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../../bower_components/neon-animation/neon-animation.html">
+<link rel="import" href="../../bower_components/neon-animation/neon-animations.html">
+
+
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
 
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
@@ -23,15 +27,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: block;
       }
       .total {
-        @apply(--layout-horizontal);
-        @apply(--layout-center-center);
-        background-color: var(--locals-blue);
         width: 100vw;
         height: 100vh;
-/*        max-height: 900px;*/
         box-sizing: border-box;
         padding: 10vw;
         margin: 0px;
+      }
+
+      .horiz {
+        @apply(--layout-horizontal);
+        @apply(--layout-center-center);
+      }
+
+      .vertic {
+        @apply(--layout-vertical);
+        @apply(--layout-center-center);
+      }
+
+
+      .blueback {
+        background-color: var(--locals-blue);
       }
 
      h1 {
@@ -57,7 +72,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       .maintitle h5 {
       @apply(--opensans-light);
-/*      color: rgba(0,0,0,0.10);*/
       color: var(--locals-darkgrey);
       -webkit-margin-before:0px;
       -webkit-margin-after:0px;
@@ -67,11 +81,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       padding: 0px;
       font-size: 70px;
       line-height: 126px;
-      animation: tittleglow 25s linear 10s infinite;
+/*      animation: titleglow 25s linear 10s infinite;*/
 
       }
 
-      @-webkit-keyframes tittleglow {
+      @-webkit-keyframes titleglow {
         0% {
           opacity: 1;
           }
@@ -83,7 +97,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       }
 
-      @-moz-keyframes tittleglow {
+      @-moz-keyframes titleglow {
         0% {
           opacity: 1;
           }
@@ -95,7 +109,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       }
 
-      @keyframes tittleglow {
+      @keyframes titleglow {
         0% {
           opacity: 1;
           }
@@ -126,13 +140,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       @apply(--layout-vertical);
       @apply(--layout-start);
       box-sizing: border-box;
-      padding-top: 15px;
-      color: white;
-      text-transform: uppercase;
+      padding-top: 5px;
+      color: rgba(255,255,255,0.70);
+      text-decoration: underline;
+      cursor: pointer;
     }
 
     .syncuser h3 {
       font-size: 16px;
+      @apply(--opensans-light);
     }
 
 
@@ -167,7 +183,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       @apply(--layout-center-center);
       margin-top:50px;
       box-sizing: border-box;
-      padding: 20px;
+      padding-top: 10px;
     }
 
   .maintitle {
@@ -178,8 +194,37 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   }
 
 
+
+  /* between phone and desktop */
+
+  @media all and (min-width: 401px) and (max-width: 950px) { 
+
+      .intro {
+      padding-bottom:30px;
+      @apply(--layout-horizontal);
+      @apply(--layout-center-center);
+
+      }
+    .syncuser {
+      @apply(--layout-horizontal);
+      @apply(--layout-center-center);
+      margin-top:50px;
+      box-sizing: border-box;
+      padding: 10px 20px 20px 20px;
+      width: 100%;
+    }
+
+  .maintitle {
+      @apply(--layout-vertical);
+      @apply(--layout-center-center);
+    }
+
+}
+
+
+
   /* desktop-large */
-  @media all and (min-width: 700px) and (max-width: 1600px) { 
+  @media all and (min-width: 951px) and (max-width: 1600px) { 
     .maintitle h5 {
     -webkit-margin-before:0px;
     -webkit-margin-after:0px;
@@ -231,9 +276,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 
     </style>
-    <iron-pages attr-for-selected="state" selected="{{state}}">
-      <section state="0">
-    <div class="total">
+    <neon-animated-pages attr-for-selected="state" selected="{{state}}" entry-animation="slide-from-right-animation" exit-animation="slide-left-animation">
+      <neon-animatable state="0">
+    <div class="total blueback horiz">
 
       <div class="intro">
         <div class="maintitle">
@@ -243,26 +288,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </div>
 
     <div class="syncuser" on-tap="syncuser">
-    <h3>Ik heb al een Local</h3>
+    <h3>Een bestaande Local syncen</h3>
     </div>
     </div>
 
     </div>
 
-      </section>
+      </neon-animatable>
 
-      <section state="1">
+      <neon-animatable state="1">
+    <div class="total vertic">
+
         <h1>Choose a password</h1>
         <paper-input label="passwd" bind-value="{{passwd}}" type="password"></paper-input>
         <button on-tap="savepass">Continue</button>
-      </section>
+    </div>
+      </neon-animatable>
 
-      <section state="2">
+      <neon-animatable state="2">
         <h1>Allez dan gaan we syncen he</h1>
         <!-- hier dan sync element -->
-      </section>
+      </neon-animatable>
 
-    </iron-pages>
+    </neon-animated-pages>
   </template>
   <script>
   (function() {
