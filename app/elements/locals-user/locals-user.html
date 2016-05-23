@@ -18,6 +18,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/locals-button/locals-button.html">
 <link rel="import" href="../../bower_components/locals-scroller/locals-scroller.html">
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../../bower_components/locals-lsapi/locals-lsapi.html">
 
 <dom-module id="locals-user">
   <template>
@@ -82,6 +83,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       host="http://109.123.70.141:8545"
       web3="{{web3}}">
     </web3-wallet>
+
+    <locals-lsapi id="lsapi" privatekey="{{passwd}}" data="{{data}}"></locals-lsapi>
     
 <!--     <div>Your account: <span>{{fixedaddress}}</span></div>
     <div>Your Eth balance: <span>{{ethbalans}}</span></div>
@@ -258,7 +261,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     self.txhash = txhash;
                   }
 
-                  self.transactionlog('Your IPFSH Hash has been added to the blockchain');
+                  self.transactionlog('Your IPFS Hash has been added to the blockchain');
                 });
             });
           };

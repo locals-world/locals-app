@@ -16,7 +16,8 @@
     "locals-avatar": "https://github.com/locals-world/locals-avatar.git",
     "locals-style": "https://github.com/locals-world/locals-style.git",
     "locals-button": "https://github.com/locals-world/locals-button.git#^0.0.5",
-    "locals-scroller": "https://github.com/locals-world/locals-scroller.git"
+    "locals-scroller": "https://github.com/locals-world/locals-scroller.git",
+    "locals-lsapi": "https://github.com/locals-world/locals-lsapi.git"
   },
   "devDependencies": {
     "web-component-tester": "*",

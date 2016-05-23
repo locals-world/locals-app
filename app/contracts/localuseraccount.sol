@@ -14,7 +14,7 @@ contract localsAvatar {
 
 	mapping (address => User) public users;
 
-	event ValidationAdded(uint test, address _from, address _to, uint _numverifications);
+	event ValidationAdded(address _from, address _to, uint _numverifications);
 	event UserAdded(address _from, string _username, string _ipfshash, uint _numverifications);
 
 	function localsAvatar(uint _verificationthresh){
@@ -42,7 +42,7 @@ contract localsAvatar {
 		users[_localsuser].verifications.push(msg.sender);
 		users[_localsuser].numVerifications = numval + 1;
 
-		ValidationAdded(numval, msg.sender, _localsuser, users[_localsuser].numVerifications);
+		ValidationAdded(msg.sender, _localsuser, users[_localsuser].numVerifications);
 		// And transfer x localcoin from verifier to user.
 		// Transfer(msg.sender, _localuser, 1);
 	}
