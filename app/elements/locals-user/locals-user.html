@@ -17,6 +17,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/locals-avatar/locals-avatar.html">
 <link rel="import" href="../../bower_components/locals-button/locals-button.html">
 <link rel="import" href="../../bower_components/locals-scroller/locals-scroller.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
 <link rel="import" href="../../bower_components/locals-lsapi/locals-lsapi.html">
 <link rel="import" href="../../bower_components/locals-scroller/locals-scroller.html">
 
@@ -25,11 +26,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <style>
       :host {
         display: block;
+        --topbar-height: 100px;
+        --scrollarea-height: 800px;
+        --bg-size: auto 800px;
+        --scrollarea-padding: 200px 0px 0px 0px;
       }
 
       .topbar {
         width: 100vw;
-        height: 100px;
+        height: var(--topbar-height);
         background-color: #a8daf0;
         @apply(--layout-horizontal);
         @apply(--layout-center);
@@ -40,42 +45,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       .scrollarea {
         width: 100vw;
-        min-height: 800px;
+        min-height: var(--scrollarea-height);
         background: url(../../images/locals-bg.png);
-        background-size: auto 800px;
+        background-size: var(--bg-size);
         background-repeat: repeat-x;
         @apply(--layout-horizontal);
         @apply(--layout-center-justified);
         box-sizing: border-box;
-        padding-top:200px;
+        padding: var(--scrollarea-padding);
       }
-
-
-    /* mobile */
-    @media all and (min-height: 0) and (max-height: 600px) { 
-      .scrollarea {
-        min-height: 400px;
-        background-size: auto 400px;
-        padding-top:20px;
-      }
-    }
-
-    /* between */
-    @media all and (min-height: 601px) and (max-height: 1000px) { 
-      .scrollarea {
-        min-height: 450px;
-        background-size: auto 450px;
-        padding-top:80px;
-      }
-    }
-
-    /* desktop */
-    @media all and (min-height: 1281px) { 
-      .scrollarea {
-        min-height: 800px;
-        background-size: auto 800px;
-      }
-    }
 
 
 
@@ -124,7 +102,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <p>So you can backup!</p>
       <paper-button raised on-tap="backup"></paper-button>
     </template> -->
-
+  <iron-media-query query="(min-width:0px) and (max-width: 600px)" query-matches="{{phoneview}}"></iron-media-query>
+  <iron-media-query query="(min-width:601px) and (max-width: 1280px)" query-matches="{{desktopview}}"></iron-media-query>
+  <iron-media-query query="(min-width:1281px)" query-matches="{{xlargeview}}"></iron-media-query>
 <div class="topbar">
   <locals-button icon="plus"></locals-button>
 </div>
@@ -185,7 +165,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         tokenabi: {
           type: Object,
           value: [ { "constant": true, "inputs": [], "name": "name", "outputs": [ { "name": "", "type": "string", "value": "LocalCoin" } ], "type": "function" }, { "constant": true, "inputs": [], "name": "totalSupply", "outputs": [ { "name": "", "type": "uint256", "value": "10000" } ], "type": "function" }, { "constant": false, "inputs": [ { "name": "_from", "type": "address" }, { "name": "_to", "type": "address" }, { "name": "_value", "type": "uint256" } ], "name": "transferFrom", "outputs": [ { "name": "success", "type": "bool" } ], "type": "function" }, { "constant": true, "inputs": [], "name": "decimals", "outputs": [ { "name": "", "type": "uint8", "value": "2" } ], "type": "function" }, { "constant": false, "inputs": [], "name": "kill", "outputs": [], "type": "function" }, { "constant": true, "inputs": [], "name": "version", "outputs": [ { "name": "", "type": "string", "value": "0.13" } ], "type": "function" }, { "constant": true, "inputs": [ { "name": "", "type": "address" } ], "name": "balanceOf", "outputs": [ { "name": "", "type": "uint256", "value": "0" } ], "type": "function" }, { "constant": false, "inputs": [ { "name": "target", "type": "address" }, { "name": "mintedAmount", "type": "uint256" } ], "name": "mintToken", "outputs": [], "type": "function" }, { "constant": true, "inputs": [], "name": "owner", "outputs": [ { "name": "", "type": "address", "value": "0x03f3be66f4dca6e7f5c15bd4950d78f66709ea44" } ], "type": "function" }, { "constant": true, "inputs": [], "name": "symbol", "outputs": [ { "name": "", "type": "string", "value": "Δ" } ], "type": "function" }, { "constant": false, "inputs": [ { "name": "_ethaccount", "type": "address" } ], "name": "checkEthBalance", "outputs": [], "type": "function" }, { "constant": true, "inputs": [], "name": "minEthbalance", "outputs": [ { "name": "", "type": "uint256", "value": "50000000000000000" } ], "type": "function" }, { "constant": false, "inputs": [ { "name": "_to", "type": "address" }, { "name": "_value", "type": "uint256" } ], "name": "transfer", "outputs": [], "type": "function" }, { "constant": false, "inputs": [ { "name": "_spender", "type": "address" }, { "name": "_value", "type": "uint256" }, { "name": "_extraData", "type": "bytes" } ], "name": "approveAndCall", "outputs": [ { "name": "success", "type": "bool" } ], "type": "function" }, { "constant": true, "inputs": [ { "name": "", "type": "address" }, { "name": "", "type": "address" } ], "name": "spentAllowance", "outputs": [ { "name": "", "type": "uint256", "value": "0" } ], "type": "function" }, { "constant": true, "inputs": [ { "name": "", "type": "address" }, { "name": "", "type": "address" } ], "name": "allowance", "outputs": [ { "name": "", "type": "uint256", "value": "0" } ], "type": "function" }, { "constant": false, "inputs": [ { "name": "newOwner", "type": "address" } ], "name": "transferOwnership", "outputs": [], "type": "function" }, { "inputs": [ { "name": "initialSupply", "type": "uint256", "index": 0, "typeShort": "uint", "bits": "256", "displayName": "initial Supply", "template": "elements_input_uint", "value": "10000" }, { "name": "tokenName", "type": "string", "index": 1, "typeShort": "string", "bits": "", "displayName": "token Name", "template": "elements_input_string", "value": "LocalCoin" }, { "name": "decimalUnits", "type": "uint8", "index": 2, "typeShort": "uint", "bits": "8", "displayName": "decimal Units", "template": "elements_input_uint", "value": "2" }, { "name": "_minEthbalance", "type": "uint256", "index": 3, "typeShort": "uint", "bits": "256", "displayName": "&thinsp;<span class=\"punctuation\">_</span>&thinsp;min Ethbalance", "template": "elements_input_uint", "value": "50000000000000000" }, { "name": "tokenSymbol", "type": "string", "index": 4, "typeShort": "string", "bits": "", "displayName": "token Symbol", "template": "elements_input_string", "value": "Δ" }, { "name": "versionOfTheCode", "type": "string", "index": 5, "typeShort": "string", "bits": "", "displayName": "version Of The Code", "template": "elements_input_string", "value": "0.13" } ], "type": "constructor" }, { "anonymous": false, "inputs": [ { "indexed": true, "name": "from", "type": "address" }, { "indexed": true, "name": "to", "type": "address" }, { "indexed": false, "name": "value", "type": "uint256" } ], "name": "Transfer", "type": "event" } ]
-        }
+        },
+
+        phoneview: {
+          type: Boolean,
+          observer: '_sizeview'
+        },
+
+        desktopview: {
+          type: Boolean,
+          observer: '_sizeview'
+        },
+
+        xlargeview: {
+          type: Boolean,
+          observer: '_sizeview'
+        },
       },
 
       ready: function(){
@@ -301,6 +296,32 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           return ('0x' + address);
         }
         return address;
+      },
+
+
+      _sizeview: function(){
+        if (this.phoneview) {
+          this.customStyle['--topbar-height'] = '100px';
+          this.customStyle['--scrollarea-height'] = '320px';
+          this.customStyle['--scrollarea-padding'] = '0px 0px 0px 0px';
+          this.customStyle['--bg-size'] = 'auto 320px';
+          this.updateStyles();
+        }
+        if (this.desktopview) {
+          this.customStyle['--topbar-height'] = '100px';
+          this.customStyle['--scrollarea-height'] = '490px';
+          this.customStyle['--scrollarea-padding'] = '48px 0px 0px 0px';
+          this.customStyle['--bg-size'] = 'auto 490px';
+          this.updateStyles();
+        }
+        if (this.xlargeview) {
+          this.customStyle['--topbar-height'] = '100px';
+          this.customStyle['--scrollarea-height'] = '600px';
+          this.customStyle['--scrollarea-padding'] = '50px 0px 0px 0px';
+          this.customStyle['--bg-size'] = 'auto 600px';
+          this.updateStyles();
+        }
+
       }
 
     });

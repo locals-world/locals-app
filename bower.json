@@ -18,7 +18,8 @@
     "locals-button": "https://github.com/locals-world/locals-button.git#^0.0.5",
     "locals-scroller": "https://github.com/locals-world/locals-scroller.git",
     "locals-lsapi": "https://github.com/locals-world/locals-lsapi.git",
-    "locals-objectrender": "https://github.com/locals-world/locals-objectrender.git"
+    "locals-objectrender": "https://github.com/locals-world/locals-objectrender.git",
+    "locals-confirm": "https://github.com/locals-world/locals-confirm.git"
   },
   "devDependencies": {
     "web-component-tester": "*",
