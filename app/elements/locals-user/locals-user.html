@@ -37,9 +37,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         height: var(--topbar-height);
         background-color: #a8daf0;
         @apply(--layout-horizontal);
-        @apply(--layout-center);
-        @apply(--layout-end-justified);
-        box-sizing: border-box;
+/*        @apply(--layout-center);
+*//*        @apply(--layout-end-justified);
+*/        box-sizing: border-box;
         padding: 10px 20px 10px 0px;
         }
 
@@ -53,6 +53,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         @apply(--layout-center-justified);
         box-sizing: border-box;
         padding: var(--scrollarea-padding);
+      }
+
+      .flex {
+        @apply(--layout-horizontal);
+        @apply(--layout-flex);
       }
 
 
@@ -106,7 +111,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <iron-media-query query="(min-width:601px) and (max-width: 1280px)" query-matches="{{desktopview}}"></iron-media-query>
   <iron-media-query query="(min-width:1281px)" query-matches="{{xlargeview}}"></iron-media-query>
 <div class="topbar">
-  <locals-button icon="plus"></locals-button>
+  <div hidden="{{hidestore}}">THE STORE</div>
+  <p class="balance">Eth <span>{{ethbalans}}</span></p>
+  <p> / </p>
+  <p class="balance">LC <span>{{locbalans}}</span></p>
+  <p class="flex"></p>
+  <locals-button id="storebtn" icon="plus" on-tap="toggleStore"></locals-button>
 </div>
 <div class="scrollarea">
   <locals-scroller objects="{{data.collection}}"></locals-scroller>
@@ -185,6 +195,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       ready: function(){
         this.nolocalcoin = true;
+        this.hidestore = true;
+        this.storeicon = 'plus';
       },
 
       test: function(e){
@@ -322,6 +334,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           this.updateStyles();
         }
 
+      },
+
+      toggleStore: function(){
+        console.log(this.viewstore);
+        this.hidestore=!this.hidestore;
+        if(this.hidestore){
+          this.$.storebtn.icon = 'plus';
+        } else {
+          this.$.storebtn.icon = 'decline';
+        }
       }
 
     });
