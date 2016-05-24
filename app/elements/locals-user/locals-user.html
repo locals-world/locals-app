@@ -18,6 +18,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/locals-button/locals-button.html">
 <link rel="import" href="../../bower_components/locals-scroller/locals-scroller.html">
 <link rel="import" href="../../bower_components/locals-lsapi/locals-lsapi.html">
+<link rel="import" href="../../bower_components/locals-scroller/locals-scroller.html">
 
 <dom-module id="locals-user">
   <template>
@@ -106,7 +107,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       web3="{{web3}}">
     </web3-wallet>
 
-    <locals-lsapi id="lsapi" privatekey="{{passwd}}" data="{{data}}"></locals-lsapi>
+    <locals-lsapi verbose id="lsapi" privatekey="{{passwd}}" data="{{data}}"></locals-lsapi>
     
 <!--     <div>Your account: <span>{{fixedaddress}}</span></div>
     <div>Your Eth balance: <span>{{ethbalans}}</span></div>
@@ -128,7 +129,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <locals-button icon="plus"></locals-button>
 </div>
 <div class="scrollarea">
-    <locals-avatar on-state-changed="test"></locals-avatar>
+  <locals-scroller objects="{{data.collection}}"></locals-scroller>
+    <!-- <locals-avatar on-data-state-changed="saveData" datastate="{{avatardata}}" visualstate="{{avatarconfig}}"></locals-avatar>
+ -->
 </div>
   </template>
   <script>
@@ -170,6 +173,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           observer: '_keystore'
         },
 
+        data: {
+          observer: '_data'
+        },
+
         localuserabi: {
           type: Object,
           value: [ { "constant": true, "inputs": [ { "name": "", "type": "address" } ], "name": "Ipfshash", "outputs": [ { "name": "", "type": "string", "value": "" } ], "type": "function" }, { "constant": false, "inputs": [ { "name": "_ipfshash", "type": "string" } ], "name": "addLocalsuser", "outputs": [], "type": "function" }, { "inputs": [], "type": "constructor" } ]
@@ -199,6 +206,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.getLocalbalance();
       },
 
+      saveData: function(e){
+        console.log('data changed: ',e, this.data);
+        //this.$.lsapi.data.collection['locals-avatar'] = { data: e.detail.data, config: e.detail.config };
+        //this.$.lsapi.writeData();
+      },
+
       getLocalbalance: function(){
         //Get Localcoin token balance
         var MyCoinContract = this.web3.eth.contract(this.tokenabi);
@@ -211,13 +224,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         };
       },
 
+      _data: function(){
+        // console.log('has data: ',this.data);
+        // this.avatardata = this.data.collection['locals-avatar'].data;
+        // this.avatarconfig = this.data.collection['locals-avatar'].config;
+        // console.log(JSON.stringify(this.avatarconfig));
+      },
+
       _balans: function(){
         this.ethbalans = this.balans / 1e18;
       },
 
       _keystore: function(){
         var self = this;
-
         var keystore = this.keystore;
         lightwallet.keystore.deriveKeyFromPassword(self.passwd, function(err, pwDerivedKey) {
           console.log('account: ', self.account);

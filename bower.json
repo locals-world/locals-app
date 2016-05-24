@@ -17,7 +17,8 @@
     "locals-style": "https://github.com/locals-world/locals-style.git",
     "locals-button": "https://github.com/locals-world/locals-button.git#^0.0.5",
     "locals-scroller": "https://github.com/locals-world/locals-scroller.git",
-    "locals-lsapi": "https://github.com/locals-world/locals-lsapi.git"
+    "locals-lsapi": "https://github.com/locals-world/locals-lsapi.git",
+    "locals-objectrender": "https://github.com/locals-world/locals-objectrender.git"
   },
   "devDependencies": {
     "web-component-tester": "*",
@@ -25,6 +26,7 @@
   },
   "resolutions": {
     "web3-wallet": "^0.0.8",
-    "ipfs-upload": "^0.0.13"
+    "ipfs-upload": "^0.0.13",
+    "locals-button": "^0.0.5"
   }
 }
