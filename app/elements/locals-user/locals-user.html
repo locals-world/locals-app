@@ -125,7 +125,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <iron-media-query query="(min-width:601px) and (max-width: 1280px)" query-matches="{{desktopview}}"></iron-media-query>
   <iron-media-query query="(min-width:1281px)" query-matches="{{xlargeview}}"></iron-media-query>
   
-  <locals-store hidden="{{hidestore}}"></locals-store>
 
 <div class="topbar">
   <p class="balance">Eth <span>{{ethbalans}}</span></p>
@@ -139,6 +138,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <!-- <locals-avatar on-data-state-changed="saveData" datastate="{{avatardata}}" visualstate="{{avatarconfig}}"></locals-avatar>
  -->
 </div>
+  <locals-store hidden="{{hidestore}}"></locals-store>
+
   </template>
   <script>
   (function() {
