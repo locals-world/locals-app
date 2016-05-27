@@ -15,14 +15,15 @@
     "locals-sync": "https://github.com/locals-world/locals-elements-sync.git",
     "locals-avatar": "https://github.com/locals-world/locals-avatar.git",
     "locals-style": "https://github.com/locals-world/locals-style.git",
-    "locals-button": "https://github.com/locals-world/locals-button.git#^0.0.5",
+    "locals-button": "https://github.com/locals-world/locals-button.git#^0.0.6",
     "locals-scroller": "https://github.com/locals-world/locals-scroller.git",
     "locals-lsapi": "https://github.com/locals-world/locals-lsapi.git",
     "locals-objectrender": "https://github.com/locals-world/locals-objectrender.git",
     "locals-confirm": "https://github.com/locals-world/locals-confirm.git",
     "locals-store": "https://github.com/locals-world/locals-store.git",
     "locals-objectcollection": "https://github.com/locals-world/locals-objectcollection.git",
-    "locals-objectdetail": "https://github.com/locals-world/locals-objectdetail.git"
+    "locals-objectdetail": "https://github.com/locals-world/locals-objectdetail.git",
+    "locals-community": "https://github.com/locals-world/locals-community.git"
   },
   "devDependencies": {
     "web-component-tester": "*",
