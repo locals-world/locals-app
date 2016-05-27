@@ -190,7 +190,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <div drawer class="drawer">
        <div class="balance"><locals-icon small icon="ether" iconcolor="white"></locals-icon><p><span>{{ethbalans}}</span></p></div>
         <div class="balance"><locals-icon small icon="localcoin" iconcolor="white"></locals-icon><p><span>{{locbalans}}</span></p></div>
-        <locals-whisperer></locals-whisperer>
+        <locals-whisperer web3="{{web3}}" on-msg-received="processMsg"></locals-whisperer>
    </div>
   <div main class="main">
     <div class="topbar">
@@ -431,6 +431,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         } else {
           this.storebtnclass = 'kruis';
         }
+      },
+
+      processMsg: function(e){
+        console.log('incoming whisper msg: ', e);
       }
 
     });
