@@ -20,7 +20,8 @@
     "locals-lsapi": "https://github.com/locals-world/locals-lsapi.git",
     "locals-objectrender": "https://github.com/locals-world/locals-objectrender.git",
     "locals-confirm": "https://github.com/locals-world/locals-confirm.git",
-    "locals-store": "https://github.com/locals-world/locals-store.git"
+    "locals-store": "https://github.com/locals-world/locals-store.git",
+    "locals-contractlistener": "https://github.com/locals-world/locals-contractlistener.git#^0.0.8"
   },
   "devDependencies": {
     "web-component-tester": "*",
