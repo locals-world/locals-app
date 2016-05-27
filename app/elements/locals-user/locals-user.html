@@ -11,16 +11,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-localstorage/iron-localstorage.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../../bower_components/paper-drawer-panel/paper-drawer-panel.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
 <link rel="import" href="../../bower_components/web3-wallet/web3-wallet.html">
 <link rel="import" href="../../bower_components/ipfs-upload/ipfs-upload.html">
-<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
 <link rel="import" href="../../bower_components/locals-avatar/locals-avatar.html">
 <link rel="import" href="../../bower_components/locals-button/locals-button.html">
-<link rel="import" href="../../bower_components/locals-scroller/locals-scroller.html">
-<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
 <link rel="import" href="../../bower_components/locals-lsapi/locals-lsapi.html">
+<link rel="import" href="../../bower_components/locals-icon/locals-icon.html">
 <link rel="import" href="../../bower_components/locals-scroller/locals-scroller.html">
 <link rel="import" href="../../bower_components/locals-store/locals-store.html">
+<link rel="import" href="../../bower_components/locals-style/locals-style.html">
+
+
 
 
 <dom-module id="locals-user">
@@ -34,19 +40,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         --scrollarea-padding: 200px 0px 0px 0px;
       }
 
+      p {
+        @apply(--locals-font-body1);
+        @apply(--opensans-semibold);
+      }
+
+
+
       .topbar {
-        width: 100vw;
+        width: 100%;
         height: var(--topbar-height);
         background-color: #a8daf0;
         @apply(--layout-horizontal);
-/*        @apply(--layout-center);
-*//*        @apply(--layout-end-justified);
-*/        box-sizing: border-box;
-        padding: 10px 20px 10px 0px;
+        @apply(--layout-center);
+/*        @apply(--layout-end-justified); */
+        box-sizing: border-box;
+        padding: 10px 20px 10px 10px;
         }
 
       .scrollarea {
-        width: 100vw;
+        width: 100%;
         min-height: var(--scrollarea-height);
         background: url(../../images/locals-bg.png);
         background-size: var(--bg-size);
@@ -67,6 +80,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       }
 
+      .balance {
+        @apply(--layout-horizontal);
+        @apply(--layout-center);
+      }
+
+
 
       locals-store {
         width: 100%;
@@ -75,6 +94,45 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         z-index: 10;
       }
 
+      .menuicon {
+        cursor: pointer;
+        height: 60px;
+        width: 60px;
+        @apply(--layout-horizontal);
+        @apply(--layout-center-center);
+      }
+
+      .normal {
+        transition: all .05s linear;
+        transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+      }
+
+      .kruis {
+        transition: all .05s linear;
+        transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+      }
+/*      paper-drawer-panel {
+        height: 100%;
+      }*/
+
+     .main {
+      overflow-y: scroll;
+     }
+
+      ::-webkit-scrollbar { 
+          display: none; 
+      }
+
+     .drawer {
+      background-color: var(--locals-darkgrey);
+      box-sizing: border-box;
+      padding: 50px;
+      color: white;
+     }
 
     </style>
 
@@ -125,20 +183,33 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <iron-media-query query="(min-width:601px) and (max-width: 1280px)" query-matches="{{desktopview}}"></iron-media-query>
   <iron-media-query query="(min-width:1281px)" query-matches="{{xlargeview}}"></iron-media-query>
   
+
+
+
+<paper-drawer-panel force-narrow>
+  <div drawer class="drawer">
+       <div class="balance"><locals-icon small icon="ether" iconcolor="white"></locals-icon><p><span>{{ethbalans}}</span></p></div>
+        <div class="balance"><locals-icon small icon="localcoin" iconcolor="white"></locals-icon><p><span>{{locbalans}}</span></p></div>
+   </div>
+  <div main class="main">
+    <div class="topbar">
+
+      <div class="menuicon">
+        <locals-icon icon="menu" iconcolor="darkgrey" paper-drawer-toggle></locals-icon>
+      </div>
+      <p class="flex"></p>
+      <locals-button id="storebtn" icon="plus" on-tap="toggleStore" class$="{{storebtnclass}}"></locals-button>
+    </div>
+    <div class="scrollarea">
+      <locals-scroller objects="{{data.collection}}"></locals-scroller>
+<!--         <locals-avatar on-data-state-changed="saveData" datastate="{{avatardata}}" visualstate="{{avatarconfig}}"></locals-avatar> 
+ -->    </div>
   <locals-store hidden="{{hidestore}}"></locals-store>
 
-<div class="topbar">
-  <p class="balance">Eth <span>{{ethbalans}}</span></p>
-  <p> / </p>
-  <p class="balance">LC <span>{{locbalans}}</span></p>
-  <p class="flex"></p>
-  <locals-button id="storebtn" icon="plus" on-tap="toggleStore"></locals-button>
-</div>
-<div class="scrollarea">
-  <locals-scroller objects="{{data.collection}}"></locals-scroller>
-    <!-- <locals-avatar on-data-state-changed="saveData" datastate="{{avatardata}}" visualstate="{{avatarconfig}}"></locals-avatar>
- -->
-</div>
+  </div>
+</paper-drawer-panel>
+
+
   </template>
   <script>
   (function() {
@@ -355,9 +426,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       toggleStore: function(){
         this.hidestore=!this.hidestore;
         if(this.hidestore){
-          this.$.storebtn.icon = 'plus';
+          this.storebtnclass = 'normal';
         } else {
-          this.$.storebtn.icon = 'decline';
+          this.storebtnclass = 'kruis';
         }
       }
 
