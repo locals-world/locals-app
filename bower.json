@@ -24,7 +24,9 @@
     "locals-contractlistener": "https://github.com/locals-world/locals-contractlistener.git#^0.0.8",
     "locals-objectcollection": "https://github.com/locals-world/locals-objectcollection.git",
     "locals-objectdetail": "https://github.com/locals-world/locals-objectdetail.git",
-    "locals-community": "https://github.com/locals-world/locals-community.git"
+    "locals-community": "https://github.com/locals-world/locals-community.git",
+    "locals-verification": "https://github.com/locals-world/locals-verification.git",
+    "locals-whisperer": "https://github.com/locals-world/locals-whisperer.git"
   },
   "devDependencies": {
     "web-component-tester": "*",
