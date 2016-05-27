@@ -21,13 +21,10 @@
     "locals-objectrender": "https://github.com/locals-world/locals-objectrender.git",
     "locals-confirm": "https://github.com/locals-world/locals-confirm.git",
     "locals-store": "https://github.com/locals-world/locals-store.git",
-<<<<<<< HEAD
-    "locals-contractlistener": "https://github.com/locals-world/locals-contractlistener.git#^0.0.8"
-=======
+    "locals-contractlistener": "https://github.com/locals-world/locals-contractlistener.git#^0.0.8",
     "locals-objectcollection": "https://github.com/locals-world/locals-objectcollection.git",
     "locals-objectdetail": "https://github.com/locals-world/locals-objectdetail.git",
     "locals-community": "https://github.com/locals-world/locals-community.git"
->>>>>>> 2e35a7d0b260f813b703673a571591631e44aee8
   },
   "devDependencies": {
     "web-component-tester": "*",
