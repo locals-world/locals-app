@@ -27,8 +27,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/locals-style/locals-style.html">
 <link rel="import" href="../../bower_components/locals-whisperer/locals-whisperer.html">
 
-
-
 <dom-module id="locals-user">
   <template>
     <style>
@@ -138,8 +136,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <iron-localstorage 
       name="locals-password" 
-      value="{{passwd}}">
-    </iron-localstorage>
+      value="{{passwd}}"></iron-localstorage>
 
     <ipfs-upload 
       id="ipfsupload" 
@@ -148,8 +145,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       on-upload-started="" 
       on-upload-error="" 
       host="/ip4/109.123.70.141/tcp/5001"
-      hidefileinput>
-    </ipfs-upload>
+      hidefileinput></ipfs-upload>
 
     <web3-wallet 
       id="web3wallet"
@@ -159,40 +155,65 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       balance="{{balance}}" 
       keystore="{{keystore}}" 
       host="http://109.123.70.141:8545"
-      web3="{{web3}}">
-    </web3-wallet>
+      web3="{{web3}}"></web3-wallet>
 
     <locals-lsapi verbose id="lsapi" privatekey="{{passwd}}" data="{{data}}"></locals-lsapi>
-    
-<!--     <div>Your account: <span>{{fixedaddress}}</span></div>
-    <div>Your Eth balance: <span>{{ethbalans}}</span></div>
-    <div>Your Localcoin balance: <span>{{locbalans}}</span></div>
 
-    <template is="dom-if" if="{{nolocalcoin}}">
-      <h1>You don't have LocalCoin.</h1>
-      <p>Ask LocalTokenAdmin to get you some.</p>
-      <p><i>"can i haz localtokens on this address <span>{{fixedaddress}}</span>?"</i></p>
-    </template> -->
+    <flatiron-director route="{{route}}" autoHash></flatiron-director>
 
-<!--     <template is="dom-if" if="{{!nolocalcoin}}">
-      <h1>You have LocalCoin.</h1>
-      <p>So you can backup!</p>
-      <paper-button raised on-tap="backup"></paper-button>
-    </template> -->
-  <iron-media-query query="(min-width:0px) and (max-width: 600px)" query-matches="{{phoneview}}"></iron-media-query>
-  <iron-media-query query="(min-width:601px) and (max-width: 1280px)" query-matches="{{desktopview}}"></iron-media-query>
-  <iron-media-query query="(min-width:1281px)" query-matches="{{xlargeview}}"></iron-media-query>
-  
+    <!--     <div>
+    Your account:
+    <span>{{fixedaddress}}</span>
+  </div>
+  <div>
+    Your Eth balance:
+    <span>{{ethbalans}}</span>
+  </div>
+  <div>
+    Your Localcoin balance:
+    <span>{{locbalans}}</span>
+  </div>
 
-
+  <template is="dom-if" if="{{nolocalcoin}}">
+    <h1>You don't have LocalCoin.</h1>
+    <p>Ask LocalTokenAdmin to get you some.</p>
+    <p> <i>"can i haz localtokens on this address
+        <span>{{fixedaddress}}</span>
+        ?"</i> 
+    </p>
+  </template>
+  -->
+  <!--     <template is="dom-if" if="{{!nolocalcoin}}">
+  <h1>You have LocalCoin.</h1>
+  <p>So you can backup!</p>
+  <paper-button raised on-tap="backup"></paper-button>
+</template>
+-->
+<iron-media-query query="(min-width:0px) and (max-width: 600px)" query-matches="{{phoneview}}"></iron-media-query>
+<iron-media-query query="(min-width:601px) and (max-width: 1280px)" query-matches="{{desktopview}}"></iron-media-query>
+<iron-media-query query="(min-width:1281px)" query-matches="{{xlargeview}}"></iron-media-query>
 
 <paper-drawer-panel force-narrow>
   <div drawer class="drawer">
-       <div class="balance"><locals-icon small icon="ether" iconcolor="white"></locals-icon><p><span>{{ethbalans}}</span></p></div>
-        <div class="balance"><locals-icon small icon="localcoin" iconcolor="white"></locals-icon><p><span>{{locbalans}}</span></p></div>
-        <locals-whisperer web3="{{web3}}" id="whisper" on-msg-received="processMsg"></locals-whisperer>
-   </div>
+    <div class="balance">
+      <locals-icon small icon="ether" iconcolor="white"></locals-icon>
+      <p>
+        <span>{{ethbalans}}</span>
+      </p>
+    </div>
+    <div class="balance">
+      <locals-icon small icon="localcoin" iconcolor="white"></locals-icon>
+      <p>
+        <span>{{locbalans}}</span>
+      </p>
+    </div>
+    <locals-whisperer web3="{{web3}}" id="whisper" on-msg-received="processMsg"></locals-whisperer>
+  </div>
   <div main class="main">
+  DE ROUTE IS {{route}}
+ <neon-animated-pages selected="{{route}}" attr-for-selected="route">
+    <neon-animatable route="">
+
     <div class="topbar">
 
       <div class="menuicon">
@@ -202,18 +223,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <locals-button id="storebtn" icon="plus" on-tap="toggleStore" class$="{{storebtnclass}}"></locals-button>
     </div>
     <div class="scrollarea">
-<!--       <h1>TESTs</h1> -->
-      <locals-scroller objects="{{data.collection}}"></locals-scroller>
-<!--         <locals-avatar on-data-state-changed="saveData" datastate="{{avatardata}}" visualstate="{{avatarconfig}}"></locals-avatar> 
- -->    </div>
-  <locals-store hidden="{{hidestore}}"></locals-store>
+      <!--       <h1>TESTs</h1>
+    -->
+    <locals-scroller objects="{{data.collection}}"></locals-scroller>
+    <!--         <locals-avatar on-data-state-changed="saveData" datastate="{{avatardata}}" visualstate="{{avatarconfig}}"></locals-avatar>
+  -->
 
-  </div>
+</div>
+  </neon-animatable>
+   <neon-animatable route="store">
+   DE STOOR
+      <locals-store hidden="{{hidestore}}"></locals-store>
+  </neon-animatable>
+  </neon-animated-pages>
+
+</div>
 </paper-drawer-panel>
 
-
-  </template>
-  <script>
+</template>
+<script>
   (function() {
     'use strict';
 
@@ -433,6 +461,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         } else {
           this.storebtnclass = 'kruis';
         }
+        this.route = "store";
       },
 
 
@@ -508,5 +537,4 @@ var easKey = this.validations[input.from].easkey;
 
     });
   })();
-  </script>
-</dom-module>
+  </script></dom-module>

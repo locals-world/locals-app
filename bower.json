@@ -26,7 +26,8 @@
     "locals-objectdetail": "https://github.com/locals-world/locals-objectdetail.git",
     "locals-community": "https://github.com/locals-world/locals-community.git",
     "locals-verification": "https://github.com/locals-world/locals-verification.git",
-    "locals-whisperer": "https://github.com/locals-world/locals-whisperer.git"
+    "locals-whisperer": "https://github.com/locals-world/locals-whisperer.git",
+    "flatiron-director": "https://github.com/PolymerLabs/flatiron-director.git#^1.0.0"
   },
   "devDependencies": {
     "web-component-tester": "*",
