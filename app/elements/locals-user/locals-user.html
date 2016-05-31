@@ -196,26 +196,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <paper-drawer-panel force-narrow>
   <div drawer class="drawer">
     <div class="balance">
-      <locals-icon small icon="ether" iconcolor="white"></locals-icon>
-      <p>
-        <span>{{ethbalans}}</span>
-      </p>
+      <locals-icon small icon="ether" iconcolor="white"></locals-icon><p><span>{{ethbalans}}</span></p>
     </div>
     <div class="balance">
-      <locals-icon small icon="localcoin" iconcolor="white"></locals-icon>
-      <p>
-        <span>{{locbalans}}</span>
-      </p>
+      <locals-icon small icon="localcoin" iconcolor="white"></locals-icon><p><span>{{locbalans}}</span></p>
     </div>
     <locals-whisperer web3="{{web3}}" id="whisper" on-msg-received="processMsg"></locals-whisperer>
   </div>
+
   <div main class="main">
   DE ROUTE IS {{route}}
- <neon-animated-pages selected="{{route}}" attr-for-selected="route">
+  <neon-animated-pages selected="{{route}}" attr-for-selected="route">
     <neon-animatable route="">
-
     <div class="topbar">
-
       <div class="menuicon">
         <locals-icon icon="menu" iconcolor="darkgrey" paper-drawer-toggle></locals-icon>
       </div>
@@ -223,14 +216,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <locals-button id="storebtn" icon="plus" on-tap="toggleStore" class$="{{storebtnclass}}"></locals-button>
     </div>
     <div class="scrollarea">
-      <!--       <h1>TESTs</h1>
-    -->
-    <locals-scroller objects="{{data.collection}}"></locals-scroller>
-    <!--         <locals-avatar on-data-state-changed="saveData" datastate="{{avatardata}}" visualstate="{{avatarconfig}}"></locals-avatar>
-  -->
-
-</div>
+      <locals-scroller objects="{{data.collection}}" route="{{route}}"></locals-scroller>
+    </div>
   </neon-animatable>
+
+   <neon-animatable route="objectdetail">
+   De objectdetail hier
+        <!-- ZO WERKTE DIE IN SCROLLER -->
+       <locals-objectrender on-tap="gotoEdit" key="{{selecteditem.key}}" objectdata="{{selecteditem.data}}" class="objectrender"></locals-objectrender>
+  </neon-animatable>
+
+
    <neon-animatable route="store">
    DE STOOR
       <locals-store hidden="{{hidestore}}"></locals-store>
