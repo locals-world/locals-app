@@ -506,11 +506,17 @@ gotodetail: function(e){
             break;
           case "senduserdata" :
 
-var easKey = this.validations[input.from].easkey;
+          var easKey = this.validations[input.from].easkey;
+debugger;
+          var decryptedAvatar = CryptoJS.AES.decrypt(input.data,easKey).toString(CryptoJS.enc.Utf8);
 
-          var decryptedAvatar = CryptoJS.AES.decrypt(input.data,easKey);
+          console.log('AESKEY=--',easKey,'--');
+          console.log('ENCDATA=',input.data);
+          console.log('DATA=',decryptedAvatar);
 
-            console.log('show data + validate',decryptedAvatar);
+
+
+            console.log('show data + validate',input.data,decryptedAvatar);
             break;
 
           default:
