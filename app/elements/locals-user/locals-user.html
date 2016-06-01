@@ -12,8 +12,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/iron-localstorage/iron-localstorage.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../../bower_components/neon-animation/neon-animation.html">
 <link rel="import" href="../../bower_components/paper-drawer-panel/paper-drawer-panel.html">
-<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<!-- <link rel="import" href="../../bower_components/paper-button/paper-button.html"> -->
 
 <link rel="import" href="../../bower_components/web3-wallet/web3-wallet.html">
 <link rel="import" href="../../bower_components/ipfs-upload/ipfs-upload.html">
@@ -27,15 +28,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/locals-style/locals-style.html">
 <link rel="import" href="../../bower_components/locals-whisperer/locals-whisperer.html">
 
+<link rel="import" href="locals-home.html">
+<link rel="import" href="locals-detail.html">
+
+
 <dom-module id="locals-user">
   <template>
     <style>
       :host {
         display: block;
-        --topbar-height: 100px;
-        --scrollarea-height: 800px;
-        --bg-size: auto 800px;
-        --scrollarea-padding: 200px 0px 0px 0px;
       }
 
       p {
@@ -43,79 +44,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         @apply(--opensans-semibold);
       }
 
-
-
-      .topbar {
-        width: 100%;
-        height: var(--topbar-height);
-        background-color: #a8daf0;
-        @apply(--layout-horizontal);
-        @apply(--layout-center);
-/*        @apply(--layout-end-justified); */
-        box-sizing: border-box;
-        padding: 10px 20px 10px 10px;
-        }
-
-      .scrollarea {
-        width: 100%;
-        min-height: var(--scrollarea-height);
-        background: url(../../images/locals-bg.png);
-        background-size: var(--bg-size);
-        background-repeat: repeat-x;
-        @apply(--layout-horizontal);
-        @apply(--layout-center-justified);
-        box-sizing: border-box;
-        padding: var(--scrollarea-padding);
-      }
-
-      .flex {
-        @apply(--layout-horizontal);
-        @apply(--layout-flex);
-      }
-
-      #storebtn {
-        z-index: 11;
-
-      }
-
       .balance {
         @apply(--layout-horizontal);
         @apply(--layout-center);
       }
 
-
-
-      locals-store {
-        width: 100%;
-        height: 100%;
-        @apply(--layout-fit);
-        z-index: 10;
-      }
-
-      .menuicon {
-        cursor: pointer;
-        height: 60px;
-        width: 60px;
-        @apply(--layout-horizontal);
-        @apply(--layout-center-center);
-      }
-
-      .normal {
-        transition: all .05s linear;
-        transform: rotate(0deg);
-        -ms-transform: rotate(0deg);
-        -webkit-transform: rotate(0deg);
-      }
-
-      .kruis {
-        transition: all .05s linear;
-        transform: rotate(45deg);
-        -ms-transform: rotate(45deg);
-        -webkit-transform: rotate(45deg);
-      }
-/*      paper-drawer-panel {
-        height: 100%;
-      }*/
 
      .main {
       overflow-y: scroll;
@@ -131,6 +64,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       padding: 50px;
       color: white;
      }
+
 
     </style>
 
@@ -192,8 +126,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <iron-media-query query="(min-width:601px) and (max-width: 1280px)" query-matches="{{desktopview}}"></iron-media-query>
 <iron-media-query query="(min-width:1281px)" query-matches="{{xlargeview}}"></iron-media-query>
 
-<paper-drawer-panel force-narrow>
+<paper-drawer-panel  id="drawer" force-narrow>
   <div drawer class="drawer">
+  DE ROUTE IS "{{appMenu}}"
     <div class="balance">
       <locals-icon small icon="ether" iconcolor="white"></locals-icon><p><span>{{ethbalans}}</span></p>
     </div>
@@ -212,31 +147,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   ></excess-route>
 
 
-  DE ROUTE IS "{{appMenu}}"
-  <neon-animated-pages selected="{{appMenu}}" attr-for-selected="route">
-    <neon-animatable route="home">
-    <div class="topbar">
-      <div class="menuicon">
-        <locals-icon icon="menu" iconcolor="darkgrey" paper-drawer-toggle></locals-icon>
-      </div>
-      <p class="flex"></p>
-      <locals-button id="storebtn" icon="plus" on-tap="toggleStore" class$="{{storebtnclass}}"></locals-button>
-    </div>
-    <div class="scrollarea">
-      <locals-scroller objects="{{data.collection}}" on-object-selected="gotodetail"></locals-scroller>
-    </div>
-  </neon-animatable>
 
-   <neon-animatable route="objectdetail">
-   De objectdetail hier
-        <!-- ZO WERKTE DIE IN SCROLLER -->
-       <locals-objectrender on-tap="gotoEdit" state="open" key="{{selecteditem.key}}" objectdata="{{selecteditem.data}}" class="objectrender"></locals-objectrender>
+  <neon-animated-pages
+  selected="{{appMenu}}"
+  attr-for-selected="route">
+    <locals-home route="home" data="{{data}}" on-to-detail="toDetail" on-toggle-drawer="drawertoggle" sizeview="{{sizeview}}"></locals-home>
+<!--     <locals-home route="home" objects="{{objects}}" on-to-detail="toDetail" on-toggle-drawer="drawertoggle" sizeview="{{sizeview}}"></locals-home>
+ -->
+    <locals-detail route="objectdetail" objectdata="{{selecteditem.data}}" key="{{selecteditem.key}}" renderstate="open" on-to-home="toHome" sizeview="{{sizeview}}"></locals-detail>
   </neon-animatable>
 
 
    <neon-animatable route="store">
    DE STOOR
-      <locals-store hidden="{{hidestore}}"></locals-store>
+      <locals-store></locals-store>
   </neon-animatable>
   </neon-animated-pages>
 
@@ -324,11 +248,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         console.log(e);
       },
 
-gotodetail: function(e){
-  console.log('Ga naar detail',e.detail.object);
-  this.selecteditem = e.detail.object;
-  Excess.RouteManager.transitionTo('/objectdetail');
-},
+      toDetail: function(e){
+        // console.log('IN USER ******',e.detail.object);
+        this.selecteditem = e.detail.object;
+        Excess.RouteManager.transitionTo('/objectdetail');
+      },
+
+      toHome: function(){
+        Excess.RouteManager.transitionTo('/home');
+      },
 
       _account: function(){
         this.fixedaddress = this.fixaddress(this.account);
@@ -439,38 +367,26 @@ gotodetail: function(e){
 
       _sizeview: function(){
         if (this.phoneview) {
-          this.customStyle['--topbar-height'] = '100px';
-          this.customStyle['--scrollarea-height'] = '320px';
-          this.customStyle['--scrollarea-padding'] = '0px 0px 0px 0px';
-          this.customStyle['--bg-size'] = 'auto 320px';
-          this.updateStyles();
+          this.sizeview = 'phone';
         }
         if (this.desktopview) {
-          this.customStyle['--topbar-height'] = '100px';
-          this.customStyle['--scrollarea-height'] = '490px';
-          this.customStyle['--scrollarea-padding'] = '48px 0px 0px 0px';
-          this.customStyle['--bg-size'] = 'auto 490px';
-          this.updateStyles();
+          this.sizeview = 'desktop';
         }
         if (this.xlargeview) {
-          this.customStyle['--topbar-height'] = '100px';
-          this.customStyle['--scrollarea-height'] = '600px';
-          this.customStyle['--scrollarea-padding'] = '50px 0px 0px 0px';
-          this.customStyle['--bg-size'] = 'auto 600px';
-          this.updateStyles();
+          this.sizeview = 'xlarge';
         }
 
       },
 
-      toggleStore: function(){
-        this.hidestore=!this.hidestore;
-        if(this.hidestore){
-          this.storebtnclass = 'normal';
-        } else {
-          this.storebtnclass = 'kruis';
-        }
-        this.route = "store";
-      },
+      // toggleStore: function(){
+      //   this.hidestore=!this.hidestore;
+      //   if(this.hidestore){
+      //     this.storebtnclass = 'normal';
+      //   } else {
+      //     this.storebtnclass = 'kruis';
+      //   }
+      //   this.route = "store";
+      // },
 
 
 
@@ -541,7 +457,15 @@ var easKey = this.validations[input.from].easkey;
 
 
 
-      }
+      },
+
+    back: function(){
+        Excess.RouteManager.transitionTo('/home');
+    },
+
+    drawertoggle: function() {
+      this.$.drawer.togglePanel();
+    }
 
     });
   })();

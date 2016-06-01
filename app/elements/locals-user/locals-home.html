@@ -1,0 +1,280 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-localstorage/iron-localstorage.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../../bower_components/neon-animation/neon-animation.html">
+<link rel="import" href="../../bower_components/neon-animation/neon-shared-element-animatable-behavior.html">
+
+<link rel="import" href="../../bower_components/paper-drawer-panel/paper-drawer-panel.html">
+
+<!-- <link rel="import" href="../../bower_components/paper-button/paper-button.html"> -->
+
+<link rel="import" href="../../bower_components/web3-wallet/web3-wallet.html">
+<link rel="import" href="../../bower_components/ipfs-upload/ipfs-upload.html">
+
+<link rel="import" href="../../bower_components/locals-avatar/locals-avatar.html">
+<link rel="import" href="../../bower_components/locals-button/locals-button.html">
+<link rel="import" href="../../bower_components/locals-lsapi/locals-lsapi.html">
+<link rel="import" href="../../bower_components/locals-icon/locals-icon.html">
+<link rel="import" href="../../bower_components/locals-scroller/locals-scroller.html">
+<link rel="import" href="../../bower_components/locals-store/locals-store.html">
+<link rel="import" href="../../bower_components/locals-style/locals-style.html">
+<link rel="import" href="../../bower_components/locals-whisperer/locals-whisperer.html">
+
+
+
+<dom-module id="locals-home">
+  <template>
+    <style>
+      :host {
+        display: block;
+        --topbar-height: 100px;
+        --scrollarea-height: 800px;
+        --bg-size: auto 800px;
+        --scrollarea-padding: 200px 0px 0px 0px;
+      }
+
+
+      .topbar {
+        width: 100%;
+        height: var(--topbar-height);
+        background-color: #a8daf0;
+        @apply(--layout-horizontal);
+        @apply(--layout-center);
+        box-sizing: border-box;
+        padding: 10px 20px 10px 10px;
+        }
+
+      .scrollarea {
+        width: 100%;
+        min-height: var(--scrollarea-height);
+        background: url(../../images/locals-bg.png);
+        background-size: var(--bg-size);
+        background-repeat: repeat-x;
+        @apply(--layout-horizontal);
+        @apply(--layout-center-justified);
+        box-sizing: border-box;
+        padding: var(--scrollarea-padding);
+      }
+
+      .flex {
+        @apply(--layout-horizontal);
+        @apply(--layout-flex);
+      }
+
+      #storebtn {
+        z-index: 11;
+
+      }
+
+      .balance {
+        @apply(--layout-horizontal);
+        @apply(--layout-center);
+      }
+
+
+      .menuicon {
+        cursor: pointer;
+        height: 60px;
+        width: 60px;
+        @apply(--layout-horizontal);
+        @apply(--layout-center-center);
+      }
+
+      #test {
+        width: 50px;
+        height: 20px;
+        background-color: green;
+        display: none;
+
+      }
+
+
+
+      ::-webkit-scrollbar { 
+          display: none; 
+      }
+
+      #fooContainer {
+        @apply(--layout-horizontal);
+        @apply(--layout-center);
+        width: 100%;
+        overflow-x: scroll;
+        box-sizing: border-box;
+        padding-left: 10vw; 
+      }
+      locals-objectrender {
+        background-color: red
+      }
+
+    </style>
+
+    
+    <div class="topbar">
+      <div class="menuicon">
+        <locals-icon icon="menu" iconcolor="darkgrey" on-tap="firetoggle"></locals-icon>
+      </div>
+      <p class="flex"></p>
+      <locals-button id="storebtn" icon="plus" on-tap="toggleStore" class$="{{storebtnclass}}"></locals-button>
+    </div>
+
+    <div class="scrollarea">
+      <div id="fooContainer">
+          <template is="dom-repeat" items="{{dataset}}">
+            <div id="total">
+              <locals-objectrender on-detail-tapped="gotodetail" key="{{dataset.key}}" objectdata="{{item}}" renderstate="closed" class="foo">
+              </locals-objectrender>
+            </div>
+          </template>
+      </div>
+    </div>
+
+</template>
+<script>
+  (function() {
+    'use strict';
+
+    Polymer({
+      is: 'locals-home',
+    behaviors: [
+      Polymer.NeonSharedElementAnimatableBehavior
+    ],
+
+      properties: {
+
+        data: {
+          observer: '_data'
+        },
+
+        sizeview: {
+          type: String,
+          observer: '_sizeview'
+        },
+
+        animationConfig: {
+          value: function() {
+            return {
+              'entry': {
+                name: 'hero-animation',
+                id: 'hero',
+                toPage: this
+              },
+
+              'exit': {
+                name: 'hero-animation',
+                id: 'hero',
+                fromPage: this
+              }
+            };
+          }
+        },
+
+        sharedElements: {
+          value: function(){
+           return {
+            'hero': this.$.test
+           } 
+          }
+        }
+
+      },
+
+      ready: function(){
+      },
+     attached: function() {
+      window.sr = ScrollReveal({distance: 0, origin: 'top', scale: 0.4, reset: true});
+      var fooContainer = document.getElementById('fooContainer');
+      sr.reveal('.foo', { opacity: 1, easing: 'cubic-bezier(0.150, 0.450, 0.150, 0.735)', viewFactor:0.1, duration: 300,
+            delay: 0, container: fooContainer, distance: 0, origin: 'top', scale: 0.6, reset: true });
+      },
+
+
+
+      gotodetail: function(e){
+        console.log('Ga naar detail',e.detail);
+        this.fire('to-detail', {object: e.detail})
+      },
+
+
+      _data: function(){
+        console.log('****** HOME has data: ',this.data.collection);
+      this.dataset = this.object2array(this.data.collection);
+
+      },
+
+
+      _sizeview: function(){
+        switch(this.sizeview) {
+            case 'phone':
+                this.customStyle['--topbar-height'] = '100px';
+                this.customStyle['--scrollarea-height'] = '320px';
+                this.customStyle['--scrollarea-padding'] = '0px 0px 0px 0px';
+                this.customStyle['--bg-size'] = 'auto 320px';
+                this.updateStyles();
+                break;
+            case 'desktop':
+                this.customStyle['--topbar-height'] = '100px';
+                this.customStyle['--scrollarea-height'] = '490px';
+                this.customStyle['--scrollarea-padding'] = '48px 0px 0px 0px';
+                this.customStyle['--bg-size'] = 'auto 490px';
+                this.updateStyles();
+                break;
+            case 'xlarge':
+                this.customStyle['--topbar-height'] = '100px';
+                this.customStyle['--scrollarea-height'] = '600px';
+                this.customStyle['--scrollarea-padding'] = '50px 0px 0px 0px';
+                this.customStyle['--bg-size'] = 'auto 600px';
+                this.updateStyles();
+                break;
+            default:
+            console.log("!!! ** Niks");
+        }
+      },
+
+
+      back: function(){
+        Excess.RouteManager.transitionTo('/home');
+      },
+
+      firetoggle: function(){
+        this.fire('toggle-drawer');
+      },
+
+
+    // selectobject: function(e) {
+    //   this.selectedobject = this.dataset[e.target.id];
+    //   this.fire('object-selected', {object: this.selectedobject});
+    // },
+
+    // back: function(){
+    //   this.page = 0;
+    // },
+
+    object2array: function(input){
+      var newarray = [];
+      var p = input;
+      var previewdata = Object.keys(input);
+      for (var key in p) {        
+        if (p.hasOwnProperty(key)) {
+          newarray.key = key;
+          newarray.push(p[key]);
+        }
+      };
+      return newarray;
+    }
+
+
+
+    });
+  })();
+  </script></dom-module>

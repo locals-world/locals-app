@@ -1,0 +1,458 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-localstorage/iron-localstorage.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../../bower_components/neon-animation/neon-animation.html">
+<link rel="import" href="../../bower_components/neon-animation/neon-shared-element-animatable-behavior.html">
+
+<link rel="import" href="../../bower_components/paper-drawer-panel/paper-drawer-panel.html">
+
+<!-- <link rel="import" href="../../bower_components/paper-button/paper-button.html"> -->
+
+<link rel="import" href="../../bower_components/web3-wallet/web3-wallet.html">
+<link rel="import" href="../../bower_components/ipfs-upload/ipfs-upload.html">
+
+<link rel="import" href="../../bower_components/locals-avatar/locals-avatar.html">
+<link rel="import" href="../../bower_components/locals-button/locals-button.html">
+<link rel="import" href="../../bower_components/locals-lsapi/locals-lsapi.html">
+<link rel="import" href="../../bower_components/locals-icon/locals-icon.html">
+<link rel="import" href="../../bower_components/locals-objectrender/locals-objectrender.html">
+<link rel="import" href="../../bower_components/locals-store/locals-store.html">
+<link rel="import" href="../../bower_components/locals-style/locals-style.html">
+<link rel="import" href="../../bower_components/locals-whisperer/locals-whisperer.html">
+
+
+
+<dom-module id="locals-detail">
+  <template>
+    <style>
+      :host {
+        display: block;
+        --topbar-height: 100px;
+        --scrollarea-height: 800px;
+        --bg-size: auto 800px;
+        --scrollarea-padding: 200px 0px 0px 0px;
+      }
+
+      p {
+        @apply(--locals-font-body1);
+        @apply(--opensans-semibold);
+      }
+
+
+
+      .topbar {
+        width: 100%;
+        height: var(--topbar-height);
+        background-color: #a8daf0;
+        @apply(--layout-horizontal);
+        @apply(--layout-center);
+/*        @apply(--layout-end-justified); */
+        box-sizing: border-box;
+        padding: 10px 20px 10px 10px;
+        }
+
+      .scrollarea {
+        width: 100%;
+        min-height: var(--scrollarea-height);
+        background: url(../../images/locals-bg.png);
+        background-size: var(--bg-size);
+        background-repeat: repeat-x;
+        @apply(--layout-horizontal);
+        @apply(--layout-center-justified);
+        box-sizing: border-box;
+        padding: var(--scrollarea-padding);
+      }
+
+      .flex {
+        @apply(--layout-horizontal);
+        @apply(--layout-flex);
+      }
+
+      #storebtn {
+        z-index: 11;
+
+      }
+
+      .balance {
+        @apply(--layout-horizontal);
+        @apply(--layout-center);
+      }
+
+
+      .menuicon {
+        cursor: pointer;
+        height: 60px;
+        width: 60px;
+        @apply(--layout-horizontal);
+        @apply(--layout-center-center);
+      }
+
+
+
+
+
+      ::-webkit-scrollbar { 
+          display: none; 
+      }
+      #test {
+        width: 150px;
+        height: 80px;
+        background-color: blue;
+        display: none;
+      }
+
+      locals-objectrender {
+        background-color: red;
+        width: 100%;
+      }
+
+    </style>
+
+    
+    <div class="topbar">
+      <p class="flex"></p>
+      <locals-button icon="decline" on-tap="back"></locals-button>
+    </div>
+    <div id="test"></div>
+    <div class="scrollarea">
+       <locals-objectrender renderstate="{{renderstate}}" key="{{key}}" objectdata="{{objectdata}}" class="objectrender"></locals-objectrender>
+       </div>
+
+</template>
+<script>
+  (function() {
+    'use strict';
+
+    Polymer({
+      is: 'locals-detail',
+    behaviors: [
+      Polymer.NeonSharedElementAnimatableBehavior
+    ],
+      properties: {
+        objectdata: {
+          type: Object,
+          observer: '_objectdata'
+        },
+        key: {
+          type: String,
+          observer: '_key'
+        },
+
+        sizeview: {
+          type: String,
+          observer: '_sizeview'
+        },
+
+      animationConfig: {
+        value: function() {
+          return {
+            'entry': {
+              name: 'hero-animation',
+              id: 'hero',
+              toPage: this
+            },
+
+            'exit': {
+              name: 'hero-animation',
+              id: 'hero',
+              fromPage: this
+            }
+          };
+        }
+      },
+
+      sharedElements: {
+          value: function(){
+           return {
+            'hero': this.$.test
+           } 
+          }
+        }
+
+
+
+
+      },
+
+      ready: function(){
+        // this.nolocalcoin = true;
+        // this.hidestore = true;
+        // this.storeicon = 'plus';
+        // this.validations = {};
+      },
+
+      // test: function(e){
+      //   console.log(e);
+      // },
+
+    // gotodetail: function(e){
+    //   console.log('Ga naar detail',e.detail.object);
+    //   this.selecteditem = e.detail.object;
+    //   Excess.RouteManager.transitionTo('/objectdetail');
+    // },
+
+      // _account: function(){
+      //   this.fixedaddress = this.fixaddress(this.account);
+      // },
+
+      // _web3: function(){
+      //   this.balans = this.$.web3wallet.updateBalance();
+      //   this.getLocalbalance();
+      // },
+
+      // saveData: function(e){
+      //   console.log('data changed: ',e, this.data);
+      // },
+
+      // getLocalbalance: function(){
+        //Get Localcoin token balance
+      //   var MyCoinContract = this.web3.eth.contract(this.tokenabi);
+      //   var myCoinContractInstance = MyCoinContract.at(this.tokenaddr);
+      //   var account = this.fixaddress(this.account);
+      //   var coinbalance = myCoinContractInstance.balanceOf(account).toNumber();
+      //   this.locbalans = coinbalance / 100;
+      //   if(coinbalance > 0){
+      //     this.nolocalcoin = false;
+      //   };
+      // },
+
+      _data: function(){
+        // console.log('has data: ',this.data);
+        // this.avatardata = this.data.collection['locals-avatar'].data;
+        // this.avatarconfig = this.data.collection['locals-avatar'].config;
+        // console.log(JSON.stringify(this.avatarconfig));
+      },
+
+      // _balans: function(){
+      //   this.ethbalans = this.balans / 1e18;
+      // },
+
+      // _keystore: function(){
+      //   var self = this;
+      //   var keystore = this.keystore;
+      //   lightwallet.keystore.deriveKeyFromPassword(self.passwd, function(err, pwDerivedKey) {
+      //     console.log('account: ', self.account);
+      //     console.log(keystore.exportPrivateKey(self.account, pwDerivedKey));
+      //   });
+      // },
+
+      // transactionlog: function(e){
+      //   console.log(e);
+      // },
+
+      // backup: function(){
+      //   var self = this;
+      //   this.$.ipfsupload.add(JSON.stringify(this.keystore), function(err, res) {
+      //     if (!err && res[0] && res[0].Hash) {
+      //       console.log(res[0].Hash);
+      //       var hash = res[0].Hash;
+      //       var myuserContract = self.web3.eth.contract(self.localuserabi);
+      //       var myuserContractInstance = myuserContract.at(self.localsuseraddr);
+
+      //       self.web3.eth.getGasPrice(function(err, result) {
+
+      //         var gasPrice = result.toNumber(10);
+      //         self.transactionlog('gas price: ', gasPrice);
+
+      //         var options = {
+      //           from: self.fixaddress(self.account),
+      //           //value: 1 * 1e18,
+      //           gas: 200000,
+      //           gasPrice: gasPrice,
+      //           nonce: new Date().getTime(),
+      //         };
+
+      //         self.transactionlog('Saving IPFS hash');
+      //         self.pageselected = 2;
+
+      //         var result = myuserContractInstance.addLocalsuser.sendTransaction(hash, options,
+      //           function(err, txhash) {
+      //             if (err != null) {
+      //               console.log(err);
+      //               self.transactionlog('ERROR: Transaction didnt go through. See console.');
+      //             } else {
+      //               self.transactionlog('Transaction success: ', txhash);
+      //               console.log('Tx hash=', txhash);
+      //               // this triggers the locals-contractlistener component
+      //               self.txhash = txhash;
+      //             }
+
+      //             self.transactionlog('Your IPFS Hash has been added to the blockchain');
+      //           });
+      //       });
+      //     };
+      //   });
+      // },
+
+      // fixaddress: function(address) {
+      //   function strStartsWith(str, prefix) {
+      //     return str.indexOf(prefix) === 0;
+      //   }
+
+      //   if (!strStartsWith(address, '0x')) {
+      //     return ('0x' + address);
+      //   }
+      //   return address;
+      // },
+
+
+      // _sizeview: function(){
+      //   if (this.phoneview) {
+      //     this.customStyle['--topbar-height'] = '100px';
+      //     this.customStyle['--scrollarea-height'] = '320px';
+      //     this.customStyle['--scrollarea-padding'] = '0px 0px 0px 0px';
+      //     this.customStyle['--bg-size'] = 'auto 320px';
+      //     this.updateStyles();
+      //   }
+      //   if (this.desktopview) {
+      //     this.customStyle['--topbar-height'] = '100px';
+      //     this.customStyle['--scrollarea-height'] = '490px';
+      //     this.customStyle['--scrollarea-padding'] = '48px 0px 0px 0px';
+      //     this.customStyle['--bg-size'] = 'auto 490px';
+      //     this.updateStyles();
+      //   }
+      //   if (this.xlargeview) {
+      //     this.customStyle['--topbar-height'] = '100px';
+      //     this.customStyle['--scrollarea-height'] = '600px';
+      //     this.customStyle['--scrollarea-padding'] = '50px 0px 0px 0px';
+      //     this.customStyle['--bg-size'] = 'auto 600px';
+      //     this.updateStyles();
+      //   }
+
+      // },
+
+      // toggleStore: function(){
+      //   this.hidestore=!this.hidestore;
+      //   if(this.hidestore){
+      //     this.storebtnclass = 'normal';
+      //   } else {
+      //     this.storebtnclass = 'kruis';
+      //   }
+      //   this.route = "store";
+      // },
+
+
+
+      // processMsg: function(e){
+      //   console.log('incoming whisper msg: ', e.detail);
+
+      //   var input = JSON.parse(e.detail.input)
+
+      //   switch (input.command){
+      //     case "senduserrequest":
+      //       console.log('create AES key and send it to other party', input.data);
+
+      //       var crypt = new JSEncrypt({
+      //         default_key_size: 512
+      //       });
+      //       crypt.setPublicKey(input.data.pubkey);
+
+      //       var aeskey = generateKey(50);
+      //       this.validations[input.from] = {
+      //         easkey: aeskey,
+      //         pubkey:input.data.pubkey
+      //       };
+
+      //       var encryptedkey = crypt.encrypt(aeskey);
+
+      //       this.$.whisper.whisperpost(input.from, JSON.stringify({
+      //         command: 'sendaeskey',
+      //         from: this.$.whisper.topic,
+      //         data: encryptedkey
+      //       }));
+
+      //       break;
+      //     case "senduserdata" :
+
+      //     var easKey = this.validations[input.from].easkey;
+
+      //     var decryptedAvatar = CryptoJS.AES.decrypt(input.data,easKey);
+
+      //       console.log('show data + validate',decryptedAvatar);
+      //       break;
+
+      //     default:
+      //       //console.log('discard message',e.detail);
+      //       break;
+
+      //   }        
+
+
+        // define the characters to pick from
+       
+        // create a key for symmetric encryption
+        // pass in the desired length of your key
+        // function generateKey(keyLength){
+        //    var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz*&-%/!?*+=()";
+        //   var randomstring = '';
+          
+        //   for (var i=0; i < keyLength; i++) {
+        //     var rnum = Math.floor(Math.random() * chars.length);
+        //     randomstring += chars.substring(rnum,rnum+1);
+        //   }
+        //   return randomstring;
+        // };
+
+
+
+
+
+
+
+
+      // },
+      _sizeview: function(){
+        switch(this.sizeview) {
+        case 'phone':
+            this.customStyle['--topbar-height'] = '100px';
+            this.customStyle['--scrollarea-height'] = '320px';
+            this.customStyle['--scrollarea-padding'] = '0px 0px 0px 0px';
+            this.customStyle['--bg-size'] = 'auto 320px';
+            this.updateStyles();
+            break;
+        case 'desktop':
+            this.customStyle['--topbar-height'] = '100px';
+            this.customStyle['--scrollarea-height'] = '490px';
+            this.customStyle['--scrollarea-padding'] = '48px 0px 0px 0px';
+            this.customStyle['--bg-size'] = 'auto 490px';
+            this.updateStyles();
+            break;
+        case 'xlarge':
+            this.customStyle['--topbar-height'] = '100px';
+            this.customStyle['--scrollarea-height'] = '600px';
+            this.customStyle['--scrollarea-padding'] = '50px 0px 0px 0px';
+            this.customStyle['--bg-size'] = 'auto 600px';
+            this.updateStyles();
+            break;
+        default:
+        console.log("!!! ** Niks");
+        }
+      },
+
+    back: function(){
+        this.fire('to-home');
+    },
+
+    _objectdata: function(){
+      // console.log("Dit is objectdata in Detail:", this.objectdata);
+    },
+
+    _key: function(){
+      // console.log("Dit is key in Detail:", this.key);
+    }
+
+
+    });
+  })();
+  </script></dom-module>
