@@ -27,7 +27,8 @@
     "locals-community": "https://github.com/locals-world/locals-community.git",
     "locals-verification": "https://github.com/locals-world/locals-verification.git",
     "locals-whisperer": "https://github.com/locals-world/locals-whisperer.git",
-    "flatiron-director": "PolymerLabs/flatiron-director#^1.0.0"
+    "flatiron-director": "PolymerLabs/flatiron-director#^1.0.0",
+    "excess-router": "https://github.com/atotic/excess-router.git#^0.9.14"
   },
   "devDependencies": {
     "web-component-tester": "*",
