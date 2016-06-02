@@ -29,6 +29,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/locals-scroller/locals-scroller.html">
 <link rel="import" href="../../bower_components/locals-store/locals-store.html">
 <link rel="import" href="../../bower_components/locals-style/locals-style.html">
+<link rel="import" href="../../bower_components/locals-verification/locals-verification-validator.html">
 <link rel="import" href="../../bower_components/locals-whisperer/locals-whisperer.html">
 
 
@@ -114,7 +115,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         padding-left: 10vw; 
       }
       locals-objectrender {
-        background-color: red
+/*        background-color: red*/
       }
 
     </style>
@@ -125,6 +126,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <locals-icon icon="menu" iconcolor="darkgrey" on-tap="firetoggle"></locals-icon>
       </div>
       <p class="flex"></p>
+      <locals-verification-validator mode="button"></locals-verification-validator>
       <locals-button id="storebtn" icon="plus" on-tap="toggleStore" class$="{{storebtnclass}}"></locals-button>
     </div>
 
