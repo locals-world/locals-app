@@ -237,7 +237,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         },
       },
 
-      ready: function(){
+      attached: function(){
         this.nolocalcoin = true;
         this.hidestore = true;
         this.storeicon = 'plus';
@@ -422,11 +422,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             break;
           case "senduserdata" :
 
-var easKey = this.validations[input.from].easkey;
+          var easKey = this.validations[input.from].easkey;
+debugger;
+          var decryptedAvatar = CryptoJS.AES.decrypt(input.data,easKey).toString(CryptoJS.enc.Utf8);
 
-          var decryptedAvatar = CryptoJS.AES.decrypt(input.data,easKey);
+          console.log('AESKEY=--',easKey,'--');
+          console.log('ENCDATA=',input.data);
+          console.log('DATA=',decryptedAvatar);
 
-            console.log('show data + validate',decryptedAvatar);
+
+
+            console.log('show data + validate',input.data,decryptedAvatar);
             break;
 
           default:
