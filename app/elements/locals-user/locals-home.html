@@ -91,6 +91,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         @apply(--layout-center-center);
       }
 
+      #test {
+        width: 50px;
+        height: 20px;
+        background-color: green;
+        display: none;
+
+      }
 
 
 
@@ -110,12 +117,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         background-color: red
       }
 
-      #test {
-        width: 54px;
-        height: 50px;
-        background-color: red;
-      }
-
     </style>
 
     
@@ -126,7 +127,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <p class="flex"></p>
       <locals-button id="storebtn" icon="plus" on-tap="toggleStore" class$="{{storebtnclass}}"></locals-button>
     </div>
-    <!-- <div id="test" on-tap="gotodetail"></div> -->
 
     <div class="scrollarea">
       <div id="fooContainer">
@@ -143,7 +143,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <script>
   (function() {
     'use strict';
-    var heroelement;
+
     Polymer({
       is: 'locals-home',
     behaviors: [
@@ -182,7 +182,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         sharedElements: {
           value: function(){
            return {
-            'hero': heroelement
+            'hero': this.$.test
            } 
           }
         }
@@ -201,17 +201,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 
       gotodetail: function(e){
-        console.log('Ga naar detail',e.detail.key);
-        this.fire('to-detail', {object: e.detail.key});
-
-        // var heroobj = event.target;
-
-        // this.sharedElements = {
-        //   'hero': heroobj
-        // };
-
-        // console.log("Het Hero uit HOME ****:", heroobj);
-        // this.fire('to-detail', {object: heroobj, elem: e.target.id});
+        console.log('Ga naar detail',e.detail);
+        this.fire('to-detail', {object: e.detail})
       },
 
 
