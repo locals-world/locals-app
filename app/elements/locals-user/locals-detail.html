@@ -109,13 +109,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         width: 150px;
         height: 80px;
         background-color: blue;
-        display: none;
       }
 
-      locals-objectrender {
+/*      locals-objectrender {
         background-color: red;
         width: 100%;
-      }
+      }*/
 
     </style>
 
@@ -124,8 +123,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <p class="flex"></p>
       <locals-button icon="decline" on-tap="back"></locals-button>
     </div>
-    <div id="test"></div>
-    <div class="scrollarea">
+<!--     <div id="test">?</div>
+ -->    <div class="scrollarea">
        <locals-objectrender renderstate="{{renderstate}}" key="{{key}}" objectdata="{{objectdata}}" class="objectrender"></locals-objectrender>
        </div>
 
@@ -133,6 +132,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <script>
   (function() {
     'use strict';
+    var heroelement;
 
     Polymer({
       is: 'locals-detail',
@@ -153,6 +153,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: String,
           observer: '_sizeview'
         },
+
+        heroelement: {
+          observer: '_heroelement' 
+       },
 
       animationConfig: {
         value: function() {
@@ -175,7 +179,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       sharedElements: {
           value: function(){
            return {
-            'hero': this.$.test
+            'hero': heroelement
            } 
           }
         }
@@ -450,6 +454,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     _key: function(){
       // console.log("Dit is key in Detail:", this.key);
+    },
+
+    _heroelement: function(){
+      console.log('Uit detail=', heroelement);
+        this.sharedElements = {
+          'hero': this.heroobj
+        };
+
     }
 
 
