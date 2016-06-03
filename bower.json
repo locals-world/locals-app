@@ -15,7 +15,7 @@
     "locals-sync": "https://github.com/locals-world/locals-elements-sync.git",
     "locals-avatar": "https://github.com/locals-world/locals-avatar.git",
     "locals-style": "https://github.com/locals-world/locals-style.git",
-    "locals-button": "https://github.com/locals-world/locals-button.git#^0.0.6",
+    "locals-button": "https://github.com/locals-world/locals-button.git#^0.0.8",
     "locals-scroller": "https://github.com/locals-world/locals-scroller.git",
     "locals-lsapi": "https://github.com/locals-world/locals-lsapi.git",
     "locals-objectrender": "https://github.com/locals-world/locals-objectrender.git",
