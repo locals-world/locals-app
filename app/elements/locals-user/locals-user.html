@@ -27,6 +27,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/locals-store/locals-store.html">
 <link rel="import" href="../../bower_components/locals-style/locals-style.html">
 <link rel="import" href="../../bower_components/locals-whisperer/locals-whisperer.html">
+<link rel="import" href="../../bower_components/locals-verification/locals-verification.html">
 
 <link rel="import" href="locals-home.html">
 <link rel="import" href="locals-detail.html">
@@ -45,6 +46,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       .balance {
+        color: var(--locals-grey5);
         @apply(--layout-horizontal);
         @apply(--layout-center);
       }
@@ -128,14 +130,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <paper-drawer-panel  id="drawer" force-narrow>
   <div drawer class="drawer">
-  DE ROUTE IS "{{appMenu}}"
     <div class="balance">
-      <locals-icon small icon="ether" iconcolor="white"></locals-icon><p><span>{{ethbalans}}</span></p>
+      <locals-icon small icon="ether" iconcolor="grey5"></locals-icon><p><span>{{ethbalans}}</span></p>
     </div>
     <div class="balance">
-      <locals-icon small icon="localcoin" iconcolor="white"></locals-icon><p><span>{{locbalans}}</span></p>
+      <locals-icon small icon="localcoin" iconcolor="grey5"></locals-icon><p><span>{{locbalans}}</span></p>
     </div>
-    <locals-whisperer web3="{{web3}}" id="whisper" on-msg-received="processMsg"></locals-whisperer>
+<!--     <locals-whisperer web3="{{web3}}" id="whisper" on-msg-received="processMsg"></locals-whisperer> -->
   </div>
 
   <div main class="main">
@@ -151,17 +152,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <neon-animated-pages
   selected="{{appMenu}}"
   attr-for-selected="route">
-    <locals-home route="home" data="{{data}}" on-to-detail="toDetail" on-toggle-drawer="drawertoggle" sizeview="{{sizeview}}"></locals-home>
-<!--     <locals-home route="home" objects="{{objects}}" on-to-detail="toDetail" on-toggle-drawer="drawertoggle" sizeview="{{sizeview}}"></locals-home>
- -->
+    <locals-home route="home" data="{{data}}" on-to-detail="toDetail" on-to-store="toStore" on-to-verification="toVerification" on-toggle-drawer="drawertoggle" sizeview="{{sizeview}}"></locals-home>
     <locals-detail route="objectdetail" objectdata="{{selecteditem.data}}" key="{{selecteditem.key}}" renderstate="open" on-to-home="toHome" sizeview="{{sizeview}}"></locals-detail>
-  </neon-animatable>
-
-
-   <neon-animatable route="store">
-   DE STOOR
-      <locals-store></locals-store>
-  </neon-animatable>
+    <locals-store route="store" on-to-home="toHome" sizeview="{{sizeview}}" mode="home"></locals-store>
+    <locals-verification-validator route="verification" on-to-home="toHome" sizeview="{{sizeview}}" mode="list"></locals-verification-validator>
   </neon-animated-pages>
 
 </div>
@@ -255,8 +249,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         Excess.RouteManager.transitionTo('/objectdetail');
       },
 
+      toStore: function(){
+        Excess.RouteManager.transitionTo('/store');
+      },
+
       toHome: function(){
         Excess.RouteManager.transitionTo('/home');
+      },
+
+      toVerification: function(){
+        Excess.RouteManager.transitionTo('/verification');
       },
 
       _account: function(){

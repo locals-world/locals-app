@@ -27,7 +27,8 @@
     "locals-community": "https://github.com/locals-world/locals-community.git",
     "locals-verification": "https://github.com/locals-world/locals-verification.git",
     "locals-whisperer": "https://github.com/locals-world/locals-whisperer.git",
-    "excess-router": "^0.9.14"
+    "excess-router": "^0.9.14",
+    "lazy-pages": "atotic/lazy-pages#^0.8.5"
   },
   "devDependencies": {
     "web-component-tester": "*",
