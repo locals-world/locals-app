@@ -40,5 +40,10 @@
   },
   "engines": {
     "node": ">=0.10.0"
+  },
+  "dependencies": {
+    "bitballoon": "^0.2.2",
+    "glob-all": "^3.0.3",
+    "gulp-env": "^0.4.0"
   }
 }

@@ -78,7 +78,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         filecontents.lowallet = this.lowallet;
         console.log(filecontents);
         //var obj = {a: 123, b: "4 5 6"};
-        var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(filecontents));
+        var data = 'text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(filecontents));
 
         var a = document.createElement('a');
         a.href = 'data:' + data;
@@ -105,7 +105,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       save: function(){
         this.lodata = jsonthingy.lodata;
         this.lowallet = jsonthingy.lowallet;
-        sessionStorage.setItem("lopassword",this.password);
+        sessionStorage.setItem('lopassword',this.password);
         window.location = '/';
       }
 

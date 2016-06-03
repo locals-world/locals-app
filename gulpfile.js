@@ -290,7 +290,7 @@ gulp.task('serve:dist', ['default'], function() {
 });
 
 // deploy to bitballoon
-gulp.task('deploy', ['default'], function() {
+gulp.task('deploy', null, function() {
 
   env({
     file: 'env.json',

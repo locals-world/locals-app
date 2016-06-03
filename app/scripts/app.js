@@ -33,27 +33,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         resolve(e.target.import);
       }, reject);
     });
-  };
+  }
 
   app.generate = function(){
-    console.log("New user!");
-    importPage("/elements/locals-newuser/locals-newuser.html").then(function(){
-      var element = document.createElement("locals-newuser");
-      element.id = "newuser";
+    console.log('New user!');
+    importPage('/elements/locals-newuser/locals-newuser.html').then(function(){
+      var element = document.createElement('locals-newuser');
+      element.id = 'newuser';
       document.body.appendChild(element);
     }, function(err){
-      console.log(err, "error");
+      console.log(err, 'error');
     });
   };
 
   app.homestate = function(){
-    console.log("Existing user");
-    importPage("/elements/locals-user/locals-user.html").then(function(){
-      var element = document.createElement("locals-user");
-      element.id = "user";
+    console.log('Existing user');
+    importPage('/elements/locals-user/locals-user.html').then(function(){
+      var element = document.createElement('locals-user');
+      element.id = 'user';
       document.body.appendChild(element);
     }, function(err){
-      console.log(err, "error");
+      console.log(err, 'error');
     });
   };
 
