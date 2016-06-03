@@ -73,10 +73,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         @apply(--layout-flex);
       }
 
-      #storebtn {
+/*      #storebtn {
         z-index: 11;
 
-      }
+      }*/
 
       .balance {
         @apply(--layout-horizontal);
@@ -126,8 +126,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <locals-icon icon="menu" iconcolor="darkgrey" on-tap="firetoggle"></locals-icon>
       </div>
       <p class="flex"></p>
-      <locals-verification-validator mode="button"></locals-verification-validator>
-      <locals-button id="storebtn" icon="plus" on-tap="toggleStore" class$="{{storebtnclass}}"></locals-button>
+      <locals-verification-validator mode="button" on-tap="toVerification"></locals-verification-validator>
+      <locals-button bg="grey1" id="storebtn" icon="plus" on-tap="toStore" class$="{{storebtnclass}}"></locals-button>
     </div>
 
     <div class="scrollarea">
@@ -207,6 +207,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.fire('to-detail', {object: e.detail})
       },
 
+      toStore: function(){
+        this.fire('to-store');
+      },
+
+      toVerification: function(){
+        this.fire('to-verification');
+      },
 
       _data: function(){
         console.log('****** HOME has data: ',this.data.collection);
