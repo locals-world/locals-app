@@ -1,11 +1,9 @@
 <!--
 @license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+Copyright (c) 2016 A-labs. All rights reserved.
+/////////////////
+LOCALS
+/////////////////
 -->
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
@@ -68,9 +66,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     </style>
 
-    <iron-localstorage 
+    <!-- <iron-localstorage 
       name="locals-password" 
-      value="{{passwd}}"></iron-localstorage>
+      value="{{passwd}}"></iron-localstorage> -->
 
     <ipfs-upload 
       id="ipfsupload" 
@@ -126,7 +124,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <iron-media-query query="(min-width:601px) and (max-width: 1280px)" query-matches="{{desktopview}}"></iron-media-query>
 <iron-media-query query="(min-width:1281px)" query-matches="{{xlargeview}}"></iron-media-query>
 
-<paper-drawer-panel  id="drawer" force-narrow>
+<paper-drawer-panel id="drawer" force-narrow>
   <div drawer class="drawer">
   DE ROUTE IS "{{appMenu}}"
     <div class="balance">
@@ -135,6 +133,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <div class="balance">
       <locals-icon small icon="localcoin" iconcolor="white"></locals-icon><p><span>{{locbalans}}</span></p>
     </div>
+    <a href="/#/backup">backup</a>
     <locals-whisperer web3="{{web3}}" id="whisper" on-msg-received="processMsg"></locals-whisperer>
   </div>
 
@@ -161,6 +160,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
    <neon-animatable route="store">
    DE STOOR
       <locals-store></locals-store>
+  </neon-animatable>
+
+  <neon-animatable route="enterpass">
+   <paper-input label="password" bind-value="{{passwd}}"></paper-input>
+   <paper-button raised on-tap="setPass">login</paper-button>
+  </neon-animatable>
+
+  <neon-animatable route="backup">
+   <locals-backup></locals-backup>
   </neon-animatable>
   </neon-animated-pages>
 
@@ -242,7 +250,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.hidestore = true;
         this.storeicon = 'plus';
         this.validations = {};
-        Excess.RouteManager.transitionTo('/home');
+        this.passwd = sessionStorage.getItem("lopassword");
+        if(sessionStorage.getItem("lopassword")){
+          this.passwd = sessionStorage.getItem("lopassword");
+          Excess.RouteManager.transitionTo('/home');
+        } else {
+          console.log('i need a passwd');
+          Excess.RouteManager.transitionTo('/enterpass');
+        };
+        //console.log(this.passwd);
+        
+      },
+
+      setPass: function(){
+        sessionStorage.setItem("lopassword", this.passwd);
+        window.location = '/';
       },
 
       test: function(e){

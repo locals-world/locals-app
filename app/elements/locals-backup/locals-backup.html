@@ -1,0 +1,115 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-localstorage/iron-localstorage.html">
+
+<dom-module id="locals-backup">
+  <template>
+    <style>
+      :host {
+        display: block;
+        padding: 20px;
+      }
+    </style>
+    <iron-localstorage name="lo-data" value="{{lodata}}"></iron-localstorage>
+    <iron-localstorage name="locals-password" value="{{lopassword}}"></iron-localstorage>
+    <iron-localstorage name="locals-wallet" value="{{lowallet}}"></iron-localstorage>
+    <paper-button raised on-tap="createbackup">create backup</paper-button>
+    <div id="container"></div>
+
+    <h1>Import</h1>
+    <input type="file" id="upload" />
+    <paper-input label="Password" hidden="{{passwdfield}}" type="password" bind-value="{{password}}"></paper-input>
+    <paper-button on-tap="save" raised hidden="{{buttonhidden}}">Save to localstorage</paper-button>
+  </template>
+  <script>
+  (function() {
+    'use strict';
+
+    var self;
+    var jsonthingy = {};
+
+    Polymer({
+      is: 'locals-backup',
+
+      properties: {
+        foo: {
+          type: String,
+          value: 'locals-backup',
+          notify: true
+        },
+        passwdfield: {
+          type: Boolean,
+          value: true
+        },
+        buttonhidden: {
+          type: Boolean,
+          value: true
+        },
+        password: {
+          type: String,
+          observer: '_password'
+        }
+      },
+
+      ready: function(){
+        self = this;
+        var uploader = this.$.upload;
+        uploader.addEventListener('change', this.importfile);
+      },
+
+      _password: function(){
+        if(this.password){
+          this.buttonhidden = false;
+        }
+      },
+
+      createbackup: function(){
+        var filecontents = {};
+        filecontents.lodata = this.lodata;
+        filecontents.lowallet = this.lowallet;
+        console.log(filecontents);
+        //var obj = {a: 123, b: "4 5 6"};
+        var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(filecontents));
+
+        var a = document.createElement('a');
+        a.href = 'data:' + data;
+        a.download = 'locals_'+Date.now()+'.json';
+        a.innerHTML = 'download backup file';
+
+        var container = document.getElementById('container');
+        container.appendChild(a);
+      },
+
+      importfile: function(e){
+        
+        console.log(e.target.files[0]);
+        var reader = new FileReader();
+        reader.onload = function() {
+          jsonthingy = reader.result;
+          jsonthingy = JSON.parse(jsonthingy);
+          console.log(jsonthingy);
+          self.passwdfield = false;
+        };
+        reader.readAsText(e.target.files[0]);
+      },
+
+      save: function(){
+        this.lodata = jsonthingy.lodata;
+        this.lowallet = jsonthingy.lowallet;
+        sessionStorage.setItem("lopassword",this.password);
+        window.location = '/';
+      }
+
+    });
+  })();
+  </script>
+</dom-module>

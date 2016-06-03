@@ -1,11 +1,9 @@
 <!--
 @license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+Copyright (c) 2016 A-labs. All rights reserved.
+/////////////////
+LOCALS
+/////////////////
 -->
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
@@ -13,12 +11,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/neon-animation/neon-animation.html">
 <link rel="import" href="../../bower_components/neon-animation/neon-animations.html">
 
-
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
 
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/locals-style/locals-style.html">
 <link rel="import" href="../../bower_components/locals-button/locals-button.html">
+<link rel="import" href="../locals-backup/locals-backup.html">
 
 <dom-module id="locals-newuser">
   <template>
@@ -44,7 +42,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         @apply(--layout-center-center);
       }
 
-
       .blueback {
         background-color: var(--locals-blue);
       }
@@ -68,8 +65,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
        @apply(--locals-font-small);
       }
 
-
-
       .maintitle h5 {
       @apply(--opensans-light);
       color: var(--locals-darkgrey);
@@ -82,7 +77,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       font-size: 70px;
       line-height: 126px;
 /*      animation: titleglow 25s linear 10s infinite;*/
-
       }
 
       @-webkit-keyframes titleglow {
@@ -121,7 +115,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         } 
       }
 
-
     .intro {
       width: 90%;
       @apply(--layout-horizontal);
@@ -150,12 +143,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       font-size: 16px;
       @apply(--opensans-light);
     }
-
-
-
-
-
-
 
   /* phone */
   @media all and (min-width: 0) and (max-width: 400px) and (orientation: portrait) { 
@@ -193,8 +180,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   }
 
-
-
   /* between phone and desktop */
 
   @media all and (min-width: 401px) and (max-width: 950px) { 
@@ -220,8 +205,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
 
 }
-
-
 
   /* desktop-large */
   @media all and (min-width: 951px) and (max-width: 1600px) { 
@@ -290,6 +273,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <div class="syncuser" on-tap="syncuser">
     <h3>Een bestaande Local syncen</h3>
     </div>
+    <div class="syncuser" on-tap="restore">
+    <h3>Een backup terugzetten</h3>
+    </div>
     </div>
 
     </div>
@@ -300,13 +286,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <div class="total vertic">
 
         <h1>Choose a password</h1>
-        <paper-input label="passwd" bind-value="{{passwd}}" type="password"></paper-input>
-        <button on-tap="savepass">Continue</button>
+        <paper-input label="Password" bind-value="{{password}}" value="{{password}}" type="password"></paper-input>
+        <paper-input label="Password control" bind-value="{{password1}}" value="{{password1}}"type="password"></paper-input>
+        <button on-tap="savepass" disabled="{{passcheck}}">Continue</button>
     </div>
       </neon-animatable>
 
       <neon-animatable state="2">
         <h1>Allez dan gaan we syncen he</h1>
+        <!-- hier dan sync element -->
+      </neon-animatable>
+
+      <neon-animatable state="3">
+        <locals-backup></locals-backup>
         <!-- hier dan sync element -->
       </neon-animatable>
 
@@ -323,7 +315,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         password: {
           type: String,
           value: '',
-          notify: true
+          notify: true,
+          observer: '_passwordcheck'
+        },
+        password1: {
+          type: String,
+          value: '',
+          notify: true,
+          observer: '_passwordcheck'
+        },
+        passcheck: {
+          type: Boolean,
+          value: true
         }
       },
 
@@ -333,6 +336,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       newuser: function(){
         this.state = 1;
+      },
+
+      restore: function(){
+        this.state = 3;
       },
 
       savepass: function(){
@@ -346,6 +353,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       restart: function(){
         window.location = "/";
+      },
+
+      _passwordcheck: function(){
+        if(this.password && this.password==this.password1){
+          this.passcheck = false;
+        }
       }
     });
   })();
