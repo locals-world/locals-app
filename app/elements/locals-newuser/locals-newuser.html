@@ -261,6 +261,14 @@ LOCALS
     </style>
     <neon-animated-pages attr-for-selected="state" selected="{{state}}" entry-animation="slide-from-right-animation" exit-animation="slide-left-animation">
       <neon-animatable state="0">
+
+       <iron-localstorage 
+      id="localstorage"
+      name="lo-init" 
+      value="{{loinit}}">
+
+    </iron-localstorage>
+
     <div class="total blueback horiz">
 
       <div class="intro">
@@ -343,7 +351,8 @@ LOCALS
       },
 
       savepass: function(){
-        document.getElementById('localstorage').value = this.passwd;
+        //document.getElementById('localstorage').value = this.passwd;
+        sessionStorage.setItem("lopassword", this.password);
         this.restart();
       },
 
@@ -358,6 +367,7 @@ LOCALS
       _passwordcheck: function(){
         if(this.password && this.password===this.password1){
           this.passcheck = false;
+          this.loinit = 1;
         }
       }
     });
