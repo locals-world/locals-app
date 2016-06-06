@@ -1,5 +1,5 @@
 {
-  "name": "Localsworld",
+  "name": "locals.world",
   "private": true,
   "dependencies": {
     "polymer": "Polymer/polymer#^1.1.0",
@@ -33,9 +33,5 @@
   "devDependencies": {
     "web-component-tester": "*",
     "test-fixture": "PolymerElements/test-fixture#^1.0.0"
-  },
-  "resolutions": {
-    "web3-wallet": "^0.0.8",
-    "ipfs-upload": "^0.0.13"
   }
 }
