@@ -358,7 +358,7 @@ gulp.task('default', ['clean'], function(cb) {
   // Uncomment 'cache-config' after 'rename-index' if you are going to use service workers.
   runSequence(
     ['solc', 'copy', 'styles'],
-    'elements', ['jshint', 'images', 'fonts', 'html'],
+    'elements', [/*'jshint',*/ 'images', 'fonts', 'html'],
     'vulcanize', 'rename-index', // 'cache-config',
     cb);
 });

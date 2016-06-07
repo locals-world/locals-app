@@ -1,5 +1,5 @@
 {
-  "name": "Localsworld",
+  "name": "locals.world",
   "private": true,
   "dependencies": {
     "polymer": "Polymer/polymer#^1.1.0",

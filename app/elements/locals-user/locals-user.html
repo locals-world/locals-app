@@ -24,7 +24,6 @@ LOCALS
 <link rel="import" href="../../bower_components/locals-scroller/locals-scroller.html">
 <link rel="import" href="../../bower_components/locals-store/locals-store.html">
 <link rel="import" href="../../bower_components/locals-style/locals-style.html">
-<link rel="import" href="../../bower_components/locals-whisperer/locals-whisperer.html">
 <link rel="import" href="../../bower_components/locals-verification/locals-verification.html">
 
 <link rel="import" href="locals-home.html">
@@ -135,8 +134,7 @@ LOCALS
       <locals-icon small icon="localcoin" iconcolor="grey5"></locals-icon><p><span>{{locbalans}}</span></p>
     </div>
     <a href="/#/backup">backup</a>
-    <locals-whisperer web3="{{web3}}" id="whisper" on-msg-received="processMsg"></locals-whisperer>
-<!--     <locals-whisperer web3="{{web3}}" id="whisper" on-msg-received="processMsg"></locals-whisperer> -->
+
   </div>
 
   <div main class="main">
@@ -458,7 +456,7 @@ LOCALS
           case "senduserdata" :
 
           var easKey = this.validations[input.from].easkey;
-debugger;
+//debugger;
           var decryptedAvatar = CryptoJS.AES.decrypt(input.data,easKey).toString(CryptoJS.enc.Utf8);
 
           console.log('AESKEY=--',easKey,'--');
