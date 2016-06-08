@@ -63,6 +63,15 @@ LOCALS
       color: white;
      }
 
+     .canvas {
+      @apply(--locals-canvas);
+      height: 100vh;
+      @apply(--layout-vertical);
+      @apply(--layout-center-center);
+     }
+
+     .loginbtn
+
 
     </style>
 
@@ -146,8 +155,10 @@ LOCALS
 
     <!-- login / unlock wallet -->
     <neon-animatable route="enterpass">
-      <paper-input label="password" bind-value="{{passwd}}"></paper-input>
-      <paper-button raised on-tap="setPass">login</paper-button>
+    <div class="canvas">
+      <locals-input label="password" bind-value="{{passwd}}"></locals-input>
+      <locals-button class="loginbtn" icon="arrowright" on-tap="setPass"></locals-button>
+    </div>
     </neon-animatable>
 
     <!-- backup your wallet -->
