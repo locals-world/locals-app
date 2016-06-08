@@ -1,5 +1,74 @@
 // Currently deployed at 0x2eDb2606b1BCC23fa3269D83A1f665c9A312F8e6
 
+
+contract localsAvatar {
+
+    address public owner;
+    
+    // Which tokencontract to use
+    MyToken public token;
+
+    // the address of the tokencontract to use
+    address public tokenaddr;
+
+    // How many verifications should a user have before he can verify someone else?
+    uint public verificationthresh;
+
+    struct User {
+        string username;
+        string ipfshash;
+        address[] verifications;
+        uint numVerifications;
+    }
+
+    mapping (address => User) public users;
+
+    event ValidationAdded(address _from, address _to, uint _numverifications);
+    event UserAdded(address _from, string _username, string _ipfshash, uint _numverifications);
+
+    function localsAvatar(uint _verificationthresh, address token){
+        owner = msg.sender;
+        verificationthresh = _verificationthresh;
+        tokenaddr = token;
+    }
+
+    function addLocalsuser(string _username, string _ipfshash){
+        // Save the user's ipfs hashed data
+        users[msg.sender].username = _username;
+        users[msg.sender].ipfshash = _ipfshash;
+        users[msg.sender].verifications.push(0x000);
+        users[msg.sender].numVerifications = 0;
+        UserAdded(msg.sender, _username, _ipfshash, users[msg.sender].numVerifications);
+    }
+
+    function addVerification(address _localsuser){      
+        // Add a verfier to this user's hash
+
+        // If the verifier isnt verified himself, throw.
+        // if(users[msg.sender].numVerifications < verificationthresh){
+        //  throw ;
+        // }
+        var tokencontract = MyToken(tokenaddr);
+
+        uint numval = users[_localsuser].numVerifications;
+        users[_localsuser].verifications.push(msg.sender);
+        users[_localsuser].numVerifications = numval + 1;
+
+        ValidationAdded(msg.sender, _localsuser, users[_localsuser].numVerifications);
+        // And transfer x localcoin from verifier to user.
+        tokencontract.mintToken(msg.sender, 5);
+        tokencontract.mintToken(_localsuser, 5);
+    }
+
+    // And because my mist wallet is getting full, we need a suicide function.
+    function kill() { if (msg.sender == owner) suicide(owner); }
+
+}
+
+
+//// INCLUDE THE TOKEN CONTRACT
+// Currently deployed at 0xD4A12Dd074d9ddc80e18Edf25F8609319753F413
+
 contract owned {
     address public owner;
 
@@ -28,6 +97,7 @@ contract MyToken is owned {
     uint256 public totalSupply;
     uint256 public minEthbalance;
     address public owner;
+    mapping (address => bool) public whitelist;
 
     /* This creates an array with all balances */
     mapping (address => uint256) public balanceOf;
@@ -54,6 +124,7 @@ contract MyToken is owned {
         version = versionOfTheCode;
         minEthbalance = _minEthbalance;
         owner = msg.sender;
+        whitelist[msg.sender];
     }
 
     /* Send coins */
@@ -90,17 +161,22 @@ contract MyToken is owned {
 
     /* Check if eth balance of user is still sufficient */
     function checkEthBalance(address _ethaccount){
-    	if(_ethaccount.balance < minEthbalance){
-    		_ethaccount.send(minEthbalance - _ethaccount.balance);
-    	}
+        if(_ethaccount.balance < minEthbalance){
+            _ethaccount.send(minEthbalance - _ethaccount.balance);
+        }
     }
 
-    function mintToken(address target, uint256 mintedAmount) onlyOwner {
+    function mintToken(address target, uint256 mintedAmount) {
+        if(!whitelist[msg.sender]) throw;
         balanceOf[target] += mintedAmount;
         totalSupply += mintedAmount;
         checkEthBalance(target);
         Transfer(0, owner, mintedAmount);
         Transfer(owner, target, mintedAmount);
+    }
+
+    function addToWhitelist(address _whitelistaddr) onlyOwner {
+        whitelist[_whitelistaddr] = true;
     }
 
     /* This unnamed function is called whenever someone tries to send ether to it */
