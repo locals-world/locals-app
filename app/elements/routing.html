@@ -8,63 +8,63 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
-<script src="../bower_components/page/page.js"></script>
-<script>
+<!-- <script src="../bower_components/page/page.js"></script>
+ --><script>
   window.addEventListener('WebComponentsReady', function() {
 
     // We use Page.js for routing. This is a Micro
     // client-side router inspired by the Express router
     // More info: https://visionmedia.github.io/page.js/
-    page('/', function () {
-      app.route = 'init';
-      //app.scrollPageToTop();
-    });
+    // page('/', function () {
+    //   app.route = 'init';
+    //   //app.scrollPageToTop();
+    // });
 
-    page('/sync', function () {
-      app.route = 'sync';
-      //app.scrollPageToTop();
-    });
+    // page('/sync', function () {
+    //   app.route = 'sync';
+    //   //app.scrollPageToTop();
+    // });
 
-    page('/backup', function () {
-      app.route = 'backup';
-      //app.scrollPageToTop();
-    });
+    // page('/backup', function () {
+    //   app.route = 'backup';
+    //   //app.scrollPageToTop();
+    // });
 
-    page('/home', function () {
-      app.route = 'home';
-      //app.scrollPageToTop();
-    });
+    // page('/home', function () {
+    //   app.route = 'home';
+    //   //app.scrollPageToTop();
+    // });
 
-    page('/master', function () {
-      app.route = 'master';
-      //app.scrollPageToTop();
-    });
+    // page('/master', function () {
+    //   app.route = 'master';
+    //   //app.scrollPageToTop();
+    // });
 
-    page('/users/:name', function (data) {
-      app.route = 'user-info';
-      app.params = data.params;
-      //app.scrollPageToTop();
-    });
+    // page('/users/:name', function (data) {
+    //   app.route = 'user-info';
+    //   app.params = data.params;
+    //   //app.scrollPageToTop();
+    // });
 
-    page('/iomsg', function () {
-      app.route = 'iomsg';
-      //app.scrollPageToTop();
-    });
+    // page('/iomsg', function () {
+    //   app.route = 'iomsg';
+    //   //app.scrollPageToTop();
+    // });
 
-    page('/contact', function () {
-      app.route = 'contact';
-      //app.scrollPageToTop();
-    });
+    // page('/contact', function () {
+    //   app.route = 'contact';
+    //   //app.scrollPageToTop();
+    // });
 
-    page('/stats', function () {
-      app.route = 'stats';
-      //app.scrollPageToTop();
-    });
+    // page('/stats', function () {
+    //   app.route = 'stats';
+    //   //app.scrollPageToTop();
+    // });
 
-    // add #! before urls
-    page({
-      hashbang: true
-    });
+    // // add #! before urls
+    // page({
+    //   hashbang: true
+    // });
 
   });
 </script>

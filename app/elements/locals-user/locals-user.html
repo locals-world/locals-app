@@ -12,8 +12,8 @@ LOCALS
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
 <link rel="import" href="../../bower_components/neon-animation/neon-animation.html">
 <link rel="import" href="../../bower_components/paper-drawer-panel/paper-drawer-panel.html">
-<!-- <link rel="import" href="../../bower_components/paper-button/paper-button.html"> -->
-
+<!-- <link rel="import" href="../../bower_components/paper-button/paper-button.html">
+-->
 <link rel="import" href="../../bower_components/web3-wallet/web3-wallet.html">
 <link rel="import" href="../../bower_components/ipfs-upload/ipfs-upload.html">
 
@@ -28,7 +28,6 @@ LOCALS
 
 <link rel="import" href="locals-home.html">
 <link rel="import" href="locals-detail.html">
-
 
 <dom-module id="locals-user">
   <template>
@@ -69,9 +68,9 @@ LOCALS
 
     <!-- <iron-localstorage 
       name="locals-password" 
-      value="{{passwd}}"></iron-localstorage> -->
-
-    <ipfs-upload 
+      value="{{passwd}}"></iron-localstorage>
+  -->
+  <ipfs-upload 
       id="ipfsupload" 
       hash="" 
       on-ipfs-hash-received="" 
@@ -80,7 +79,7 @@ LOCALS
       host="/ip4/109.123.70.141/tcp/5001"
       hidefileinput></ipfs-upload>
 
-    <web3-wallet 
+  <web3-wallet 
       id="web3wallet"
       walletname="locals-wallet"
       password="{{passwd}}" 
@@ -90,89 +89,72 @@ LOCALS
       host="http://109.123.70.141:8545"
       web3="{{web3}}"></web3-wallet>
 
-    <locals-lsapi verbose id="lsapi" privatekey="{{passwd}}" data="{{data}}"></locals-lsapi>
+  <!-- re-used in sub components ( locals-verification, locals-verification ) -->
+  <locals-whisperer
+    web3="{{web3}}"
+    topic="{{topic}}"
+    progress="{{progress}}"
+    decimals="2"
+    id="whisper"></locals-whisperer>
 
+  <locals-lsapi
+    verbose id="lsapi"
+    privatekey="{{passwd}}"
+    data="{{data}}"></locals-lsapi>
 
-    <!--     <div>
-    Your account:
-    <span>{{fixedaddress}}</span>
-  </div>
-  <div>
-    Your Eth balance:
-    <span>{{ethbalans}}</span>
-  </div>
-  <div>
-    Your Localcoin balance:
-    <span>{{locbalans}}</span>
-  </div>
-
-  <template is="dom-if" if="{{nolocalcoin}}">
-    <h1>You don't have LocalCoin.</h1>
-    <p>Ask LocalTokenAdmin to get you some.</p>
-    <p> <i>"can i haz localtokens on this address
-        <span>{{fixedaddress}}</span>
-        ?"</i> 
-    </p>
-  </template>
-  -->
-  <!--     <template is="dom-if" if="{{!nolocalcoin}}">
-  <h1>You have LocalCoin.</h1>
-  <p>So you can backup!</p>
-  <paper-button raised on-tap="backup"></paper-button>
-</template>
--->
 <iron-media-query query="(min-width:0px) and (max-width: 600px)" query-matches="{{phoneview}}"></iron-media-query>
 <iron-media-query query="(min-width:601px) and (max-width: 1280px)" query-matches="{{desktopview}}"></iron-media-query>
 <iron-media-query query="(min-width:1281px)" query-matches="{{xlargeview}}"></iron-media-query>
 
 <paper-drawer-panel id="drawer" force-narrow>
-  <div drawer class="drawer">
-    <div class="balance">
-      <locals-icon small icon="ether" iconcolor="grey5"></locals-icon><p><span>{{ethbalans}}</span></p>
-    </div>
-    <div class="balance">
-      <locals-icon small icon="localcoin" iconcolor="grey5"></locals-icon><p><span>{{locbalans}}</span></p>
-    </div>
-    <a href="/#/backup">backup</a>
-
+<div drawer class="drawer">
+  <div class="balance">
+    <locals-icon small icon="ether" iconcolor="grey5"></locals-icon>
+    <p>
+      <span>{{ethbalans}}</span>
+    </p>
   </div>
+  <div class="balance">
+    <locals-icon small icon="localcoin" iconcolor="grey5"></locals-icon>
+    <p>
+      <span>{{locbalans}}</span>
+    </p>
+  </div>
+  <a href="/#/backup">backup</a>
 
-  <div main class="main">
+</div>
 
-<excess-route
+<div main class="main">
+
+  <excess-route
     route="/:menu"
-    menu="{{appMenu}}"
-    
+    menu="{{appMenu}}"    
   ></excess-route>
 
-
-
-  <neon-animated-pages
-  selected="{{appMenu}}"
-  attr-for-selected="route">
+  <neon-animated-pages selected="{{appMenu}}" attr-for-selected="route">
+    <!-- home -->
     <locals-home route="home" data="{{data}}" on-to-detail="toDetail" on-to-store="toStore" on-to-verification="toVerification" on-toggle-drawer="drawertoggle" sizeview="{{sizeview}}"></locals-home>
+    
+    <!-- object detail -->
     <locals-detail route="objectdetail" objectdata="{{selecteditem.data}}" key="{{selecteditem.key}}" renderstate="open" on-to-home="toHome" sizeview="{{sizeview}}"></locals-detail>
 
-  </neon-animatable>
+    <!-- store -->
+    <neon-animatable route="store">
+      The Store will come here
+      <locals-store route="store" on-to-home="toHome" sizeview="{{sizeview}}" mode="home"></locals-store>
+    </neon-animatable>
 
+    <!-- login / unlock wallet -->
+    <neon-animatable route="enterpass">
+      <paper-input label="password" bind-value="{{passwd}}"></paper-input>
+      <paper-button raised on-tap="setPass">login</paper-button>
+    </neon-animatable>
 
-   <neon-animatable route="store">
-   DE STOOR
-      <locals-store></locals-store>
-  </neon-animatable>
+    <!-- backup your wallet -->
+    <neon-animatable route="backup">
+      <locals-backup></locals-backup>
+    </neon-animatable>
 
-  <neon-animatable route="enterpass">
-   <paper-input label="password" bind-value="{{passwd}}"></paper-input>
-   <paper-button raised on-tap="setPass">login</paper-button>
-  </neon-animatable>
-
-  <neon-animatable route="backup">
-   <locals-backup></locals-backup>
-  </neon-animatable>
-   
-    <locals-store route="store" on-to-home="toHome" sizeview="{{sizeview}}" mode="home"></locals-store>
-    <locals-verification-validator route="verification" on-to-home="toHome" sizeview="{{sizeview}}" mode="list"></locals-verification-validator>
-    
   </neon-animated-pages>
 
 </div>
@@ -422,83 +404,6 @@ LOCALS
       //   this.route = "store";
       // },
 
-
-
-      processMsg: function(e){
-        console.log('incoming whisper msg: ', e.detail);
-
-        var input = JSON.parse(e.detail.input)
-
-        switch (input.command){
-          case "senduserrequest":
-            console.log('create AES key and send it to other party', input.data);
-
-            var crypt = new JSEncrypt({
-              default_key_size: 512
-            });
-            crypt.setPublicKey(input.data.pubkey);
-
-            var aeskey = generateKey(50);
-            this.validations[input.from] = {
-              easkey: aeskey,
-              pubkey:input.data.pubkey
-            };
-
-            var encryptedkey = crypt.encrypt(aeskey);
-
-            this.$.whisper.whisperpost(input.from, JSON.stringify({
-              command: 'sendaeskey',
-              from: this.$.whisper.topic,
-              data: encryptedkey
-            }));
-
-            break;
-          case "senduserdata" :
-
-          var easKey = this.validations[input.from].easkey;
-//debugger;
-          var decryptedAvatar = CryptoJS.AES.decrypt(input.data,easKey).toString(CryptoJS.enc.Utf8);
-
-          console.log('AESKEY=--',easKey,'--');
-          console.log('ENCDATA=',input.data);
-          console.log('DATA=',decryptedAvatar);
-
-
-
-            console.log('show data + validate',input.data,decryptedAvatar);
-            break;
-
-          default:
-            //console.log('discard message',e.detail);
-            break;
-
-        }        
-
-
-        // define the characters to pick from
-       
-        // create a key for symmetric encryption
-        // pass in the desired length of your key
-        function generateKey(keyLength){
-           var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz*&-%/!?*+=()";
-          var randomstring = '';
-          
-          for (var i=0; i < keyLength; i++) {
-            var rnum = Math.floor(Math.random() * chars.length);
-            randomstring += chars.substring(rnum,rnum+1);
-          }
-          return randomstring;
-        };
-
-
-
-
-
-
-
-
-      },
-
     back: function(){
         Excess.RouteManager.transitionTo('/home');
     },
@@ -509,4 +414,5 @@ LOCALS
 
     });
   })();
-  </script></dom-module>
+  </script>
+</dom-module>
