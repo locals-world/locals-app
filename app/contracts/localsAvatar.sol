@@ -32,14 +32,14 @@ contract localsAvatar {
         tokenaddr = token;
     }
 
-    function addLocalsuser(string _username, string _ipfshash){
-        // Save the user's ipfs hashed data
-        users[msg.sender].username = _username;
-        users[msg.sender].ipfshash = _ipfshash;
-        users[msg.sender].verifications.push(0x000);
-        users[msg.sender].numVerifications = 0;
-        UserAdded(msg.sender, _username, _ipfshash, users[msg.sender].numVerifications);
-    }
+    // function addLocalsuser(string _username, string _ipfshash){
+    //     // Save the user's ipfs hashed data
+    //     users[msg.sender].username = _username;
+    //     users[msg.sender].ipfshash = _ipfshash;
+    //     users[msg.sender].verifications.push(0x000);
+    //     users[msg.sender].numVerifications = 0;
+    //     UserAdded(msg.sender, _username, _ipfshash, users[msg.sender].numVerifications);
+    // }
 
     function addVerification(address _localsuser, string _hash){      
         // Add a verfier to this user's hash
