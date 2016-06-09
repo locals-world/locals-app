@@ -25,6 +25,7 @@ LOCALS
 <link rel="import" href="../../bower_components/locals-store/locals-store.html">
 <link rel="import" href="../../bower_components/locals-style/locals-style.html">
 <link rel="import" href="../../bower_components/locals-verification/locals-verification.html">
+<link rel="import" href="../../bower_components/locals-verification/locals-verification-handler.html">
 
 <link rel="import" href="locals-home.html">
 <link rel="import" href="locals-detail.html">
@@ -97,6 +98,8 @@ LOCALS
     decimals="2"
     id="whisper"></locals-whisperer>
 
+  <locals-verification-handler></locals-verification-handler>
+
   <locals-lsapi
     verbose id="lsapi"
     privatekey="{{passwd}}"
@@ -121,7 +124,7 @@ LOCALS
     </p>
   </div>
   <a href="/#/backup">backup</a>
-
+  <span>Topic: {{topic}}</span>
 </div>
 
 <div main class="main">
