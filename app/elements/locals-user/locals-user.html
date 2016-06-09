@@ -71,7 +71,16 @@ LOCALS
       @apply(--layout-center-center);
      }
 
-     .loginbtn
+     .enterpass {
+      width: 100%;
+      max-width: 500px;
+      @apply(--layout-vertical);
+      @apply(--layout-center-center);
+     }
+
+     .loginbtn {
+      margin-top: 20px;
+     }
 
 
     </style>
@@ -159,8 +168,10 @@ LOCALS
     <!-- login / unlock wallet -->
     <neon-animatable route="enterpass">
     <div class="canvas">
-      <locals-input label="password" bind-value="{{passwd}}"></locals-input>
+    <div class="enterpass">
+      <locals-input label="password" bind-value="{{passwd}}" center></locals-input>
       <locals-button class="loginbtn" icon="arrowright" on-tap="setPass"></locals-button>
+    </div>
     </div>
     </neon-animatable>
 
