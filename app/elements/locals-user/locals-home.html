@@ -126,7 +126,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <locals-icon icon="menu" iconcolor="darkgrey" on-tap="firetoggle"></locals-icon>
       </div>
       <p class="flex"></p>
-      <locals-verification-validator mode="button" on-tap="toVerification"></locals-verification-validator>
+<!--       <locals-verification-validator mode="button" on-tap="toVerification"></locals-verification-validator> -->
+<locals-verification-handler topic="{{topic}}" progress="{{progress}}" on-tap="toVerification"></locals-verification-handler>
       <locals-button bg="grey1" id="storebtn" icon="plus" on-tap="toStore" class$="{{storebtnclass}}"></locals-button>
     </div>
 

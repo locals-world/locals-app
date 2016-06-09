@@ -107,7 +107,7 @@ LOCALS
     decimals="2"
     id="whisper"></locals-whisperer>
 
-  <locals-verification-handler topic="{{topic}}" progress="{{progress}}"></locals-verification-handler>
+  
 
   <locals-lsapi
     verbose id="lsapi"
@@ -170,7 +170,7 @@ LOCALS
     </neon-animatable>
 
     <!-- verification : verify someone else's validation -->    
-    <locals-verification-validator route="verification" on-to-home="toHome" sizeview="{{sizeview}}" mode="list"></locals-verification-validator>
+    <locals-verification-validator route="verification" on-to-home="toHome" sizeview="{{sizeview}}" mode="list" topic=“{{topic}}” progress=“{{progress}}”></locals-verification-validator>
 
 
   </neon-animated-pages>
