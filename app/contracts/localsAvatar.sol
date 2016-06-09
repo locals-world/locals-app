@@ -41,13 +41,21 @@ contract localsAvatar {
         UserAdded(msg.sender, _username, _ipfshash, users[msg.sender].numVerifications);
     }
 
-    function addVerification(address _localsuser){      
+    function addVerification(address _localsuser, string _hash){      
         // Add a verfier to this user's hash
 
         // If the verifier isnt verified himself, throw.
-        // if(users[msg.sender].numVerifications < verificationthresh){
-        //  throw ;
+        //if(users[msg.sender].numVerifications < verificationthresh) throw;
+        
+
+        // If the user doesnt exist, create the user first.
+        // if( users[_localsuser] ){
+        // 	addLocalsuser(_localsuser, _hash);
         // }
+
+        // If the hash of the user doesnt match the existing hash
+        //if(users[_localsuser].ipfshash != _hash) throw;
+
         var tokencontract = MyToken(tokenaddr);
 
         uint numval = users[_localsuser].numVerifications;
@@ -67,7 +75,7 @@ contract localsAvatar {
 
 
 //// INCLUDE THE TOKEN CONTRACT
-// Currently deployed at 0xD4A12Dd074d9ddc80e18Edf25F8609319753F413
+// Currently deployed at 0xa69153562474B1dFf2ab79b7fdB75d55f659Ea56
 
 contract owned {
     address public owner;

@@ -1,4 +1,4 @@
-// Currently deployed at 0xD4A12Dd074d9ddc80e18Edf25F8609319753F413
+// Currently deployed at 0xa69153562474B1dFf2ab79b7fdB75d55f659Ea56
 
 contract owned {
     address public owner;
