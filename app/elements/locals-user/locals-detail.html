@@ -113,8 +113,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       locals-objectrender {
-/*        background-color: red;
-*/        width: 100%;
+        width: 100%;
+      }
+
+
+      .homebtn {
+        transition: all 5s linear;
+      }
+      .exit {
+        -ms-transform: rotate(45deg); /* IE 9 */
+        -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
+        transform: rotate(45deg);
       }
 
     </style>
@@ -122,7 +131,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     
     <div class="topbar">
       <p class="flex"></p>
-      <locals-button icon="decline" on-tap="back"></locals-button>
+          <locals-button class="exit homebtn" id="exitbtn" icon="plus" on-tap="toHome"></locals-button>
     </div>
     <div id="test"></div>
     <div class="scrollarea">
@@ -440,7 +449,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       },
 
-    back: function(){
+    toHome: function(){
         this.fire('to-home');
     },
 
