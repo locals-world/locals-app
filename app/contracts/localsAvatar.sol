@@ -1,7 +1,7 @@
 // Currently deployed at 0x2eDb2606b1BCC23fa3269D83A1f665c9A312F8e6
 
 
-contract localsAvatar {
+contract localsTruth {
 
     address public owner;
     
@@ -11,61 +11,68 @@ contract localsAvatar {
     // the address of the tokencontract to use
     address public tokenaddr;
 
-    // How many verifications should a user have before he can verify someone else?
+    // Threshold for verification status
     uint public verificationthresh;
 
-    struct User {
-        string username;
-        string ipfshash;
-        address[] verifications;
+    struct Hash {
+        address hashowner;
+        string thehash;
+        mapping(address => bool) verifications;
         uint numVerifications;
     }
 
-    mapping (address => User) public users;
+    mapping (string => Hash) hashes;
 
     event ValidationAdded(address _from, address _to, uint _numverifications);
-    event UserAdded(address _from, string _username, string _ipfshash, uint _numverifications);
+    event HashAdded(address _from, string _hash, uint _numverifications);
+    event Error(string _err);
 
-    function localsAvatar(uint _verificationthresh, address token){
+    function localsTruth(address token, address _adam, address _eva, uint _verificationthresh){
         owner = msg.sender;
-        verificationthresh = _verificationthresh;
         tokenaddr = token;
+        verificationthresh = _verificationthresh;
+        hashes['adam'].numVerifications = _verificationthresh;
+        hashes['adam'].hashowner = _adam;
+        hashes['eva'].numVerifications = _verificationthresh;
+        hashes['eva'].hashowner = _eva;
     }
 
-    // function addLocalsuser(string _username, string _ipfshash){
-    //     // Save the user's ipfs hashed data
-    //     users[msg.sender].username = _username;
-    //     users[msg.sender].ipfshash = _ipfshash;
-    //     users[msg.sender].verifications.push(0x000);
-    //     users[msg.sender].numVerifications = 0;
-    //     UserAdded(msg.sender, _username, _ipfshash, users[msg.sender].numVerifications);
-    // }
-
-    function addVerification(address _localsuser, string _hash){      
+    function addVerification(address _hashowner, string _thehash, string _senderhash) returns (string _feedback) {      
         // Add a verfier to this user's hash
 
         // If the verifier isnt verified himself, throw.
-        //if(users[msg.sender].numVerifications < verificationthresh) throw;
+        if(hashes[_senderhash].numVerifications < verificationthresh) {
+            Error('verifier has not enough verifications.');
+            return 'verifier has not enough verifications.';
+        }
+
+        // If the msg.sender is not the owner of the senderhash, throw.
+        if(hashes[_senderhash].hashowner != msg.sender) {
+            Error('msg sender is not the owner of the senderhash.');
+            return 'msg sender is not the owner of the senderhash.';
+        }
         
-
-        // If the user doesnt exist, create the user first.
-        // if( users[_localsuser] ){
-        // 	addLocalsuser(_localsuser, _hash);
-        // }
-
-        // If the hash of the user doesnt match the existing hash
-        //if(users[_localsuser].ipfshash != _hash) throw;
-
+        // If the verifier already verified this hash, throw.
+        if(hashes[_thehash].verifications[msg.sender] == true) {
+            Error('msg sender already verified this.');
+            return 'msg sender already verified this.';
+        }
+        
         var tokencontract = MyToken(tokenaddr);
 
-        uint numval = users[_localsuser].numVerifications;
-        users[_localsuser].verifications.push(msg.sender);
-        users[_localsuser].numVerifications = numval + 1;
+        uint numval = hashes[_thehash].numVerifications;
+        hashes[_thehash].verifications[msg.sender] = true;
+        hashes[_thehash].numVerifications = numval + 1;
 
-        ValidationAdded(msg.sender, _localsuser, users[_localsuser].numVerifications);
+        ValidationAdded(msg.sender, _hashowner, hashes[_thehash].numVerifications);
         // And transfer x localcoin from verifier to user.
         tokencontract.mintToken(msg.sender, 5);
-        tokencontract.mintToken(_localsuser, 5);
+        tokencontract.mintToken(_hashowner, 5);
+        
+    }
+
+    function checkVeracity(string _hash) returns (uint numVerifications) {
+    	return hashes[_hash].numVerifications;
     }
 
     // And because my mist wallet is getting full, we need a suicide function.
