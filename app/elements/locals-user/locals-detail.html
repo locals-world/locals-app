@@ -38,6 +38,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <style>
       :host {
         display: block;
+        background-color: var(--locals-blue);
+        height: 100%;
         --topbar-height: 100px;
         --scrollarea-height: 800px;
         --bg-size: auto 800px;
@@ -131,7 +133,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     
     <div class="topbar">
       <p class="flex"></p>
-          <locals-button class="exit homebtn" id="exitbtn" icon="plus" on-tap="toHome"></locals-button>
+          <locals-button class="exit homebtn" id="exitbtn" icon="plus" on-tap="toHome" bgrgba="0,0,0,0"></locals-button>
     </div>
     <div id="test"></div>
     <div class="scrollarea">
