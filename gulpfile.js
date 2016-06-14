@@ -315,6 +315,8 @@ gulp.task('deploy', null, function() {
 });
 
 
+
+
 gulp.task('solc', function() {
 
   glob([
@@ -352,6 +354,7 @@ gulp.task('solc', function() {
 
   });
 });
+
 
 // Build production files, the default task
 gulp.task('default', ['clean'], function(cb) {
