@@ -10,6 +10,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/locals-button/locals-button.html">
+<link rel="import" href="../../bower_components/locals-icon/locals-icon.html">
 
 
 <dom-module id="locals-wallet">
@@ -17,19 +18,202 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <style>
       :host {
         display: block;
+        box-sizing: border-box;
+        background-color: var(--locals-grey1);
+        width: 100vw;
+        --balance-h1: 40px;
+        --balance-lineheight: 52px;
+        --coin-margins: 0px 0px 7px 6px;
+        --code-h2: 32px;
+        --code-lineheight: 36px;
+        --code-small: 10px;
+
       }
+
+      h1 {
+        @apply(--locals-font-h1);
+        text-align: center;
+        font-size: var(--balance-h1);
+        line-height: var(--balance-lineheight);
+      }
+
+
+      h2 {
+        @apply(--locals-font-h2);
+        @apply(--opensans-semibold);
+        font-size: var(--code-h2);
+        line-height: var(--code-lineheight);
+        color:var(--locals-blue);
+      }
+
+      p {
+        @apply(--locals-font-body1);
+      }
+
+      small {
+        @apply(--locals-font-small);
+        @apply(--opensans-semibold);
+        color:var(--locals-blue);
+        font-size: var(--code-small);
+
+      }
+
+
+      .total {
+        width: 100vw;
+        background-color: var(--locals-grey1);
+        @apply(--layout-vertical);
+        @apply(--layout-start);
+      }
+
+      .totalpart {
+        width: 100vw;
+        box-sizing: border-box;
+        padding: 0px 10vw 0px 10vw;
+      }
+
+      .topbar {
+        width: 100%;
+        background-color: var(--locals-grey1);
+        height: var(--topbar-height);
+        @apply(--layout-horizontal);
+        @apply(--layout-center);
+        box-sizing: border-box;
+        padding: 10px 20px 10px 10px;
+        margin-bottom: 4vh;
+        }
+
+      .flex {
+        @apply(--layout-horizontal);
+        @apply(--layout-flex);
+      }
+
+
+      .balance {
+        color: var(--locals-darkgrey);
+        @apply(--layout-horizontal);
+        @apply(--layout-end);
+        @apply(--layout-start-justified);
+        @apply(--layout-wrap);
+      }
+
+       .balance h1 {
+          margin: 0px;
+        }
+
+       .localcoinamount {
+        margin: var(--coin-margins);
+       }
+
+      .tussenschot {
+        width: 100%;
+        border: 0;
+        margin: 0px;
+        color: var(--locals-grey3);
+        background-color: var(--locals-grey2);
+        height: 1px;
+      }
+
+      .inbutton {
+        width: 100%;
+        @apply(--layout-horizontal);
+        @apply(--layout-end);
+      }
+
+     .coinbtn {
+      margin-left: 5px;
+     }
+
+     #sendcoins {
+      width: 100%;
+      max-width: 500px;
+      box-sizing: border-box;
+      @apply(--layout-vertical);
+      @apply(--layout-center-center);
+     }
+
+     #receivecoins {
+      width: 100%;
+      max-width: 500px;
+      box-sizing: border-box;
+      @apply(--layout-horizontal);
+      @apply(--layout-center);
+      @apply(--layout-start-justified);
+     }
+
+
+     .whitespace {
+      height: 2vh;
+     }
+
+     .code {
+      @apply(--layout-vertical);
+      @apply(--layout-start);  
+      margin: 2vh 20px 2vh 0px;    
+     }
+
+     .temp {
+      margin-top: 6vh; 
+      color: var(--locals-grey4);
+     }
+
     </style>
-    <div>
-      <h1>{{ethbalance}}</h1>
-      <h1>{{localcoinbalance}}</h1>
-      <h1>Send funds to another locals user</h1>
-      <p>enter the # of the other user</p>
-      <locals-input autofocus bind-value="{{pincode}}" label="Pincode" center></locals-input>
-      <locals-confirm on-confirm="toWaiting" type="next"></locals-confirm>
+
+    <div class="topbar">
+      <p class="flex"></p>
+      <locals-button bgrgba="0,0,0,0" id="exitbtn" icon="declinenew" on-tap="toHome"></locals-button>
+    </div>
+
+    <div class="total">
+      <div class="totalpart">
+        <div class="balance" on-tap="toWallet">
+          <h1>{{localcoinbalance}}</h1>
+          <template is="dom-if" if="{{_is(sizeview,'phone')}}">
+          <locals-icon class="localcoinamount" small icon="localcoin" iconcolor="darkgrey"></locals-icon>
+          </template>
+          <template is="dom-if" if="{{_is(sizeview,'desktop')}}">
+          <locals-icon class="localcoinamount" icon="localcoin" iconcolor="darkgrey"></locals-icon>
+          </template>
+          <template is="dom-if" if="{{_is(sizeview,'xlarge')}}">
+          <locals-icon class="localcoinamount" big icon="localcoin" iconcolor="darkgrey"></locals-icon>
+          </template>
+        </div>
+        <template is="dom-if" if="{{collsclosed}}">
+          <div class="whitespace"></div>
+          <template is="dom-if" if="{{_is(sizeview,'phone')}}">
+            <div class="whitespace"></div>
+            <locals-button small txt txtcolor="blue" on-tap="togglesendcoins"><div class="inbutton">send <locals-icon class="coinbtn" small icon="localcoin" iconcolor="blue"></locals-icon></div></locals-button>
+            <locals-button small txt txtcolor="blue" on-tap="togglereceivecoins"><div class="inbutton">receive <locals-icon class="coinbtn" small icon="localcoin" iconcolor="blue"></locals-icon></div></locals-button>
+            <div class="whitespace"></div>
+          </template>
+          <template is="dom-if" if="{{!_is(sizeview,'phone')}}">
+            <locals-button txt txtcolor="blue" on-tap="togglesendcoins"><div class="inbutton">send <locals-icon class="coinbtn" small icon="localcoin" iconcolor="blue"></locals-icon></div></locals-button>
+            <locals-button txt txtcolor="blue" on-tap="togglereceivecoins"><div class="inbutton">receive <locals-icon class="coinbtn" small icon="localcoin" iconcolor="blue"></locals-icon></div></locals-button>
+          </template>
+          <div class="whitespace"></div>
+        </template>
+        <iron-collapse id="sendcoins">
+          <div class="whitespace"></div>
+          <locals-input class="sendinput" autofocus bind-value="{{pincode}}" label="Amount"></locals-input>
+          <locals-input class="sendinput" autofocus bind-value="{{pincode}}" label="To"></locals-input>
+          <locals-confirm on-cancel="togglesendcoins" on-confirm="toWaiting" type="next"></locals-confirm>
+        </iron-collapse>
+        <iron-collapse id="receivecoins">
+          <div class="code">
+            <small>Temporary code</small>
+            <h2>{{topic}}</h2>
+          </div>
+          <locals-button confirmsmall icon="declinenew" confirmsmall on-tap="togglereceivecoins" class="closebtn"></locals-button>
+        </iron-collapse>
+        <div class="whitespace"></div>
+      </div>
+      <div class="tussenschot"></div>
+      <div class="totalpart">
+        <p class="temp">Hier een lijstje met je gedane transacties?</p>
+      </div>
       <!-- Hier hebben we dan de key van de partner -->
-      <p>TO: <span>{{partnerpubkey}}</span></p>
-      <p>AMOUNT: 1</p>
-      <locals-button text on-tap="transfer">verstuur</locals-button>
+      <!-- <p>TO: <span>{{partnerpubkey}}</span></p>
+      <locals-button text on-tap="transfer">verstuur</locals-button> -->
     </div>
   </template>
   <script>
@@ -44,7 +228,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: String,
           value: 'locals-wallet',
           notify: true
-        }
+        },
+
+        sizeview: {
+          type: String,
+          observer: '_sizeview'
+        },
+
+        topic: {
+          type: Number,
+        },
+
+        collsclosed: {
+          type: Boolean,
+          value: true
+        },
+      },
+
+      attached: function(){
+
       },
 
       toWaiting: function(){
@@ -77,7 +279,70 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         } else {
           console.log('error; no web3 or account found');
         }
+      },
+
+    toHome: function() {
+      this.fire('to-home');
+    },
+
+    _sizeview: function(){
+      switch(this.sizeview) {
+          case 'phone':
+              this.customStyle['--balance-h1'] = '40px';
+              this.customStyle['--balance-lineheight'] = '52px';
+              this.customStyle['--code-h2'] = '32px';
+              this.customStyle['--code-lineheight'] = '36px';
+              this.customStyle['--code-small'] = '10px';
+              this.customStyle['--coin-margins'] = '0px 0px 7px 6px';
+              this.updateStyles();
+              break;
+          case 'desktop':
+              this.customStyle['--balance-h1'] = '60px';
+              this.customStyle['--balance-lineheight'] = '78px';
+              this.customStyle['--code-h2'] = '44px';
+              this.customStyle['--code-lineheight'] = '50px';
+              this.customStyle['--code-small'] = '12px';
+              this.customStyle['--coin-margins'] = '0px 0px 10px 6px';
+              this.updateStyles();
+              break;
+          case 'xlarge':
+              this.customStyle['--balance-h1'] = '120px';
+              this.customStyle['--balance-lineheight'] = '152px';
+              this.customStyle['--code-h2'] = '98px';
+              this.customStyle['--code-lineheight'] = '104px';
+              this.customStyle['--code-small'] = '24px';
+              this.customStyle['--coin-margins'] = '0px 0px 20px 6px';
+              this.updateStyles();
+              break;
+          default:
+          console.log("!!! ** Niks");
       }
+    },
+
+    _is: function(a, b) {
+      if (b === undefined){
+        b = true;
+      }
+      //console.log(a ,'(',typeof a,') is',b,'(',typeof b,') they are equal for ==',a == b,', they are equal for ===',a === b);
+      return a === b;
+    },
+
+      togglesendcoins: function() {
+        var sendcoins = document.querySelector('#sendcoins');
+        sendcoins.toggle();
+        this.collsclosed=!this.collsclosed;
+      },
+
+      togglereceivecoins: function() {
+        // this.whisper = document.querySelector('locals-whisperer');
+        // this.topic = this.whisper.topic;
+        // console.log("******** topic in wallet: ****",this.topic)
+
+        var receivecoins = document.querySelector('#receivecoins');
+        receivecoins.toggle();
+        this.collsclosed=!this.collsclosed;
+      },
+
 
     });
   })();

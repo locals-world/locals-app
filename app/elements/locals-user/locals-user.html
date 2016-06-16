@@ -119,10 +119,6 @@ LOCALS
       @apply(--layout-center-center);
      }
 
-     .loginbtn {
-      margin-top: 20px;
-     }
-
      .localcoinamount {
       margin: 0px 0px 7px 6px;
      }
@@ -181,11 +177,11 @@ LOCALS
 <div drawer class="drawer">
   <div class="whitespace"></div>
   <div class="drawerpart">
-    <div class="balance">
+    <div class="balance" on-tap="toWallet">
       <h1>{{locbalans}}</h1>
       <locals-icon class="localcoinamount" small icon="localcoin" iconcolor="grey5"></locals-icon>
     </div>
-    <a href="" class="detailslink">balance details</a>
+    <a href="/#/wallet" on-tap="toWallet" class="detailslink">balance details</a>
   </div>
   <!-- <div class="drawerpart">
     <locals-button txt small txtcolor="white" href="/#/backup">backup</locals-button>
@@ -231,9 +227,7 @@ LOCALS
     <locals-verification-validator route="verification" on-to-home="toHome" sizeview="{{sizeview}}" mode="list" topic="{{topic}}" progress="{{progress}}" web3="{{web3}}" account="{{account}}"></locals-verification-validator>
 
     <!-- wallet: transfer funds -->
-    <neon-animatable route="wallet">
-      <locals-wallet web3="{{web3}}" ethbalance="{{ethbalans}}" localcoinbalance="{{locbalans}}" account="{{account}}"></locals-wallet>
-    </neon-animatable>
+    <locals-wallet topic="{{topic}}" on-to-home="toHome" route="wallet" web3="{{web3}}" ethbalance="{{ethbalans}}" localcoinbalance="{{locbalans}}" account="{{account}}" sizeview="{{sizeview}}"></locals-wallet>
 
   </neon-animated-pages>
 
@@ -348,6 +342,11 @@ LOCALS
 
       toHome: function(){
         Excess.RouteManager.transitionTo('/home');
+      },
+
+      toWallet: function(){
+        Excess.RouteManager.transitionTo('/wallet');
+        this.$.drawer.togglePanel();
       },
 
       toVerification: function(){
