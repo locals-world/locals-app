@@ -48,11 +48,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         contractaddr: {
           type: String,
           value: '0xa69153562474B1dFf2ab79b7fdB75d55f659Ea56'
+        },
+        localcoinbalance: {
+          type: Number,
+          notify: true
+        },
+        ethbalance: {
+          type: Number
         }
       },
 
       ready: function(){
         this.contractaddr = '0xa69153562474B1dFf2ab79b7fdB75d55f659Ea56';
+        this.getLocalbalance();
+        var self = this;
+        window.setInterval(function(){
+          self.getLocalbalance();
+        }, 5000);
       },
 
       toWaiting: function(){
