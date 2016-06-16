@@ -11,7 +11,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/locals-button/locals-button.html">
 
-
 <dom-module id="locals-wallet">
   <template>
     <style>
@@ -20,8 +19,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
     <div>
-      <h1>{{ethbalance}}</h1>
-      <h1>{{localcoinbalance}}</h1>
+      <h1>E <span>{{ethbalance}}</span></h1>
+      <h1>L <span>{{localcoinbalance}}</span></h1>
+      <p on-tap="getLocalbalance">Refresh</p>
       <h1>Send funds to another locals user</h1>
       <p>enter the # of the other user</p>
       <locals-input autofocus bind-value="{{pincode}}" label="Pincode" center></locals-input>
@@ -44,7 +44,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: String,
           value: 'locals-wallet',
           notify: true
+        },
+        contractaddr: {
+          type: String,
+          value: '0xa69153562474B1dFf2ab79b7fdB75d55f659Ea56'
         }
+      },
+
+      ready: function(){
+        this.contractaddr = '0xa69153562474B1dFf2ab79b7fdB75d55f659Ea56';
       },
 
       toWaiting: function(){
@@ -64,20 +72,70 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         });
       },
 
+      getLocalbalance: function(){
+        //Get Localcoin token balance
+         this.web3wallet = document.querySelector('web3-wallet');
+        var self = this;
+
+        this.contracturl = this.resolveUrl('../../contracts/localsCointoken.json');
+        this.importHref(this.contracturl, function(e) {
+          this.contractjson = JSON.parse(e.target.import.body.innerText);
+
+          var MyContract = self.web3wallet.web3.eth.contract(self.contractjson.abi);
+          var myContractInstance = MyContract.at(self.contractaddr);
+
+       
+        var account = this.fixaddress(this.account);
+        var coinbalance = myContractInstance.balanceOf(account).toNumber();
+        this.localcoinbalance = coinbalance;
+        console.log('localcoinbalance: ', coinbalance);
+        });
+      },
+
       transfer: function(){
         // we gaan dan wat geld versjassen
         this.web3wallet = document.querySelector('web3-wallet');
         this.amount = 1;
-        if(this.web3 && this.account){
-          this.web3wallet.web3.eth.getGasPrice(function(err, result){
+        var self = this;
+
+        this.contracturl = this.resolveUrl('../../contracts/localsCointoken.json');
+        this.importHref(this.contracturl, function(e) {
+          this.contractjson = JSON.parse(e.target.import.body.innerText);
+             self.web3wallet.web3.eth.getGasPrice(function(err, result){
             var gasPrice = result.toNumber(10);
           console.log('gasprice: ', gasPrice);
+
+          var MyContract = self.web3wallet.web3.eth.contract(self.contractjson.abi);
+          var myContractInstance = MyContract.at(self.contractaddr);
+            console.log('doing transfer to: ', self.partnerpubkey, 'from: ', self.web3wallet.account);
+            myContractInstance.transfer.sendTransaction(self.partnerpubkey, 1, {
+              from: self.fixaddress(self.web3wallet.account),
+              gasPrice: gasPrice,
+              gasLimit: 3000000,
+              gas: 2000000
+            }, function(err, result){
+              console.log(err, result);
+              var coinbalance = myContractInstance.balanceOf(self.fixaddress(self.web3wallet.account)).toNumber();
+                self.localcoinbalance = coinbalance;
+            });
+
           });
           //this.web3.send(this.partnerpubkey, this.amount);
-        } else {
-          console.log('error; no web3 or account found');
-        }
+        });
+
+         
+      },
+
+      fixaddress: function(address) {
+      function strStartsWith(str, prefix) {
+        return str.indexOf(prefix) === 0;
       }
+
+      if (!strStartsWith(address, '0x')) {
+        return ('0x' + address);
+      }
+      return address;
+    }
 
     });
   })();
