@@ -265,8 +265,7 @@ LOCALS
         },
 
         localsuseraddr: {
-          type: String,
-          value: '0x583E5cBf7808CCD36C3697FC0E1772634D9a60ee'
+          type: String
         },
 
         keystore: {
@@ -374,7 +373,7 @@ LOCALS
         var myCoinContractInstance = MyCoinContract.at(this.tokenaddr);
         var account = this.fixaddress(this.account);
         var coinbalance = myCoinContractInstance.balanceOf(account).toNumber();
-        this.locbalans = coinbalance / 100;
+        this.locbalans = coinbalance;
         if(coinbalance > 0){
           this.nolocalcoin = false;
         };
