@@ -30,6 +30,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/locals-store/locals-store.html">
 <link rel="import" href="../../bower_components/locals-style/locals-style.html">
 <link rel="import" href="../../bower_components/locals-verification/locals-verification-validator.html">
+<link rel="import" href="../../bower_components/locals-verification/locals-verification-localstorage.html">
+
 <link rel="import" href="../../bower_components/locals-whisperer/locals-whisperer.html">
 
 
@@ -131,7 +133,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </div>
       <p class="flex"></p>
 <!--       <locals-verification-validator mode="button" on-tap="toVerification"></locals-verification-validator> -->
-        <locals-verification-handler topic="{{topic}}" progress="{{progress}}" on-tap="toVerification"></locals-verification-handler>
+
+ <locals-verification-localstorage data="{{incomingvalidations}}" nrofitems="{{nrofval}}" id="lvls">
+    </locals-verification-localstorage>
+
+        <locals-verification-handler topic="{{topic}}" progress="{{progress}}" on-tap="toVerification" vals="{{nrofval}}"></locals-verification-handler>
         <locals-button bg="white" id="storebtn" icon="plus" on-tap="toStore" class$="{{storebtnclass}}"></locals-button>
     </div>
 
