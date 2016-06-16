@@ -239,7 +239,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           value: 'locals-wallet',
           notify: true
         },
-<<<<<<< HEAD
 
         sizeview: {
           type: String,
@@ -254,11 +253,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: Boolean,
           value: true
         },
-      },
 
-      attached: function(){
 
-=======
         contractaddr: {
           type: String,
           value: '0xa69153562474B1dFf2ab79b7fdB75d55f659Ea56'
@@ -270,7 +266,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         ethbalance: {
           type: Number
         }
->>>>>>> b73baa448ca2e8658af9ae4628d8146007433c78
       },
 
       ready: function(){
@@ -296,6 +291,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.handler.addEventListener('pub-key', function(e){
           console.log('got pub key: ', e.detail);
           self.partnerpubkey = e.detail;
+          self.transfer();
         });
       },
 
@@ -348,10 +344,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
           });
           //this.web3.send(this.partnerpubkey, this.amount);
-<<<<<<< HEAD
-        } else {
-          console.log('error; no web3 or account found');
-        }
+        }); 
       },
 
     toHome: function() {
@@ -416,11 +409,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.collsclosed=!this.collsclosed;
       },
 
-=======
-        });
 
-         
-      },
 
       fixaddress: function(address) {
       function strStartsWith(str, prefix) {
@@ -432,7 +421,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
       return address;
     }
->>>>>>> b73baa448ca2e8658af9ae4628d8146007433c78
 
     });
   })();
