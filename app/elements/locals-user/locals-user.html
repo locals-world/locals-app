@@ -37,10 +37,29 @@ LOCALS
         display: block;
       }
 
+      h1 {
+        @apply(--locals-font-h1);
+      }
+
       p {
         @apply(--locals-font-body1);
         @apply(--opensans-semibold);
       }
+
+      a {
+        @apply(--locals-font-body1);
+        @apply(--opensans-semibold);
+        color:var(--locals-blue);
+        text-decoration: none;
+        outline: none;
+        font-size: 12px;
+        border-bottom: 1px dashed var(--locals-blue);        
+
+      }
+
+/*      .detailslink {
+        border-bottom: 1px dashed var(--locals-blue);        
+      }*/
 
       neon-animated-pages {
         height: 100%;
@@ -49,9 +68,17 @@ LOCALS
       .balance {
         color: var(--locals-grey5);
         @apply(--layout-horizontal);
-        @apply(--layout-center);
+        @apply(--layout-end);
+        @apply(--layout-wrap);
+        /*margin: 0px 0px 6px 4px;*/
       }
 
+      .balance:hover {
+        cursor: pointer;
+      }
+      .balance h1 {
+        margin: 0px;
+      }
 
      .main {
       overflow-y: scroll;
@@ -66,8 +93,16 @@ LOCALS
      .drawer {
       background-color: var(--locals-darkgrey);
       box-sizing: border-box;
-      padding: 50px;
       color: white;
+     }
+
+     .drawerpart {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 40px 50px 40px 50px;
+      border-bottom:1px solid #404040;
+      @apply(--layout-vertical);
+      @apply(--layout-start);      
      }
 
      .canvas {
@@ -87,6 +122,15 @@ LOCALS
      .loginbtn {
       margin-top: 20px;
      }
+
+     .localcoinamount {
+      margin: 0px 0px 7px 6px;
+     }
+
+     .whitespace {
+      height: 20px;
+     }
+
 
 
     </style>
@@ -133,22 +177,19 @@ LOCALS
 <iron-media-query query="(min-width:601px) and (max-width: 1280px)" query-matches="{{desktopview}}"></iron-media-query>
 <iron-media-query query="(min-width:1281px)" query-matches="{{xlargeview}}"></iron-media-query>
 
-<paper-drawer-panel id="drawer" force-narrow>
+<paper-drawer-panel id="drawer" force-narrow drawer-width="280px">
 <div drawer class="drawer">
-  <div class="balance">
-    <locals-icon small icon="ether" iconcolor="grey5"></locals-icon>
-    <p>
-      <span>{{ethbalans}}</span>
-    </p>
+  <div class="whitespace"></div>
+  <div class="drawerpart">
+    <div class="balance">
+      <h1>{{locbalans}}</h1>
+      <locals-icon class="localcoinamount" small icon="localcoin" iconcolor="grey5"></locals-icon>
+    </div>
+    <a href="" class="detailslink">balance details</a>
   </div>
-  <div class="balance">
-    <locals-icon small icon="localcoin" iconcolor="grey5"></locals-icon>
-    <p>
-      <span>{{locbalans}}</span>
-    </p>
-  </div>
-  <a href="/#/backup">backup</a>
-  <span>Topic: {{topic}}</span>
+  <!-- <div class="drawerpart">
+    <locals-button txt small txtcolor="white" href="/#/backup">backup</locals-button>
+  </div> -->
 </div>
 
 <div main class="main">

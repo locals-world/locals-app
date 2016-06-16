@@ -131,14 +131,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div class="menuicon">
         <locals-icon icon="menu" iconcolor="darkgrey" on-tap="firetoggle"></locals-icon>
       </div>
+<!--     <div class="balance">
+      <locals-icon small icon="localcoin" iconcolor="grey5"></locals-icon>
+      <p><span>{{locbalans}}</span></p>
+    </div> -->
+
       <p class="flex"></p>
-<!--       <locals-verification-validator mode="button" on-tap="toVerification"></locals-verification-validator> -->
-
- <locals-verification-localstorage data="{{incomingvalidations}}" nrofitems="{{nrofval}}" id="lvls">
-    </locals-verification-localstorage>
-
-        <locals-verification-handler topic="{{topic}}" progress="{{progress}}" on-tap="toVerification" vals="{{nrofval}}"></locals-verification-handler>
-        <locals-button bg="white" id="storebtn" icon="plus" on-tap="toStore" class$="{{storebtnclass}}"></locals-button>
+      <locals-verification-localstorage data="{{incomingvalidations}}" nrofitems="{{nrofval}}" id="lvls">
+      </locals-verification-localstorage>
+      <locals-verification-handler topic="{{topic}}" progress="{{progress}}" on-tap="toVerification" vals="{{nrofval}}"></locals-verification-handler>
+      <locals-button bg="white" id="storebtn" icon="plus" on-tap="toStore" class$="{{storebtnclass}}"></locals-button>
     </div>
 
     <div class="scrollarea">
