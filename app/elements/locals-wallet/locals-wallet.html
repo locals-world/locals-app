@@ -417,7 +417,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var account = this.fixaddress(this.account);
         var coinbalance = myContractInstance.balanceOf(account).toNumber();
         this.localcoinbalance = coinbalance;
-        console.log('localcoinbalance: ', coinbalance);
+        // console.log('localcoinbalance: ', coinbalance);
         this.balanceloaded = true;
         this.fire('balance-loaded');
         });
