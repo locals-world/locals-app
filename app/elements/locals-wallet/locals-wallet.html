@@ -140,6 +140,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       @apply(--layout-start-justified);
      }
 
+     .announce {
+      width: 100%;
+      max-width: 500px;
+      box-sizing: border-box;
+/*      padding: 10px 0px 10px 0px;*/
+      @apply(--layout-horizontal);
+      @apply(--layout-center);
+      @apply(--layout-start-justified);
+      @apply(--layout-wrap);
+     }
+
 
      .whitespace {
       height: 2vh;
@@ -148,13 +159,56 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
      .code {
       @apply(--layout-vertical);
       @apply(--layout-start);  
-      margin: 2vh 20px 2vh 0px;    
+     }
+
+     .closebtn {
+      margin: 0px 0px 0px 20px;    
      }
 
      .temp {
       margin-top: 6vh; 
       color: var(--locals-grey4);
      }
+
+     .refresher {
+        transition: all .05s linear;
+     }
+
+
+     .spinner {
+      -webkit-animation: rotate 1s linear infinite;
+      -moz-animation: rotate 1s linear infinite;
+      animation: rotate 1s linear infinite;
+     }
+
+     .spinonce {
+       transform: rotate(180deg);
+       -webkit-transform: rotate(180deg);
+       -moz-transform: rotate(180deg);
+
+     }
+
+
+
+      @-webkit-keyframes rotate {
+          from {-webkit-transform: rotate(0deg);}
+          to {-webkit-transform: rotate(360deg);}
+      }
+
+      @-moz-keyframes rotate {
+          from {-moz-transform: rotate(0deg);}
+          to {-moz-transform: rotate(360deg);}
+      }
+
+      @keyframes rotate {
+          from {transform: rotate(0deg);}
+          to {transform: rotate(360deg);}
+      }
+
+
+
+
+
 
     </style>
 
@@ -166,7 +220,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <div class="total">
       <div class="totalpart">
-        <div class="balance" on-tap="toWallet">
+        <div class="balance">
+        <template is="dom-if" if="{{!balanceloaded}}">
+          <locals-icon class="refresher spinner" icon="refresh1" iconcolor="darkgrey"></locals-icon>
+        </template>
+        <template is="dom-if" if="{{balanceloaded}}">
           <h1>{{localcoinbalance}}</h1>
           <template is="dom-if" if="{{_is(sizeview,'phone')}}">
           <locals-icon class="localcoinamount" small icon="localcoin" iconcolor="darkgrey"></locals-icon>
@@ -177,26 +235,40 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <template is="dom-if" if="{{_is(sizeview,'xlarge')}}">
           <locals-icon class="localcoinamount" big icon="localcoin" iconcolor="darkgrey"></locals-icon>
           </template>
+
+          <!-- <locals-icon class="refresher spinonce" icon="refresh1" iconcolor="grey5" small on-tap="refreshBalance"></locals-icon> -->
+
+
+        </template>
         </div>
+        <div class="whitespace"></div>
+        <div class="whitespace"></div>
         <template is="dom-if" if="{{collsclosed}}">
-          <div class="whitespace"></div>
           <template is="dom-if" if="{{_is(sizeview,'phone')}}">
-            <div class="whitespace"></div>
             <locals-button small txt txtcolor="blue" on-tap="togglesendcoins"><div class="inbutton">send <locals-icon class="coinbtn" small icon="localcoin" iconcolor="blue"></locals-icon></div></locals-button>
             <locals-button small txt txtcolor="blue" on-tap="togglereceivecoins"><div class="inbutton">receive <locals-icon class="coinbtn" small icon="localcoin" iconcolor="blue"></locals-icon></div></locals-button>
-            <div class="whitespace"></div>
           </template>
           <template is="dom-if" if="{{!_is(sizeview,'phone')}}">
             <locals-button txt txtcolor="blue" on-tap="togglesendcoins"><div class="inbutton">send <locals-icon class="coinbtn" small icon="localcoin" iconcolor="blue"></locals-icon></div></locals-button>
             <locals-button txt txtcolor="blue" on-tap="togglereceivecoins"><div class="inbutton">receive <locals-icon class="coinbtn" small icon="localcoin" iconcolor="blue"></locals-icon></div></locals-button>
           </template>
-          <div class="whitespace"></div>
         </template>
         <iron-collapse id="sendcoins">
+        <template is="dom-if" if="{{_is(sendcoinstate,'first')}}">
           <div class="whitespace"></div>
           <locals-input class="sendinput" autofocus bind-value="{{pincode}}" label="Amount"></locals-input>
           <locals-input class="sendinput" autofocus bind-value="{{pincode}}" label="To"></locals-input>
           <locals-confirm on-cancel="togglesendcoins" on-confirm="toWaiting" type="next"></locals-confirm>
+        </template>
+
+        <template is="dom-if" if="{{_is(sendcoinstate,'second')}}">
+          <div class="announce">
+          <div class="whitespace"></div>
+          <p>Your transaction is being executed.</p>
+          <locals-button confirmsmall icon="declinenew" confirmsmall on-tap="togglesendcoins" class="closebtn"></locals-button>
+          </div>
+        </template>
+
         </iron-collapse>
         <iron-collapse id="receivecoins">
           <div class="code">
@@ -205,7 +277,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </div>
           <locals-button confirmsmall icon="declinenew" confirmsmall on-tap="togglereceivecoins" class="closebtn"></locals-button>
         </iron-collapse>
+        <div class="whitespace"></div>  
         <div class="whitespace"></div>
+
       </div>
       <div class="tussenschot"></div>
       <div class="totalpart">
@@ -245,6 +319,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           observer: '_sizeview'
         },
 
+        sendcoinstate: {
+          type: String,
+          value: 'first',
+          observer: '_sendcoinstate'
+
+        },
+
+        balanceloaded: {
+          type: Boolean,
+          value: false
+        },
+
         topic: {
           type: Number,
         },
@@ -275,6 +361,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         window.setInterval(function(){
           self.getLocalbalance();
         }, 5000);
+        this.sendcoinstate = 'first';
       },
 
       toWaiting: function(){
@@ -293,6 +380,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           self.partnerpubkey = e.detail;
           self.transfer();
         });
+
+        this.sendcoinstate = 'second';
+      },
+
+      refreshBalance:function() {
+        this.refreshclass = 'refresher';
+        this.getLocalbalance();
       },
 
       getLocalbalance: function(){
@@ -312,6 +406,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var coinbalance = myContractInstance.balanceOf(account).toNumber();
         this.localcoinbalance = coinbalance;
         console.log('localcoinbalance: ', coinbalance);
+        this.balanceloaded = true;
+        this.fire('balance-loaded');
+        this.refreshclass = '';
         });
       },
 
@@ -397,6 +494,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var sendcoins = document.querySelector('#sendcoins');
         sendcoins.toggle();
         this.collsclosed=!this.collsclosed;
+        this.sendcoinstate = 'first';
       },
 
       togglereceivecoins: function() {
@@ -407,6 +505,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var receivecoins = document.querySelector('#receivecoins');
         receivecoins.toggle();
         this.collsclosed=!this.collsclosed;
+      },
+
+
+      _sendcoinstate: function(){
+        // console.log('********************* !!!! SENCOINSTATE', this.sendcoinstate);
       },
 
 

@@ -127,7 +127,35 @@ LOCALS
       height: 20px;
      }
 
+     .refresher {
+       -webkit-animation-name: rotate; 
+      -webkit-animation-duration: 1s; 
+      -webkit-animation-iteration-count: infinite;
+      -webkit-animation-timing-function: linear;
+      -moz-animation-name: rotate; 
+      -moz-animation-duration: 1s; 
+      -moz-animation-iteration-count: infinite;
+      -moz-animation-timing-function: linear;
+      animation-name: rotate; 
+      animation-duration: 1s; 
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+     }
 
+      @-webkit-keyframes rotate {
+          from {-webkit-transform: rotate(0deg);}
+          to {-webkit-transform: rotate(360deg);}
+      }
+
+      @-moz-keyframes rotate {
+          from {-moz-transform: rotate(0deg);}
+          to {-moz-transform: rotate(360deg);}
+      }
+
+      @keyframes rotate {
+          from {transform: rotate(0deg);}
+          to {transform: rotate(360deg);}
+      }
 
     </style>
 
@@ -178,8 +206,14 @@ LOCALS
   <div class="whitespace"></div>
   <div class="drawerpart">
     <div class="balance" on-tap="toWallet">
+
+      <template is="dom-if" if="{{!balanceloaded}}">
+        <locals-icon class="refresher" icon="refresh1" iconcolor="grey2"></locals-icon>
+      </template>
+      <template is="dom-if" if="{{balanceloaded}}">
       <h1>{{locbalans}}</h1>
       <locals-icon class="localcoinamount" small icon="localcoin" iconcolor="grey5"></locals-icon>
+      </template>
     </div>
     <a href="/#/wallet" on-tap="toWallet" class="detailslink">balance details</a>
   </div>
@@ -227,7 +261,7 @@ LOCALS
     <locals-verification-validator route="verification" on-to-home="toHome" sizeview="{{sizeview}}" mode="list" topic="{{topic}}" progress="{{progress}}" web3="{{web3}}" account="{{account}}"></locals-verification-validator>
 
     <!-- wallet: transfer funds -->
-    <locals-wallet topic="{{topic}}" on-to-home="toHome" route="wallet" web3="{{web3}}" ethbalance="{{ethbalans}}" localcoinbalance="{{locbalans}}" account="{{account}}" sizeview="{{sizeview}}"></locals-wallet>
+    <locals-wallet topic="{{topic}}" on-to-home="toHome" route="wallet" web3="{{web3}}" ethbalance="{{ethbalans}}" localcoinbalance="{{locbalans}}" account="{{account}}" sizeview="{{sizeview}}" on-balance-loaded="balanceLoad"></locals-wallet>
 
   </neon-animated-pages>
 
@@ -273,8 +307,19 @@ LOCALS
           observer: '_keystore'
         },
 
+        locbalans: {
+          type: Number,
+          value: '44',
+          observer: '_locbalans'
+        },
+
         data: {
           observer: '_data'
+        },
+
+        balanceloaded: {
+          type: Boolean,
+          value: false
         },
 
         localuserabi: {
@@ -316,8 +361,7 @@ LOCALS
           console.log('i need a passwd');
           Excess.RouteManager.transitionTo('/enterpass');
         }
-        //console.log(this.passwd);
-        
+        //console.log(this.passwd);     
       },
 
       setPass: function(){
@@ -488,6 +532,16 @@ LOCALS
 
     drawertoggle: function() {
       this.$.drawer.togglePanel();
+    },
+
+    balanceLoad: function(){
+      this.balanceloaded = true;
+      console.log("HEEEEEYOOOOOOOOOOOOOOOOOOOOOOO");
+
+    },
+
+
+    _locbalans: function(){
     }
 
     });

@@ -1,0 +1,760 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"mar",
+				"margin"
+			],
+			[
+				"locals-gre",
+				"locals-grey3"
+			],
+			[
+				"marg",
+				"margin"
+			],
+			[
+				"margin",
+				"margin-left"
+			],
+			[
+				"send",
+				"sendcoins"
+			],
+			[
+				"h",
+				"height"
+			],
+			[
+				"text",
+				"text-decoration"
+			],
+			[
+				"margin-",
+				"margin-bottom"
+			],
+			[
+				"text-a",
+				"text-align"
+			],
+			[
+				"p",
+				"p	Tag"
+			],
+			[
+				"_",
+				"_getobject"
+			],
+			[
+				"tran",
+				"transform-origin"
+			],
+			[
+				"auto",
+				"autofocus	Attr"
+			],
+			[
+				"for",
+				"formsubmit"
+			],
+			[
+				"locals",
+				"locals-icon"
+			],
+			[
+				"col",
+				"color"
+			],
+			[
+				"i",
+				"img	Tag"
+			],
+			[
+				"pad",
+				"padding"
+			],
+			[
+				"pa",
+				"padding"
+			],
+			[
+				"loca",
+				"locals-icon"
+			],
+			[
+				"bac",
+				"background-color"
+			],
+			[
+				"val",
+				"valscollapse"
+			],
+			[
+				"in",
+				"input	Tag"
+			],
+			[
+				"ma",
+				"margin-top"
+			],
+			[
+				"text-de",
+				"text-decoration"
+			],
+			[
+				"fo",
+				"font-size"
+			],
+			[
+				"max",
+				"max-width"
+			],
+			[
+				"over",
+				"overflow-y"
+			],
+			[
+				"ani",
+				"animate-prop"
+			],
+			[
+				"object",
+				"objectdetail"
+			],
+			[
+				"locals-ob",
+				"locals-objectcollection"
+			],
+			[
+				"local",
+				"locals-button"
+			],
+			[
+				"back",
+				"background-color"
+			],
+			[
+				"f",
+				"font-style"
+			],
+			[
+				"tex",
+				"text-align"
+			],
+			[
+				"b",
+				"border"
+			],
+			[
+				"pages",
+				"pages1"
+			],
+			[
+				"min-",
+				"min-height"
+			],
+			[
+				"locals-",
+				"locals-grey1"
+			],
+			[
+				"att",
+				"attr-for-selected"
+			],
+			[
+				"se",
+				"selected"
+			],
+			[
+				"iron",
+				"iron-selector"
+			],
+			[
+				"o",
+				"opacity"
+			],
+			[
+				"tx",
+				"txhash"
+			],
+			[
+				"ala",
+				"alabs-voting"
+			],
+			[
+				"backgr",
+				"background"
+			],
+			[
+				"box-",
+				"box-sizing"
+			],
+			[
+				"border",
+				"border-bottom"
+			],
+			[
+				"collp",
+				"collapser"
+			],
+			[
+				"string",
+				"String"
+			],
+			[
+				"but",
+				"button	Tag"
+			],
+			[
+				"iron-",
+				"iron-pages"
+			],
+			[
+				"di",
+				"div	Tag"
+			],
+			[
+				"date",
+				"datepicker"
+			],
+			[
+				"con",
+				"console"
+			],
+			[
+				"borde",
+				"border-bottom"
+			],
+			[
+				"font",
+				"font-size"
+			],
+			[
+				"r",
+				"relative"
+			],
+			[
+				"blue",
+				"bluelabel"
+			],
+			[
+				"focu",
+				"focused"
+			],
+			[
+				"com",
+				"complete"
+			],
+			[
+				"Typo",
+				"Typography"
+			],
+			[
+				"out",
+				"outline"
+			],
+			[
+				"outli",
+				"outlinecolor"
+			],
+			[
+				"rgb",
+				"rgba()"
+			],
+			[
+				"st",
+				"style	Tag"
+			],
+			[
+				"flex",
+				"flex-direction"
+			],
+			[
+				"box",
+				"box-sizing"
+			],
+			[
+				"wid",
+				"width"
+			],
+			[
+				"funct",
+				"function"
+			],
+			[
+				"get_pos",
+				"get_post_format"
+			],
+			[
+				"get_te",
+				"get_template_part"
+			],
+			[
+				"get_po",
+				"get_post_format"
+			],
+			[
+				"locaties",
+				"load-edit-link-categories.php"
+			],
+			[
+				"rg",
+				"rgba()"
+			],
+			[
+				"ti",
+				"title	Tag"
+			],
+			[
+				"co",
+				"color"
+			],
+			[
+				"ba",
+				"background-color"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "index.html",
+			"settings":
+			{
+				"buffer_size": 2866,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 367.0,
+		"last_filter": "Package Control: ",
+		"selected_items":
+		[
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 139.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc59f460fa1548d1514676163dafc88'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/benadriaenssen/Sites/locals-app",
+		"/Users/benadriaenssen/Sites/locals-app/app",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-object"
+	],
+	"file_history":
+	[
+		"/Users/benadriaenssen/Sites/locals-elements/locals-object/locals-dataobject.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-object/locals-object.html",
+		"/Users/benadriaenssen/Sites/locals-app/app/elements/locals-user/locals-user.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-store/locals-store.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-confirm/locals-confirm.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-style/locals-typography.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-button/locals-button.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-verification/locals-verification.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-verification/locals-verification-validator.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-verification/locals-verification-handler.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-style/locals-color.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-loader/locals-loader.html",
+		"/Users/benadriaenssen/Sites/locals-app/app/elements/locals-user/locals-home.html",
+		"/Users/benadriaenssen/Sites/locals-app/app/elements/locals-user/locals-detail.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-progress/locals-progress.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-avatar/locals-avatar.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-input/locals-input.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-iconset/locals-iconset.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-faucetserver/static/locals-faucet/app/index.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-faucetserver/static/locals-faucet/app/elements/locals-fawcet/locals-fawcet.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-faucetserver/wallet.json",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-faucetserver/static/locals-faucet/config.json",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-style/locals-style.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-verification/bower.json",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-validationhandler/locals-validationhandler.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-objectrender/locals-objectrender.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-icon/locals-icon.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-icon/demo/index.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-input/demo/index.html",
+		"/Users/benadriaenssen/Sites/locals-app/app/index.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-style/locals-defaultstyling.html",
+		"/Users/benadriaenssen/Sites/locals-app/app/elements/locals-newuser/locals-newuser.html",
+		"/Users/benadriaenssen/Sites/locals-app/app/scripts/app.js",
+		"/Users/benadriaenssen/Sites/locals-app/app/styles/app-theme.html",
+		"/Users/benadriaenssen/Sites/blocktube/blocktube-client/app/styles/main.css",
+		"/Users/benadriaenssen/Sites/blocktube/blocktube-client/app/scripts/app.js",
+		"/Users/benadriaenssen/Sites/blocktube/blocktube-client/app/styles/golden-goose.css",
+		"/Users/benadriaenssen/Sites/blocktube/blocktube-client/app/styles/app-theme.html",
+		"/Users/benadriaenssen/Sites/locals-app/bower_components/neon-animation/demo/tiles/circles-page.html",
+		"/Users/benadriaenssen/Sites/locals-app/bower_components/neon-animation/demo/tiles/index.html",
+		"/Users/benadriaenssen/Sites/locals-app/bower_components/neon-animation/demo/tiles/squares-page.html",
+		"/Users/benadriaenssen/Downloads/Amplitube 3.9.1 for Mac OS X (Fully Unlocked & Cracked)/Amplitube 3.9.1 for Mac OS X (Fully Unlocked & Cracked)/Amplitube 3.9.1 for Mac OS X (Fully Unlocked & Cracked).nfo",
+		"/Users/benadriaenssen/Desktop/__:: LOCALS ::__/locals_icons/locals-addpet.svg",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-object/bower_components/locals-confirm/locals-confirm.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-avatar/bower_components/three-js/three-js.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-page/bower_components/neon-animation/neon-animatable-behavior.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-dropdown/index.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-menu/index.html",
+		"/Users/benadriaenssen/Sites/cleanyo/app/bower_components/iron-menu-behavior/iron-menu-behavior.html",
+		"/Users/benadriaenssen/Desktop/key.prv",
+		"/Users/benadriaenssen/Sites/alabs-components/alabs-voting/demo/index.html",
+		"/Users/benadriaenssen/Sites/alabs-components/alabs-voting/alabs-voting.html",
+		"/Users/benadriaenssen/Sites/cleanyo/app/bower_components/paper-checkbox/paper-checkbox.html",
+		"/Users/benadriaenssen/Sites/cleanyo/app/bower_components/paper-behaviors/paper-checked-element-behavior.html",
+		"/Users/benadriaenssen/Sites/alabs-components/alabs-proposal/bower.json",
+		"/Users/benadriaenssen/Downloads/Ableton Live 9 Suite 9.1 Mac OS X (32 bit) (crack XForce) [ChingLiu]/Ableton Live 9 Suite 9.1 Mac OS X (32 bit) (crack XForce) [ChingLiu]/file_id.diz",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-progress/bower.json",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-progress/bower_components/paper-progress/paper-progress.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-icon/bower.json",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-icon/index.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-item/locals-item.html",
+		"/Users/benadriaenssen/Sites/alabs-components/alabs-voting/bower_components/locals-button/locals-button.html",
+		"/Users/benadriaenssen/Sites/alabs-components/alabs-voting/bower_components/locals-button/demo/index.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-elements-input/locals-input-datepicker.css",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-elements-input/bower_components/pikaday/css/pikaday.css",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-elements-iconset/bower_components/iron-icons/communication-icons.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-elements-iconset/bower_components/iron-icon/iron-icon.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-elements-iconset/bower_components/iron-icons/maps-icons.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-elements-iconset/bower_components/iron-iconset-svg/iron-iconset-svg.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-elements-iconset/bower_components/iron-icons/iron-icons.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-elements-iconset/demo/locals-iconset2.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-elements-iconset/bower_components/iron-iconset-svg/demo/svg-sample-icons.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-elements-iconset/bower_components/iron-icons/demo/index.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-elements-iconset/bower_components/iron-iconset-svg/demo/index.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-elements-iconset/demo/svg-sample-icons2.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-elements-iconset/locals-iconset-sponny.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-elements-iconset/bower_components/iron-icons/av-icons.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-elements-iconset/bower_components/iron-icons/index.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-elements-iconset/bower_components/iron-icons/image-icons.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-elements-input/bower_components/hydrolysis/hydrolysis.js",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-faucetserver/static/locals-faucet/app/bower_components/locals-style/locals-typography.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-elements-button/index.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-elements-input/bower_components/locals-style/locals-typography.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-elements-input/bower_components/paper-button/paper-button.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-elements-input/bower_components/iron-input/demo/index.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-elements-input/bower_components/iron-input/iron-input.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-elements-input/bower_components/paper-input/paper-input-behavior.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-elements-input/bower_components/paper-input/paper-input.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-elements-item/bower_components/locals-style/locals-typography.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-elements-item/bower_components/locals-style/locals-color.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-elements-item/demo/index.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-elements-style/index.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-elements-style/README.md",
+		"/Users/benadriaenssen/Sites/poezenclub/app/elements/poes-voting/poes-voting.html",
+		"/Users/benadriaenssen/Sites/bensfirsttheme/wp-content/themes/bensfirst/functions.php",
+		"/Users/benadriaenssen/Sites/bensfirsttheme/wp-content/themes/bensfirst/content-image.php",
+		"/Users/benadriaenssen/Sites/bensfirsttheme/wp-content/themes/bensfirst/content-video.php",
+		"/Users/benadriaenssen/Sites/bensfirsttheme/wp-content/themes/bensfirst/index.php",
+		"/Users/benadriaenssen/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/benadriaenssen/Library/Application Support/Sublime Text 3/Packages/User/Package Control.sublime-settings",
+		"/Users/benadriaenssen/Sites/bensfirsttheme/wp-content/themes/bensfirst/css/bensfirst.css",
+		"/Users/benadriaenssen/Sites/bensfirsttheme/wp-content/themes/bensfirst/style.css",
+		"/Users/benadriaenssen/Sites/bensfirsttheme/wp-content/themes/bensfirst/js/bensfirst.js",
+		"/Users/benadriaenssen/Sites/bensfirsttheme/wp-content/themes/bensfirst/header.php"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 102.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"validate",
+			"this.partner",
+			"to",
+			"toWaiting",
+			"topic",
+			"whisper",
+			"h1",
+			"sendcoins",
+			"sendcoinsclosed",
+			"toggle",
+			"loginbtn",
+			"collapseclosed",
+			"coll",
+			"allvalues",
+			"coll",
+			"tussenschot",
+			"--topbar-height",
+			"_sizeview",
+			"Home",
+			"toHome",
+			"wallet",
+			"toggle",
+			"a",
+			"tussenschot",
+			"<hr class=\"tussenschot\">",
+			"hr",
+			"balance",
+			"confirm",
+			"arrowleft",
+			"cancel",
+			"novals",
+			"min-",
+			"_toEdit",
+			"locals-button",
+			" bgrgba=\"0,0,0,0\"",
+			"bgrgba=\"0,0,0,0\"",
+			"exitbtn",
+			"type",
+			"smallhorizontal",
+			"h1",
+			"min-h",
+			"collapse",
+			"        this.$.collapse.toggle();",
+			"toggle",
+			"bg=\"grey1\"",
+			"iron-localstorage",
+			"mode",
+			"object",
+			"_is",
+			"validations",
+			"mode =",
+			"this.selected",
+			"topic",
+			"decimals",
+			"digit",
+			"topic",
+			"code",
+			"renderstate",
+			"toHome",
+			"close",
+			"allvalues",
+			"dots",
+			"left top",
+			"formsubmit",
+			"normal",
+			"formsubmit",
+			"confirm",
+			"submit",
+			"formsubmit",
+			"55px",
+			"icon",
+			"iconbtn",
+			"normal",
+			"submit",
+			"switch",
+			"_object",
+			"totalobject",
+			"submit",
+			"formsubmit",
+			"whitespace",
+			"input",
+			"h1",
+			"small",
+			"arrow",
+			"switch",
+			"formsubmit",
+			"Code",
+			"max-w",
+			"locals-icon",
+			"cancel",
+			"editbtns",
+			"=\"total",
+			".total",
+			"valids",
+			"      .valids {\n        box-sizing: border-box;\n        @apply(--layout-horizontal);\n        @apply(--layout-center-center);\n        margin-top: 20px;\n      }\n\n      .valids p {\n        font-size: 16px;\n        @apply(--opensans-bold);\n        color:var(--locals-blue);\n        margin: 0px 5px 0px 0px; \n      }",
+			"datavalids",
+			".view",
+			"view",
+			"editbtns",
+			"valids",
+			"datavalids",
+			"locals-verification",
+			"tussen",
+			"--inner-padding",
+			"view",
+			"datavalids",
+			"valsbtns",
+			"datavalids",
+			"tussenschot",
+			"small",
+			"locals-button",
+			"paper-scroll-header-panel",
+			"paper-drawer-panel",
+			"red",
+			"paper-toolbar",
+			"paper-scroll-header-panel",
+			"pagecontainer",
+			"cancel",
+			"ls-icon ",
+			"icon",
+			"var(--locals-grey2)",
+			"20",
+			"locals-style",
+			"dots",
+			"toCode",
+			"this.mode = 'start'",
+			"toView",
+			"View"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"<div id=\"test\" on-tap=\"gotodetail\"></div>"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "index.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2866,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 25.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "locals.sublime-project",
+	"replace":
+	{
+		"height": 46.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 276.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
