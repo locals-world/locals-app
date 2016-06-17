@@ -411,6 +411,8 @@ LOCALS
         //this.$.lsapi.writeData();
       },
 
+
+
       getLocalbalance: function(){
         //Get Localcoin token balance
         var MyCoinContract = this.web3.eth.contract(this.tokenabi);
@@ -424,6 +426,7 @@ LOCALS
       },
 
       _data: function(){
+        //this.setValidationshandler();
         // console.log('has data: ',this.data);
         // this.avatardata = this.data.collection['locals-avatar'].data;
         // this.avatarconfig = this.data.collection['locals-avatar'].config;
@@ -536,8 +539,6 @@ LOCALS
 
     balanceLoad: function(){
       this.balanceloaded = true;
-      console.log("HEEEEEYOOOOOOOOOOOOOOOOOOOOOOO");
-
     },
 
 

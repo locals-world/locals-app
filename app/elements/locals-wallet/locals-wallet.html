@@ -159,10 +159,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
      .code {
       @apply(--layout-vertical);
       @apply(--layout-start);  
+      margin: 0px 20px 0px 0px;    
+
      }
 
-     .closebtn {
-      margin: 0px 0px 0px 20px;    
+     .announce p {
+      margin: 0px 20px 10px 0px;    
+     }
+
+     .marginbtm {
+      margin-left: 15px;    
+      margin: var(--coin-margins);
      }
 
      .temp {
@@ -171,20 +178,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
      }
 
      .refresher {
-        transition: all .05s linear;
+        transition: all 1s linear;
      }
 
 
      .spinner {
-      -webkit-animation: rotate 1s linear infinite;
-      -moz-animation: rotate 1s linear infinite;
-      animation: rotate 1s linear infinite;
+      -webkit-animation: rotate 0.5s linear infinite;
+      -moz-animation: rotate 0.5s linear infinite;
+      animation: rotate 0.5s linear infinite;
      }
 
+
      .spinonce {
-       transform: rotate(180deg);
-       -webkit-transform: rotate(180deg);
-       -moz-transform: rotate(180deg);
+      -webkit-animation: rotate 0.5s linear infinite;
+      -moz-animation: rotate 0.5s linear infinite;
+      animation: rotate 0.5s linear infinite;
 
      }
 
@@ -192,17 +200,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       @-webkit-keyframes rotate {
           from {-webkit-transform: rotate(0deg);}
-          to {-webkit-transform: rotate(360deg);}
+          to {-webkit-transform: rotate(180deg);}
       }
 
       @-moz-keyframes rotate {
           from {-moz-transform: rotate(0deg);}
-          to {-moz-transform: rotate(360deg);}
+          to {-moz-transform: rotate(180deg);}
       }
 
       @keyframes rotate {
           from {transform: rotate(0deg);}
-          to {transform: rotate(360deg);}
+          to {transform: rotate(180deg);}
       }
 
 
@@ -235,9 +243,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <template is="dom-if" if="{{_is(sizeview,'xlarge')}}">
           <locals-icon class="localcoinamount" big icon="localcoin" iconcolor="darkgrey"></locals-icon>
           </template>
-
-          <!-- <locals-icon class="refresher spinonce" icon="refresh1" iconcolor="grey5" small on-tap="refreshBalance"></locals-icon> -->
-
+        <div class="marginbtm">
+          <locals-icon class$="refresher {{spinclass}}" icon="refresh1" iconcolor="grey5" small on-tap="refreshBalance"></locals-icon>
+        </div>
 
         </template>
         </div>
@@ -385,8 +393,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       refreshBalance:function() {
-        this.refreshclass = 'refresher';
+        this.spinclass = 'spinonce';
         this.getLocalbalance();
+        var self = this;
+        setTimeout(function(){
+            self.spinclass = '';
+        },500)
       },
 
       getLocalbalance: function(){
@@ -408,7 +420,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         console.log('localcoinbalance: ', coinbalance);
         this.balanceloaded = true;
         this.fire('balance-loaded');
-        this.refreshclass = '';
         });
       },
 
