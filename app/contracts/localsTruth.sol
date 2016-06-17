@@ -45,12 +45,6 @@ contract localsTruth {
             Error('verifier has not enough verifications.');
             return 'verifier has not enough verifications.';
         }
-
-        // If the msg.sender is not the owner of the senderhash, throw.
-        if(hashes[_senderhash].hashowner != msg.sender) {
-            Error('msg sender is not the owner of the senderhash.');
-            return 'msg sender is not the owner of the senderhash.';
-        }
         
         // If the verifier already verified this hash, throw.
         if(hashes[_thehash].verifications[msg.sender] == true) {
