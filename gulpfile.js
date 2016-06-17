@@ -112,6 +112,10 @@ gulp.task('copy', function() {
     'app/contracts/**/*.json'
   ]).pipe(gulp.dest('dist/contracts'));
 
+  var images = gulp.src([
+    'app/images/*'
+  ]).pipe(gulp.dest('dist/images'));
+
   var vendor = gulp.src([
     'app/vendor/*'
   ]).pipe(gulp.dest('dist/vendor'));
@@ -129,7 +133,7 @@ gulp.task('copy', function() {
     .pipe($.rename('elements.vulcanized.html'))
     .pipe(gulp.dest('dist/elements'));
 
-  return merge(app, sol, vendor, bower, elements, vulcanized, swBootstrap, swToolbox)
+  return merge(app, sol, images, vendor, bower, elements, vulcanized, swBootstrap, swToolbox)
     .pipe($.size({
       title: 'copy'
     }));
