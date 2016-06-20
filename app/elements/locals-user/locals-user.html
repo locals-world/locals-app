@@ -223,8 +223,7 @@ LOCALS
 
   <locals-lsapi
     verbose id="lsapi"
-    privatekey="{{passwd}}"
-    data="{{data}}"></locals-lsapi>
+    data="{{data}}" on-wrong-password="_wrongpassword" on-correct-password="_gotpassword"></locals-lsapi>
 
 <iron-media-query query="(min-width:0px) and (max-width: 600px)" query-matches="{{phoneview}}"></iron-media-query>
 <iron-media-query query="(min-width:601px) and (max-width: 1400px)" query-matches="{{desktopview}}"></iron-media-query>
@@ -384,20 +383,37 @@ LOCALS
         this.hidestore = true;
         this.storeicon = 'plus';
         this.validations = {};
-        this.passwd = sessionStorage.getItem("lopassword");
-        if(sessionStorage.getItem("lopassword")){
-          this.passwd = sessionStorage.getItem("lopassword");
-          Excess.RouteManager.transitionTo('/home');
-        } else {
-          console.log('i need a passwd');
+        var passwd = sessionStorage.getItem("lopassword");
+        if (passwd){
+          this.passwd = passwd;
+        }else{
           Excess.RouteManager.transitionTo('/enterpass');
         }
+        // if(sessionStorage.getItem("lopassword")){
+        //   this.passwd = sessionStorage.getItem("lopassword");
+        //   Excess.RouteManager.transitionTo('/home');
+        // } else {
+        //   console.log('i need a passwd');
+        //   Excess.RouteManager.transitionTo('/enterpass');
+        // }
         //console.log(this.passwd);     
       },
 
       setPass: function(){
+        //debugger;
+        this.$.lsapi.privatekey = this.passwd;
+      },
+
+      _gotpassword: function(){
+        //debugger;
+        console.log('go home');
         sessionStorage.setItem('lopassword', this.passwd);
-        window.location = '/';
+          Excess.RouteManager.transitionTo('/home');
+      },
+
+      _wrongpassword: function(){
+        //sessionStorage.clearItem('lopassword');
+          Excess.RouteManager.transitionTo('/enterpass');
       },
 
       test: function(e){
