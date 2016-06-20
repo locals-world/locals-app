@@ -404,7 +404,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       getLocalbalance: function(){
         //Get Localcoin token balance
          this.web3wallet = document.querySelector('web3-wallet');
-         if (!this.web3wallet){
+         if (!this.web3wallet || !this.web3wallet.web3){
           return;
          }
         var self = this;
