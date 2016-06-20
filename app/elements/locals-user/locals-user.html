@@ -111,7 +111,13 @@ LOCALS
       @apply(--layout-vertical);
       @apply(--layout-center-center);
      }
-
+     .pascanvas {
+      background-color: white;
+      @apply(--locals-canvas);
+      height: 100vh;
+      @apply(--layout-vertical);
+      @apply(--layout-center-center);
+     }
      .enterpass {
       width: 100%;
       max-width: 500px;
@@ -274,7 +280,7 @@ LOCALS
 
     <!-- login / unlock wallet -->
     <neon-animatable route="enterpass">
-    <div class="canvas">
+    <div class="pascanvas">
     <div class="enterpass">
       <locals-input label="password" type="password" bind-value="{{passwd}}" center></locals-input>
       <locals-button class="loginbtn" icon="arrowright" on-tap="setPass"></locals-button>
