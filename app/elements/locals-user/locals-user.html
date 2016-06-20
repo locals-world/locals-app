@@ -157,6 +157,35 @@ LOCALS
           to {transform: rotate(360deg);}
       }
 
+      .testbtn {
+        color: red;
+        width: 50vw;
+        height: 100px;
+      }
+
+      .testbtn:active {
+        color: blue;
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+      }
+
+
+      .testbtn2 {
+        color: red;
+        width: 50vw;
+        height: 100px;
+      }
+
+      .testbtn2:active {
+        color: blue;
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+      }
+
     </style>
 
     <!-- <iron-localstorage 
@@ -198,8 +227,8 @@ LOCALS
     data="{{data}}"></locals-lsapi>
 
 <iron-media-query query="(min-width:0px) and (max-width: 600px)" query-matches="{{phoneview}}"></iron-media-query>
-<iron-media-query query="(min-width:601px) and (max-width: 1280px)" query-matches="{{desktopview}}"></iron-media-query>
-<iron-media-query query="(min-width:1281px)" query-matches="{{xlargeview}}"></iron-media-query>
+<iron-media-query query="(min-width:601px) and (max-width: 1400px)" query-matches="{{desktopview}}"></iron-media-query>
+<iron-media-query query="(min-width:1401px)" query-matches="{{xlargeview}}"></iron-media-query>
 
 <paper-drawer-panel id="drawer" force-narrow drawer-width="280px">
 <div drawer class="drawer">
@@ -238,8 +267,10 @@ LOCALS
 
     <!-- store -->
     <neon-animatable route="store">
-      The Store will come here
-      <locals-store route="store" on-to-home="toHome" sizeview="{{sizeview}}" mode="home"></locals-store>
+    <!-- <button class="testbtn">Hier</button>
+    <div class="testbtn2">Hier</div> -->
+
+<!--       <locals-store route="store" on-to-home="toHome" sizeview="{{sizeview}}" mode="home"></locals-store> -->
     </neon-animatable>
 
     <!-- login / unlock wallet -->

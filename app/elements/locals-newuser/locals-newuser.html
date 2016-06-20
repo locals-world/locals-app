@@ -14,6 +14,7 @@ LOCALS
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
 
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/locals-input/locals-input.html">
 <link rel="import" href="../../bower_components/locals-style/locals-style.html">
 <link rel="import" href="../../bower_components/locals-button/locals-button.html">
 <link rel="import" href="../locals-backup/locals-backup.html">
@@ -48,6 +49,9 @@ LOCALS
 
      h1 {
        @apply(--locals-font-h1);
+       text-align: center;
+       white-space: normal;
+       line-height: 48px;
       }
       h2 {
        @apply(--locals-font-h2);
@@ -144,6 +148,17 @@ LOCALS
       @apply(--opensans-light);
     }
 
+    .whitespace {
+      height: 20px;
+    }
+
+    locals-input {
+      width: 100%;
+      max-width: 500px;
+    }
+
+
+
   /* phone */
   @media all and (min-width: 0) and (max-width: 400px) and (orientation: portrait) { 
 
@@ -156,6 +171,8 @@ LOCALS
     padding: 0px;
     width: 100%;
     text-align: center;
+    font-size: 50px;
+    line-height: 56px;
     }
 
 
@@ -274,6 +291,7 @@ LOCALS
       <div class="intro">
         <div class="maintitle">
           <h5>Welcome</h5>
+        <div class="whitespace"></div>
 
         <locals-button object="addavatar" on-tap="newuser" startbtn></locals-button>
         </div>
@@ -287,23 +305,23 @@ LOCALS
     </div>
 
     </div>
+    </neon-animatable>
 
-      </neon-animatable>
-
-      <neon-animatable state="1">
-    <div class="total vertic">
-
+    <neon-animatable state="1">
+      <div class="total vertic">
         <h1>Choose a password</h1>
-        <paper-input label="Password" bind-value="{{password}}" value="{{password}}" type="password"></paper-input>
-        <paper-input label="Password control" bind-value="{{password1}}" value="{{password1}}" type="password"></paper-input>
-        <button on-tap="savepass" disabled="{{passcheck}}">Continue</button>
-    </div>
-      </neon-animatable>
+        <div class="whitespace"></div>
+        <locals-input label="Password" bind-value="{{password}}" type="password" center></locals-input>
+        <locals-input label="Password control" bind-value="{{password1}}" type="password" center></locals-input>
+        <div class="whitespace"></div>
+        <locals-button icon="v" on-tap="savepass" disabled="{{passcheck}}">Continue</locals-button>
+      </div>
+    </neon-animatable>
 
-      <neon-animatable state="2">
-        <h1>Allez dan gaan we syncen he</h1>
-        <!-- hier dan sync element -->
-      </neon-animatable>
+    <neon-animatable state="2">
+      <h1>SYNC</h1>
+      <!-- hier dan sync element -->
+    </neon-animatable>
 
       <neon-animatable state="3">
         <locals-backup></locals-backup>
