@@ -355,6 +355,8 @@ LOCALS
         var passwd = sessionStorage.getItem("lopassword");
         if (passwd){
           this.passwd = passwd;
+        }else{
+          Excess.RouteManager.transitionTo('/enterpass');
         }
         // if(sessionStorage.getItem("lopassword")){
         //   this.passwd = sessionStorage.getItem("lopassword");
