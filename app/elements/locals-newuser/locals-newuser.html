@@ -17,6 +17,8 @@ LOCALS
 <link rel="import" href="../../bower_components/locals-style/locals-style.html">
 <link rel="import" href="../../bower_components/locals-button/locals-button.html">
 <link rel="import" href="../locals-backup/locals-backup.html">
+<script type="text/javascript" src="../../bower_components/cryptojslib/rollups/aes.js"></script>
+
 
 <dom-module id="locals-newuser">
   <template>
@@ -259,6 +261,7 @@ LOCALS
 
 
     </style>
+
     <neon-animated-pages attr-for-selected="state" selected="{{state}}" entry-animation="slide-from-right-animation" exit-animation="slide-left-animation">
       <neon-animatable state="0">
 
@@ -267,6 +270,11 @@ LOCALS
       name="lo-init" 
       value="{{loinit}}">
 
+    </iron-localstorage>
+
+    <iron-localstorage 
+      id="localstorage_data" 
+      name="lo-data" value="{{encdata}}" >
     </iron-localstorage>
 
     <div class="total blueback horiz">
@@ -350,18 +358,66 @@ LOCALS
         this.state = 3;
       },
 
-      savepass: function(){
-        //document.getElementById('localstorage').value = this.passwd;
-        sessionStorage.setItem("lopassword", this.password);
-        this.restart();
-      },
+    savepass: function() {
+      sessionStorage.setItem("lopassword", this.password);
 
-      syncuser: function(){
+      this.data = {
+        collection: {
+          localsavatar: {
+            "component": {
+              "name": "locals-avatar",
+              "contract": "0x000"
+            },
+            "data": {
+              "firstname": "Voornaam",
+              "lastname": "Achternaam",
+              "birthplace": "Antwerpen",
+              "birthdate": "01/01/1999"
+            },
+            "config": [
+              [0, 0],
+              [0, 0],
+              [0, 0],
+              [0, "5"],
+              [0, 0],
+              [0, 0],
+              [0, 0],
+              [0, 0],
+              [0, 0]
+            ]
+          }
+        },
+        peers: [],
+        godfather: [],
+        lastupdate: Date.now()
+      };
+      this.writeData();
+    },
+
+    writeData: function() {
+      //debugger;
+      if (this.password) {
+        //this.log('Localstorage API write: ', this.data);
+        var object = this.data;
+        var stringifiedobject = JSON.stringify(object);
+        //this.log(stringifiedobject);
+        var encrypted = CryptoJS.AES.encrypt(stringifiedobject, this.password);
+        //this.log('Localstorage API encrypted: ', encrypted.toString());
+        this.encdata = encrypted.toString();
+        //this.readData(true);
+        this.restart();
+      }
+    },
+
+    syncuser: function() {
         
       },
 
       restart: function(){
-        window.location = '/';
+//        Excess.RouteManager.transitionTo('/home');
+        window.location = '/#/home';
+        location.reload();
+
       },
 
       _passwordcheck: function(){
