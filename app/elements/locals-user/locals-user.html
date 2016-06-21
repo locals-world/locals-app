@@ -214,7 +214,7 @@ LOCALS
       account="{{account}}" 
       balance="{{balance}}" 
       keystore="{{keystore}}" 
-      host="http://109.123.70.141:8545"
+      host="{{ethnode}}"
       web3="{{web3}}"></web3-wallet>
 
   <!-- re-used in sub components ( locals-verification, locals-verification ) -->
@@ -403,6 +403,20 @@ LOCALS
         //   Excess.RouteManager.transitionTo('/enterpass');
         // }
         //console.log(this.passwd);     
+
+
+        this.ethnode = new Polymer.IronMetaQuery({
+          key: 'ethnode'
+        }).value;
+
+      },
+
+      setFilter: function() {
+        this.fire('newblock');
+        var self = this;
+        var filter = this.$.web3wallet.web3.eth.filter('latest').watch(function(err, blockHash) {
+          self.fire('newblock');
+        });
       },
 
       setPass: function(){
@@ -456,6 +470,7 @@ LOCALS
       _web3: function(){
         this.balans = this.$.web3wallet.updateBalance();
         this.getLocalbalance();
+        this.setFilter();
       },
 
       saveData: function(e){
