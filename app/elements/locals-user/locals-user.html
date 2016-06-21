@@ -192,6 +192,13 @@ LOCALS
           box-shadow: none;
       }
 
+      .redtxt {
+        color:var(--locals-red);
+        @apply(--opensans-bold);
+        font-size: 12px;
+        margin:10px 0px 10px 0px;
+      }
+
     </style>
 
     <!-- <iron-localstorage 
@@ -282,6 +289,9 @@ LOCALS
     <div class="pascanvas">
     <div class="enterpass">
       <locals-input label="password" type="password" bind-value="{{passwd}}" center></locals-input>
+      <template is="dom-if" if="{{wrongpass}}">
+        <p class="redtxt">You entered the wrong pass</p>
+      </template>
       <locals-button class="loginbtn" icon="arrowright" on-tap="setPass"></locals-button>
     </div>
     </div>
@@ -381,6 +391,11 @@ LOCALS
           type: Boolean,
           observer: '_sizeview'
         },
+
+        wrongpass: {
+          type: Boolean,
+          value: false
+        },
       },
 
       attached: function(){
@@ -426,6 +441,7 @@ LOCALS
 
       _gotpassword: function(){
         //debugger;
+          this.wrongpass = false;          
         this.$.web3wallet.password = this.passwd;
         console.log('go home');
         sessionStorage.setItem('lopassword', this.passwd);
@@ -435,6 +451,11 @@ LOCALS
       _wrongpassword: function(){
         //sessionStorage.clearItem('lopassword');
           Excess.RouteManager.transitionTo('/enterpass');
+          if(this.$.lsapi.privatekey){
+            console.log("ISSEM FOUT???????", this.wrongpass);
+          this.wrongpass = true;          
+          }
+
       },
 
       test: function(e){
