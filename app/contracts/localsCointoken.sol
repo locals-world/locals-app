@@ -102,8 +102,8 @@ contract MyToken is owned {
         balanceOf[target] += mintedAmount;
         totalSupply += mintedAmount;
         checkEthBalance(target);
-        Transfer(0, owner, mintedAmount);
-        Transfer(owner, target, mintedAmount);
+        //Transfer(0, owner, mintedAmount);
+        //Transfer(owner, target, mintedAmount);
     }
 
     function addToWhitelist(address _whitelistaddr) onlyOwner {
@@ -111,9 +111,9 @@ contract MyToken is owned {
     }
 
     /* This unnamed function is called whenever someone tries to send ether to it */
-    // function () {
-    //     throw;     // Prevents accidental sending of ether
-    // }
+    function () {
+        throw;     // Prevents accidental sending of ether
+    }
 
     /* Kill function, for debug purposes (I don't want a mist wallet full of token contracts :) */
     function kill() { if (msg.sender == owner) suicide(owner); }
