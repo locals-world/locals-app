@@ -264,7 +264,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <iron-collapse id="sendcoins">
         <template is="dom-if" if="{{_is(sendcoinstate,'first')}}">
           <div class="whitespace"></div>
-          <locals-input class="sendinput" autofocus bind-value="{{pincode}}" label="Amount"></locals-input>
+          <locals-input class="sendinput" autofocus bind-value="{{amount}}" label="Amount"></locals-input>
           <locals-input class="sendinput" autofocus bind-value="{{pincode}}" label="To"></locals-input>
           <locals-confirm on-cancel="togglesendcoins" on-confirm="toWaiting" type="next"></locals-confirm>
         </template>
@@ -429,7 +429,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       transfer: function(){
         // we gaan dan wat geld versjassen
         this.web3wallet = document.querySelector('web3-wallet');
-        this.amount = 1;
+        //this.amount = 1;
         var self = this;
 
         this.contracturl = this.resolveUrl('../../contracts/localsCointoken.json');
@@ -442,7 +442,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           var MyContract = self.web3wallet.web3.eth.contract(self.contractjson.abi);
           var myContractInstance = MyContract.at(self.contractaddr);
             console.log('doing transfer to: ', self.partnerpubkey, 'from: ', self.web3wallet.account);
-            myContractInstance.transfer.sendTransaction(self.partnerpubkey, 1, {
+            myContractInstance.transfer.sendTransaction(self.partnerpubkey, self.amount, {
               from: self.fixaddress(self.web3wallet.account),
               gasPrice: gasPrice,
               gasLimit: 3000000,
