@@ -24,17 +24,12 @@ contract localsTruth {
     mapping (string => Hash) hashes;
 
     event ValidationAdded(address _from, address _to, uint _numverifications);
-    event HashAdded(address _from, string _hash, uint _numverifications);
     event Error(string _err);
 
     function localsTruth(address token, address _adam, address _eva, uint _verificationthresh){
         owner = msg.sender;
         tokenaddr = token;
         verificationthresh = _verificationthresh;
-        hashes['adam'].numVerifications = _verificationthresh;
-        hashes['adam'].hashowner = _adam;
-        hashes['eva'].numVerifications = _verificationthresh;
-        hashes['eva'].hashowner = _eva;
     }
 
     function addVerification(address _hashowner, string _thehash, string _senderhash) returns (string _feedback) {      
@@ -63,6 +58,11 @@ contract localsTruth {
         tokencontract.mintToken(msg.sender, 5);
         tokencontract.mintToken(_hashowner, 5);
         
+    }
+
+    function seedVerification(string _thehash){
+        if(msg.sender != owner) throw;
+        hashes[_thehash].numVerifications = 2;
     }
 
     function checkVeracity(string _hash) returns (uint numVerifications) {
