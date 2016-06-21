@@ -210,7 +210,6 @@ LOCALS
   <web3-wallet 
       id="web3wallet"
       walletname="locals-wallet"
-      password="{{passwd}}" 
       account="{{account}}" 
       balance="{{balance}}" 
       keystore="{{keystore}}" 
@@ -422,10 +421,12 @@ LOCALS
       setPass: function(){
         //debugger;
         this.$.lsapi.privatekey = this.passwd;
+        this.$.web3wallet.password = this.passwd;
       },
 
       _gotpassword: function(){
         //debugger;
+        this.$.web3wallet.password = this.passwd;
         console.log('go home');
         sessionStorage.setItem('lopassword', this.passwd);
           Excess.RouteManager.transitionTo('/home');
