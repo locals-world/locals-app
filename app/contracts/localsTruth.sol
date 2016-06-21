@@ -26,7 +26,7 @@ contract localsTruth {
     event ValidationAdded(address _from, address _to, uint _numverifications);
     event Error(string _err);
 
-    function localsTruth(address token, address _adam, address _eva, uint _verificationthresh){
+    function localsTruth(address token, uint _verificationthresh){
         owner = msg.sender;
         tokenaddr = token;
         verificationthresh = _verificationthresh;
