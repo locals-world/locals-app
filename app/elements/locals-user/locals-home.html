@@ -150,7 +150,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div id="fooContainer">
           <template is="dom-repeat" items="{{dataset}}">
             <div id="total">
-              <locals-objectrender sizeview="{{sizeview}}" on-detail-tapped="gotodetail" key="{{dataset.key}}" objectdata="{{item}}" renderstate="closed" class="foo">
+              <locals-objectrender sizeview="{{sizeview}}" on-detail-tapped="gotodetail" key="{{item.component.name}}" objectdata="{{item}}" renderstate="closed" class="foo">
               </locals-objectrender>
             </div>
           </template>
@@ -205,6 +205,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           }
         }
 
+      },
+
+      sj: function(a){
+        return JSON.stringify(a);
       },
 
       ready: function(){
