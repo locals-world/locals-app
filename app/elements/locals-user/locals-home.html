@@ -103,11 +103,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         height: 20px;
         background-color: green;
         display: none;
-
       }
-
-
-
 
 
       ::-webkit-scrollbar { 
@@ -115,42 +111,36 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       #fooContainer {
-/*        @apply(--layout-horizontal);
-        @apply(--layout-center);*/
         width: 100%;
-/*        overflow-x: scroll;
-        box-sizing: border-box;
-        padding-left: 10vw; */
       }
 
       iron-selector {
-          @apply(--layout-horizontal);
+        @apply(--layout-horizontal);
         @apply(--layout-center);
         width: 100%;
         overflow-x: scroll;
         box-sizing: border-box;
-        padding-left: 10vw;       
-      }
+        padding-left: 10vw;      
+       }
+
 
       .iron-selected {
-        border-bottom: 1px solid red;
+        border-bottom: 2px solid var(--locals-blue);
+        transform: scale(1,1);
       }
-
 
 
       locals-objectrender {
-/*        background-color: red*/
-      }
-
-      locals-verification-handler {
-        
+        transition: all .05s linear;
+        transform: scale(0.8,0.8);
+        box-sizing: border-box;
+        padding-bottom: 10px;
       }
 
 
       .listmenu {
         width: 100%;
         min-height: 70vh;
-        /*background-color: red;*/
         border-top: 1px dashed var(--locals-grey2);
         margin-top: 5vh;
         @apply(--layout-vertical);
@@ -160,10 +150,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       #totaldata {
         width: 100%;
-        background-color: green;
+      }
 
+
+
+
+
+
+/*      .listmenuxl {
+        width: 100%;
+        border-top: 1px dashed var(--locals-grey2);
+        margin-top: 5vh;
+        @apply(--layout-horizontal);
+        @apply(--layout-center-center);
+        @apply(--layout-wrap);
+      }
+
+      .renderxl {
+        width: 300px;
+        height: 300px;
+
+        border:1px solid red;
 
       }
+*/
 
 
     </style>
@@ -189,23 +199,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div id="fooContainer">
       <iron-selector>
           <template is="dom-repeat" items="{{dataset}}">
-            <div id="total">
-              <locals-objectrender sizeview="{{sizeview}}" on-detail-tapped="gotodetail" key="{{item.component.name}}" objectdata="{{item}}" renderstate="avatar" class="foo">
+            <!-- <div id="total"> -->
+              <locals-objectrender sizeview="{{sizeview}}" on-detail-tapped="gotodetail" key="{{item.component.name}}" objectdata="{{item}}" renderstate="visual" class="foo">
               </locals-objectrender> 
-            </div>
+            <!-- </div> -->
           </template>
         </iron-selector>
       </div>
     </div>
-      <div class="listmenu">
+
+    <div class="listmenu">
       <template is="dom-repeat" items="{{dataset}}">
         <div id="totaldata">
           <locals-objectrender sizeview="{{sizeview}}" on-detail-tapped="gotodetail" key="{{item.component.name}}" objectdata="{{item}}" renderstate="closed" class="foo">
           </locals-objectrender>
         </div>
       </template>
+    </div>
 
-      </div>
+
+
 </template>
 <script>
   (function() {
@@ -350,8 +363,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       }
       return newarray;
-    }
+    },
 
+
+
+      _is: function(a, b) {
+        if (b === undefined){
+          b = true;
+        }
+        //console.log(a ,'(',typeof a,') is',b,'(',typeof b,') they are equal for ==',a == b,', they are equal for ===',a === b);
+        return a === b;
+      },
 
 
     });

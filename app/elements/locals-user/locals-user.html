@@ -271,8 +271,9 @@ LOCALS
 
   <neon-animated-pages selected="{{appMenu}}" attr-for-selected="route">
     <!-- home -->
-    <locals-home route="home" data="{{data}}" on-to-detail="toDetail" on-to-store="toStore" on-to-verification="toVerification" on-toggle-drawer="drawertoggle" sizeview="{{sizeview}}"></locals-home>
-    
+    <locals-home route="home" data="{{data}}" on-to-store="toStore" on-to-verification="toVerification" on-toggle-drawer="drawertoggle" sizeview="{{sizeview}}"></locals-home>
+<!--      <locals-home route="home" data="{{data}}" on-to-detail="toDetail" on-to-store="toStore" on-to-verification="toVerification" on-toggle-drawer="drawertoggle" sizeview="{{sizeview}}"></locals-home> -->
+   
     <!-- object detail -->
     <locals-detail route="objectdetail" objectdata="{{selecteditem.data}}" key="{{selecteditem.key}}" renderstate="open" on-to-home="toHome" sizeview="{{sizeview}}"></locals-detail>
 
