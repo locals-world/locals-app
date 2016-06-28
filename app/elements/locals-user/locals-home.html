@@ -114,6 +114,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         width: 100%;
       }
 
+      .foo {
+        transition: all .05s linear;
+        transform: scale(0.9,0.9);
+        box-sizing: border-box;
+        margin:0px -5px 0px -5px;
+      }
+
+
       iron-selector {
         @apply(--layout-horizontal);
         @apply(--layout-center);
@@ -123,33 +131,46 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         padding-left: 10vw;      
        }
 
-
-      .iron-selected {
-        border-bottom: 2px solid var(--locals-blue);
+      .iron-selected .foo {
         transform: scale(1,1);
-      }
-
-
-      locals-objectrender {
-        transition: all .05s linear;
-        transform: scale(0.8,0.8);
-        box-sizing: border-box;
-        padding-bottom: 10px;
       }
 
 
       .listmenu {
         width: 100%;
-        min-height: 70vh;
-        border-top: 1px dashed var(--locals-grey2);
+        min-height: 50vh;
         margin-top: 5vh;
         @apply(--layout-vertical);
         @apply(--layout-center);
       }
 
 
+      .lijntje {
+        height: 3px;
+        background-color: var(--locals-blue);
+        width: 50px;
+        visibility: hidden;
+        margin-top: 20px;
+      }
+
+      .iron-selected .lijntje {
+        visibility: visible;
+      }
+
+
+
+      #total {
+        @apply(--layout-vertical);
+        @apply(--layout-center-center);
+      }
+
+
+
       #totaldata {
         width: 100%;
+        max-width: 1000px;
+        margin:0px;
+        padding: 0px;
       }
 
 
@@ -199,10 +220,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div id="fooContainer">
       <iron-selector>
           <template is="dom-repeat" items="{{dataset}}">
-            <!-- <div id="total"> -->
+            <div id="total">
               <locals-objectrender sizeview="{{sizeview}}" on-detail-tapped="gotodetail" key="{{item.component.name}}" objectdata="{{item}}" renderstate="visual" class="foo">
               </locals-objectrender> 
-            <!-- </div> -->
+              <div class="lijntje"></div>
+            </div>
           </template>
         </iron-selector>
       </div>
@@ -211,7 +233,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <div class="listmenu">
       <template is="dom-repeat" items="{{dataset}}">
         <div id="totaldata">
-          <locals-objectrender sizeview="{{sizeview}}" on-detail-tapped="gotodetail" key="{{item.component.name}}" objectdata="{{item}}" renderstate="closed" class="foo">
+          <locals-objectrender sizeview="{{sizeview}}" on-detail-tapped="gotodetail" key="{{item.component.name}}" objectdata="{{item}}" renderstate="closed">
           </locals-objectrender>
         </div>
       </template>
