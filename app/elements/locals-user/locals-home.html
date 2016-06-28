@@ -43,6 +43,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <style>
       :host {
         display: block;
+        background-color: white;
         --topbar-height: 100px;
         --scrollarea-height: 800px;
         --bg-size: auto 800px;
@@ -107,18 +108,36 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 
 
+
+
       ::-webkit-scrollbar { 
           display: none; 
       }
 
       #fooContainer {
-        @apply(--layout-horizontal);
+/*        @apply(--layout-horizontal);
+        @apply(--layout-center);*/
+        width: 100%;
+/*        overflow-x: scroll;
+        box-sizing: border-box;
+        padding-left: 10vw; */
+      }
+
+      iron-selector {
+          @apply(--layout-horizontal);
         @apply(--layout-center);
         width: 100%;
         overflow-x: scroll;
         box-sizing: border-box;
-        padding-left: 10vw; 
+        padding-left: 10vw;       
       }
+
+      .iron-selected {
+        border-bottom: 1px solid red;
+      }
+
+
+
       locals-objectrender {
 /*        background-color: red*/
       }
@@ -126,6 +145,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       locals-verification-handler {
         
       }
+
+
+      .listmenu {
+        width: 100%;
+        min-height: 70vh;
+        /*background-color: red;*/
+        border-top: 1px dashed var(--locals-grey2);
+        margin-top: 5vh;
+        @apply(--layout-vertical);
+        @apply(--layout-center);
+      }
+
+
+      #totaldata {
+        width: 100%;
+        background-color: green;
+
+
+      }
+
 
     </style>
 
@@ -148,15 +187,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <div class="scrollarea">
       <div id="fooContainer">
+      <iron-selector>
           <template is="dom-repeat" items="{{dataset}}">
             <div id="total">
-              <locals-objectrender sizeview="{{sizeview}}" on-detail-tapped="gotodetail" key="{{item.component.name}}" objectdata="{{item}}" renderstate="closed" class="foo">
-              </locals-objectrender>
+              <locals-objectrender sizeview="{{sizeview}}" on-detail-tapped="gotodetail" key="{{item.component.name}}" objectdata="{{item}}" renderstate="avatar" class="foo">
+              </locals-objectrender> 
             </div>
           </template>
+        </iron-selector>
       </div>
     </div>
+      <div class="listmenu">
+      <template is="dom-repeat" items="{{dataset}}">
+        <div id="totaldata">
+          <locals-objectrender sizeview="{{sizeview}}" on-detail-tapped="gotodetail" key="{{item.component.name}}" objectdata="{{item}}" renderstate="closed" class="foo">
+          </locals-objectrender>
+        </div>
+      </template>
 
+      </div>
 </template>
 <script>
   (function() {
@@ -247,23 +296,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         switch(this.sizeview) {
             case 'phone':
                 this.customStyle['--topbar-height'] = '100px';
-                this.customStyle['--scrollarea-height'] = '320px';
+                this.customStyle['--scrollarea-height'] = '160px';
                 this.customStyle['--scrollarea-padding'] = '0px 0px 0px 0px';
-                this.customStyle['--bg-size'] = 'auto 320px';
+                this.customStyle['--bg-size'] = 'auto 160px';
                 this.updateStyles();
                 break;
             case 'desktop':
                 this.customStyle['--topbar-height'] = '100px';
-                this.customStyle['--scrollarea-height'] = '490px';
-                this.customStyle['--scrollarea-padding'] = '48px 0px 0px 0px';
-                this.customStyle['--bg-size'] = 'auto 490px';
+                this.customStyle['--scrollarea-height'] = '260px';
+                this.customStyle['--scrollarea-padding'] = '0px 0px 0px 0px';
+                this.customStyle['--bg-size'] = 'auto 260px';
                 this.updateStyles();
                 break;
             case 'xlarge':
                 this.customStyle['--topbar-height'] = '100px';
-                this.customStyle['--scrollarea-height'] = '600px';
-                this.customStyle['--scrollarea-padding'] = '50px 0px 0px 0px';
-                this.customStyle['--bg-size'] = 'auto 600px';
+                this.customStyle['--scrollarea-height'] = '270px';
+                this.customStyle['--scrollarea-padding'] = '0px 0px 0px 0px';
+                this.customStyle['--bg-size'] = 'auto 270px';
                 this.updateStyles();
                 break;
             default:
