@@ -299,6 +299,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           observer: '_sizeview'
         },
 
+        web3: {
+          type: Object,
+          observer: '_web3'
+        },
+
+        keystore: {
+          type: Object,
+          observer: '_keystore'
+        },
+
         accounts: {
           type: Array,
           value: [{ account: '0x000', 
@@ -322,9 +332,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       var fooContainer = document.getElementById('fooContainer');
       window.sr.reveal('.foo', { opacity: 1, easing: 'cubic-bezier(0.150, 0.450, 0.150, 0.735)', viewFactor:0.1, duration: 300,
             delay: 0, container: fooContainer, distance: 0, origin: 'top', scale: 0.6, reset: true });
+        //this.loadAccounts();
       },
 
-
+      _keystore: function(){
+        console.log('accoutns:',this.keystore.getAddresses());
+        this.accounts = this.keystore.getAddresses();
+      },
 
       gotodetail: function(e){
         console.log('Ga naar detail',e.detail);
