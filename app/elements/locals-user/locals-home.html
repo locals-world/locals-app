@@ -242,7 +242,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
  <neon-animated-pages selected="0" entry-animation="slide-from-right-animation" exit-animation="slide-left-animation">
     <template is="dom-repeat" items="{{accounts}}">
      <neon-animatable>
-        
+       <locals-avatar renderstate="visual" ></locals-avatar>
        <h1>{{item.account}}</h1>
        <h2>{{item.label}}</h2>
        <p>{{item.balance}}</p>
