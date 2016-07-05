@@ -199,17 +199,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     </style>
 
-    
+  <!--   
     <div class="topbar">
       <div class="menuicon">
         <locals-icon icon="menu" iconcolor="darkgrey" on-tap="firetoggle"></locals-icon>
-      </div>
+      </div> -->
 <!--     <div class="balance">
       <locals-icon small icon="localcoin" iconcolor="grey5"></locals-icon>
       <p><span>{{locbalans}}</span></p>
     </div> -->
     <!-- <paper-input>WATWAT</paper-input> -->
-      <p class="flex"></p>
+    <!--   <p class="flex"></p>
       <locals-verification-localstorage data="{{incomingvalidations}}" nrofitems="{{nrofval}}" id="lvls">
       </locals-verification-localstorage>
       <locals-verification-handler topic="{{topic}}" progress="{{progress}}" on-tap="toVerification" vals="{{nrofval}}"></locals-verification-handler>
@@ -238,8 +238,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </div>
       </template>
     </div>
+ -->
+ <neon-animated-pages selected="0" entry-animation="slide-from-right-animation" exit-animation="slide-left-animation">
+    <template is="dom-repeat" items="{{accounts}}">
+     <neon-animatable>
+        
+       <h1>{{item.account}}</h1>
+       <h2>{{item.label}}</h2>
+       <p>{{item.balance}}</p>
+       <p>{{item.rep}}</p>
 
+     </neon-animatable>
+     </template>
 
+     <neon-animatable>
+       add identity
+     </neon-animatable>
+    
+ </neon-animated-pages>
 
 </template>
 <script>
@@ -248,9 +264,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     Polymer({
       is: 'locals-home',
-    behaviors: [
-      Polymer.NeonSharedElementAnimatableBehavior
-    ],
+      
+      behaviors: [
+        Polymer.NeonSharedElementAnimatableBehavior
+      ],
 
       properties: {
 
@@ -263,30 +280,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           observer: '_sizeview'
         },
 
-        animationConfig: {
-          value: function() {
-            return {
-              'entry': {
-                name: 'hero-animation',
-                id: 'hero',
-                toPage: this
-              },
-
-              'exit': {
-                name: 'hero-animation',
-                id: 'hero',
-                fromPage: this
-              }
-            };
-          }
-        },
-
-        sharedElements: {
-          value: function(){
-           return {
-            'hero': this.$.test
-           };
-          }
+        accounts: {
+          type: Array,
+          value: [{ account: '0x000', 
+                    label: 'Locals User A3FE1',
+                    balance: 42,
+                    rep: 10
+                  }]
         }
 
       },
