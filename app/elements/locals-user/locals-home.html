@@ -242,7 +242,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
  <neon-animated-pages selected="0" entry-animation="slide-from-right-animation" exit-animation="slide-left-animation">
     <template is="dom-repeat" items="{{accounts}}">
      <neon-animatable>
+    
+    <div class="topbar">
+      <div class="menuicon">
+        <locals-icon icon="menu" iconcolor="darkgrey" on-tap="firetoggle"></locals-icon>
+      </div>
+
+    <p class="flex"></p>
+      <locals-verification-localstorage data="{{incomingvalidations}}" nrofitems="{{nrofval}}" id="lvls">
+      </locals-verification-localstorage>
+<!--       <locals-verification-handler topic="{{topic}}" progress="{{progress}}" on-tap="toVerification" vals="{{nrofval}}"></locals-verification-handler>
+      <locals-button bg="white" id="storebtn" icon="plus" on-tap="toStore" class$="{{storebtnclass}}"></locals-button> -->
+    </div>
+
+
+        <div class="scrollarea">
+
+
        <locals-avatar renderstate="visual" ></locals-avatar>
+       </div>
+       
        <h1>{{item.account}}</h1>
        <h2>{{item.label}}</h2>
        <p>{{item.balance}}</p>

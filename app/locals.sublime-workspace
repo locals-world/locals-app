@@ -4,6 +4,30 @@
 		"selected_items":
 		[
 			[
+				"ma",
+				"margin-left"
+			],
+			[
+				"margin",
+				"margin"
+			],
+			[
+				"text",
+				"text-align"
+			],
+			[
+				"h",
+				"h4	Tag"
+			],
+			[
+				"refres",
+				"refresher"
+			],
+			[
+				"sendco",
+				"sendcoinstate"
+			],
+			[
 				"mar",
 				"margin"
 			],
@@ -16,20 +40,8 @@
 				"margin"
 			],
 			[
-				"margin",
-				"margin-left"
-			],
-			[
 				"send",
 				"sendcoins"
-			],
-			[
-				"h",
-				"height"
-			],
-			[
-				"text",
-				"text-decoration"
 			],
 			[
 				"margin-",
@@ -94,10 +106,6 @@
 			[
 				"in",
 				"input	Tag"
-			],
-			[
-				"ma",
-				"margin-top"
 			],
 			[
 				"text-de",
@@ -319,14 +327,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "index.html",
-			"settings":
-			{
-				"buffer_size": 2866,
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -363,46 +363,44 @@
 		"side_bar_visible": false,
 		"status_bar_visible": false
 	},
-	"expanded_folders":
-	[
-		"/Users/benadriaenssen/Sites/locals-app",
-		"/Users/benadriaenssen/Sites/locals-app/app",
-		"/Users/benadriaenssen/Sites/locals-elements/locals-object"
-	],
 	"file_history":
 	[
-		"/Users/benadriaenssen/Sites/locals-elements/locals-object/locals-dataobject.html",
-		"/Users/benadriaenssen/Sites/locals-elements/locals-object/locals-object.html",
+		"/Users/benadriaenssen/Sites/blocktube/blocktube-client.0.3/app/elements/bt-home/bt-home.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-style/locals-typography.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-style/locals-style.html",
+		"/Users/benadriaenssen/Sites/locals-app/app/elements/locals-user/locals-detail.html",
+		"/Users/benadriaenssen/Sites/locals-app/app/elements/locals-user/locals-home.html",
 		"/Users/benadriaenssen/Sites/locals-app/app/elements/locals-user/locals-user.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-button/locals-button.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-object/locals-object.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-input/locals-input.html",
+		"/Users/benadriaenssen/Sites/locals-app/app/elements/locals-newuser/locals-newuser.html",
+		"/Users/benadriaenssen/Sites/locals-app/bower_components/paper-input/paper-input.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-object/locals-dataobject.html",
+		"/Users/benadriaenssen/Sites/locals-app/app/elements/locals-wallet/locals-wallet.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-verification/locals-verification-validator.html",
+		"/Users/benadriaenssen/Sites/locals-elements/locals-iconset/locals-iconset.html",
+		"/Users/benadriaenssen/Sites/locals-app/app/index.html",
+		"/Users/benadriaenssen/Sites/locals-app/app/styles/main.css",
 		"/Users/benadriaenssen/Sites/locals-elements/locals-store/locals-store.html",
 		"/Users/benadriaenssen/Sites/locals-elements/locals-confirm/locals-confirm.html",
-		"/Users/benadriaenssen/Sites/locals-elements/locals-style/locals-typography.html",
-		"/Users/benadriaenssen/Sites/locals-elements/locals-button/locals-button.html",
 		"/Users/benadriaenssen/Sites/locals-elements/locals-verification/locals-verification.html",
-		"/Users/benadriaenssen/Sites/locals-elements/locals-verification/locals-verification-validator.html",
 		"/Users/benadriaenssen/Sites/locals-elements/locals-verification/locals-verification-handler.html",
 		"/Users/benadriaenssen/Sites/locals-elements/locals-style/locals-color.html",
 		"/Users/benadriaenssen/Sites/locals-elements/locals-loader/locals-loader.html",
-		"/Users/benadriaenssen/Sites/locals-app/app/elements/locals-user/locals-home.html",
-		"/Users/benadriaenssen/Sites/locals-app/app/elements/locals-user/locals-detail.html",
 		"/Users/benadriaenssen/Sites/locals-elements/locals-progress/locals-progress.html",
 		"/Users/benadriaenssen/Sites/locals-elements/locals-avatar/locals-avatar.html",
-		"/Users/benadriaenssen/Sites/locals-elements/locals-input/locals-input.html",
-		"/Users/benadriaenssen/Sites/locals-elements/locals-iconset/locals-iconset.html",
 		"/Users/benadriaenssen/Sites/locals-elements/locals-faucetserver/static/locals-faucet/app/index.html",
 		"/Users/benadriaenssen/Sites/locals-elements/locals-faucetserver/static/locals-faucet/app/elements/locals-fawcet/locals-fawcet.html",
 		"/Users/benadriaenssen/Sites/locals-elements/locals-faucetserver/wallet.json",
 		"/Users/benadriaenssen/Sites/locals-elements/locals-faucetserver/static/locals-faucet/config.json",
-		"/Users/benadriaenssen/Sites/locals-elements/locals-style/locals-style.html",
 		"/Users/benadriaenssen/Sites/locals-elements/locals-verification/bower.json",
 		"/Users/benadriaenssen/Sites/locals-elements/locals-validationhandler/locals-validationhandler.html",
 		"/Users/benadriaenssen/Sites/locals-elements/locals-objectrender/locals-objectrender.html",
 		"/Users/benadriaenssen/Sites/locals-elements/locals-icon/locals-icon.html",
 		"/Users/benadriaenssen/Sites/locals-elements/locals-icon/demo/index.html",
 		"/Users/benadriaenssen/Sites/locals-elements/locals-input/demo/index.html",
-		"/Users/benadriaenssen/Sites/locals-app/app/index.html",
 		"/Users/benadriaenssen/Sites/locals-elements/locals-style/locals-defaultstyling.html",
-		"/Users/benadriaenssen/Sites/locals-app/app/elements/locals-newuser/locals-newuser.html",
 		"/Users/benadriaenssen/Sites/locals-app/app/scripts/app.js",
 		"/Users/benadriaenssen/Sites/locals-app/app/styles/app-theme.html",
 		"/Users/benadriaenssen/Sites/blocktube/blocktube-client/app/styles/main.css",
@@ -478,7 +476,7 @@
 	],
 	"find":
 	{
-		"height": 35.0
+		"height": 26.0
 	},
 	"find_in_files":
 	{
@@ -493,134 +491,134 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"container",
+			"tipit",
+			"Tip this",
+			"tip",
+			"yellow",
+			"infoandtips",
+			"\" ",
+			"_inputvalue",
+			"console",
+			"tipit",
+			".sidebar",
+			"closer",
+			".closer",
+			"closer",
+			"br",
+			"why",
+			"bolder",
+			".bolder",
+			"Publish",
+			"whypublish",
+			"togglewhat",
+			"ether",
+			"why",
+			"collapseclosed",
+			"coll",
+			"publisher",
+			"bt-button",
+			"comments",
+			"whitespace",
+			"sidebar",
+			"whitespace",
+			".total",
+			"sidebar",
+			"560px",
+			"medium",
+			"desktopview",
+			"phoneview",
+			"desktopview",
+			"#video",
+			"homebtn",
+			"button",
+			"decline",
+			"declinenew",
+			"confirm",
+			"sizev",
+			"-topbar",
+			"total",
+			"55px",
+			"icon",
+			"button",
+			"icon",
+			"locals-icon",
+			"hier",
+			" .iconcontainer ",
+			"icon",
+			"button",
+			"testbtn",
+			"paper-",
+			"test",
+			"toolbar",
+			".btnd",
+			" -moz-box-shadow: none !important;\n -webkit-box-shadow: none !important;\n box-shadow: none !important;",
+			"whitespace",
+			"h1",
+			"vertic",
+			"total",
+			"7px",
+			"media",
+			"enterpass",
+			"locals-input",
+			"input",
+			"whitespace",
+			"locals-input",
+			"disabled",
+			"whitespace",
+			"paper",
+			"locals-",
+			"value=\"{{password}}\" ",
+			"label=\"Password\" ",
+			"button",
+			"paper-",
+			"inputter",
+			"type",
+			"iron-media-",
+			"sizeview",
+			"_sizeview",
+			"xlarge",
+			"collapseclosed",
+			"toggle",
+			"_toView",
+			"_toEdit",
+			"progress",
+			"loadit",
+			"canvalidate",
+			"10vw",
+			"collsclosed",
+			"collclosed",
+			"collcollapse",
+			"collsclosed",
+			"toHome",
+			"1s",
+			"360",
+			"infinite",
+			"180",
+			"refreshBalance",
+			"180",
+			"t: 1;",
+			"rotate",
+			"180",
+			"36",
+			"infinite",
+			"refres",
+			"icon",
+			"balanceloaded",
+			"locbalans",
+			"coinbalance",
+			"locbalans",
+			"balanceloaded",
+			"locbalans",
+			"sendcoinstate",
+			"toWaiting",
+			"locals-icon",
 			"validate",
 			"this.partner",
 			"to",
 			"toWaiting",
 			"topic",
-			"whisper",
-			"h1",
-			"sendcoins",
-			"sendcoinsclosed",
-			"toggle",
-			"loginbtn",
-			"collapseclosed",
-			"coll",
-			"allvalues",
-			"coll",
-			"tussenschot",
-			"--topbar-height",
-			"_sizeview",
-			"Home",
-			"toHome",
-			"wallet",
-			"toggle",
-			"a",
-			"tussenschot",
-			"<hr class=\"tussenschot\">",
-			"hr",
-			"balance",
-			"confirm",
-			"arrowleft",
-			"cancel",
-			"novals",
-			"min-",
-			"_toEdit",
-			"locals-button",
-			" bgrgba=\"0,0,0,0\"",
-			"bgrgba=\"0,0,0,0\"",
-			"exitbtn",
-			"type",
-			"smallhorizontal",
-			"h1",
-			"min-h",
-			"collapse",
-			"        this.$.collapse.toggle();",
-			"toggle",
-			"bg=\"grey1\"",
-			"iron-localstorage",
-			"mode",
-			"object",
-			"_is",
-			"validations",
-			"mode =",
-			"this.selected",
-			"topic",
-			"decimals",
-			"digit",
-			"topic",
-			"code",
-			"renderstate",
-			"toHome",
-			"close",
-			"allvalues",
-			"dots",
-			"left top",
-			"formsubmit",
-			"normal",
-			"formsubmit",
-			"confirm",
-			"submit",
-			"formsubmit",
-			"55px",
-			"icon",
-			"iconbtn",
-			"normal",
-			"submit",
-			"switch",
-			"_object",
-			"totalobject",
-			"submit",
-			"formsubmit",
-			"whitespace",
-			"input",
-			"h1",
-			"small",
-			"arrow",
-			"switch",
-			"formsubmit",
-			"Code",
-			"max-w",
-			"locals-icon",
-			"cancel",
-			"editbtns",
-			"=\"total",
-			".total",
-			"valids",
-			"      .valids {\n        box-sizing: border-box;\n        @apply(--layout-horizontal);\n        @apply(--layout-center-center);\n        margin-top: 20px;\n      }\n\n      .valids p {\n        font-size: 16px;\n        @apply(--opensans-bold);\n        color:var(--locals-blue);\n        margin: 0px 5px 0px 0px; \n      }",
-			"datavalids",
-			".view",
-			"view",
-			"editbtns",
-			"valids",
-			"datavalids",
-			"locals-verification",
-			"tussen",
-			"--inner-padding",
-			"view",
-			"datavalids",
-			"valsbtns",
-			"datavalids",
-			"tussenschot",
-			"small",
-			"locals-button",
-			"paper-scroll-header-panel",
-			"paper-drawer-panel",
-			"red",
-			"paper-toolbar",
-			"paper-scroll-header-panel",
-			"pagecontainer",
-			"cancel",
-			"ls-icon ",
-			"icon",
-			"var(--locals-grey2)",
-			"20",
-			"locals-style",
-			"dots",
-			"toCode",
-			"this.mode = 'start'",
-			"toView",
-			"View"
+			"whisper"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -639,45 +637,14 @@
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "index.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2866,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				}
 			]
 		}
 	],
 	"incremental_find":
 	{
-		"height": 25.0
+		"height": 26.0
 	},
 	"input":
 	{
@@ -714,7 +681,7 @@
 	"project": "locals.sublime-project",
 	"replace":
 	{
-		"height": 46.0
+		"height": 48.0
 	},
 	"save_all_on_build": true,
 	"select_file":
