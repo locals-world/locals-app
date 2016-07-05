@@ -37,7 +37,7 @@
     "test-fixture": "PolymerElements/test-fixture#^1.0.0"
   },
   "resolutions": {
-    "web3-wallet": "^0.0.12",
+    "web3-wallet": "^0.0.13",
     "ipfs-upload": "^0.0.13",
     "locals-button": "0.0.9"
   }
