@@ -30,7 +30,8 @@
     "excess-router": "^0.9.14",
     "lazy-pages": "atotic/lazy-pages#^0.8.5",
     "cryptojslib": "^3.1.2",
-    "locals-residence": "https://github.com/locals-world/locals-residence.git"
+    "locals-residence": "https://github.com/locals-world/locals-residence.git",
+    "locals-club": "https://github.com/locals-world/locals-club.git"
   },
   "devDependencies": {
     "web-component-tester": "*",
