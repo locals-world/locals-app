@@ -256,16 +256,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </div>
 
 
-        <div class="scrollarea">
-
-
-       <locals-avatar renderstate="visual" ></locals-avatar>
-       </div>
+    <div class="scrollarea">
+      <locals-avatar renderstate="visual"></locals-avatar>
+    </div>
        
-       <h1>{{item.account}}</h1>
-       <h2>{{item.label}}</h2>
-       <p>{{item.balance}}</p>
-       <p>{{item.rep}}</p>
+    <h1>{{account}}</h1>
+    <p>{{balance}}</p>
+
+       <iron-selector>
+          <template is="dom-repeat" items="{{dataset}}">
+            <div id="total">
+              <locals-objectrender sizeview="{{sizeview}}" on-detail-tapped="gotodetail" key="{{item.component.name}}" objectdata="{{item}}" renderstate="closed" class="foo">
+              </locals-objectrender> 
+              <div class="lijntje"></div>
+            </div>
+          </template>
+        </iron-selector>
 
      </neon-animatable>
      </template>
@@ -336,8 +342,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       _keystore: function(){
-        console.log('accoutns:',this.keystore.getAddresses());
-        this.accounts = this.keystore.getAddresses();
+        //console.log('accoutns:',this.keystore.getAddresses()[0]);
+        //this.accounts = this.keystore.getAddresses();
       },
 
       gotodetail: function(e){
