@@ -288,6 +288,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         Polymer.NeonSharedElementAnimatableBehavior
       ],
 
+      listeners: {
+        track: 'mouseTrack'
+      },
+
+
       properties: {
 
         data: {
@@ -430,7 +435,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         return a === b;
       },
 
+        mouseTrack: function(e) {
+          switch(e.detail.state) {
+            case 'start':
+              this.startmouse = e.detail.x;
+              // console.log("Tracking started!" + this.startmouse);
+              break;
+            case 'end':
+              this.endmouse = e.detail.x;
+              this.swiper = this.startmouse - this.endmouse;
+              // console.log(this.swiper);
 
+                if(this.swiper>35){
+                  console.log("YOU SWIPED LEFT");
+                };
+                if(this.swiper<-35){
+                  console.log("YOU SWIPED RIGHT");
+                };
+
+              break;
+          }
+        },
     });
   })();
   </script></dom-module>
