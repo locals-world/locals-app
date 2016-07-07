@@ -45,33 +45,49 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: block;
         background-color: white;
         --topbar-height: 100px;
-        --scrollarea-height: 800px;
+        --avatararea-height: 800px;
         --bg-size: auto 800px;
-        --scrollarea-padding: 200px 0px 0px 0px;
+        --avatararea-padding: 200px 0px 0px 0px;
       }
 
 
       .topbar {
         width: 100%;
-        height: var(--topbar-height);
-        background-color: #a8daf0;
+        /*height: var(--topbar-height);*/
+        /*background-color: #a8daf0;*/
         @apply(--layout-horizontal);
         @apply(--layout-center);
         box-sizing: border-box;
         padding: 10px 20px 10px 10px;
         }
 
-      .scrollarea {
-        width: 100%;
-        min-height: var(--scrollarea-height);
-        background: url(../../images/locals-bg.png);
-        background-size: var(--bg-size);
-        background-repeat: repeat-x;
+      .avatararea {
+/*        width: 120px;
+        height: 120px;*/
+/*        background-repeat: repeat-x;*/
         @apply(--layout-horizontal);
-        @apply(--layout-center-justified);
+        @apply(--layout-center-center);
         box-sizing: border-box;
-        padding: var(--scrollarea-padding);
+        padding: var(--avatararea-padding);
         margin-top: -1px;
+
+      }
+      .absolutepos {
+        position: absolute;
+      }
+
+
+      .avatarbg {
+
+        width: 100px;
+        height: 100px;
+        margin: 10px;
+        border-radius: 50%;
+        /*overflow: hidden;*/
+        /*min-height: var(--avatararea-height);*/
+        background-position: center;
+        background: url(../../images/locals-bg3.png);
+        background-size: auto 100px;
       }
 
       .flex {
@@ -192,7 +208,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <locals-button bg="white" id="storebtn" icon="plus" on-tap="toStore" class$="{{storebtnclass}}"></locals-button>
     </div>
 
-    <div class="scrollarea">
+    <div class="avatararea">
       <div id="fooContainer">
       <iron-selector>
           <template is="dom-repeat" items="{{dataset}}">
@@ -229,17 +245,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </locals-verification-localstorage>
 <!--       <locals-verification-handler topic="{{topic}}" progress="{{progress}}" on-tap="toVerification" vals="{{nrofval}}"></locals-verification-handler>
       <locals-button bg="white" id="storebtn" icon="plus" on-tap="toStore" class$="{{storebtnclass}}"></locals-button> -->
+
+
+
     </div>
 
 
-    <div class="scrollarea">
-      <locals-avatar renderstate="visual"></locals-avatar>
+    <div class="avatararea">
+      <locals-avatar renderstate="visual" class="absolutepos"></locals-avatar>
+      <div class="avatarbg"></div>
     </div>
        
     <h1>{{account}}</h1>
     <p>{{balance}}</p>
 
-       <iron-selector>
+<!--        <iron-selector>
           <template is="dom-repeat" items="{{dataset}}">
             <div id="total">
               <locals-objectrender sizeview="{{sizeview}}" on-detail-tapped="gotodetail" key="{{item.component.name}}" objectdata="{{item}}" renderstate="closed" class="foo">
@@ -247,7 +267,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               <div class="lijntje"></div>
             </div>
           </template>
-        </iron-selector>
+        </iron-selector> -->
 
       <locals-button icon="plus" on-tap="toStore"></locals-button>
 
@@ -353,22 +373,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         switch(this.sizeview) {
             case 'phone':
                 this.customStyle['--topbar-height'] = '100px';
-                this.customStyle['--scrollarea-height'] = '160px';
-                this.customStyle['--scrollarea-padding'] = '0px 0px 0px 0px';
+                this.customStyle['--avatararea-height'] = '160px';
+                this.customStyle['--avatararea-padding'] = '0px 0px 0px 0px';
                 this.customStyle['--bg-size'] = 'auto 160px';
                 this.updateStyles();
                 break;
             case 'desktop':
                 this.customStyle['--topbar-height'] = '100px';
-                this.customStyle['--scrollarea-height'] = '260px';
-                this.customStyle['--scrollarea-padding'] = '0px 0px 0px 0px';
+                this.customStyle['--avatararea-height'] = '260px';
+                this.customStyle['--avatararea-padding'] = '0px 0px 0px 0px';
                 this.customStyle['--bg-size'] = 'auto 260px';
                 this.updateStyles();
                 break;
             case 'xlarge':
                 this.customStyle['--topbar-height'] = '100px';
-                this.customStyle['--scrollarea-height'] = '270px';
-                this.customStyle['--scrollarea-padding'] = '0px 0px 0px 0px';
+                this.customStyle['--avatararea-height'] = '270px';
+                this.customStyle['--avatararea-padding'] = '0px 0px 0px 0px';
                 this.customStyle['--bg-size'] = 'auto 270px';
                 this.updateStyles();
                 break;
