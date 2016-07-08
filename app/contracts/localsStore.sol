@@ -1,5 +1,3 @@
-// Currently deployed at 0xa69153562474B1dFf2ab79b7fdB75d55f659Ea56
-
 contract owned {
     address public owner;
 
@@ -17,7 +15,95 @@ contract owned {
     }
 }
 
-contract tokenRecipient { function receiveApproval(address _from, uint256 _value, address _token, bytes _extraData); }
+contract localsStore is owned {
+
+	address public tokenContract;
+  mapping (address => uint256) public balanceOf;
+
+  // Which tokencontract to use
+  MyToken public token;
+
+  // the address of the tokencontract to use
+  address public tokenaddr;
+
+  // the address of the foundation to use
+  address public foundation;
+
+  event Log(string _log, address _newclub);
+  event Error(string _error);
+
+	function localsStore(address _tokenContract, address _foundationContract) {
+		owner = msg.sender;
+		tokenaddr = _tokenContract;
+    foundation = _foundationContract;
+	}
+
+	function createClub(string _nickname)
+		returns (address clubAddress)
+
+	{
+			// Create a new Token contract and return its address.
+			// From the JavaScript side, the return type is simply
+			// "address", as this is the closest type available in
+			// the ABI.
+      // the creator should pay localcoin to the localsfoundation
+      // create an instance of the token contract
+      var tokencontract = MyToken(tokenaddr);
+
+      if(token.balanceOf(msg.sender)<2) {
+          Error('LocalCoin balance too low.');
+          throw;
+      }
+
+      token.transfer(foundation, 2);
+
+      clubAddress = new localsClub(msg.sender, _nickname);
+
+      Log('Club created', clubAddress);
+
+      return clubAddress;
+
+	}
+
+  /* Kill function, for debug purposes (I don't want a mist wallet full of token contracts :) */
+  function kill() { if (msg.sender == owner) suicide(owner); }
+
+}
+
+// Here we start the item contracts
+contract localsClub {
+
+	address public creator;
+
+	mapping (address => clubMember) public clubMembers;
+
+	struct clubMember {
+		string nickName;
+		bool active;
+	}
+
+	function localsClub(address _creator, string _nickName){
+		creator = _creator;
+		clubMembers[_creator].nickName = _nickName;
+		clubMembers[_creator].active = true;
+	}
+
+	// Add a member to the club and make em active
+	function addMember(address _newmember, string _nickName){
+		clubMembers[_newmember].nickName = _nickName;
+		clubMembers[_newmember].active = true;
+	}
+
+	// Set a member to active = false
+	function disMember(address _newmember){
+		clubMembers[_newmember].active = false;
+	}
+
+}
+
+// Token contract
+// Currently deployed at 0xa69153562474B1dFf2ab79b7fdB75d55f659Ea56
+
 
 contract MyToken is owned {
     /* Public variables of the token */
@@ -69,13 +155,13 @@ contract MyToken is owned {
     }
 
     /* Allow another contract to spend some tokens in your behalf */
-    function approveAndCall(address _spender, uint256 _value, bytes _extraData)
+    /*function approveAndCall(address _spender, uint256 _value, bytes _extraData)
         returns (bool success) {
         allowance[msg.sender][_spender] = _value;
-        tokenRecipient spender = tokenRecipient(_spender);
+        tokenRecipient.spender = tokenRecipient(_spender);
         spender.receiveApproval(msg.sender, _value, this, _extraData);
         return true;
-    }
+    }*/
 
     /* A contract attempts to get the coins */
     function transferFrom(address _from, address _to, uint256 _value) returns (bool success) {
