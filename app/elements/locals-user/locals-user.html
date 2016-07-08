@@ -271,7 +271,7 @@ LOCALS
 
   <neon-animated-pages selected="{{appMenu}}" attr-for-selected="route">
     <!-- home -->
-    <locals-home route="home" data="{{data}}" on-to-store="toStore" on-to-verification="toVerification" account="{{account}}" balance="{{balance}}" web3="{{web3}}" keystore="{{keystore}}" on-toggle-drawer="drawertoggle" sizeview="{{sizeview}}"></locals-home>
+    <locals-home route="home" data="{{data}}" on-to-store="toStore" on-to-verification="toVerification" account="{{account}}" balance="{{balance}}" web3="{{web3}}" keystore="{{keystore}}" on-toggle-drawer="drawertoggle" sizeview="{{sizeview}}" balanceloaded="{{balanceloaded}}"></locals-home>
 <!--      <locals-home route="home" data="{{data}}" on-to-detail="toDetail" on-to-store="toStore" on-to-verification="toVerification" on-toggle-drawer="drawertoggle" sizeview="{{sizeview}}"></locals-home> -->
    
     <!-- object detail -->
@@ -633,8 +633,8 @@ LOCALS
     },
 
 
-    _locbalans: function(){
-    }
+    // _locbalans: function(){
+    // }
 
     });
   })();

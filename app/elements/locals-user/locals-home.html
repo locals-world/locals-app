@@ -70,7 +70,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         @apply(--layout-horizontal);
         @apply(--layout-center);
         box-sizing: border-box;
-        padding: 10px 20px 10px 10px;
+        padding: 10px 10px 10px 10px;
         }
 
 
@@ -270,7 +270,35 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       margin: 0px 0px 7px 6px;
      }
 
+.refresher {
+       -webkit-animation-name: rotate; 
+      -webkit-animation-duration: 1s; 
+      -webkit-animation-iteration-count: infinite;
+      -webkit-animation-timing-function: linear;
+      -moz-animation-name: rotate; 
+      -moz-animation-duration: 1s; 
+      -moz-animation-iteration-count: infinite;
+      -moz-animation-timing-function: linear;
+      animation-name: rotate; 
+      animation-duration: 1s; 
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+     }
 
+      @-webkit-keyframes rotate {
+          from {-webkit-transform: rotate(0deg);}
+          to {-webkit-transform: rotate(360deg);}
+      }
+
+      @-moz-keyframes rotate {
+          from {-moz-transform: rotate(0deg);}
+          to {-moz-transform: rotate(360deg);}
+      }
+
+      @keyframes rotate {
+          from {transform: rotate(0deg);}
+          to {transform: rotate(360deg);}
+      }
 
 
     </style>
@@ -323,15 +351,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div class="menuicon">
         <locals-icon icon="menu" iconcolor="darkgrey" on-tap="firetoggle"></locals-icon>
       </div>
-
     <p class="flex"></p>
-      <locals-verification-localstorage data="{{incomingvalidations}}" nrofitems="{{nrofval}}" id="lvls">
-      </locals-verification-localstorage>
+<!--       <locals-verification-localstorage data="{{incomingvalidations}}" nrofitems="{{nrofval}}" id="lvls">
+      </locals-verification-localstorage> -->
 <!--       <locals-verification-handler topic="{{topic}}" progress="{{progress}}" on-tap="toVerification" vals="{{nrofval}}"></locals-verification-handler>
       <locals-button bg="white" id="storebtn" icon="plus" on-tap="toStore" class$="{{storebtnclass}}"></locals-button> -->
-
-
-
+      <locals-button icon="plus" on-tap="toStore" small></locals-button>
     </div>
 
 
@@ -346,19 +371,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <div class="totalinfo">
       <div class="accountinfo">
-        <!-- <p class="account">aahjheipl00xxkklkgjjjjpopùù{{account}}</p> -->
-        <p class="username">Bennisan</p>
-
+        <p class="account">{{account}}</p>
+        <!--   <p class="username">Bennisan</p> -->
       </div>
 
       <div class="balance" on-tap="toWallet">
         <template is="dom-if" if="{{!balanceloaded}}">
-          <locals-icon class="refresher" icon="refresh1" iconcolor="grey2"></locals-icon>
+          <locals-icon class="refresher" icon="refresh1" iconcolor="grey5"></locals-icon>
         </template>
-        <!-- <template is="dom-if" if="{{balanceloaded}}"> -->
-        <h1>55{{balans}}</h1>
+        <template is="dom-if" if="{{balanceloaded}}">
+        <h1>{{balance}}</h1>
         <locals-icon class="localcoinamount" small icon="localcoin" iconcolor="darkgrey"></locals-icon>
-        <!-- </template> -->
+        </template>
       </div>
       <div class="tussenschot">
       </div>
@@ -380,7 +404,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 
 
-<!--       <locals-button icon="plus" on-tap="toStore"></locals-button> -->
 
      </neon-animatable>
      </template>
@@ -427,6 +450,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         keystore: {
           type: Object,
           observer: '_keystore'
+        },
+
+        balanceloaded: {
+          type: Boolean,
+          value: false,
+          observer: '_balanceloaded'
+
         },
 
         accounts: {
@@ -574,6 +604,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               break;
           }
         },
+
+    _balanceloaded: function(){
+      console.log("ISSEM DEER????", this.balanceloaded)
+    }
+
+
+
     });
   })();
   </script></dom-module>
