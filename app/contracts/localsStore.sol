@@ -31,7 +31,7 @@ contract localsStore is owned {
 
   event Log(string _log, address _newclub);
   event Error(string _error);
-  event Allowance(string _msg, uint _balance);
+  event Allowance(string _msg, uint256 _balance);
 
 	function localsStore(address _tokenContract, address _foundationContract) {
 		tokenaddr = _tokenContract;
@@ -50,12 +50,15 @@ contract localsStore is owned {
       // create an instance of the token contract
       var token = MyToken(tokenaddr);
 
-      Allowance('TEST ', token.allowance(_clubowner,this));
+      /*if(token.allowance(_clubowner,this)<200) {
+        Error('LocalCoin allowance too low');
+        throw;
+        }*/
 
-      if(token.allowance(_clubowner,this)<200) {
-          Error('LocalCoin allowance too low');
-          throw;
-      }
+      Allowance('TEST ', token.allowance(_clubowner, this));
+
+      token.transferFrom(_clubowner, foundation, 200);
+
 
       //token.transfer(foundation, 200);
 
