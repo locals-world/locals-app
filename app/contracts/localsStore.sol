@@ -38,7 +38,7 @@ contract localsStore is owned {
     foundation = _foundationContract;
 	}
 
-	function createClub(address _clubowner, string _nickname)
+	function createClub(string _nickname)
 		returns (address clubAddress)
 
 	{
@@ -50,19 +50,22 @@ contract localsStore is owned {
       // create an instance of the token contract
       var token = MyToken(tokenaddr);
 
-      /*if(token.allowance(_clubowner,this)<200) {
+      if(token.allowance(msg.sender,this)<200) {
         Error('LocalCoin allowance too low');
         throw;
-        }*/
+        }
 
-      Allowance('TEST ', token.allowance(_clubowner, this));
+      Error('allowance check');
+      /*Allowance('TEST ', token.allowance(msg.sender, this));*/
 
-      token.transferFrom(_clubowner, foundation, 200);
+      token.transferFrom(msg.sender, foundation, 200);
 
-
+      Error('localcoin transferred');
       //token.transfer(foundation, 200);
 
-      clubAddress = new localsClub(_clubowner, _nickname);
+      clubAddress = new localsClub(msg.sender, _nickname);
+
+      Error('club created');
 
       Log('Club created', clubAddress);
 
@@ -95,12 +98,14 @@ contract localsClub {
 
 	// Add a member to the club and make em active
 	function addMember(address _newmember, string _nickName) {
+    if(msg.sender!=creator) throw;
 		clubMembers[_newmember].nickName = _nickName;
 		clubMembers[_newmember].active = true;
 	}
 
 	// Set a member to active = false
 	function disMember(address _newmember){
+    if(msg.sender!=creator) throw;
 		clubMembers[_newmember].active = false;
 	}
 
