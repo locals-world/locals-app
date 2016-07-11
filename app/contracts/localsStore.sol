@@ -17,11 +17,11 @@ contract owned {
 
 contract localsStore is owned {
 
-	address public tokenContract;
-  mapping (address => uint256) public balanceOf;
 
   // Which tokencontract to use
-  MyToken public token;
+  //MyToken public token;
+
+
 
   // the address of the tokencontract to use
   address public tokenaddr;
@@ -31,14 +31,14 @@ contract localsStore is owned {
 
   event Log(string _log, address _newclub);
   event Error(string _error);
+  event Allowance(string _msg, uint _balance);
 
 	function localsStore(address _tokenContract, address _foundationContract) {
-		owner = msg.sender;
 		tokenaddr = _tokenContract;
     foundation = _foundationContract;
 	}
 
-	function createClub(string _nickname)
+	function createClub(address _clubowner, string _nickname)
 		returns (address clubAddress)
 
 	{
@@ -48,16 +48,18 @@ contract localsStore is owned {
 			// the ABI.
       // the creator should pay localcoin to the localsfoundation
       // create an instance of the token contract
-      var tokencontract = MyToken(tokenaddr);
+      var token = MyToken(tokenaddr);
 
-      if(token.balanceOf(msg.sender)<2) {
-          Error('LocalCoin balance too low.');
+      Allowance('TEST ', token.allowance(_clubowner,this));
+
+      if(token.allowance(_clubowner,this)<200) {
+          Error('LocalCoin allowance too low');
           throw;
       }
 
-      token.transfer(foundation, 2);
+      //token.transfer(foundation, 200);
 
-      clubAddress = new localsClub(msg.sender, _nickname);
+      clubAddress = new localsClub(_clubowner, _nickname);
 
       Log('Club created', clubAddress);
 
@@ -75,12 +77,12 @@ contract localsClub {
 
 	address public creator;
 
-	mapping (address => clubMember) public clubMembers;
-
 	struct clubMember {
 		string nickName;
 		bool active;
 	}
+
+	mapping (address => clubMember) public clubMembers;
 
 	function localsClub(address _creator, string _nickName){
 		creator = _creator;
@@ -89,7 +91,7 @@ contract localsClub {
 	}
 
 	// Add a member to the club and make em active
-	function addMember(address _newmember, string _nickName){
+	function addMember(address _newmember, string _nickName) {
 		clubMembers[_newmember].nickName = _nickName;
 		clubMembers[_newmember].active = true;
 	}
@@ -98,6 +100,11 @@ contract localsClub {
 	function disMember(address _newmember){
 		clubMembers[_newmember].active = false;
 	}
+
+  // When someone just sends value to the contract
+  function () {
+    throw;
+  }
 
 }
 
