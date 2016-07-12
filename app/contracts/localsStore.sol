@@ -82,6 +82,8 @@ contract localsStore is owned {
 contract localsClub {
 
 	address public creator;
+  string public clubname;
+  string public clubicon;
 
 	struct clubMember {
 		string nickName;
@@ -90,8 +92,10 @@ contract localsClub {
 
 	mapping (address => clubMember) public clubMembers;
 
-	function localsClub(address _creator, string _nickName){
+	function localsClub(address _creator, string _nickName, string _clubicon, string _clubname){
 		creator = _creator;
+    clubname = _clubname;
+    clubicon = _clubicon;
 		clubMembers[_creator].nickName = _nickName;
 		clubMembers[_creator].active = true;
 	}
