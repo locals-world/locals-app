@@ -1,4 +1,3 @@
-
 contract owned {
     address public owner;
 

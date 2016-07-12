@@ -53,12 +53,12 @@ LOCALS
         text-decoration: none;
         outline: none;
         font-size: 12px;
-        border-bottom: 1px dashed var(--locals-blue);        
+        border-bottom: 1px dashed var(--locals-blue);
 
       }
 
 /*      .detailslink {
-        border-bottom: 1px dashed var(--locals-blue);        
+        border-bottom: 1px dashed var(--locals-blue);
       }*/
 
       neon-animated-pages {
@@ -83,11 +83,11 @@ LOCALS
      .main {
       overflow-y: scroll;
         height: 100%;
-        
+
      }
 
-      ::-webkit-scrollbar { 
-          display: none; 
+      ::-webkit-scrollbar {
+          display: none;
       }
 
      .drawer {
@@ -102,7 +102,7 @@ LOCALS
       padding: 40px 50px 40px 50px;
       border-bottom:1px solid #404040;
       @apply(--layout-vertical);
-      @apply(--layout-start);      
+      @apply(--layout-start);
      }
 
      .canvas {
@@ -134,16 +134,16 @@ LOCALS
      }
 
      .refresher {
-       -webkit-animation-name: rotate; 
-      -webkit-animation-duration: 1s; 
+       -webkit-animation-name: rotate;
+      -webkit-animation-duration: 1s;
       -webkit-animation-iteration-count: infinite;
       -webkit-animation-timing-function: linear;
-      -moz-animation-name: rotate; 
-      -moz-animation-duration: 1s; 
+      -moz-animation-name: rotate;
+      -moz-animation-duration: 1s;
       -moz-animation-iteration-count: infinite;
       -moz-animation-timing-function: linear;
-      animation-name: rotate; 
-      animation-duration: 1s; 
+      animation-name: rotate;
+      animation-duration: 1s;
       animation-iteration-count: infinite;
       animation-timing-function: linear;
      }
@@ -201,25 +201,25 @@ LOCALS
 
     </style>
 
-    <!-- <iron-localstorage 
-      name="locals-password" 
+    <!-- <iron-localstorage
+      name="locals-password"
       value="{{passwd}}"></iron-localstorage>
   -->
-  <ipfs-upload 
-      id="ipfsupload" 
-      hash="" 
-      on-ipfs-hash-received="" 
-      on-upload-started="" 
-      on-upload-error="" 
+  <ipfs-upload
+      id="ipfsupload"
+      hash=""
+      on-ipfs-hash-received=""
+      on-upload-started=""
+      on-upload-error=""
       host="/ip4/109.123.70.141/tcp/5001"
       hidefileinput></ipfs-upload>
 
-  <web3-wallet 
+  <web3-wallet
       id="web3wallet"
       walletname="locals-wallet"
-      account="{{account}}" 
-      balance="{{balance}}" 
-      keystore="{{keystore}}" 
+      account="{{account}}"
+      balance="{{balance}}"
+      keystore="{{keystore}}"
       host="{{ethnode}}"
       web3="{{web3}}"></web3-wallet>
 
@@ -231,7 +231,7 @@ LOCALS
     decimals="5"
     id="whisper"></locals-whisperer>
 
-  
+
 
   <locals-lsapi
     verbose id="lsapi"
@@ -266,14 +266,14 @@ LOCALS
 
   <excess-route
     route="/:menu"
-    menu="{{appMenu}}"    
+    menu="{{appMenu}}"
   ></excess-route>
 
   <neon-animated-pages selected="{{appMenu}}" attr-for-selected="route" entry-animation="{{entryAnimation}}" exit-animation="{{exitAnimation}}">
     <!-- home -->
-    <locals-home route="home" data="{{data}}" on-to-store="toStore" on-to-verification="toVerification" account="{{account}}" balance="{{balance}}" web3="{{web3}}" keystore="{{keystore}}" on-toggle-drawer="drawertoggle" sizeview="{{sizeview}}" balanceloaded="{{balanceloaded}}"></locals-home>
+    <locals-home route="home" data="{{data}}" localcoinbalance="{{locbalans}}" on-to-store="toStore" on-to-verification="toVerification" account="{{account}}" balance="{{balance}}" web3="{{web3}}" keystore="{{keystore}}" on-toggle-drawer="drawertoggle" sizeview="{{sizeview}}" balanceloaded="{{balanceloaded}}"></locals-home>
 <!--      <locals-home route="home" data="{{data}}" on-to-detail="toDetail" on-to-store="toStore" on-to-verification="toVerification" on-toggle-drawer="drawertoggle" sizeview="{{sizeview}}"></locals-home> -->
-   
+
     <!-- object detail -->
     <locals-detail route="objectdetail" objectdata="{{selecteditem.data}}" key="{{selecteditem.key}}" renderstate="open" on-to-home="toHome" sizeview="{{sizeview}}"></locals-detail>
 
@@ -303,7 +303,7 @@ LOCALS
       <locals-backup></locals-backup>
     </neon-animatable>
 
-    <!-- verification : verify someone else's validation -->    
+    <!-- verification : verify someone else's validation -->
     <locals-verification-validator route="verification" on-to-home="toHome" sizeview="{{sizeview}}" mode="list" topic="{{topic}}" progress="{{progress}}" web3="{{web3}}" account="{{account}}"></locals-verification-validator>
 
     <!-- wallet: transfer funds -->
@@ -345,13 +345,13 @@ LOCALS
         },
 
         balans: {
-          type: Number, 
+          type: Number,
           observer: '_balans'
         },
 
         tokenaddr: {
           type: String,
-          value: '0xFf08F6E967a92F2A33f03e4ce206C479B9b706F3'
+          value: '0xe94a4e5615E5d1BAfbDBc8a221D9b0995f67A752'
         },
 
         localsuseraddr: {
@@ -427,7 +427,7 @@ LOCALS
         //   console.log('i need a passwd');
         //   Excess.RouteManager.transitionTo('/enterpass');
         // }
-        //console.log(this.passwd);     
+        //console.log(this.passwd);
 
 
         this.ethnode = new Polymer.IronMetaQuery({
@@ -452,7 +452,7 @@ LOCALS
 
       _gotpassword: function(){
         //debugger;
-          this.wrongpass = false;          
+          this.wrongpass = false;
         this.$.web3wallet.password = this.passwd;
         console.log('go home');
         sessionStorage.setItem('lopassword', this.passwd);
@@ -464,7 +464,7 @@ LOCALS
           Excess.RouteManager.transitionTo('/enterpass');
           if(this.$.lsapi.privatekey){
             console.log("ISSEM FOUT???????", this.wrongpass);
-          this.wrongpass = true;          
+          this.wrongpass = true;
           }
 
       },
@@ -523,7 +523,7 @@ LOCALS
         var MyCoinContract = this.web3.eth.contract(this.tokenabi);
         var myCoinContractInstance = MyCoinContract.at(this.tokenaddr);
         var account = this.fixaddress(this.account);
-        var coinbalance = myCoinContractInstance.balanceOf(account).toNumber();
+        var coinbalance = myCoinContractInstance.balanceOf(account);
         this.locbalans = coinbalance;
         if(coinbalance > 0){
           this.nolocalcoin = false;

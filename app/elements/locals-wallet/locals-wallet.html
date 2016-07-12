@@ -158,22 +158,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
      .code {
       @apply(--layout-vertical);
-      @apply(--layout-start);  
-      margin: 0px 20px 0px 0px;    
+      @apply(--layout-start);
+      margin: 0px 20px 0px 0px;
 
      }
 
      .announce p {
-      margin: 0px 20px 10px 0px;    
+      margin: 0px 20px 10px 0px;
      }
 
      .marginbtm {
-      margin-left: 15px;    
+      margin-left: 15px;
       margin: var(--coin-margins);
      }
 
      .temp {
-      margin-top: 6vh; 
+      margin-top: 6vh;
       color: var(--locals-grey4);
      }
 
@@ -285,7 +285,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </div>
           <locals-button confirmsmall icon="declinenew" confirmsmall on-tap="togglereceivecoins" class="closebtn"></locals-button>
         </iron-collapse>
-        <div class="whitespace"></div>  
+        <div class="whitespace"></div>
         <div class="whitespace"></div>
 
       </div>
@@ -351,7 +351,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         contractaddr: {
           type: String,
-          value: '0xa69153562474B1dFf2ab79b7fdB75d55f659Ea56'
+          value: '0xe94a4e5615E5d1BAfbDBc8a221D9b0995f67A752'
         },
         localcoinbalance: {
           type: Number,
@@ -363,7 +363,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       ready: function(){
-        this.contractaddr = '0xa69153562474B1dFf2ab79b7fdB75d55f659Ea56';
+        this.contractaddr = '0xe94a4e5615E5d1BAfbDBc8a221D9b0995f67A752';
         this.getLocalbalance();
         var self = this;
         window.setInterval(function(){
@@ -416,9 +416,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           var MyContract = self.web3wallet.web3.eth.contract(self.contractjson.abi);
           var myContractInstance = MyContract.at(self.contractaddr);
 
-       
+
         var account = this.fixaddress(this.account);
-        var coinbalance = myContractInstance.balanceOf(account).toNumber();
+        var coinbalance = myContractInstance.balanceOf(account);
         this.localcoinbalance = coinbalance;
         // console.log('localcoinbalance: ', coinbalance);
         this.balanceloaded = true;
@@ -449,13 +449,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               gas: 2000000
             }, function(err, result){
               console.log(err, result);
-              var coinbalance = myContractInstance.balanceOf(self.fixaddress(self.web3wallet.account)).toNumber();
+              var coinbalance = myContractInstance.balanceOf(self.fixaddress(self.web3wallet.account));
                 self.localcoinbalance = coinbalance;
             });
 
           });
           //this.web3.send(this.partnerpubkey, this.amount);
-        }); 
+        });
       },
 
     toHome: function() {
