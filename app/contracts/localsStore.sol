@@ -38,7 +38,7 @@ contract localsStore is owned {
     foundation = _foundationContract;
 	}
 
-	function createClub(string _nickname)
+	function createClub(string _nickname, string _clubname, string _clubicon)
 		returns (address clubAddress)
 
 	{
@@ -63,7 +63,7 @@ contract localsStore is owned {
       Error('localcoin transferred');
       //token.transfer(foundation, 200);
 
-      clubAddress = new localsClub(msg.sender, _nickname);
+      clubAddress = new localsClub(msg.sender, _nickname, _clubicon, _clubname);
 
       Error('club created');
 
