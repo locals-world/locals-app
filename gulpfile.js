@@ -345,6 +345,10 @@ gulp.task('solc', function() {
       destpath = require('path').dirname(file);
     });
 
+    // save combined SOL file for later reference
+    var combinedFileName = destpath + '/tmp_combined.txt';
+    fs.writeFile(combinedFileName, allfiles, 'utf8');
+
     var solc = require('solc');
     var input = allfiles;
     var output = solc.compile(input, 1); // 1 activates the optimiser
