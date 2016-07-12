@@ -270,7 +270,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       margin: 0px 0px 7px 6px;
      }
 
-.refresher {
+
+      .topbar {
+        width: 100%;
+        background-color: transparent;
+        height: var(--topbar-height);
+        @apply(--layout-horizontal);
+        @apply(--layout-center);
+        box-sizing: border-box;
+        padding: 10px 20px 10px 10px;
+        }
+
+        
+
+    .refresher {
+/*      height: 52px;
+      width: 52px;
+      box-sizing: border-box;
+      padding: 6px;*/
+      margin: 10px 0px 10px 0px;
+
        -webkit-animation-name: rotate; 
       -webkit-animation-duration: 1s; 
       -webkit-animation-iteration-count: infinite;
@@ -349,7 +368,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     
     <div class="topbar">
       <div class="menuicon">
-        <locals-icon icon="menu" iconcolor="darkgrey" on-tap="firetoggle"></locals-icon>
+        <locals-button icon="menu" iconcolor="darkgrey" on-tap="firetoggle" small bgrgba="0,0,0,0"></locals-button>
       </div>
     <p class="flex"></p>
 <!--       <locals-verification-localstorage data="{{incomingvalidations}}" nrofitems="{{nrofval}}" id="lvls">
@@ -377,11 +396,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       <div class="balance" on-tap="toWallet">
         <template is="dom-if" if="{{!balanceloaded}}">
-          <locals-icon class="refresher" icon="refresh1" iconcolor="grey5"></locals-icon>
+          <locals-icon class="refresher" small icon="refresh1" iconcolor="grey5"></locals-icon>
         </template>
         <template is="dom-if" if="{{balanceloaded}}">
         <h1>{{balance}}</h1>
-        <locals-icon class="localcoinamount" small icon="localcoin" iconcolor="darkgrey"></locals-icon>
+        <locals-icon class="localcoinamount" verysmall icon="localcoin" iconcolor="darkgrey"></locals-icon>
         </template>
       </div>
       <div class="tussenschot">
