@@ -23,7 +23,7 @@ contract localsStore is owned {
     foundation = _foundationContract;
 	}
 
-	function createClub(string _nickname)
+	function createClub(string _nickname, string _clubname, string _clubicon)
 		returns (address clubAddress)
 
 	{
@@ -48,7 +48,7 @@ contract localsStore is owned {
       Error('localcoin transferred');
       //token.transfer(foundation, 200);
 
-      clubAddress = new localsClub(msg.sender, _nickname);
+      clubAddress = new localsClub(msg.sender, _nickname, _clubicon, _clubname);
 
       Error('club created');
 
@@ -67,6 +67,8 @@ contract localsStore is owned {
 contract localsClub {
 
 	address public creator;
+  string public clubname;
+  string public clubicon;
 
 	struct clubMember {
 		string nickName;
@@ -75,8 +77,10 @@ contract localsClub {
 
 	mapping (address => clubMember) public clubMembers;
 
-	function localsClub(address _creator, string _nickName){
+	function localsClub(address _creator, string _nickName, string _clubicon, string _clubname){
 		creator = _creator;
+    clubname = _clubname;
+    clubicon = _clubicon;
 		clubMembers[_creator].nickName = _nickName;
 		clubMembers[_creator].active = true;
 	}
