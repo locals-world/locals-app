@@ -269,7 +269,7 @@ LOCALS
     menu="{{appMenu}}"    
   ></excess-route>
 
-  <neon-animated-pages selected="{{appMenu}}" attr-for-selected="route">
+  <neon-animated-pages selected="{{appMenu}}" attr-for-selected="route" entry-animation="{{entryAnimation}}" exit-animation="{{exitAnimation}}">
     <!-- home -->
     <locals-home route="home" data="{{data}}" on-to-store="toStore" on-to-verification="toVerification" account="{{account}}" balance="{{balance}}" web3="{{web3}}" keystore="{{keystore}}" on-toggle-drawer="drawertoggle" sizeview="{{sizeview}}" balanceloaded="{{balanceloaded}}"></locals-home>
 <!--      <locals-home route="home" data="{{data}}" on-to-detail="toDetail" on-to-store="toStore" on-to-verification="toVerification" on-toggle-drawer="drawertoggle" sizeview="{{sizeview}}"></locals-home> -->
@@ -327,6 +327,16 @@ LOCALS
           type: Object,
           notify: true,
           observer: '_web3'
+        },
+
+        entryAnimation: {
+          type: String,
+          value: 'slide-from-right-animation'
+        },
+
+        exitAnimation: {
+          type: String,
+          value: 'slide-left-animation'
         },
 
         account: {
@@ -470,10 +480,14 @@ LOCALS
       },
 
       toStore: function(){
+        this.entryAnimation = 'slide-from-right-animation';
+        this.exitAnimation = 'slide-left-animation';
         Excess.RouteManager.transitionTo('/store');
       },
 
       toHome: function(){
+        this.entryAnimation = 'slide-from-left-animation';
+        this.exitAnimation = 'slide-right-animation';
         Excess.RouteManager.transitionTo('/home');
       },
 
