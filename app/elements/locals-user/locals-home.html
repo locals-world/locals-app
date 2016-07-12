@@ -123,7 +123,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       .balance {
         @apply(--layout-horizontal);
         @apply(--layout-center);
-        margin-bottom: 30px; 
+        margin-bottom: 30px;
       }
 
 
@@ -143,8 +143,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
 
-      ::-webkit-scrollbar { 
-          display: none; 
+      ::-webkit-scrollbar {
+          display: none;
       }
 
       #fooContainer {
@@ -165,7 +165,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         width: 100%;
         overflow-x: scroll;
         box-sizing: border-box;
-        padding-left: 10vw;      
+        padding-left: 10vw;
        }
 
       .iron-selected .foo {
@@ -282,7 +282,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         padding: 10px 20px 10px 10px;
         }
 
-        
+
 
     .refresher {
 /*      height: 52px;
@@ -291,16 +291,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       padding: 6px;*/
       margin: 10px 0px 10px 0px;
 
-       -webkit-animation-name: rotate; 
-      -webkit-animation-duration: 1s; 
+       -webkit-animation-name: rotate;
+      -webkit-animation-duration: 1s;
       -webkit-animation-iteration-count: infinite;
       -webkit-animation-timing-function: linear;
-      -moz-animation-name: rotate; 
-      -moz-animation-duration: 1s; 
+      -moz-animation-name: rotate;
+      -moz-animation-duration: 1s;
       -moz-animation-iteration-count: infinite;
       -moz-animation-timing-function: linear;
-      animation-name: rotate; 
-      animation-duration: 1s; 
+      animation-name: rotate;
+      animation-duration: 1s;
       animation-iteration-count: infinite;
       animation-timing-function: linear;
      }
@@ -323,7 +323,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     </style>
 
-  <!--   
+  <!--
     <div class="topbar">
       <div class="menuicon">
         <locals-icon icon="menu" iconcolor="darkgrey" on-tap="firetoggle"></locals-icon>
@@ -346,7 +346,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <template is="dom-repeat" items="{{dataset}}">
             <div id="total">
               <locals-objectrender sizeview="{{sizeview}}" on-detail-tapped="gotodetail" key="{{item.component.name}}" objectdata="{{item}}" renderstate="visual" class="foo">
-              </locals-objectrender> 
+              </locals-objectrender>
               <div class="lijntje"></div>
             </div>
           </template>
@@ -366,7 +366,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
  <neon-animated-pages selected="0" entry-animation="slide-from-right-animation" exit-animation="slide-left-animation">
     <template is="dom-repeat" items="{{accounts}}">
      <neon-animatable>
-    
+
     <div class="topbar">
       <div class="menuicon">
         <locals-button icon="menu" iconcolor="darkgrey" on-tap="firetoggle" small bgrgba="0,0,0,0"></locals-button>
@@ -400,7 +400,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <locals-icon class="refresher" small icon="refresh1" iconcolor="grey5"></locals-icon>
         </template>
         <template is="dom-if" if="{{balanceloaded}}">
-        <h1>{{balance}}</h1>
+        <h1>{{localcoinbalance}}</h1>
         <locals-icon class="localcoinamount" verysmall icon="localcoin" iconcolor="darkgrey"></locals-icon>
         </template>
       </div>
@@ -416,7 +416,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <template is="dom-repeat" items="{{dataset}}">
             <div id="total">
               <locals-objectrender sizeview="{{sizeview}}" on-detail-tapped="gotodetail" key="{{item.component.name}}" objectdata="{{item}}" renderstate="closed" class="foo">
-              </locals-objectrender> 
+              </locals-objectrender>
               <div class="lijntje"></div>
             </div>
           </template>
@@ -431,7 +431,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
      <neon-animatable>
        add identity
      </neon-animatable>
-    
+
  </neon-animated-pages>
 
 </template>
@@ -441,7 +441,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     Polymer({
       is: 'locals-home',
-      
+
       behaviors: [
         Polymer.NeonSharedElementAnimatableBehavior
       ],
@@ -481,7 +481,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         accounts: {
           type: Array,
-          value: [{ account: '0x000', 
+          value: [{ account: '0x000',
                     label: 'Locals User A3FE1',
                     balance: 42,
                     rep: 10
@@ -496,7 +496,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       ready: function(){
       },
-      
+
      attached: function() {
       window.sr = ScrollReveal({distance: 0, origin: 'top', scale: 0.4, reset: true});
       var fooContainer = document.getElementById('fooContainer');
@@ -584,7 +584,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       var newarray = [];
       var p = input;
       //var previewdata = Object.keys(input);
-      for (var key in p) {        
+      for (var key in p) {
         if (p.hasOwnProperty(key)) {
           newarray.key = key;
           newarray.push(p[key]);
