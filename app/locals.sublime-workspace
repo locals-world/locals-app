@@ -4,6 +4,22 @@
 		"selected_items":
 		[
 			[
+				"add_the",
+				"add_theme_support"
+			],
+			[
+				"re",
+				"relative"
+			],
+			[
+				"over",
+				"overflow"
+			],
+			[
+				"border",
+				"border-radius"
+			],
+			[
 				"ma",
 				"margin-left"
 			],
@@ -120,10 +136,6 @@
 				"max-width"
 			],
 			[
-				"over",
-				"overflow-y"
-			],
-			[
 				"ani",
 				"animate-prop"
 			],
@@ -198,10 +210,6 @@
 			[
 				"box-",
 				"box-sizing"
-			],
-			[
-				"border",
-				"border-bottom"
 			],
 			[
 				"collp",
@@ -365,6 +373,7 @@
 	},
 	"file_history":
 	[
+		"/Users/benadriaenssen/Sites/locals-elements/locals-object/locals-objectlayer.html",
 		"/Users/benadriaenssen/Sites/blocktube/blocktube-client.0.3/app/elements/bt-home/bt-home.html",
 		"/Users/benadriaenssen/Sites/locals-elements/locals-style/locals-typography.html",
 		"/Users/benadriaenssen/Sites/locals-elements/locals-style/locals-style.html",
@@ -476,7 +485,7 @@
 	],
 	"find":
 	{
-		"height": 26.0
+		"height": 25.0
 	},
 	"find_in_files":
 	{
@@ -491,6 +500,37 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"ellipsis",
+			"accountinfo",
+			"h1",
+			"locals-grey7",
+			"localcoinamount",
+			"balance",
+			".balance",
+			"balance",
+			"drawer",
+			"plus",
+			"180",
+			"avatarbg",
+			"100px",
+			"padding",
+			"avatararea-padding",
+			"avatararea",
+			".avatararea",
+			"avatararea",
+			"objectcanvas",
+			"objectlayer",
+			"objectlater",
+			"avatararea",
+			"110px",
+			"160px",
+			"locals-avatar",
+			".topbar",
+			"topbar",
+			"top",
+			"avatararea",
+			".avatararea",
+			"scrollarea",
 			"container",
 			"tipit",
 			"Tip this",
@@ -587,38 +627,7 @@
 			"canvalidate",
 			"10vw",
 			"collsclosed",
-			"collclosed",
-			"collcollapse",
-			"collsclosed",
-			"toHome",
-			"1s",
-			"360",
-			"infinite",
-			"180",
-			"refreshBalance",
-			"180",
-			"t: 1;",
-			"rotate",
-			"180",
-			"36",
-			"infinite",
-			"refres",
-			"icon",
-			"balanceloaded",
-			"locbalans",
-			"coinbalance",
-			"locbalans",
-			"balanceloaded",
-			"locbalans",
-			"sendcoinstate",
-			"toWaiting",
-			"locals-icon",
-			"validate",
-			"this.partner",
-			"to",
-			"toWaiting",
-			"topic",
-			"whisper"
+			"collclosed"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -644,7 +653,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 26.0
+		"height": 25.0
 	},
 	"input":
 	{
@@ -681,7 +690,7 @@
 	"project": "locals.sublime-project",
 	"replace":
 	{
-		"height": 48.0
+		"height": 46.0
 	},
 	"save_all_on_build": true,
 	"select_file":

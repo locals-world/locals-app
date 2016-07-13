@@ -245,7 +245,7 @@ LOCALS
 <div drawer class="drawer">
   <div class="whitespace"></div>
   <div class="drawerpart">
-    <div class="balance" on-tap="toWallet">
+    <div class="balance" on-tap="toWalletClosedrawer">
 
       <template is="dom-if" if="{{!balanceloaded}}">
         <locals-icon class="refresher" icon="refresh1" iconcolor="grey2"></locals-icon>
@@ -271,7 +271,7 @@ LOCALS
 
   <neon-animated-pages selected="{{appMenu}}" attr-for-selected="route" entry-animation="{{entryAnimation}}" exit-animation="{{exitAnimation}}">
     <!-- home -->
-    <locals-home route="home" data="{{data}}" localcoinbalance="{{locbalans}}" on-to-store="toStore" on-to-verification="toVerification" account="{{account}}" balance="{{balance}}" web3="{{web3}}" keystore="{{keystore}}" on-toggle-drawer="drawertoggle" sizeview="{{sizeview}}" balanceloaded="{{balanceloaded}}"></locals-home>
+    <locals-home route="home" data="{{data}}" localcoinbalance="{{locbalans}}" on-to-store="toStore" on-to-verification="toVerification" account="{{account}}" balance="{{balance}}" web3="{{web3}}" keystore="{{keystore}}" on-to-wallet="toWallet" on-toggle-drawer="drawertoggle" sizeview="{{sizeview}}" balanceloaded="{{balanceloaded}}"></locals-home>
 <!--      <locals-home route="home" data="{{data}}" on-to-detail="toDetail" on-to-store="toStore" on-to-verification="toVerification" on-toggle-drawer="drawertoggle" sizeview="{{sizeview}}"></locals-home> -->
 
     <!-- object detail -->
@@ -304,7 +304,7 @@ LOCALS
     </neon-animatable>
 
     <!-- verification : verify someone else's validation -->
-    <locals-verification-validator route="verification" on-to-home="toHome" sizeview="{{sizeview}}" mode="list" topic="{{topic}}" progress="{{progress}}" web3="{{web3}}" account="{{account}}"></locals-verification-validator>
+    <!-- <locals-verification-validator route="verification" on-to-home="toHome" sizeview="{{sizeview}}" mode="list" topic="{{topic}}" progress="{{progress}}" web3="{{web3}}" account="{{account}}"></locals-verification-validator> -->
 
     <!-- wallet: transfer funds -->
     <locals-wallet topic="{{topic}}" on-to-home="toHome" route="wallet" web3="{{web3}}" ethbalance="{{ethbalans}}" localcoinbalance="{{locbalans}}" account="{{account}}" sizeview="{{sizeview}}" on-balance-loaded="balanceLoad"></locals-wallet>
@@ -363,11 +363,11 @@ LOCALS
           observer: '_keystore'
         },
 
-        locbalans: {
-          type: Number,
-          value: '44',
-          observer: '_locbalans'
-        },
+        // locbalans: {
+        //   type: Number,
+        //   value: '44',
+        //   observer: '_locbalans'
+        // },
 
         data: {
           observer: '_data'
@@ -483,15 +483,26 @@ LOCALS
         this.entryAnimation = 'slide-from-right-animation';
         this.exitAnimation = 'slide-left-animation';
         Excess.RouteManager.transitionTo('/store');
+        this.entryAnimation = 'slide-from-left-animation';
+        this.exitAnimation = 'slide-right-animation';
       },
 
       toHome: function(){
-        this.entryAnimation = 'slide-from-left-animation';
-        this.exitAnimation = 'slide-right-animation';
+
         Excess.RouteManager.transitionTo('/home');
       },
 
       toWallet: function(){
+        this.entryAnimation = 'fade-in-animation';
+        this.exitAnimation = 'fade-out-animation';
+        Excess.RouteManager.transitionTo('/wallet');
+        this.entryAnimation = 'fade-in-animation';
+        this.exitAnimation = 'fade-out-animation'; 
+      },
+
+      toWalletClosedrawer: function(){
+        this.entryAnimation = 'fade-in-animation';
+        this.exitAnimation = 'fade-out-animation';
         Excess.RouteManager.transitionTo('/wallet');
         this.$.drawer.togglePanel();
       },

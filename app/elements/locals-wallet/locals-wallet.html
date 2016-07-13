@@ -18,7 +18,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       :host {
         display: block;
         box-sizing: border-box;
-        background-color: var(--locals-grey1);
+/*        background-color: var(--locals-grey1);*/
+        background-color: white;
         width: 100vw;
         --balance-h1: 40px;
         --balance-lineheight: 52px;
@@ -60,7 +61,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       .total {
         width: 100vw;
-        background-color: var(--locals-grey1);
+        /*background-color: var(--locals-grey1);*/
         @apply(--layout-vertical);
         @apply(--layout-start);
       }
@@ -71,15 +72,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         padding: 0px 10vw 0px 10vw;
       }
 
+
       .topbar {
         width: 100%;
-        background-color: var(--locals-grey1);
+        background-color: transparent;
         height: var(--topbar-height);
         @apply(--layout-horizontal);
         @apply(--layout-center);
         box-sizing: border-box;
-        padding: 10px 20px 10px 10px;
-        margin-bottom: 4vh;
+        padding: 10px 20px 10px 20px;
         }
 
       .flex {
@@ -222,8 +223,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 
     <div class="topbar">
-      <p class="flex"></p>
-      <locals-button bgrgba="0,0,0,0" id="exitbtn" icon="declinenew" on-tap="toHome"></locals-button>
+      <!-- <p class="flex"></p>
+      <locals-button bgrgba="0,0,0,0" id="exitbtn" icon="declinenew" on-tap="toHome"></locals-button> -->
+    
+      <p class="flex" on-tap="change"></p>
+      <locals-button bgrgba="0,0,0,0" icon="declinenew" on-tap="toHome" small id="exitbtn"></locals-button>
+
     </div>
 
     <div class="total">
@@ -235,13 +240,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <template is="dom-if" if="{{balanceloaded}}">
           <h1>{{localcoinbalance}}</h1>
           <template is="dom-if" if="{{_is(sizeview,'phone')}}">
-          <locals-icon class="localcoinamount" small icon="localcoin" iconcolor="darkgrey"></locals-icon>
+          <locals-icon class="localcoinamount" verysmall icon="localcoin" iconcolor="darkgrey"></locals-icon>
           </template>
           <template is="dom-if" if="{{_is(sizeview,'desktop')}}">
-          <locals-icon class="localcoinamount" icon="localcoin" iconcolor="darkgrey"></locals-icon>
+          <locals-icon class="localcoinamount" small icon="localcoin" iconcolor="darkgrey"></locals-icon>
           </template>
           <template is="dom-if" if="{{_is(sizeview,'xlarge')}}">
-          <locals-icon class="localcoinamount" big icon="localcoin" iconcolor="darkgrey"></locals-icon>
+          <locals-icon class="localcoinamount" icon="localcoin" iconcolor="darkgrey"></locals-icon>
           </template>
         <div class="marginbtm">
           <locals-icon class$="refresher {{spinclass}}" icon="refresh1" iconcolor="grey5" small on-tap="refreshBalance"></locals-icon>
@@ -253,12 +258,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <div class="whitespace"></div>
         <template is="dom-if" if="{{collsclosed}}">
           <template is="dom-if" if="{{_is(sizeview,'phone')}}">
-            <locals-button small txtbtn txtcolor="blue" on-tap="togglesendcoins"><div class="inbutton">send <locals-icon class="coinbtn" small icon="localcoin" iconcolor="blue"></locals-icon></div></locals-button>
-            <locals-button small txtbtn txtcolor="blue" on-tap="togglereceivecoins"><div class="inbutton">receive <locals-icon class="coinbtn" small icon="localcoin" iconcolor="blue"></locals-icon></div></locals-button>
+            <locals-button small txtbtn txtcolor="blue" on-tap="togglesendcoins"><div class="inbutton">send <locals-icon class="coinbtn" verysmall icon="localcoin" iconcolor="blue"></locals-icon></div></locals-button>
+            <locals-button small txtbtn txtcolor="blue" on-tap="togglereceivecoins"><div class="inbutton">receive <locals-icon class="coinbtn" verysmall icon="localcoin" iconcolor="blue"></locals-icon></div></locals-button>
           </template>
           <template is="dom-if" if="{{!_is(sizeview,'phone')}}">
-            <locals-button txt txtcolor="blue" on-tap="togglesendcoins"><div class="inbutton">send <locals-icon class="coinbtn" small icon="localcoin" iconcolor="blue"></locals-icon></div></locals-button>
-            <locals-button txt txtcolor="blue" on-tap="togglereceivecoins"><div class="inbutton">receive <locals-icon class="coinbtn" small icon="localcoin" iconcolor="blue"></locals-icon></div></locals-button>
+            <locals-button txtbtn txtcolor="blue" on-tap="togglesendcoins"><div class="inbutton">send <locals-icon class="coinbtn" verysmall icon="localcoin" iconcolor="blue"></locals-icon></div></locals-button>
+            <locals-button txtbtn txtcolor="blue" on-tap="togglereceivecoins"><div class="inbutton">receive <locals-icon class="coinbtn" verysmall icon="localcoin" iconcolor="blue"></locals-icon></div></locals-button>
           </template>
         </template>
         <iron-collapse id="sendcoins">
@@ -471,6 +476,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               this.customStyle['--code-lineheight'] = '36px';
               this.customStyle['--code-small'] = '10px';
               this.customStyle['--coin-margins'] = '0px 0px 7px 6px';
+                this.customStyle['--topbar-height'] = '100px';
               this.updateStyles();
               break;
           case 'desktop':
@@ -480,6 +486,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               this.customStyle['--code-lineheight'] = '50px';
               this.customStyle['--code-small'] = '12px';
               this.customStyle['--coin-margins'] = '0px 0px 10px 6px';
+                this.customStyle['--topbar-height'] = '100px';
               this.updateStyles();
               break;
           case 'xlarge':
@@ -489,12 +496,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               this.customStyle['--code-lineheight'] = '104px';
               this.customStyle['--code-small'] = '24px';
               this.customStyle['--coin-margins'] = '0px 0px 20px 6px';
+                this.customStyle['--topbar-height'] = '100px';
               this.updateStyles();
               break;
           default:
           console.log("!!! ** Niks");
       }
     },
+
 
     _is: function(a, b) {
       if (b === undefined){

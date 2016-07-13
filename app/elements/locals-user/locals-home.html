@@ -412,7 +412,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 </div>
 
-<!--        <iron-selector>
+       <iron-selector>
           <template is="dom-repeat" items="{{dataset}}">
             <div id="total">
               <locals-objectrender sizeview="{{sizeview}}" on-detail-tapped="gotodetail" key="{{item.component.name}}" objectdata="{{item}}" renderstate="closed" class="foo">
@@ -420,7 +420,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               <div class="lijntje"></div>
             </div>
           </template>
-        </iron-selector> -->
+        </iron-selector>
 
 
 
@@ -463,8 +463,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         },
 
         web3: {
-          type: Object,
-          observer: '_web3'
+          type: Object
         },
 
         keystore: {
@@ -517,6 +516,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       toStore: function(){
         this.fire('to-store');
+      },
+
+      toWallet: function(){
+        this.fire('to-wallet');
       },
 
       toVerification: function(){
@@ -626,7 +629,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         },
 
     _balanceloaded: function(){
-      console.log("ISSEM DEER????", this.balanceloaded)
+      // console.log("ISSEM DEER????", this.balanceloaded)
     }
 
 
