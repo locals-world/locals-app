@@ -540,18 +540,7 @@ padding: 0px;
   },
 
   object2array: function(input){
-    var newarray = [];
-    var p = input;
-    //var previewdata = Object.keys(input);
-    for (var key in p) {
-      if (p.hasOwnProperty(key)) {
-        newarray.key = key;
-        newarray.push(p[key]);
-      }
-
-      return newarray;
-    }
-
+       return Object.keys(input).map(function (key) {return input[key]});
   },
 
   _is: function(a, b) {
