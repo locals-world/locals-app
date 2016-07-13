@@ -33,286 +33,286 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <template>
 
   <style>
-      :host {
-        display: block;
-        /*background-color: var(--locals-grey1);*/
-        background-color: white;
-        --topbar-height: 100px;
-        --avatararea-height: 800px;
-        --avatararea-width: 100%;
-        --totalinfo-width: 100%;
-        --bg-size: auto 100px;
-        --avatararea-margin: 10px;
-        --avatarbg-size: 100px;
+  :host {
+    display: block;
+    /*background-color: var(--locals-grey1);*/
+    background-color: white;
+    --topbar-height: 100px;
+    --avatararea-height: 800px;
+    --avatararea-width: 100%;
+    --totalinfo-width: 100%;
+    --bg-size: auto 100px;
+    --avatararea-margin: 10px;
+    --avatarbg-size: 100px;
 
-      }
+  }
 
-      h1 {
-        @apply(--locals-font-h1);
-      }
+  h1 {
+    @apply(--locals-font-h1);
+  }
 
-      p {
-        @apply(--locals-font-body1);
-        @apply(--opensans-reg);
-        color: var(--locals-grey7);
-      }
+  p {
+    @apply(--locals-font-body1);
+    @apply(--opensans-reg);
+    color: var(--locals-grey7);
+  }
 
-      ::-webkit-scrollbar {
-          display: none;
-      }
+  ::-webkit-scrollbar {
+    display: none;
+  }
 
-      .topbar {
-        width: 100%;
-        background-color: transparent;
-        height: var(--topbar-height);
-        @apply(--layout-horizontal);
-        @apply(--layout-center);
-        box-sizing: border-box;
-        padding: 10px 20px 10px 10px;
-      }
+  .topbar {
+    width: 100%;
+    background-color: transparent;
+    height: var(--topbar-height);
+    @apply(--layout-horizontal);
+    @apply(--layout-center);
+    box-sizing: border-box;
+    padding: 10px 20px 10px 10px;
+  }
 
-      .container {
-        width: 100%;
-        @apply(--layout-vertical);
-        @apply(--layout-center);
-        @apply(--layout-start-justified);
-      }
+  .container {
+    width: 100%;
+    @apply(--layout-vertical);
+    @apply(--layout-center);
+    @apply(--layout-start-justified);
+  }
 
-      .main {
-        width: 100%;
-        max-width: 90vw;
-        @apply(--layout-horizontal);
-        @apply(--layout-wrap);
-      }
+  .main {
+    width: 100%;
+    max-width: 90vw;
+    @apply(--layout-horizontal);
+    @apply(--layout-wrap);
+  }
 
-      .tussenschot {
-        width: 100%;
-        height: 2px;
-        background-color: rgba(0,0,0,0.05);
-      }
+  .tussenschot {
+    width: 100%;
+    height: 2px;
+    background-color: rgba(0,0,0,0.05);
+  }
 
-      .whitespace {
-        height: 2vh;
-        min-height: 20px;
-      }
+  .whitespace {
+    height: 2vh;
+    min-height: 20px;
+  }
 
-      .absolutepos {
-        position: absolute;
-      }
+  .absolutepos {
+    position: absolute;
+  }
 
-      .flex {
-        @apply(--layout-horizontal);
-        @apply(--layout-flex);
-      }
+  .flex {
+    @apply(--layout-horizontal);
+    @apply(--layout-flex);
+  }
 
-      .avatararea {
-        width: var(--avatararea-width);
-        @apply(--layout-horizontal);
-        @apply(--layout-center-center);
-        box-sizing: border-box;
-        padding: 0px;
-      }
+  .avatararea {
+    width: var(--avatararea-width);
+    @apply(--layout-horizontal);
+    @apply(--layout-center-center);
+    box-sizing: border-box;
+    padding: 0px;
+  }
 
-      .totalinfo {
-        width: var(--totalinfo-width);
-        @apply(--layout-flex);
-        @apply(--layout-vertical);
-        @apply(--layout-start);
-        @apply(--layout-center-justified);
-       }
+  .totalinfo {
+    width: var(--totalinfo-width);
+    @apply(--layout-flex);
+    @apply(--layout-vertical);
+    @apply(--layout-start);
+    @apply(--layout-center-justified);
+  }
 
-      .avatarbg {
-        width: var(--avatarbg-size);
-        height: var(--avatarbg-size);
-        margin: var(--avatararea-margin);
-        border-radius: 50%;
-        background-position: center;
-        background: url(../../images/locals-bg3.png);
-        background-size: var(--bg-size);
-      }
+  .avatarbg {
+    width: var(--avatarbg-size);
+    height: var(--avatarbg-size);
+    margin: var(--avatararea-margin);
+    border-radius: 50%;
+    background-position: center;
+    background: url(../../images/locals-bg3.png);
+    background-size: var(--bg-size);
+  }
 
-      .balance {
-        @apply(--layout-horizontal);
-        @apply(--layout-center);
-        margin-bottom: 30px;
-        width: var(--totalinfo-width);
-      }
-
-
-      .menuicon {
-        cursor: pointer;
-        height: 60px;
-        width: 60px;
-        @apply(--layout-horizontal);
-        @apply(--layout-center-center);
-      }
-
-      #test {
-        width: 50px;
-        height: 20px;
-        background-color: green;
-        display: none;
-      }
+  .balance {
+    @apply(--layout-horizontal);
+    @apply(--layout-center);
+    margin-bottom: 30px;
+    width: var(--totalinfo-width);
+  }
 
 
+  .menuicon {
+    cursor: pointer;
+    height: 60px;
+    width: 60px;
+    @apply(--layout-horizontal);
+    @apply(--layout-center-center);
+  }
+
+  #test {
+    width: 50px;
+    height: 20px;
+    background-color: green;
+    display: none;
+  }
 
 
 
-    .accountinfo {
-      width: var(--totalinfo-width);
-      @apply(--layout-vertical);
-      @apply(--layout-center-center);
-      box-sizing: border-box;
-      padding: 10px 0px 15px 0px;
-     }
 
 
-    .account {
-      width: 80px;
-      font-size: 10px;
-      line-height: 13px;
-      @apply(--opensans-semibold);
-      color: var(--locals-grey4);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-     }
-
-    .username {
-      font-size: 12px;
-      line-height: 16px;
-      color: var(--locals-grey5);
-      @apply(--opensans-reg);
-     }
+  .accountinfo {
+    width: var(--totalinfo-width);
+    @apply(--layout-vertical);
+    @apply(--layout-center-center);
+    box-sizing: border-box;
+    padding: 10px 0px 15px 0px;
+  }
 
 
-    .balanceinfo {
-      width: var(--totalinfo-width);
-      @apply(--layout-horizontal);
-      @apply(--layout-center-center);
-    }
+  .account {
+    width: 80px;
+    font-size: 10px;
+    line-height: 13px;
+    @apply(--opensans-semibold);
+    color: var(--locals-grey4);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
-    .balance {
-      color: var(--locals-darkgrey);
-      @apply(--layout-horizontal);
-      @apply(--layout-end);
-      @apply(--layout-wrap);
-      width: auto;
-    }
+  .username {
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--locals-grey5);
+    @apply(--opensans-reg);
+  }
 
-    .balance:hover {
-      cursor: pointer;
-    }
-    .balance h1 {
-      margin: 0px;
-    }
 
-   .localcoinamount {
+  .balanceinfo {
+    width: var(--totalinfo-width);
+    @apply(--layout-horizontal);
+    @apply(--layout-center-center);
+  }
+
+  .balance {
+    color: var(--locals-darkgrey);
+    @apply(--layout-horizontal);
+    @apply(--layout-end);
+    @apply(--layout-wrap);
+    width: auto;
+  }
+
+  .balance:hover {
+    cursor: pointer;
+  }
+  .balance h1 {
+    margin: 0px;
+  }
+
+  .localcoinamount {
     margin: 0px 0px 7px 6px;
-   }
+  }
 
 
 
 
 
-    .refresher {
-/*      height: 52px;
-      width: 52px;
-      box-sizing: border-box;
-      padding: 6px;*/
-      margin: 10px 0px 10px 0px;
+  .refresher {
+    /*      height: 52px;
+    width: 52px;
+    box-sizing: border-box;
+    padding: 6px;*/
+    margin: 10px 0px 10px 0px;
 
-       -webkit-animation-name: rotate;
-      -webkit-animation-duration: 1s;
-      -webkit-animation-iteration-count: infinite;
-      -webkit-animation-timing-function: linear;
-      -moz-animation-name: rotate;
-      -moz-animation-duration: 1s;
-      -moz-animation-iteration-count: infinite;
-      -moz-animation-timing-function: linear;
-      animation-name: rotate;
-      animation-duration: 1s;
-      animation-iteration-count: infinite;
-      animation-timing-function: linear;
-     }
+    -webkit-animation-name: rotate;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-name: rotate;
+    -moz-animation-duration: 1s;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+    animation-name: rotate;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
 
-      @-webkit-keyframes rotate {
-          from {-webkit-transform: rotate(0deg);}
-          to {-webkit-transform: rotate(360deg);}
-      }
+  @-webkit-keyframes rotate {
+    from {-webkit-transform: rotate(0deg);}
+    to {-webkit-transform: rotate(360deg);}
+  }
 
-      @-moz-keyframes rotate {
-          from {-moz-transform: rotate(0deg);}
-          to {-moz-transform: rotate(360deg);}
-      }
+  @-moz-keyframes rotate {
+    from {-moz-transform: rotate(0deg);}
+    to {-moz-transform: rotate(360deg);}
+  }
 
-      @keyframes rotate {
-          from {transform: rotate(0deg);}
-          to {transform: rotate(360deg);}
-      }
-
-
+  @keyframes rotate {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
+  }
 
 
-/*      #fooContainer {
-        width: 100%;
-      }
-
-      .foo {
-        transition: all .05s linear;
-        transform: scale(0.9,0.9);
-        box-sizing: border-box;
-        margin:0px -5px 0px -5px;
-      }*/
 
 
-    iron-selector {
-      width: 100%;
-      box-sizing: border-box;
-    }
+  /*      #fooContainer {
+  width: 100%;
+}
 
-    #total {
-      @apply(--layout-vertical);
-      @apply(--layout-center-center);
-    }
+.foo {
+transition: all .05s linear;
+transform: scale(0.9,0.9);
+box-sizing: border-box;
+margin:0px -5px 0px -5px;
+}*/
 
-    .renderitem {
-      width: 100%;
-    }
+
+iron-selector {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#total {
+  @apply(--layout-vertical);
+  @apply(--layout-center-center);
+}
+
+.renderitem {
+  width: 100%;
+}
 
 
 /*      .iron-selected .foo {
-        transform: scale(1,1);
-      }
+transform: scale(1,1);
+}
 
 
-      .listmenu {
-        width: 100%;
-        min-height: 50vh;
-        margin-top: 5vh;
-        @apply(--layout-vertical);
-        @apply(--layout-center);
-      }
+.listmenu {
+width: 100%;
+min-height: 50vh;
+margin-top: 5vh;
+@apply(--layout-vertical);
+@apply(--layout-center);
+}
 
 
-      .lijntje {
-        height: 3px;
-        background-color: var(--locals-blue);
-        width: 50px;
-        visibility: hidden;
-        margin-top: 20px;
-      }
+.lijntje {
+height: 3px;
+background-color: var(--locals-blue);
+width: 50px;
+visibility: hidden;
+margin-top: 20px;
+}
 
-      .iron-selected .lijntje {
-        visibility: visible;
-      }*/
-/* 
-      #totaldata {
-        width: 100%;
-        max-width: 1000px;
-        margin:0px;
-        padding: 0px;
-      }
+.iron-selected .lijntje {
+visibility: visible;
+}*/
+/*
+#totaldata {
+width: 100%;
+max-width: 1000px;
+margin:0px;
+padding: 0px;
+}
 */
 
 
@@ -323,65 +323,66 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 
 
-    </style>
+</style>
 
-  <neon-animated-pages selected="0" entry-animation="slide-from-right-animation" exit-animation="slide-left-animation">
-    <template is="dom-repeat" items="{{accounts}}">
-      <neon-animatable>
-        <div class="topbar">
-          <div class="menuicon">
-            <locals-button icon="menu" iconcolor="darkgrey" on-tap="firetoggle" small bgrgba="0,0,0,0"></locals-button>
-          </div>
-          <p class="flex"></p>
-          <locals-button icon="plus" on-tap="toStore" small></locals-button>
-        </div>
-        <div class="container">
-          <div class="main">
-            <div class="avatararea">
-              <locals-avatar renderstate="visual" class="absolutepos"></locals-avatar>
-              <div class="avatarbg"></div>
-            </div>
-            <div class="totalinfo">
-              <div class="accountinfo">
-                <p class="account">{{account}}</p>
-              </div>
-              <div class="balanceinfo">
-                <div class="balance" on-tap="toWallet">
-                  <template is="dom-if" if="{{!balanceloaded}}">
-                    <locals-icon class="refresher" small icon="refresh1" iconcolor="grey5"></locals-icon>
-                  </template>
-                  <template is="dom-if" if="{{balanceloaded}}">
-                    <h1>{{localcoinbalance}}</h1>
-                    <locals-icon class="localcoinamount" verysmall icon="localcoin" iconcolor="darkgrey"></locals-icon>
-                  </template>
-                </div>
-              </div>
-            </div>
-          </div>
-          <template is="dom-if" if="{{!_is(sizeview,'phone')}}">
-            <div class="whitespace"></div>
-            <div class="whitespace"></div>
-          </template>
-          <div class="tussenschot">
-          </div>
-         <iron-selector>
-            <template is="dom-repeat" items="{{dataset}}">
-              <div id="total">
-                <locals-objectrender class="renderitem" sizeview="{{sizeview}}" on-detail-tapped="gotodetail" key="{{item.component.name}}" objectdata="{{item}}" renderstate="closed">
-                </locals-objectrender>
-                <div class="lijntje"></div>
-              </div>
-            </template>
-          </iron-selector>
-        </div>
-      </neon-animatable>
-    </template>
-
+<neon-animated-pages selected="0" entry-animation="slide-from-right-animation" exit-animation="slide-left-animation">
+  <template is="dom-repeat" items="{{accounts}}">
     <neon-animatable>
-      add identity
+      <div class="topbar">
+        <div class="menuicon">
+          <locals-button icon="menu" iconcolor="darkgrey" on-tap="firetoggle" small bgrgba="0,0,0,0"></locals-button>
+        </div>
+        <p class="flex"></p>
+        <locals-button icon="plus" on-tap="toStore" small></locals-button>
+      </div>
+      <div class="container">
+        <div class="main">
+          <div class="avatararea">
+            <locals-avatar renderstate="visual" class="absolutepos"></locals-avatar>
+            <div class="avatarbg"></div>
+          </div>
+          <div class="totalinfo">
+            <div class="accountinfo">
+              <p class="account">{{account}}</p>
+            </div>
+            <div class="balanceinfo">
+              <div class="balance" on-tap="toWallet">
+                <template is="dom-if" if="{{!balanceloaded}}">
+                  <locals-icon class="refresher" small icon="refresh1" iconcolor="grey5"></locals-icon>
+                </template>
+                <template is="dom-if" if="{{balanceloaded}}">
+                  <h1>{{localcoinbalance}}</h1>
+                  <locals-icon class="localcoinamount" verysmall icon="localcoin" iconcolor="darkgrey"></locals-icon>
+                </template>
+              </div>
+            </div>
+          </div>
+        </div>
+        <template is="dom-if" if="{{!_is(sizeview,'phone')}}">
+          <div class="whitespace"></div>
+          <div class="whitespace"></div>
+        </template>
+        <div class="tussenschot">
+        </div>
+        <iron-selector>
+          <template is="dom-repeat" items="{{dataset}}">
+            <div id="total">
+              <h1>TEST</h1>
+              <locals-objectrender class="renderitem" sizeview="{{sizeview}}" on-detail-tapped="gotodetail" key="{{item.component.name}}" objectdata="{{item}}" renderstate="closed">
+              </locals-objectrender>
+              <div class="lijntje"></div>
+            </div>
+          </template>
+        </iron-selector>
+      </div>
     </neon-animatable>
+  </template>
 
-  </neon-animated-pages>
+  <neon-animatable>
+    add identity
+  </neon-animatable>
+
+</neon-animated-pages>
 
 </template>
 <script>
@@ -403,52 +404,52 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       data: {
         observer: '_data',
         value: {"collection":{"eeb9363c-8f9e-4658-8a96-f372eb9c3af2":{"component":{"name":"locals-club","contract":"0x000"},"data":{"name":"Locals Club A2DE4"},"config":[[2,0]]},"e1335fd9-69c8-4ca9-a32f-09018cc4e67f":{"component":{"name":"locals-club","contract":"0x000"},"data":{"name":"Locals Club A2DE4"},"config":[[0,0]]}},"peers":[],"godfather":[],"lastupdate":1467971635755}
-        },
+      },
 
-        web3: {
-          type: Object
-        },
+      web3: {
+        type: Object
+      },
 
-        keystore: {
-          type: Object,
-          observer: '_keystore'
-        },
+      keystore: {
+        type: Object,
+        observer: '_keystore'
+      },
 
-        balanceloaded: {
-          type: Boolean,
-          value: false,
-          observer: '_balanceloaded'
-
-        },
-
-        accounts: {
-          type: Array,
-          value: [{ account: '0x000',
-                    label: 'Locals User A3FE1',
-                    balance: 42,
-                    rep: 10
-                  }]
-        },
-
-        sizeview: {
-          type: String,
-          observer: '_sizeview'
-        },
-        web3: {
-          type: Object,
-          observer: '_web3'
-        },
-        keystore: {
-          type: Object,
-          observer: '_keystore'
-        },
-        balanceloaded: {
-          type: Boolean,
-          value: false,
-          observer: '_balanceloaded'
-        }
+      balanceloaded: {
+        type: Boolean,
+        value: false,
+        observer: '_balanceloaded'
 
       },
+
+      accounts: {
+        type: Array,
+        value: [{ account: '0x000',
+        label: 'Locals User A3FE1',
+        balance: 42,
+        rep: 10
+      }]
+    },
+
+    sizeview: {
+      type: String,
+      observer: '_sizeview'
+    },
+    web3: {
+      type: Object,
+      observer: '_web3'
+    },
+    keystore: {
+      type: Object,
+      observer: '_keystore'
+    },
+    balanceloaded: {
+      type: Boolean,
+      value: false,
+      observer: '_balanceloaded'
+    }
+
+  },
 
   sj: function(a){
     return JSON.stringify(a);
@@ -490,44 +491,45 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   _data: function(){
     console.log('****** HOME has data: ',this.data.collection);
     this.dataset = this.object2array(this.data.collection);
+    console.log('This dataset: ', this.dataset);
   },
 
-_sizeview: function(){
-        switch(this.sizeview) {
-            case 'phone':
-                this.customStyle['--topbar-height'] = '100px';
-                this.customStyle['--avatararea-height'] = '120px';
-                this.customStyle['--avatararea-width'] = '100%';
-                this.customStyle['--avatararea-margin'] = '10px';
-                this.customStyle['--totalinfo-width'] = '100%';
-                this.customStyle['--avatarbg-size'] = '100px';
-                this.customStyle['--bg-size'] = 'auto 100px';
-                this.updateStyles();
-                break;
-            case 'desktop':
-                this.customStyle['--topbar-height'] = '100px';
-                this.customStyle['--avatararea-height'] = '132px';
-                this.customStyle['--avatararea-width'] = '200px';
-                this.customStyle['--avatararea-margin'] = '11px';
-                this.customStyle['--totalinfo-width'] = 'auto';
-                this.customStyle['--avatarbg-size'] = '110px';
-                this.customStyle['--bg-size'] = 'auto 110px';
-                this.updateStyles();
-                break;
-            case 'xlarge':
-                this.customStyle['--topbar-height'] = '100px';
-                this.customStyle['--avatararea-height'] = '180px';
-                this.customStyle['--avatararea-width'] = '200px';
-                this.customStyle['--avatararea-margin'] = '15px';
-                this.customStyle['--totalinfo-width'] = 'auto';
-                this.customStyle['--avatarbg-size'] = '150px';
-                this.customStyle['--bg-size'] = 'auto 150px';
-                this.updateStyles();
-                break;
-            default:
-            //console.log("!!! ** Niks");
-        }
-      },
+  _sizeview: function(){
+    switch(this.sizeview) {
+      case 'phone':
+      this.customStyle['--topbar-height'] = '100px';
+      this.customStyle['--avatararea-height'] = '120px';
+      this.customStyle['--avatararea-width'] = '100%';
+      this.customStyle['--avatararea-margin'] = '10px';
+      this.customStyle['--totalinfo-width'] = '100%';
+      this.customStyle['--avatarbg-size'] = '100px';
+      this.customStyle['--bg-size'] = 'auto 100px';
+      this.updateStyles();
+      break;
+      case 'desktop':
+      this.customStyle['--topbar-height'] = '100px';
+      this.customStyle['--avatararea-height'] = '132px';
+      this.customStyle['--avatararea-width'] = '200px';
+      this.customStyle['--avatararea-margin'] = '11px';
+      this.customStyle['--totalinfo-width'] = 'auto';
+      this.customStyle['--avatarbg-size'] = '110px';
+      this.customStyle['--bg-size'] = 'auto 110px';
+      this.updateStyles();
+      break;
+      case 'xlarge':
+      this.customStyle['--topbar-height'] = '100px';
+      this.customStyle['--avatararea-height'] = '180px';
+      this.customStyle['--avatararea-width'] = '200px';
+      this.customStyle['--avatararea-margin'] = '15px';
+      this.customStyle['--totalinfo-width'] = 'auto';
+      this.customStyle['--avatarbg-size'] = '150px';
+      this.customStyle['--bg-size'] = 'auto 150px';
+      this.updateStyles();
+      break;
+      default:
+      //console.log("!!! ** Niks");
+    }
+  },
 
   back: function(){
     Excess.RouteManager.transitionTo('/home');
@@ -552,48 +554,39 @@ _sizeview: function(){
 
   },
 
+  _is: function(a, b) {
+    if (b === undefined){
+      b = true;
+    }
+    //console.log(a ,'(',typeof a,') is',b,'(',typeof b,') they are equal for ==',a == b,', they are equal for ===',a === b);
+    return a === b;
+  },
 
+  mouseTrack: function(e) {
+    switch(e.detail.state) {
+      case 'start':
+      this.startmouse = e.detail.x;
+      // console.log("Tracking started!" + this.startmouse);
+      break;
+      case 'end':
+      this.endmouse = e.detail.x;
+      this.swiper = this.startmouse - this.endmouse;
+      // console.log(this.swiper);
 
-      _is: function(a, b) {
-        if (b === undefined){
-          b = true;
-        }
-        //console.log(a ,'(',typeof a,') is',b,'(',typeof b,') they are equal for ==',a == b,', they are equal for ===',a === b);
-        return a === b;
-      },
+      if(this.swiper>35){
+        console.log("YOU SWIPED LEFT");
+      };
+      if(this.swiper<-35){
+        console.log("YOU SWIPED RIGHT");
+      };
 
-        mouseTrack: function(e) {
-          switch(e.detail.state) {
-            case 'start':
-              this.startmouse = e.detail.x;
-              // console.log("Tracking started!" + this.startmouse);
-              break;
-            case 'end':
-              this.endmouse = e.detail.x;
-              this.swiper = this.startmouse - this.endmouse;
-              // console.log(this.swiper);
+      break;
+    }
+  },
 
-                if(this.swiper>35){
-                  console.log("YOU SWIPED LEFT");
-                };
-                if(this.swiper<-35){
-                  console.log("YOU SWIPED RIGHT");
-                };
-
-              break;
-          }
-        },
-
-    _balanceloaded: function(){
-      // console.log("ISSEM DEER????", this.balanceloaded)
-
-
+  _balanceloaded: function(){
+    // console.log("ISSEM DEER????", this.balanceloaded)
   }
-
-
-
-
-
 
 });
 })();
