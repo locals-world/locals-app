@@ -539,17 +539,20 @@ _sizeview: function(){
   },
 
   object2array: function(input){
-    var newarray = [];
-    var p = input;
-    //var previewdata = Object.keys(input);
-    for (var key in p) {
-      if (p.hasOwnProperty(key)) {
-        newarray.key = key;
-        newarray.push(p[key]);
-      }
+    
+    return Object.keys(input).map(function (key) {return input[key]});
 
-      return newarray;
-    }
+    // var newarray = [];
+    // var p = input;
+    // //var previewdata = Object.keys(input);
+    // for (var key in p) {
+    //   if (p.hasOwnProperty(key)) {
+    //     newarray.key = key;
+    //     newarray.push(p[key]);
+    //   }
+
+    //   return newarray;
+    // }
 
   },
 
