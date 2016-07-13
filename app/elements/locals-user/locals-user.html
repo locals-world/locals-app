@@ -238,8 +238,8 @@ LOCALS
     data="{{data}}" on-wrong-password="_wrongpassword" on-correct-password="_gotpassword"></locals-lsapi>
 
 <iron-media-query query="(min-width:0px) and (max-width: 600px)" query-matches="{{phoneview}}"></iron-media-query>
-<iron-media-query query="(min-width:601px) and (max-width: 1400px)" query-matches="{{desktopview}}"></iron-media-query>
-<iron-media-query query="(min-width:1401px)" query-matches="{{xlargeview}}"></iron-media-query>
+<iron-media-query query="(min-width:601px) and (max-width: 1200px)" query-matches="{{desktopview}}"></iron-media-query>
+<iron-media-query query="(min-width:1201px)" query-matches="{{xlargeview}}"></iron-media-query>
 
 <paper-drawer-panel id="drawer" force-narrow drawer-width="280px">
 <div drawer class="drawer">
@@ -271,7 +271,7 @@ LOCALS
 
   <neon-animated-pages selected="{{appMenu}}" attr-for-selected="route" entry-animation="{{entryAnimation}}" exit-animation="{{exitAnimation}}">
     <!-- home -->
-    <locals-home route="home" data="{{data}}" localcoinbalance="{{locbalans}}" on-to-store="toStore" on-to-verification="toVerification" account="{{account}}" balance="{{balance}}" web3="{{web3}}" keystore="{{keystore}}" on-to-wallet="toWallet" on-toggle-drawer="drawertoggle" sizeview="{{sizeview}}" balanceloaded="{{balanceloaded}}"></locals-home>
+    <locals-home route="home" data="{{data}}" localcoinbalance="{{locbalans}}" on-to-store="toStore" on-to-verification="toVerification" account="{{account}}" balance="{{balance}}" web3="{{web3}}" keystore="{{keystore}}" on-to-wallet="toWallet" on-toggle-drawer="drawertoggle" sizeview="{{sizeview}}" balanceloaded="{{balanceloaded}}" on-to-detail="toDetail"></locals-home>
 <!--      <locals-home route="home" data="{{data}}" on-to-detail="toDetail" on-to-store="toStore" on-to-verification="toVerification" on-toggle-drawer="drawertoggle" sizeview="{{sizeview}}"></locals-home> -->
 
     <!-- object detail -->

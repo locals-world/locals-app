@@ -55,16 +55,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       .topbar {
         width: 100%;
+        background-color: transparent;
         height: var(--topbar-height);
-        background-color: #a8daf0;
         @apply(--layout-horizontal);
         @apply(--layout-center);
-/*        @apply(--layout-end-justified); */
         box-sizing: border-box;
-        padding: 10px 20px 10px 10px;
+        padding: 10px 20px 10px 20px;
         }
 
-      .scrollarea {
+/*      .scrollarea {
         width: 100%;
         min-height: var(--scrollarea-height);
         background: url(../../images/locals-bg.png);
@@ -75,7 +74,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         box-sizing: border-box;
         padding: var(--scrollarea-padding);
         margin-top: -1px;
-      }
+      }*/
 
       .flex {
         @apply(--layout-horizontal);
@@ -123,15 +122,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     </style>
 
-    
     <div class="topbar">
-      <p class="flex"></p>
-          <locals-button id="exitbtn" icon="declinenew" on-tap="toHome" bgrgba="0,0,0,0"></locals-button>
+<!--       <template is="dom-if" if="{{_is(mode,'home')}}"> -->
+        <p class="flex" on-tap="change"></p>
+        <locals-button bgrgba="0,0,0,0" icon="declinenew" on-tap="toHome" small id="exitbtn"></locals-button>
+ <!--      </template>
+      <template is="dom-if" if="{{_is(mode,'detail')}}">
+        <locals-button bgrgba="0,0,0,0" icon="arrowleft" on-tap="cancel" small id="exitbtn"></locals-button>
+        <p class="flex" on-tap="change"></p>
+      </template> -->
     </div>
-    <div id="test"></div>
-    <div class="scrollarea">
+
+
        <locals-objectrender renderstate="{{renderstate}}" key="{{key}}" objectdata="{{objectdata}}" class="objectrender" ></locals-objectrender>
-       </div>
 
 </template>
 <script>
