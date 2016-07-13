@@ -14,17 +14,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
 <link rel="import" href="../../bower_components/neon-animation/neon-animation.html">
 <link rel="import" href="../../bower_components/neon-animation/neon-shared-element-animatable-behavior.html">
-
 <link rel="import" href="../../bower_components/paper-drawer-panel/paper-drawer-panel.html">
-
-<!-- <link rel="import" href="../../bower_components/paper-button/paper-button.html"> -->
-
 <link rel="import" href="../../bower_components/web3-wallet/web3-wallet.html">
 <link rel="import" href="../../bower_components/ipfs-upload/ipfs-upload.html">
-
 <link rel="import" href="../../bower_components/locals-avatar/locals-avatar.html">
 <link rel="import" href="../../bower_components/locals-residence/locals-residence.html">
-
 <link rel="import" href="../../bower_components/locals-button/locals-button.html">
 <link rel="import" href="../../bower_components/locals-lsapi/locals-lsapi.html">
 <link rel="import" href="../../bower_components/locals-icon/locals-icon.html">
@@ -33,14 +27,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/locals-style/locals-style.html">
 <link rel="import" href="../../bower_components/locals-verification/locals-verification-validator.html">
 <link rel="import" href="../../bower_components/locals-verification/locals-verification-localstorage.html">
-
 <link rel="import" href="../../bower_components/locals-whisperer/locals-whisperer.html">
-
-
 
 <dom-module id="locals-home">
   <template>
-    <style>
+
+  <style>
       :host {
         display: block;
         /*background-color: var(--locals-grey1);*/
@@ -331,138 +323,84 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     </style>
 
-  <!--
-    <div class="topbar">
-      <div class="menuicon">
-        <locals-icon icon="menu" iconcolor="darkgrey" on-tap="firetoggle"></locals-icon>
-      </div> -->
-<!--     <div class="balance">
-      <locals-icon small icon="localcoin" iconcolor="grey5"></locals-icon>
-      <p><span>{{locbalans}}</span></p>
-    </div> -->
-    <!-- <paper-input>WATWAT</paper-input> -->
-    <!--   <p class="flex"></p>
-      <locals-verification-localstorage data="{{incomingvalidations}}" nrofitems="{{nrofval}}" id="lvls">
-      </locals-verification-localstorage>
-      <locals-verification-handler topic="{{topic}}" progress="{{progress}}" on-tap="toVerification" vals="{{nrofval}}"></locals-verification-handler>
-      <locals-button bg="white" id="storebtn" icon="plus" on-tap="toStore" class$="{{storebtnclass}}"></locals-button>
-    </div>
-
-    <div class="avatararea">
-      <div id="fooContainer">
-      <iron-selector>
-          <template is="dom-repeat" items="{{dataset}}">
-            <div id="total">
-              <locals-objectrender sizeview="{{sizeview}}" on-detail-tapped="gotodetail" key="{{item.component.name}}" objectdata="{{item}}" renderstate="visual" class="foo">
-              </locals-objectrender>
-              <div class="lijntje"></div>
-            </div>
-          </template>
-        </iron-selector>
-      </div>
-    </div>
-
-    <div class="listmenu">
-      <template is="dom-repeat" items="{{dataset}}">
-        <div id="totaldata">
-          <locals-objectrender sizeview="{{sizeview}}" on-detail-tapped="gotodetail" key="{{item.component.name}}" objectdata="{{item}}" renderstate="closed">
-          </locals-objectrender>
-        </div>
-      </template>
-    </div>
- -->
- <neon-animated-pages selected="0" entry-animation="slide-from-right-animation" exit-animation="slide-left-animation">
+  <neon-animated-pages selected="0" entry-animation="slide-from-right-animation" exit-animation="slide-left-animation">
     <template is="dom-repeat" items="{{accounts}}">
-     <neon-animatable>
-
-    <div class="topbar">
-      <div class="menuicon">
-        <locals-button icon="menu" iconcolor="darkgrey" on-tap="firetoggle" small bgrgba="0,0,0,0"></locals-button>
-      </div>
-    <p class="flex"></p>
-<!--       <locals-verification-localstorage data="{{incomingvalidations}}" nrofitems="{{nrofval}}" id="lvls">
-      </locals-verification-localstorage> -->
-<!--       <locals-verification-handler topic="{{topic}}" progress="{{progress}}" on-tap="toVerification" vals="{{nrofval}}"></locals-verification-handler>
-      <locals-button bg="white" id="storebtn" icon="plus" on-tap="toStore" class$="{{storebtnclass}}"></locals-button> -->
-      <locals-button icon="plus" on-tap="toStore" small></locals-button>
-    </div>
-
-<div class="container">
-  <div class="main">
-    <div class="avatararea">
-      <locals-avatar renderstate="visual" class="absolutepos"></locals-avatar>
-      <div class="avatarbg"></div>
-    </div>
-    <div class="totalinfo">
-      <div class="accountinfo">
-        <p class="account">{{account}}</p>
-        <!--   <p class="username">Bennisan</p> -->
-      </div>
-      <div class="balanceinfo">
-      <div class="balance" on-tap="toWallet">
-        <template is="dom-if" if="{{!balanceloaded}}">
-          <locals-icon class="refresher" small icon="refresh1" iconcolor="grey5"></locals-icon>
-        </template>
-        <template is="dom-if" if="{{balanceloaded}}">
-        <h1>{{localcoinbalance}}</h1>
-        <locals-icon class="localcoinamount" verysmall icon="localcoin" iconcolor="darkgrey"></locals-icon>
-        </template>
-      </div>
-      </div>
-    </div>
-  </div>
-  <template is="dom-if" if="{{!_is(sizeview,'phone')}}">
-    <div class="whitespace"></div>
-    <div class="whitespace"></div>
-  </template>
-  <div class="tussenschot">
-  </div>
-   <iron-selector>
-      <template is="dom-repeat" items="{{dataset}}">
-        <div id="total">
-          <locals-objectrender sizeview="{{sizeview}}" on-detail-tapped="gotodetail" key="{{item.component.name}}" objectdata="{{item}}" renderstate="closed" class="foo">
-          </locals-objectrender>
-          <div class="lijntje"></div>
+      <neon-animatable>
+        <div class="topbar">
+          <div class="menuicon">
+            <locals-button icon="menu" iconcolor="darkgrey" on-tap="firetoggle" small bgrgba="0,0,0,0"></locals-button>
+          </div>
+          <p class="flex"></p>
+          <locals-button icon="plus" on-tap="toStore" small></locals-button>
         </div>
-      </template>
-    </iron-selector>
-</div>
+        <div class="container">
+          <div class="main">
+            <div class="avatararea">
+              <locals-avatar renderstate="visual" class="absolutepos"></locals-avatar>
+              <div class="avatarbg"></div>
+            </div>
+            <div class="totalinfo">
+              <div class="accountinfo">
+                <p class="account">{{account}}</p>
+              </div>
+              <div class="balanceinfo">
+                <div class="balance" on-tap="toWallet">
+                  <template is="dom-if" if="{{!balanceloaded}}">
+                    <locals-icon class="refresher" small icon="refresh1" iconcolor="grey5"></locals-icon>
+                  </template>
+                  <template is="dom-if" if="{{balanceloaded}}">
+                    <h1>{{localcoinbalance}}</h1>
+                    <locals-icon class="localcoinamount" verysmall icon="localcoin" iconcolor="darkgrey"></locals-icon>
+                  </template>
+                </div>
+              </div>
+            </div>
+          </div>
+          <template is="dom-if" if="{{!_is(sizeview,'phone')}}">
+            <div class="whitespace"></div>
+            <div class="whitespace"></div>
+          </template>
+          <div class="tussenschot">
+          </div>
+         <iron-selector>
+            <template is="dom-repeat" items="{{dataset}}">
+              <div id="total">
+                <locals-objectrender sizeview="{{sizeview}}" on-detail-tapped="gotodetail" key="{{item.component.name}}" objectdata="{{item}}" renderstate="closed" class="foo">
+                </locals-objectrender>
+                <div class="lijntje"></div>
+              </div>
+            </template>
+          </iron-selector>
+        </div>
+      </neon-animatable>
+    </template>
 
-     </neon-animatable>
-     </template>
+    <neon-animatable>
+      add identity
+    </neon-animatable>
 
-     <neon-animatable>
-       add identity
-     </neon-animatable>
-
- </neon-animated-pages>
+  </neon-animated-pages>
 
 </template>
 <script>
-  (function() {
-    'use strict';
+(function() {
+  'use strict';
 
-    Polymer({
-      is: 'locals-home',
+  Polymer({
+    is: 'locals-home',
 
-      behaviors: [
-        Polymer.NeonSharedElementAnimatableBehavior
-      ],
+    behaviors: [
+      Polymer.NeonSharedElementAnimatableBehavior
+    ],
 
-      listeners: {
-        track: 'mouseTrack'
-      },
+    listeners: {
+      track: 'mouseTrack'
+    },
 
-
-      properties: {
-
-        data: {
-          observer: '_data'
-        },
-
-        sizeview: {
-          type: String,
-          observer: '_sizeview'
+    properties: {
+      data: {
+        observer: '_data',
+        value: {"collection":{"eeb9363c-8f9e-4658-8a96-f372eb9c3af2":{"component":{"name":"locals-club","contract":"0x000"},"data":{"name":"Locals Club A2DE4"},"config":[[2,0]]},"e1335fd9-69c8-4ca9-a32f-09018cc4e67f":{"component":{"name":"locals-club","contract":"0x000"},"data":{"name":"Locals Club A2DE4"},"config":[[0,0]]}},"peers":[],"godfather":[],"lastupdate":1467971635755}
         },
 
         web3: {
@@ -488,55 +426,67 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     balance: 42,
                     rep: 10
                   }]
+        },
+
+        sizeview: {
+          type: String,
+          observer: '_sizeview'
+        },
+        web3: {
+          type: Object,
+          observer: '_web3'
+        },
+        keystore: {
+          type: Object,
+          observer: '_keystore'
+        },
+        balanceloaded: {
+          type: Boolean,
+          value: false,
+          observer: '_balanceloaded'
         }
 
       },
 
-      sj: function(a){
-        return JSON.stringify(a);
-      },
+  sj: function(a){
+    return JSON.stringify(a);
+  },
 
-      ready: function(){
-      },
+  ready: function(){
+  },
 
-     attached: function() {
-      window.sr = ScrollReveal({distance: 0, origin: 'top', scale: 0.4, reset: true});
-      var fooContainer = document.getElementById('fooContainer');
-      window.sr.reveal('.foo', { opacity: 1, easing: 'cubic-bezier(0.150, 0.450, 0.150, 0.735)', viewFactor:0.1, duration: 300,
-            delay: 0, container: fooContainer, distance: 0, origin: 'top', scale: 0.6, reset: true });
-        //this.loadAccounts();
-      },
+  attached: function() {
+    window.sr = ScrollReveal({distance: 0, origin: 'top', scale: 0.4, reset: true});
+    var fooContainer = document.getElementById('fooContainer');
+    window.sr.reveal('.foo', { opacity: 1, easing: 'cubic-bezier(0.150, 0.450, 0.150, 0.735)', viewFactor:0.1, duration: 300,
+    delay: 0, container: fooContainer, distance: 0, origin: 'top', scale: 0.6, reset: true });
+    //this.loadAccounts();
+  },
 
-      _keystore: function(){
-        //console.log('accoutns:',this.keystore.getAddresses()[0]);
-        //this.accounts = this.keystore.getAddresses();
-      },
+  _keystore: function(){
+    //console.log('accoutns:',this.keystore.getAddresses()[0]);
+    //this.accounts = this.keystore.getAddresses();
+  },
 
-      gotodetail: function(e){
-        console.log('Ga naar detail',e.detail);
-        this.fire('to-detail', {object: e.detail});
-      },
+  gotodetail: function(e){
+    console.log('Ga naar detail',e.detail);
+    this.fire('to-detail', {object: e.detail});
+  },
 
-      toStore: function(){
-        this.fire('to-store');
-      },
+  toStore: function(){
+    this.fire('to-store');
+  },
 
-      toWallet: function(){
-        this.fire('to-wallet');
-      },
+  toVerification: function(){
+    this.fire('to-verification');
+  },
 
-      toVerification: function(){
-        this.fire('to-verification');
-      },
+  _data: function(){
+    console.log('****** HOME has data: ',this.data.collection);
+    this.dataset = this.object2array(this.data.collection);
+  },
 
-      _data: function(){
-        console.log('****** HOME has data: ',this.data.collection);
-      this.dataset = this.object2array(this.data.collection);
-
-      },
-
-
-      _sizeview: function(){
+_sizeview: function(){
         switch(this.sizeview) {
             case 'phone':
                 this.customStyle['--topbar-height'] = '100px';
@@ -573,37 +523,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       },
 
+  back: function(){
+    Excess.RouteManager.transitionTo('/home');
+  },
 
-      back: function(){
-        Excess.RouteManager.transitionTo('/home');
-      },
+  firetoggle: function(){
+    this.fire('toggle-drawer');
+  },
 
-      firetoggle: function(){
-        this.fire('toggle-drawer');
-      },
-
-
-    // selectobject: function(e) {
-    //   this.selectedobject = this.dataset[e.target.id];
-    //   this.fire('object-selected', {object: this.selectedobject});
-    // },
-
-    // back: function(){
-    //   this.page = 0;
-    // },
-
-    object2array: function(input){
-      var newarray = [];
-      var p = input;
-      //var previewdata = Object.keys(input);
-      for (var key in p) {
-        if (p.hasOwnProperty(key)) {
-          newarray.key = key;
-          newarray.push(p[key]);
-        }
+  object2array: function(input){
+    var newarray = [];
+    var p = input;
+    //var previewdata = Object.keys(input);
+    for (var key in p) {
+      if (p.hasOwnProperty(key)) {
+        newarray.key = key;
+        newarray.push(p[key]);
       }
+
       return newarray;
-    },
+    }
+
+  },
 
 
 
@@ -639,10 +580,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     _balanceloaded: function(){
       // console.log("ISSEM DEER????", this.balanceloaded)
-    }
+
+
+  }
 
 
 
-    });
-  })();
-  </script></dom-module>
+
+
+});
+})();
+</script>
+</dom-module>
