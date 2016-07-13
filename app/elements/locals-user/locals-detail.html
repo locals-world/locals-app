@@ -63,30 +63,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         padding: 10px 20px 10px 20px;
         }
 
-/*      .scrollarea {
-        width: 100%;
-        min-height: var(--scrollarea-height);
-        background: url(../../images/locals-bg.png);
-        background-size: var(--bg-size);
-        background-repeat: repeat-x;
-        @apply(--layout-horizontal);
-        @apply(--layout-center-justified);
-        box-sizing: border-box;
-        padding: var(--scrollarea-padding);
-        margin-top: -1px;
-      }*/
 
       .flex {
         @apply(--layout-horizontal);
         @apply(--layout-flex);
       }
 
-      #storebtn {
-        z-index: 11;
-
-      }
-
-      .balance {
+/*      .balance {
         @apply(--layout-horizontal);
         @apply(--layout-center);
       }
@@ -113,7 +96,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         background-color: blue;
         display: none;
       }
-
+*/
       locals-objectrender {
         width: 100%;
       }
@@ -422,24 +405,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       _sizeview: function(){
         switch(this.sizeview) {
         case 'phone':
-            this.customStyle['--topbar-height'] = '80px';
-            this.customStyle['--scrollarea-height'] = '320px';
-            this.customStyle['--scrollarea-padding'] = '0px 0px 0px 0px';
-            this.customStyle['--bg-size'] = 'auto 320px';
+            this.customStyle['--topbar-height'] = '100px';
             this.updateStyles();
             break;
         case 'desktop':
-            this.customStyle['--topbar-height'] = '90px';
-            this.customStyle['--scrollarea-height'] = '490px';
-            this.customStyle['--scrollarea-padding'] = '48px 0px 0px 0px';
-            this.customStyle['--bg-size'] = 'auto 490px';
+            this.customStyle['--topbar-height'] = '100px';
             this.updateStyles();
             break;
         case 'xlarge':
             this.customStyle['--topbar-height'] = '100px';
-            this.customStyle['--scrollarea-height'] = '600px';
-            this.customStyle['--scrollarea-padding'] = '50px 0px 0px 0px';
-            this.customStyle['--bg-size'] = 'auto 600px';
             this.updateStyles();
             break;
         default:
