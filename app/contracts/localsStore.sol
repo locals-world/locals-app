@@ -107,4 +107,3 @@ contract localsClub {
 
 // Token contract
 // Currently deployed at 0xa69153562474B1dFf2ab79b7fdB75d55f659Ea56
-

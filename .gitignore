@@ -5,5 +5,8 @@ bower_components
 
 env.json
 bower_components__
-app/contracts/*.json
 tmp_combined.txt
+
+app/elements/locals-user/locals-home.html
+
+app/elements/locals-user/locals-home.html
