@@ -328,44 +328,44 @@ gulp.task('deploy', null, function() {
 
 gulp.task('solc', function() {
 
-  glob([
-    'app/contracts/*.sol',
-  ], {
-    cwd: '.'
-  }, function(error, files) {
-    var allfiles = '';
-    var destpath = '';
+  // glob([
+  //   'app/contracts/*.sol',
+  // ], {
+  //   cwd: '.'
+  // }, function(error, files) {
+  //   var allfiles = '';
+  //   var destpath = '';
 
-    files.forEach(function(file) {
-      console.log('compiling sol file', file);
+  //   files.forEach(function(file) {
+  //     console.log('compiling sol file', file);
 
-      var fileContent = fs.readFileSync(file, "utf8");
+  //     var fileContent = fs.readFileSync(file, "utf8");
 
-      allfiles += fileContent;
-      destpath = require('path').dirname(file);
-    });
+  //     allfiles += fileContent;
+  //     destpath = require('path').dirname(file);
+  //   });
 
-    // save combined SOL file for later reference
-    var combinedFileName = destpath + '/tmp_combined.txt';
-    fs.writeFile(combinedFileName, allfiles, 'utf8');
+  //   // save combined SOL file for later reference
+  //   var combinedFileName = destpath + '/tmp_combined.txt';
+  //   fs.writeFile(combinedFileName, allfiles, 'utf8');
 
-    var solc = require('solc');
-    var input = allfiles;
-    var output = solc.compile(input, 1); // 1 activates the optimiser
-    //console.log(output);
-    for (var contractName in output.contracts) {
-      var data = {
-        bytecode: output.contracts[contractName].bytecode,
-        abi: JSON.parse(output.contracts[contractName].interface)
-      }
-      var outputFileName = destpath + '/' + contractName + ".json";
-      console.log('saving to', outputFileName);
+  //   var solc = require('solc');
+  //   var input = allfiles;
+  //   var output = solc.compile(input, 1); // 1 activates the optimiser
+  //   //console.log(output);
+  //   for (var contractName in output.contracts) {
+  //     var data = {
+  //       bytecode: output.contracts[contractName].bytecode,
+  //       abi: JSON.parse(output.contracts[contractName].interface)
+  //     }
+  //     var outputFileName = destpath + '/' + contractName + ".json";
+  //     console.log('saving to', outputFileName);
 
-      fs.writeFile(outputFileName, JSON.stringify(data), 'utf8');
+  //     fs.writeFile(outputFileName, JSON.stringify(data), 'utf8');
 
-    }
+  //   }
 
-  });
+  // });
 });
 
 
