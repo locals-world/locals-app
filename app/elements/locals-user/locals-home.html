@@ -321,7 +321,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         </div>
 
-        <iron-selector>
+       <iron-selector>
           <template is="dom-repeat" items="{{dataset}}">
             <div id="total">
               <locals-objectrender sizeview="{{sizeview}}" on-detail-tapped="gotodetail" key="{{item.component.name}}" objectdata="{{item}}" renderstate="closed" class="foo">
@@ -360,33 +360,91 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       data: {
         observer: '_data',
         value: {"collection":{"eeb9363c-8f9e-4658-8a96-f372eb9c3af2":{"component":{"name":"locals-club","contract":"0x000"},"data":{"name":"Locals Club A2DE4"},"config":[[2,0]]},"e1335fd9-69c8-4ca9-a32f-09018cc4e67f":{"component":{"name":"locals-club","contract":"0x000"},"data":{"name":"Locals Club A2DE4"},"config":[[0,0]]}},"peers":[],"godfather":[],"lastupdate":1467971635755}
+        },
+
+        web3: {
+          type: Object
+        },
+
+        keystore: {
+          type: Object,
+          observer: '_keystore'
+        },
+
+        balanceloaded: {
+          type: Boolean,
+          value: false,
+          observer: '_balanceloaded'
+
+        },
+
+        accounts: {
+          type: Array,
+          value: [{ account: '0x000',
+                    label: 'Locals User A3FE1',
+                    balance: 42,
+                    rep: 10
+                  }]
+        },
+
+        sizeview: {
+          type: String,
+          observer: '_sizeview'
+        },
+        web3: {
+          type: Object,
+          observer: '_web3'
+        },
+        keystore: {
+          type: Object,
+          observer: '_keystore'
+        },
+        balanceloaded: {
+          type: Boolean,
+          value: false,
+          observer: '_balanceloaded'
+        }
+
       },
-      sizeview: {
-        type: String,
-        observer: '_sizeview'
+
+      sj: function(a){
+        return JSON.stringify(a);
       },
-      web3: {
-        type: Object,
-        observer: '_web3'
+
+      ready: function(){
       },
-      keystore: {
-        type: Object,
-        observer: '_keystore'
+
+     attached: function() {
+      window.sr = ScrollReveal({distance: 0, origin: 'top', scale: 0.4, reset: true});
+      var fooContainer = document.getElementById('fooContainer');
+      window.sr.reveal('.foo', { opacity: 1, easing: 'cubic-bezier(0.150, 0.450, 0.150, 0.735)', viewFactor:0.1, duration: 300,
+            delay: 0, container: fooContainer, distance: 0, origin: 'top', scale: 0.6, reset: true });
+        //this.loadAccounts();
       },
-      balanceloaded: {
-        type: Boolean,
-        value: false,
-        observer: '_balanceloaded'
+
+      _keystore: function(){
+        //console.log('accoutns:',this.keystore.getAddresses()[0]);
+        //this.accounts = this.keystore.getAddresses();
       },
-      accounts: {
-        type: Array,
-        value: [{ account: '0x000',
-        label: 'Locals User A3FE1',
-        balance: 42,
-        rep: 10
-      }]
-    }
-  },
+
+      gotodetail: function(e){
+        console.log('Ga naar detail',e.detail);
+        this.fire('to-detail', {object: e.detail});
+      },
+
+      toStore: function(){
+        this.fire('to-store');
+      },
+
+      toWallet: function(){
+        this.fire('to-wallet');
+      },
+
+      toVerification: function(){
+        this.fire('to-verification');
+      },
+
+
 
   sj: function(a){
     return JSON.stringify(a);
@@ -474,43 +532,53 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         newarray.key = key;
         newarray.push(p[key]);
       }
+
+      return newarray;
     }
-    return newarray;
+
   },
 
-  _is: function(a, b) {
-    if (b === undefined){
-      b = true;
-    }
-    //console.log(a ,'(',typeof a,') is',b,'(',typeof b,') they are equal for ==',a == b,', they are equal for ===',a === b);
-    return a === b;
-  },
 
-  mouseTrack: function(e) {
-    switch(e.detail.state) {
-      case 'start':
-      this.startmouse = e.detail.x;
-      // console.log("Tracking started!" + this.startmouse);
-      break;
-      case 'end':
-      this.endmouse = e.detail.x;
-      this.swiper = this.startmouse - this.endmouse;
-      // console.log(this.swiper);
 
-      if(this.swiper>35){
-        console.log("YOU SWIPED LEFT");
-      };
-      if(this.swiper<-35){
-        console.log("YOU SWIPED RIGHT");
-      };
+      _is: function(a, b) {
+        if (b === undefined){
+          b = true;
+        }
+        //console.log(a ,'(',typeof a,') is',b,'(',typeof b,') they are equal for ==',a == b,', they are equal for ===',a === b);
+        return a === b;
+      },
 
-      break;
-    }
-  },
+        mouseTrack: function(e) {
+          switch(e.detail.state) {
+            case 'start':
+              this.startmouse = e.detail.x;
+              // console.log("Tracking started!" + this.startmouse);
+              break;
+            case 'end':
+              this.endmouse = e.detail.x;
+              this.swiper = this.startmouse - this.endmouse;
+              // console.log(this.swiper);
 
-  _balanceloaded: function(){
-    console.log("ISSEM DEER????", this.balanceloaded)
+                if(this.swiper>35){
+                  console.log("YOU SWIPED LEFT");
+                };
+                if(this.swiper<-35){
+                  console.log("YOU SWIPED RIGHT");
+                };
+
+              break;
+          }
+        },
+
+    _balanceloaded: function(){
+      // console.log("ISSEM DEER????", this.balanceloaded)
+
+
   }
+
+
+
+
 
 });
 })();
