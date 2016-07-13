@@ -266,16 +266,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }*/
 
 
-/*      iron-selector {
-        @apply(--layout-horizontal);
-        @apply(--layout-center);
-        width: 100%;
-        overflow-x: scroll;
-        box-sizing: border-box;
-        padding-left: 10vw;
-       }
+    iron-selector {
+      width: 100%;
+      box-sizing: border-box;
+    }
 
-      .iron-selected .foo {
+    #total {
+      @apply(--layout-vertical);
+      @apply(--layout-center-center);
+    }
+
+    .renderitem {
+      width: 100%;
+    }
+
+
+/*      .iron-selected .foo {
         transform: scale(1,1);
       }
 
@@ -314,10 +320,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 
 
-     #total {
-        @apply(--layout-vertical);
-        @apply(--layout-center-center);
-      }
 
 
 
@@ -365,7 +367,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
          <iron-selector>
             <template is="dom-repeat" items="{{dataset}}">
               <div id="total">
-                <locals-objectrender sizeview="{{sizeview}}" on-detail-tapped="gotodetail" key="{{item.component.name}}" objectdata="{{item}}" renderstate="closed" class="foo">
+                <locals-objectrender class="renderitem" sizeview="{{sizeview}}" on-detail-tapped="gotodetail" key="{{item.component.name}}" objectdata="{{item}}" renderstate="closed">
                 </locals-objectrender>
                 <div class="lijntje"></div>
               </div>
@@ -477,6 +479,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     this.fire('to-store');
   },
 
+  toWallet: function(){
+    this.fire('to-wallet');
+  },
+
   toVerification: function(){
     this.fire('to-verification');
   },
@@ -586,6 +592,7 @@ _sizeview: function(){
 
 
   }
+
 
 
 
