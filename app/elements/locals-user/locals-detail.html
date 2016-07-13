@@ -104,8 +104,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 
 
-      ::-webkit-scrollbar { 
-          display: none; 
+      ::-webkit-scrollbar {
+          display: none;
       }
       #test {
         width: 150px;
@@ -134,7 +134,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </div>
 
 
-       <locals-objectrender renderstate="{{renderstate}}" key="{{key}}" objectdata="{{objectdata}}" class="objectrender" sizeview="{{sizeview}}"></locals-objectrender>
+       <locals-objectrender renderstate="{{renderstate}}" key="[[key]]" objectdata="[[objectdata]]" class="objectrender" sizeview="{{sizeview}}"></locals-objectrender>
 
 </template>
 <script>
@@ -393,17 +393,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       //       //console.log('discard message',e.detail);
       //       break;
 
-      //   }        
+      //   }
 
 
         // define the characters to pick from
-       
+
         // create a key for symmetric encryption
         // pass in the desired length of your key
         // function generateKey(keyLength){
         //    var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz*&-%/!?*+=()";
         //   var randomstring = '';
-          
+
         //   for (var i=0; i < keyLength; i++) {
         //     var rnum = Math.floor(Math.random() * chars.length);
         //     randomstring += chars.substring(rnum,rnum+1);
