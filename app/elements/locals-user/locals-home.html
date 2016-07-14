@@ -211,6 +211,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     margin: 0px 0px 7px 6px;
   }
 
+  locals-verification-validator {
+    width: 0px;
+    height: 0px;
+    opacity: 0;
+  }
+
 
 
 
@@ -358,6 +364,9 @@ padding: 0px;
               </div>
             </div>
           </div>
+          
+          <locals-verification-validator></locals-verification-validator>
+        
         </div>
         <template is="dom-if" if="{{!_is(sizeview,'phone')}}">
           <div class="whitespace"></div>
