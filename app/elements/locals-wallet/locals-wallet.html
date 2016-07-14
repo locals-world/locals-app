@@ -225,7 +225,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <div class="topbar">
       <!-- <p class="flex"></p>
       <locals-button bgrgba="0,0,0,0" id="exitbtn" icon="declinenew" on-tap="toHome"></locals-button> -->
-    
+
       <p class="flex" on-tap="change"></p>
       <locals-button bgrgba="0,0,0,0" icon="declinenew" on-tap="toHome" small id="exitbtn"></locals-button>
 
@@ -424,7 +424,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         var account = this.fixaddress(this.account);
         var coinbalance = myContractInstance.balanceOf(account);
-        this.localcoinbalance = coinbalance;
+        this.localcoinbalance = coinbalance / 100;
         // console.log('localcoinbalance: ', coinbalance);
         this.balanceloaded = true;
         this.fire('balance-loaded');
