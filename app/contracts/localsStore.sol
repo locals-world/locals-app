@@ -91,7 +91,7 @@ contract localsClub {
 	}
 
   event MemberAdded(string _clubname, string _nickName, address _newmember);
-  event MemberDissed(string _clubname, string _nickName, address _newmember);
+  event MemberDissed(string _clubname, address _newmember);
 
 	mapping (address => clubMember) public clubMembers;
 
@@ -115,7 +115,7 @@ contract localsClub {
 	function disMember(address _newmember){
     if(msg.sender!=creator) throw;
 		clubMembers[_newmember].active = false;
-    MemberDissed(clubname, clubMembers[_newmember].nickName, _newmember);
+    MemberDissed(clubname, _newmember);
 	}
 
   // When someone just sends value to the contract
