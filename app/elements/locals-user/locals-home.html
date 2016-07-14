@@ -365,6 +365,7 @@ padding: 0px;
         </template>
         <div class="tussenschot">
         </div>
+        <iron-selector>
           <template is="dom-repeat" items="{{dataset}}">
             <div id="total">
               <locals-objectrender class="renderitem" sizeview="{{sizeview}}" on-detail-tapped="gotodetail" key="{{item.component.name}}" objectdata="{{item}}" renderstate="closed">
@@ -372,6 +373,7 @@ padding: 0px;
               <div class="lijntje"></div>
             </div>
           </template>
+        </iron-selector>
       </div>
     </neon-animatable>
   </template>
