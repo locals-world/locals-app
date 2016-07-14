@@ -90,6 +90,9 @@ contract localsClub {
 		bool active;
 	}
 
+  event MemberAdded(string _clubname, string _nickName, address _newmember);
+  event MemberDissed(string _clubname, string _nickName, address _newmember);
+
 	mapping (address => clubMember) public clubMembers;
 
 	function localsClub(address _creator, string _nickName, string _clubicon, string _clubname){
@@ -105,12 +108,14 @@ contract localsClub {
     if(msg.sender!=creator) throw;
 		clubMembers[_newmember].nickName = _nickName;
 		clubMembers[_newmember].active = true;
+    MemberAdded(clubname, _nickName, _newmember);
 	}
 
 	// Set a member to active = false
 	function disMember(address _newmember){
     if(msg.sender!=creator) throw;
 		clubMembers[_newmember].active = false;
+    MemberDissed(clubname, clubMembers[_newmember].nickName, _newmember);
 	}
 
   // When someone just sends value to the contract
