@@ -33,6 +33,7 @@ contract localsStore is owned {
   event Log(string _log, address _newclub);
   event Error(string _error);
   event Allowance(string _msg, uint256 _balance);
+  event ClubCreated(string _clubname, address _newClub, address _creator);
 
 	function localsStore(address _tokenContract, address _foundationContract) {
 		tokenaddr = _tokenContract;
@@ -66,9 +67,7 @@ contract localsStore is owned {
 
       clubAddress = new localsClub(msg.sender, _nickname, _clubicon, _clubname);
 
-      Error('club created');
-
-      Log('Club created', clubAddress);
+      ClubCreated(_clubname, clubAddress, msg.sender);
 
       return clubAddress;
 
