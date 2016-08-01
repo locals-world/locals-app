@@ -312,7 +312,7 @@ LOCALS
     </neon-animatable>
 
     <!-- verification : verify someone else's validation -->
-    <!-- <locals-verification-validator route="verification" on-to-home="toHome" sizeview="{{sizeview}}" mode="list" topic="{{topic}}" progress="{{progress}}" web3="{{web3}}" account="{{account}}"></locals-verification-validator> -->
+    <locals-verification-validator route="verification" on-to-home="toHome" sizeview="{{sizeview}}" mode="list" topic="{{topic}}" progress="{{progress}}" web3="{{web3}}" account="{{account}}"></locals-verification-validator>
 
     <!-- wallet: transfer funds -->
     <locals-wallet topic="{{topic}}" on-to-home="toHome" route="wallet" web3="{{web3}}" ethbalance="{{ethbalans}}" localcoinbalance="{{locbalans}}" account="{{account}}" sizeview="{{sizeview}}" on-balance-loaded="balanceLoad"></locals-wallet>
@@ -507,7 +507,7 @@ LOCALS
         this.exitAnimation = 'fade-out-animation';
         Excess.RouteManager.transitionTo('/wallet');
         this.entryAnimation = 'fade-in-animation';
-        this.exitAnimation = 'fade-out-animation'; 
+        this.exitAnimation = 'fade-out-animation';
       },
 
       toWalletClosedrawer: function(){
@@ -515,7 +515,7 @@ LOCALS
         this.exitAnimation = 'fade-out-animation';
         Excess.RouteManager.transitionTo('/wallet');
         this.entryAnimation = 'fade-in-animation';
-        this.exitAnimation = 'fade-out-animation'; 
+        this.exitAnimation = 'fade-out-animation';
         this.$.drawer.togglePanel();
       },
 
