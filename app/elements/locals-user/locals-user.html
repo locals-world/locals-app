@@ -24,7 +24,7 @@ LOCALS
 <link rel="import" href="../../bower_components/locals-scroller/locals-scroller.html">
 <link rel="import" href="../../bower_components/locals-store/locals-store.html">
 <link rel="import" href="../../bower_components/locals-style/locals-style.html">
-<!-- <link rel="import" href="../../bower_components/locals-verification/locals-verification.html"> -->
+<link rel="import" href="../../bower_components/locals-verification/locals-verification.html">
 <link rel="import" href="../../bower_components/locals-verification/locals-verification-handler.html">
 
 <link rel="import" href="../locals-dialogue/locals-dialogue.html">
@@ -235,6 +235,7 @@ LOCALS
     topic="{{topic}}"
     progress="{{progress}}"
     decimals="5"
+    on-msg-received="msgreceived"
     id="whisper"></locals-whisperer>
 
 
@@ -676,6 +677,10 @@ LOCALS
     balanceLoad: function(){
       this.balanceloaded = true;
     },
+
+    msgreceived: function(e){
+      console.log('Msg received ', e);
+    }
 
 
     // _locbalans: function(){
