@@ -487,7 +487,12 @@ LOCALS
       toDetail: function(e){
         // console.log('IN USER ******',e.detail.object);
         this.selecteditem = e.detail.object;
+
+        this.entryAnimation = 'slide-from-bottom-animation';
+        this.exitAnimation = 'slide-up-animation';
         Excess.RouteManager.transitionTo('/objectdetail');
+        this.entryAnimation = 'slide-from-top-animation';
+        this.exitAnimation = 'slide-down-animation';
       },
 
       toStore: function(){
