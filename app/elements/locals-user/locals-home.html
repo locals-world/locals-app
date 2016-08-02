@@ -12,6 +12,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/iron-localstorage/iron-localstorage.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../../bower_components/iron-collapse/iron-collapse.html">
 <link rel="import" href="../../bower_components/neon-animation/neon-animation.html">
 <link rel="import" href="../../bower_components/neon-animation/neon-shared-element-animatable-behavior.html">
 <link rel="import" href="../../bower_components/paper-drawer-panel/paper-drawer-panel.html">
@@ -35,8 +36,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <style>
   :host {
     display: block;
-    /*background-color: var(--locals-grey1);*/
-    background-color: white;
+    background-color: var(--locals-grey1);
+/*    background-color: white;*/
     --topbar-height: 100px;
     --avatararea-height: 800px;
     --avatararea-width: 100%;
@@ -44,11 +45,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     --bg-size: auto 100px;
     --avatararea-margin: 10px;
     --avatarbg-size: 100px;
-
+    --topic-margins:0px 0px 10px 0px;
+    --balance-margins:10px 0px 10px 0px;
+    --text-align:center;
   }
 
   h1 {
     @apply(--locals-font-h1);
+  }
+
+  h3 {
+    @apply(--locals-font-h3);
   }
 
   p {
@@ -63,7 +70,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   .topbar {
     width: 100%;
-    background-color: transparent;
+    background-color: white;
     height: var(--topbar-height);
     @apply(--layout-horizontal);
     @apply(--layout-center);
@@ -76,6 +83,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     @apply(--layout-vertical);
     @apply(--layout-center);
     @apply(--layout-start-justified);
+    background-color: white;
   }
 
   .main {
@@ -108,7 +116,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   .avatararea {
     width: var(--avatararea-width);
     @apply(--layout-horizontal);
-    @apply(--layout-center-center);
+    @apply(--layout-start);
+    @apply(--layout-center-justified);
     box-sizing: border-box;
     padding: 0px;
   }
@@ -131,13 +140,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     background-size: var(--bg-size);
   }
 
-  .balance {
-    @apply(--layout-horizontal);
-    @apply(--layout-center);
-    margin-bottom: 30px;
-    width: var(--totalinfo-width);
-  }
-
 
   .menuicon {
     cursor: pointer;
@@ -155,42 +157,45 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   }
 
 
-
-
-
   .accountinfo {
     width: var(--totalinfo-width);
     @apply(--layout-vertical);
     @apply(--layout-center-center);
     box-sizing: border-box;
-    padding: 10px 0px 15px 0px;
+    padding: 0px;
   }
 
 
   .account {
-    width: 80px;
-    font-size: 10px;
-    line-height: 13px;
-    @apply(--opensans-semibold);
-    color: var(--locals-grey4);
-    white-space: nowrap;
+    width: auto;
+    max-width: 100%;
+    font-size: 20px;
+    line-height: 24px;
+    @apply(--opensans-light);
+    color: var(--locals-grey7);
+/*    white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
+    text-overflow: ellipsis;*/
+    text-align: var(--text-align);
+    margin: 20px 0px 0px 0px;
   }
 
-  .username {
+/*  .username {
     font-size: 12px;
     line-height: 16px;
     color: var(--locals-grey5);
     @apply(--opensans-reg);
   }
-
+*/
 
   .balanceinfo {
+    margin: var(--balance-margins);
     width: var(--totalinfo-width);
     @apply(--layout-horizontal);
     @apply(--layout-center-center);
   }
+
+
 
   .balance {
     color: var(--locals-darkgrey);
@@ -205,8 +210,33 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   }
   .balance h1 {
     margin: 0px;
+    color: var(--locals-blue);
   }
 
+
+  .topic {
+    width: 90%;
+    @apply(--layout-vertical);
+    @apply(--layout-end);
+    @apply(--layout-center-justified);
+    margin: var(--topic-margins);
+  }
+
+  .topic p {
+    width: auto;
+    color: var(--locals-grey7);
+    font-size: 12px;
+    text-decoration: underline;
+    margin: 0px 0px 0px 0px;
+  }
+
+
+  .topic h3 {
+    width: auto;
+    color: var(--locals-grey7);
+    font-size: 18px;
+    margin: 5px 0px 5px 0px;
+  }
   .localcoinamount {
     margin: 0px 0px 7px 6px;
   }
@@ -217,17 +247,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     opacity: 0;
   }
 
-
-
-
-
   .refresher {
-    /*      height: 52px;
-    width: 52px;
-    box-sizing: border-box;
-    padding: 6px;*/
     margin: 10px 0px 10px 0px;
-
     -webkit-animation-name: rotate;
     -webkit-animation-duration: 1s;
     -webkit-animation-iteration-count: infinite;
@@ -241,6 +262,34 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     animation-iteration-count: infinite;
     animation-timing-function: linear;
   }
+
+  iron-selector {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  #total {
+    width: 100%;
+    @apply(--layout-vertical);
+    @apply(--layout-center-center);
+  }
+
+  .renderitem {
+    width: 100%;
+  }
+
+  .dialogues {
+    @apply(--layout-horizontal);
+    @apply(--layout-center-center);
+    margin: 0px 10px 0px 10px;
+    font-size: 12px;
+  }
+
+
+
+
+
+
 
   @-webkit-keyframes rotate {
     from {-webkit-transform: rotate(0deg);}
@@ -258,8 +307,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   }
 
 
-
-
   /*      #fooContainer {
   width: 100%;
 }
@@ -271,21 +318,6 @@ box-sizing: border-box;
 margin:0px -5px 0px -5px;
 }*/
 
-
-  iron-selector {
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  #total {
-    width: 100%;
-    @apply(--layout-vertical);
-    @apply(--layout-center-center);
-  }
-
-  .renderitem {
-    width: 100%;
-  }
 
 
 /*      .iron-selected .foo {
@@ -339,6 +371,10 @@ padding: 0px;
         <div class="menuicon">
           <locals-button icon="menu" iconcolor="darkgrey" on-tap="firetoggle" small bgrgba="0,0,0,0"></locals-button>
         </div>
+        <div class="dialogues" on-tap="toDialogue">
+          <p>1</p>
+          <locals-icon icon="babbles" verysmall iconcolor="darkgrey"></locals-icon>
+        </div>
         <p class="flex"></p>
         <locals-button icon="plus" on-tap="toStore" small></locals-button>
       </div>
@@ -350,7 +386,7 @@ padding: 0px;
           </div>
           <div class="totalinfo">
             <div class="accountinfo">
-              <p class="account">{{account}}</p>
+              <p class="account">{{username}}</p>
             </div>
             <div class="balanceinfo">
               <div class="balance" on-tap="toWallet">
@@ -359,19 +395,30 @@ padding: 0px;
                 </template>
                 <template is="dom-if" if="{{balanceloaded}}">
                   <h1>{{localcoinbalance}}</h1>
-                  <locals-icon class="localcoinamount" verysmall icon="localcoin" iconcolor="darkgrey"></locals-icon>
+                  <locals-icon class="localcoinamount" verysmall icon="localcoin" iconcolor="blue"></locals-icon>
                 </template>
               </div>
             </div>
           </div>
-          
-          <locals-verification-validator></locals-verification-validator>
+
+          <!-- <locals-verification-validator></locals-verification-validator> -->
         
         </div>
+
+
         <template is="dom-if" if="{{!_is(sizeview,'phone')}}">
           <div class="whitespace"></div>
           <div class="whitespace"></div>
         </template>
+            <div class="topic" on-tap="topicCollapse">
+              <template is="dom-if" if="{{!topicshown}}">
+              <p>temp code</p>
+              </template>
+              <iron-collapse id="topcollapser">
+                <h3>{{topic}}</h3>
+              </iron-collapse>
+            </div>
+
         <div class="tussenschot">
         </div>
         <iron-selector>
@@ -456,7 +503,17 @@ padding: 0px;
       type: Boolean,
       value: false,
       observer: '_balanceloaded'
-    }
+    },
+
+    topicshown: {
+      type: Boolean,
+      value: false
+    },
+
+    username: {
+      type: String,
+      value: 'Bennisan'
+    },
 
   },
 
@@ -493,6 +550,11 @@ padding: 0px;
     this.fire('to-wallet');
   },
 
+  toDialogue: function(){
+    this.fire('to-dialogue');
+  },
+
+
   toVerification: function(){
     this.fire('to-verification');
   },
@@ -513,6 +575,9 @@ padding: 0px;
       this.customStyle['--totalinfo-width'] = '100%';
       this.customStyle['--avatarbg-size'] = '100px';
       this.customStyle['--bg-size'] = 'auto 100px';
+      this.customStyle['--topic-margins'] = '0px 0px 10px 0px';
+      this.customStyle['--balance-margins'] = '10px 0px 20px 0px';
+      this.customStyle['--text-align'] = 'center';
       this.updateStyles();
       break;
       case 'desktop':
@@ -523,6 +588,9 @@ padding: 0px;
       this.customStyle['--totalinfo-width'] = 'auto';
       this.customStyle['--avatarbg-size'] = '110px';
       this.customStyle['--bg-size'] = 'auto 110px';
+      this.customStyle['--topic-margins'] = '0px 0px 20px 0px';
+      this.customStyle['--balance-margins'] = '5px 0px 0px 0px';
+      this.customStyle['--text-align'] = 'left';
       this.updateStyles();
       break;
       case 'xlarge':
@@ -533,6 +601,9 @@ padding: 0px;
       this.customStyle['--totalinfo-width'] = 'auto';
       this.customStyle['--avatarbg-size'] = '150px';
       this.customStyle['--bg-size'] = 'auto 150px';
+      this.customStyle['--topic-margins'] = '0px 0px 20px 0px';
+      this.customStyle['--balance-margins'] = '5px 0px 0px 0px';
+      this.customStyle['--text-align'] = 'left';
       this.updateStyles();
       break;
       default:
@@ -584,6 +655,14 @@ padding: 0px;
 
   _balanceloaded: function(){
     // console.log("ISSEM DEER????", this.balanceloaded)
+  },
+
+  topicCollapse: function(){
+    var coll = document.querySelector('#topcollapser');
+    coll.toggle();
+    this.topicshown = !this.topicshown;
+
+
   }
 
 });
