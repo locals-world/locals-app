@@ -26,6 +26,7 @@ LOCALS
 <link rel="import" href="../../bower_components/locals-style/locals-style.html">
 <link rel="import" href="../../bower_components/locals-verification/locals-verification.html">
 <link rel="import" href="../../bower_components/locals-verification/locals-verification-handler.html">
+<link rel="import" href="../../bower_components/locals-whisperer/locals-whisperer.html">
 
 <link rel="import" href="../locals-dialogue/locals-dialogue.html">
 
@@ -347,6 +348,7 @@ LOCALS
           observer: '_web3'
         },
 
+
         entryAnimation: {
           type: String,
           value: 'slide-from-right-animation'
@@ -452,6 +454,8 @@ LOCALS
           key: 'ethnode'
         }).value;
 
+        console.log('Meta query: ', this.ethnode);
+
       },
 
       setFilter: function() {
@@ -464,6 +468,7 @@ LOCALS
 
       setPass: function(){
         //debugger;
+        sessionStorage.setItem('lopassword', this.passwd);
         this.$.lsapi.privatekey = this.passwd;
         this.$.web3wallet.password = this.passwd;
       },
@@ -494,7 +499,12 @@ LOCALS
       toDetail: function(e){
         // console.log('IN USER ******',e.detail.object);
         this.selecteditem = e.detail.object;
+
+        this.entryAnimation = 'slide-from-bottom-animation';
+        this.exitAnimation = 'slide-up-animation';
         Excess.RouteManager.transitionTo('/objectdetail');
+        this.entryAnimation = 'slide-from-top-animation';
+        this.exitAnimation = 'slide-down-animation';
       },
 
       toStore: function(){
@@ -544,6 +554,7 @@ LOCALS
       },
 
       _web3: function(){
+        console.log('got web3');
         this.balans = this.$.web3wallet.updateBalance();
         this.getLocalbalance();
         this.setFilter();
