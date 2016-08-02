@@ -268,7 +268,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     box-sizing: border-box;
   }
 
-  #total {
+  .total {
     width: 100%;
     @apply(--layout-vertical);
     @apply(--layout-center-center);
@@ -421,16 +421,16 @@ padding: 0px;
 
         <!-- <div class="tussenschot">
         </div> -->
-        <iron-selector>
+<!--         <iron-selector> -->
           <template is="dom-repeat" items="{{dataset}}">
-            <div id="total">
+            <div class="total">
               <locals-objectrender class="renderitem" sizeview="{{sizeview}}" on-detail-tapped="gotodetail" key="{{item.component.name}}" objectdata="{{item}}" renderstate="closed">
               </locals-objectrender>
               <div class="lijntje"></div>
             </div>
           </template>
-        </iron-selector>
-      </div>
+<!--         </iron-selector>
+ -->      </div>
     </neon-animatable>
   </template>
 
@@ -515,6 +515,37 @@ padding: 0px;
       value: 'Bennisan'
     },
 
+    // sharedElements: {
+    //   type: Object,
+    //   value: function() {
+    //     return {
+    //       'hero': this.$.main
+    //     };
+    //   }
+    // },
+
+    animationConfig: {
+      type: Object,
+      value: function() {
+        return {
+          // 'entry': [{
+          //   name: 'fade-in-animation',
+          //   node: this
+          // }],
+
+          // 'exit': [{
+          //   name: 'fade-out-animation',
+          //   node: this
+          // }, {
+          //   name: 'hero-animation',
+          //   id: 'hero',
+          //   fromPage: this
+          // }]
+        };
+      }
+    }
+
+
   },
 
   sj: function(a){
@@ -522,6 +553,7 @@ padding: 0px;
   },
 
   ready: function(){
+    // console.log("KOMTIE:::::::", this.animationConfig.entry, this.animationConfig.entry[0].name);
   },
 
   attached: function() {
@@ -538,12 +570,64 @@ padding: 0px;
   },
 
   gotodetail: function(e){
-    console.log('Ga naar detail',e.detail);
-    this.fire('to-detail', {object: e.detail});
+
+
+    var target = e.target;
+    while (target !== this && !target._templateInstance) {
+      target = target.parentNode;
+    }
+    this.sharedElements = {
+      'hero': target,
+    };
+
+    this.animationConfig = {
+        'entry': [{
+            name: 'fade-in-animation',
+            node: this
+          }],
+
+          'exit': [{
+            name: 'fade-out-animation',
+            node: this
+          }, {
+            name: 'hero-animation',
+            id: 'hero',
+            fromPage: this
+          }]
+        };
+
+
+    console.log("TO DETAIL ANIMCONFIG", this.animationConfig);
+
+    console.log('Ga naar detail',e.detail,target);
+    this.fire('to-detail', {object: e.detail, item: target});
+
+
+// document.querySelector('#maincanvas').scrollTop = 0;
+
+
+
+
   },
 
+
+
   toStore: function(){
+    this.animationConfig = {
+          'entry': [{
+            name: 'slide-from-left-animation',
+            node: this
+          }],
+          'exit': [{
+            name: 'slide-left-animation',
+            node: this
+          }]
+        };
+
+
+    console.log("TO STORE ANIMCONFIG", this.animationConfig);
     this.fire('to-store');
+
   },
 
   toWallet: function(){

@@ -46,6 +46,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         --scrollarea-padding: 200px 0px 0px 0px;
       }
 
+      #main {
+       /* border: 1px solid red;*/
+      }
+
       p {
         @apply(--locals-font-body1);
         @apply(--opensans-semibold);
@@ -124,6 +128,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     </style>
 
+<div id="main">
     <div class="topbar">
 <!--       <template is="dom-if" if="{{_is(mode,'home')}}"> -->
         <p class="flex" on-tap="change"></p>
@@ -137,7 +142,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 
        <locals-objectrender renderstate="{{renderstate}}" key="[[key]]" objectdata="[[objectdata]]" class="objectrender" sizeview="{{sizeview}}"></locals-objectrender>
-
+</div>
 </template>
 <script>
   (function() {
@@ -163,29 +168,44 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           observer: '_sizeview'
         },
 
-      animationConfig: {
+       sharedElements: {
+        type: Object,
         value: function() {
           return {
-            'entry': {
-              name: 'hero-animation',
-              id: 'hero',
-              toPage: this
-            },
-
-            'exit': {
-              name: 'hero-animation',
-              id: 'hero',
-              fromPage: this
-            }
+            'hero': this.$.main
           };
         }
       },
 
-      sharedElements: {
-          value: function(){
-           return {
-            'hero': this.$.test
-           } ;
+
+
+     animationConfig: {
+          type: Object,
+          value: function() {
+            return {
+              'entry': [{
+                name: 'fade-in-animation',
+                node: this
+              }, {
+              name: 'hero-animation',
+              id: 'hero',
+              toPage: this
+            }],
+
+              'exit': [{
+                name: 'fade-out-animation',
+                node: this
+              }]
+
+              // 'exit': [{
+              //   name: 'fade-out-animation',
+              //   node: this
+              // }, {
+              //   name: 'hero-animation',
+              //   id: 'hero',
+              //   fromPage: this
+              // }]
+            };
           }
         }
 
