@@ -1,0 +1,490 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-localstorage/iron-localstorage.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../../bower_components/neon-animation/neon-animation.html">
+<link rel="import" href="../../bower_components/neon-animation/neon-shared-element-animatable-behavior.html">
+
+<link rel="import" href="../../bower_components/paper-drawer-panel/paper-drawer-panel.html">
+
+<!-- <link rel="import" href="../../bower_components/paper-button/paper-button.html"> -->
+
+<link rel="import" href="../../bower_components/web3-wallet/web3-wallet.html">
+<link rel="import" href="../../bower_components/ipfs-upload/ipfs-upload.html">
+
+<link rel="import" href="../../bower_components/locals-avatar/locals-avatar.html">
+<link rel="import" href="../../bower_components/locals-button/locals-button.html">
+<link rel="import" href="../../bower_components/locals-lsapi/locals-lsapi.html">
+<link rel="import" href="../../bower_components/locals-icon/locals-icon.html">
+<link rel="import" href="../../bower_components/locals-objectrender/locals-objectrender.html">
+<link rel="import" href="../../bower_components/locals-store/locals-store.html">
+<link rel="import" href="../../bower_components/locals-style/locals-style.html">
+<link rel="import" href="../../bower_components/locals-whisperer/locals-whisperer.html">
+
+
+
+<dom-module id="locals-profile">
+  <template>
+    <style>
+     :host {
+    display: block;
+    background-color: var(--locals-grey1);
+/*    background-color: white;*/
+    --topbar-height: 100px;
+    --avatararea-height: 800px;
+    --avatararea-width: 100%;
+    --totalinfo-width: 100%;
+    --bg-size: auto 100px;
+    --avatararea-margin: 10px;
+    --avatarbg-size: 100px;
+    --topic-margins:0px 0px 10px 0px;
+    --balance-margins:10px 0px 10px 0px;
+    --text-align:center;
+  }
+
+  h1 {
+    @apply(--locals-font-h1);
+  }
+
+  h3 {
+    @apply(--locals-font-h3);
+  }
+
+  p {
+    @apply(--locals-font-body1);
+    @apply(--opensans-reg);
+    color: var(--locals-grey7);
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  .topbar {
+    width: 100%;
+    background-color: white;
+    height: var(--topbar-height);
+    @apply(--layout-horizontal);
+    @apply(--layout-center);
+    box-sizing: border-box;
+    padding: 10px 20px 10px 10px;
+  }
+
+  .container {
+    width: 100%;
+    @apply(--layout-vertical);
+    @apply(--layout-center);
+    @apply(--layout-start-justified);
+    background-color: white;
+  }
+
+  .main {
+    width: 100%;
+    max-width: 90vw;
+    @apply(--layout-horizontal);
+    @apply(--layout-wrap);
+  }
+
+  .tussenschot {
+    width: 100%;
+    height: 1px;
+    background-color: rgba(0,0,0,0.05);
+  }
+
+  .whitespace {
+    width: 100%;
+    height: 2vh;
+    min-height: 20px;
+  }
+
+  .absolutepos {
+    position: absolute;
+  }
+
+  .flex {
+    @apply(--layout-horizontal);
+    @apply(--layout-flex);
+  }
+
+  .avatararea {
+    width: var(--avatararea-width);
+    @apply(--layout-horizontal);
+    @apply(--layout-start);
+    @apply(--layout-center-justified);
+    box-sizing: border-box;
+    padding: 0px;
+  }
+
+  .totalinfo {
+    width: var(--totalinfo-width);
+    @apply(--layout-flex);
+    @apply(--layout-vertical);
+    @apply(--layout-start);
+    @apply(--layout-center-justified);
+  }
+
+  .avatarbg {
+    width: var(--avatarbg-size);
+    height: var(--avatarbg-size);
+    margin: var(--avatararea-margin);
+    border-radius: 50%;
+    background-position: center;
+    background: url(../../images/locals-bg3.png);
+    background-size: var(--bg-size);
+  }
+
+
+  .menuicon {
+    cursor: pointer;
+    height: 60px;
+    width: 60px;
+    @apply(--layout-horizontal);
+    @apply(--layout-center-center);
+  }
+
+  #test {
+    width: 50px;
+    height: 20px;
+    background-color: green;
+    display: none;
+  }
+
+
+  .accountinfo {
+    width: var(--totalinfo-width);
+    @apply(--layout-vertical);
+    @apply(--layout-center-center);
+    box-sizing: border-box;
+    padding: 0px;
+  }
+
+
+  .account {
+    width: auto;
+    max-width: 100%;
+    font-size: 20px;
+    line-height: 24px;
+    @apply(--opensans-light);
+    color: var(--locals-grey7);
+/*    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;*/
+    text-align: var(--text-align);
+    margin: 20px 0px 0px 0px;
+  }
+
+/*  .username {
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--locals-grey5);
+    @apply(--opensans-reg);
+  }
+*/
+
+  .balanceinfo {
+    margin: var(--balance-margins);
+    width: var(--totalinfo-width);
+    @apply(--layout-horizontal);
+    @apply(--layout-center-center);
+  }
+
+
+
+  .balance {
+    color: var(--locals-darkgrey);
+    @apply(--layout-horizontal);
+    @apply(--layout-end);
+    @apply(--layout-wrap);
+    width: auto;
+  }
+
+  .balance:hover {
+    cursor: pointer;
+  }
+  .balance h1 {
+    margin: 0px;
+    color: var(--locals-blue);
+  }
+
+
+  .topic {
+    width: 90%;
+    @apply(--layout-vertical);
+    @apply(--layout-end);
+    @apply(--layout-center-justified);
+    margin: var(--topic-margins);
+  }
+
+  .topic p {
+    width: auto;
+    color: var(--locals-grey7);
+    font-size: 12px;
+    text-decoration: underline;
+    margin: 0px 0px 0px 0px;
+  }
+
+
+  .topic h3 {
+    width: auto;
+    color: var(--locals-grey7);
+    font-size: 18px;
+    margin: 5px 0px 5px 0px;
+  }
+  .localcoinamount {
+    margin: 0px 0px 7px 6px;
+  }
+
+  locals-verification-validator {
+    width: 0px;
+    height: 0px;
+    opacity: 0;
+  }
+
+  .refresher {
+    margin: 10px 0px 10px 0px;
+    -webkit-animation-name: rotate;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-name: rotate;
+    -moz-animation-duration: 1s;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+    animation-name: rotate;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
+
+  iron-selector {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .total {
+    width: 100%;
+    @apply(--layout-vertical);
+    @apply(--layout-center-center);
+  }
+
+  .renderitem {
+    width: 100%;
+  }
+
+  .dialogues {
+    @apply(--layout-horizontal);
+    @apply(--layout-center-center);
+    margin: 0px 10px 0px 10px;
+    font-size: 12px;
+  }
+
+
+
+  @-webkit-keyframes rotate {
+    from {-webkit-transform: rotate(0deg);}
+    to {-webkit-transform: rotate(360deg);}
+  }
+
+  @-moz-keyframes rotate {
+    from {-moz-transform: rotate(0deg);}
+    to {-moz-transform: rotate(360deg);}
+  }
+
+  @keyframes rotate {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
+  }
+
+locals-avatar {
+  width: 140px;
+  height: 140px;
+}
+
+
+    </style>
+
+    <div class="topbar">
+        <p class="flex" on-tap="change"></p>
+        <locals-button bgrgba="0,0,0,0" icon="declinenew" on-tap="toHome" small id="exitbtn"></locals-button>
+    </div>
+      <div class="container">
+        <div class="main">
+          <div class="avatararea">
+            <locals-avatar renderstate="inprofile" id="main"></locals-avatar>
+            <!-- <div class="avatarbg"></div> -->
+          </div>
+          <div class="totalinfo">
+            <div class="accountinfo">
+              <p class="account">{{username}}</p>
+            </div>
+            <div class="balanceinfo">
+              <div class="balance" on-tap="toWallet">
+                <template is="dom-if" if="{{!balanceloaded}}">
+                  <locals-icon class="refresher" small icon="refresh1" iconcolor="grey5"></locals-icon>
+                </template>
+                <template is="dom-if" if="{{balanceloaded}}">
+                  <h1>{{localcoinbalance}}</h1>
+                  <locals-icon class="localcoinamount" verysmall icon="localcoin" iconcolor="blue"></locals-icon>
+                </template>
+              </div>
+            </div>
+          </div>
+
+          <!-- <locals-verification-validator></locals-verification-validator> -->
+          <div class="whitespace"></div>
+          <div class="whitespace"></div> 
+          <div class="whitespace"></div>
+          <div class="whitespace"></div>                 
+        </div>
+
+
+        <template is="dom-if" if="{{!_is(sizeview,'phone')}}">
+          <div class="whitespace"></div>
+          <div class="whitespace"></div>
+        </template>
+            <div class="topic" on-tap="topicCollapse">
+              <template is="dom-if" if="{{!topicshown}}">
+              <p>temp code</p>
+              </template>
+              <iron-collapse id="topcollapser">
+                <h3>{{topic}}</h3>
+              </iron-collapse>
+            </div>
+
+      </div>
+
+
+
+</template>
+<script>
+  (function() {
+    'use strict';
+
+    Polymer({
+      is: 'locals-profile',
+    behaviors: [
+      Polymer.NeonSharedElementAnimatableBehavior
+    ],
+      properties: {
+        objectdata: {
+          type: Object,
+          observer: '_objectdata'
+        },
+        key: {
+          type: String,
+          observer: '_key'
+        },
+
+        sizeview: {
+          type: String,
+          observer: '_sizeview'
+        },
+      username: {
+        type: String,
+        value: 'Bennisan'
+      },
+
+       sharedElements: {
+        type: Object,
+        value: function() {
+          return {
+            'hero': this.$.main
+          };
+        }
+      },
+
+
+
+     animationConfig: {
+          type: Object,
+          value: function() {
+            return {
+              'entry': [{
+                name: 'hero-animation',
+                id: 'hero',
+                toPage: this
+              }],
+
+              'exit': [{
+                name: 'hero-animation',
+                id: 'hero',
+                fromPage: this
+              }]
+
+              // 'exit': [{
+              //   name: 'fade-out-animation',
+              //   node: this
+              // }, {
+              //   name: 'hero-animation',
+              //   id: 'hero',
+              //   fromPage: this
+              // }]
+            };
+          }
+        }
+
+
+
+
+      },
+
+      ready: function(){
+      },
+
+      _data: function(){
+      },
+
+
+      // },
+      _sizeview: function(){
+        switch(this.sizeview) {
+        case 'phone':
+            this.customStyle['--topbar-height'] = '100px';
+            this.customStyle['--scrollarea-height'] = '320px';
+            this.customStyle['--scrollarea-padding'] = '0px 0px 0px 0px';
+            this.customStyle['--bg-size'] = 'auto 320px';
+            this.updateStyles();
+            break;
+        case 'desktop':
+            this.customStyle['--topbar-height'] = '100px';
+            this.customStyle['--scrollarea-height'] = '490px';
+            this.customStyle['--scrollarea-padding'] = '48px 0px 0px 0px';
+            this.customStyle['--bg-size'] = 'auto 490px';
+            this.updateStyles();
+            break;
+        case 'xlarge':
+            this.customStyle['--topbar-height'] = '100px';
+            this.customStyle['--scrollarea-height'] = '600px';
+            this.customStyle['--scrollarea-padding'] = '50px 0px 0px 0px';
+            this.customStyle['--bg-size'] = 'auto 600px';
+            this.updateStyles();
+            break;
+        default:
+        console.log('!!! ** Niks');
+        }
+      },
+
+    toHome: function(){
+        this.fire('to-home');
+    },
+
+    _objectdata: function(){
+    },
+
+    _key: function(){
+    }
+
+
+    });
+  })();
+  </script></dom-module>

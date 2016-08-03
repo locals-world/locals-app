@@ -47,7 +47,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       #main {
-       /* border: 1px solid red;*/
+/*        border: 1px solid red;*/
+/*        width: 100%;
+        min-height: 200px;
+        background-color: var(--locals-grey1);
+        z-index: 0;
+        position: absolute;*/
       }
 
       p {
@@ -122,13 +127,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       locals-objectrender {
         width: 100%;
+        z-index: 3;
       }
 
 
 
     </style>
 
-<div id="main">
+
     <div class="topbar">
 <!--       <template is="dom-if" if="{{_is(mode,'home')}}"> -->
         <p class="flex" on-tap="change"></p>
@@ -139,10 +145,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <p class="flex" on-tap="change"></p>
       </template> -->
     </div>
+   <locals-objectrender renderstate="{{renderstate}}" key="[[key]]" objectdata="[[objectdata]]" class="objectrender" sizeview="{{sizeview}}"></locals-objectrender>
 
-
-       <locals-objectrender renderstate="{{renderstate}}" key="[[key]]" objectdata="[[objectdata]]" class="objectrender" sizeview="{{sizeview}}"></locals-objectrender>
-</div>
 </template>
 <script>
   (function() {
@@ -168,14 +172,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           observer: '_sizeview'
         },
 
-       sharedElements: {
-        type: Object,
-        value: function() {
-          return {
-            'hero': this.$.main
-          };
-        }
-      },
+      //  sharedElements: {
+      //   type: Object,
+      //   value: function() {
+      //     return {
+      //       'hero': this.$.main
+      //     };
+      //   }
+      // },
 
 
 
@@ -184,16 +188,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           value: function() {
             return {
               'entry': [{
-                name: 'fade-in-animation',
+                name: 'slide-from-bottom-animation',
                 node: this
-              }, {
-              name: 'hero-animation',
-              id: 'hero',
-              toPage: this
-            }],
+              }],
 
               'exit': [{
-                name: 'fade-out-animation',
+                name: 'slide-down-animation',
                 node: this
               }]
 

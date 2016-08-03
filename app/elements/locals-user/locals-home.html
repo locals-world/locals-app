@@ -1,11 +1,9 @@
 <!--
 @license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+Copyright (c) 2016 A-labs. All rights reserved.
+/////////////////
+LOCALS
+/////////////////
 -->
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
@@ -95,7 +93,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   .tussenschot {
     width: 100%;
-    height: 2px;
+    height: 1px;
     background-color: rgba(0,0,0,0.05);
   }
 
@@ -287,10 +285,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 
 
-
-
-
-
   @-webkit-keyframes rotate {
     from {-webkit-transform: rotate(0deg);}
     to {-webkit-transform: rotate(360deg);}
@@ -305,61 +299,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     from {transform: rotate(0deg);}
     to {transform: rotate(360deg);}
   }
-
-
-  /*      #fooContainer {
-  width: 100%;
+locals-avatar {
+  width: 120px;
+  height: 120px;
 }
-
-.foo {
-transition: all .05s linear;
-transform: scale(0.9,0.9);
-box-sizing: border-box;
-margin:0px -5px 0px -5px;
-}*/
-
-
-
-/*      .iron-selected .foo {
-transform: scale(1,1);
-}
-
-
-.listmenu {
-width: 100%;
-min-height: 50vh;
-margin-top: 5vh;
-@apply(--layout-vertical);
-@apply(--layout-center);
-}
-
-
-.lijntje {
-height: 3px;
-background-color: var(--locals-blue);
-width: 50px;
-visibility: hidden;
-margin-top: 20px;
-}
-
-.iron-selected .lijntje {
-visibility: visible;
-}*/
-/*
-#totaldata {
-width: 100%;
-max-width: 1000px;
-margin:0px;
-padding: 0px;
-}
-*/
-
-
-
-
-
-
-
 
 
 </style>
@@ -381,8 +324,7 @@ padding: 0px;
       <div class="container">
         <div class="main">
           <div class="avatararea">
-            <locals-avatar renderstate="visual" class="absolutepos"></locals-avatar>
-            <div class="avatarbg"></div>
+            <locals-avatar renderstate="visual" on-tap="toProfile"  id="mainhome" sizeview="{{sizeview}}"></locals-avatar>
           </div>
           <div class="totalinfo">
             <div class="accountinfo">
@@ -419,8 +361,8 @@ padding: 0px;
               </iron-collapse>
             </div>
 
-        <!-- <div class="tussenschot">
-        </div> -->
+        <div class="tussenschot">
+        </div>
 <!--         <iron-selector> -->
           <template is="dom-repeat" items="{{dataset}}">
             <div class="total">
@@ -570,16 +512,13 @@ padding: 0px;
   },
 
   gotodetail: function(e){
-
-
-    var target = e.target;
-    while (target !== this && !target._templateInstance) {
-      target = target.parentNode;
-    }
-    this.sharedElements = {
-      'hero': target,
-    };
-
+    // var target = e.target;
+    // while (target !== this && !target._templateInstance) {
+    //   target = target.parentNode;
+    // }
+    // this.sharedElements = {
+    //   'hero': target,
+    // };
     this.animationConfig = {
         'entry': [{
             name: 'fade-in-animation',
@@ -589,25 +528,39 @@ padding: 0px;
           'exit': [{
             name: 'fade-out-animation',
             node: this
-          }, {
-            name: 'hero-animation',
-            id: 'hero',
-            fromPage: this
           }]
         };
 
+    // console.log('Ga naar detail',e.detail,target);
+    // this.fire('to-detail', {object: e.detail, item: target});
 
-    console.log("TO DETAIL ANIMCONFIG", this.animationConfig);
+    this.fire('to-detail', {object: e.detail});
+    document.querySelector('#maincanvas').scrollTop = 0;
+    // setTimeout(function(){ document.querySelector('#maincanvas').scrollTop = 0; }, 200);
+    // document.querySelector('#maincanvas').animate({
+    //           scrollTop: 0}, 1000);
+  },
 
-    console.log('Ga naar detail',e.detail,target);
-    this.fire('to-detail', {object: e.detail, item: target});
+  toProfile: function(){
+  var mainhome = document.querySelector('#mainhome');
+    this.sharedElements = {
+      'hero': mainhome,
+    };
 
+  this.animationConfig = {
+        'entry': [{
+                name: 'hero-animation',
+                id: 'hero',
+                toPage: this
+          }],
 
-// document.querySelector('#maincanvas').scrollTop = 0;
-
-
-
-
+          'exit': [{
+                name: 'hero-animation',
+                id: 'hero',
+                fromPage: this
+          }]
+        };
+    this.fire('to-profile');
   },
 
 
