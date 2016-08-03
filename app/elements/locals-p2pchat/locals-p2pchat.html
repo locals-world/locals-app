@@ -8,12 +8,32 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
-<!-- Iron elements -->
-<link rel="import" href="../bower_components/iron-localstorage/iron-localstorage.html">
-<link rel="import" href="../bower_components/excess-router/excess-router.html">
+<link rel="import" href="../../bower_components/polymer/polymer.html">
 
+<dom-module id="locals-p2pchat">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <div>Hello from <span>{{foo}}</span></div>
+  </template>
+  <script>
+  (function() {
+    'use strict';
 
-<link rel="import" href="locals-backup/locals-backup.html">
-<link rel="import" href="locals-lsverifications/locals-lsverifications.html">
-<link rel="import" href="locals-wallet/locals-wallet.html">
-<link rel="import" href="locals-p2pchat/locals-p2pchat.html">
+    Polymer({
+      is: 'locals-p2pchat',
+
+      properties: {
+        foo: {
+          type: String,
+          value: 'locals-p2pchat',
+          notify: true
+        }
+      }
+    });
+  })();
+  </script>
+</dom-module>
