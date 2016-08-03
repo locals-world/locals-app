@@ -32,6 +32,7 @@ LOCALS
 
 <link rel="import" href="locals-home.html">
 <link rel="import" href="locals-detail.html">
+<link rel="import" href="locals-profile.html">
 
 <dom-module id="locals-user">
   <template>
@@ -86,6 +87,7 @@ LOCALS
      .main {
       overflow-y: scroll;
         height: 100%;
+        background-color: white;
 
      }
 
@@ -282,8 +284,11 @@ LOCALS
 
 <!--   <neon-animated-pages selected="{{appMenu}}" attr-for-selected="route" entry-animation="{{entryAnimation}}" exit-animation="{{exitAnimation}}"> -->
     <!-- home -->
-    <locals-home route="home" data="{{data}}" localcoinbalance="{{locbalans}}" on-to-store="toStore" on-to-verification="toVerification" account="{{account}}" balance="{{balance}}" web3="{{web3}}" keystore="{{keystore}}" on-to-wallet="toWallet" on-toggle-drawer="drawertoggle" sizeview="{{sizeview}}" balanceloaded="{{balanceloaded}}" on-to-detail="toDetail"  topic="{{topic}}" on-to-dialogue="toDialogue"></locals-home>
+    <locals-home route="home" data="{{data}}" localcoinbalance="{{locbalans}}" on-to-store="toStore" on-to-verification="toVerification" account="{{account}}" balance="{{balance}}" web3="{{web3}}" keystore="{{keystore}}" on-to-wallet="toWallet" on-toggle-drawer="drawertoggle" sizeview="{{sizeview}}" balanceloaded="{{balanceloaded}}" on-to-detail="toDetail"  topic="{{topic}}" on-to-dialogue="toDialogue" on-to-profile="toProfile"></locals-home>
 <!--      <locals-home route="home" data="{{data}}" on-to-detail="toDetail" on-to-store="toStore" on-to-verification="toVerification" on-toggle-drawer="drawertoggle" sizeview="{{sizeview}}"></locals-home> -->
+
+    <!-- profile -->
+    <locals-profile route="profile" data="{{data}}" localcoinbalance="{{locbalans}}" account="{{account}}" balance="{{balance}}" web3="{{web3}}" sizeview="{{sizeview}}" balanceloaded="{{balanceloaded}}" on-to-home="toHome"></locals-profile>
 
     <!-- object detail -->
     <locals-detail route="objectdetail" objectdata="{{selecteditem.data}}" key="{{selecteditem.key}}" renderstate="open" on-to-home="toHome" sizeview="{{sizeview}}"></locals-detail>
@@ -499,8 +504,11 @@ LOCALS
       },
 
       toHome: function(){
-
         Excess.RouteManager.transitionTo('/home');
+      },
+
+      toProfile: function(){
+        Excess.RouteManager.transitionTo('/profile');
       },
 
       toWallet: function(){
