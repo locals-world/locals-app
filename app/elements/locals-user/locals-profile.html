@@ -319,9 +319,10 @@ locals-object {
   <div class="main">
     <div class="avatararea">
       <!-- <locals-avatar renderstate="visual" id="avatar"></locals-avatar> -->
-      <img style="width: 140px; height: 140px;" src="{{_getipfsurl(hash.hash)}}" observe="hash.hash">
-      <ipfs-upload hash="{{hash}}" id="ipfsupload" host="/ip4/109.123.70.141/tcp/5001" ></ipfs-upload>
 
+      <ipfs-upload hidefileinput hash="{{hash}}" id="ipfsupload" host="/ip4/109.123.70.141/tcp/5001" >
+        <img style="width: 140px; height: 140px;" src="{{_getipfsurl(hash.hash)}}" observe="hash.hash">
+      </ipfs-upload>
     </div>
 
     <div class="totalinfo">

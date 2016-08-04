@@ -9,7 +9,6 @@
     "neon-elements": "PolymerElements/neon-elements#^1.0.0",
     "page": "visionmedia/page.js#~1.6.3",
     "web3-wallet": "^0.0.13",
-    "ipfs-upload": "^0.0.13",
     "node-uuid": "^1.4.7",
     "jsencrypt": "^2.2.0",
     "locals-sync": "https://github.com/locals-world/locals-elements-sync.git",
@@ -31,7 +30,8 @@
     "lazy-pages": "atotic/lazy-pages#^0.8.5",
     "cryptojslib": "^3.1.2",
     "locals-residence": "https://github.com/locals-world/locals-residence.git",
-    "locals-club": "https://github.com/locals-world/locals-club.git"
+    "locals-club": "https://github.com/locals-world/locals-club.git",
+    "ipfs-upload": "https://github.com/locals-world/ipfs-upload.git#^0.0.13"
   },
   "devDependencies": {
     "web-component-tester": "*",
@@ -39,7 +39,6 @@
   },
   "resolutions": {
     "web3-wallet": "^0.0.13",
-    "ipfs-upload": "^0.0.13",
     "locals-button": "0.0.9"
   }
 }
