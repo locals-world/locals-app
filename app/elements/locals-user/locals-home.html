@@ -27,6 +27,7 @@ LOCALS
 <link rel="import" href="../../bower_components/locals-verification/locals-verification-validator.html">
 <link rel="import" href="../../bower_components/locals-verification/locals-verification-localstorage.html">
 <link rel="import" href="../../bower_components/locals-whisperer/locals-whisperer.html">
+<link rel="import" href="../locals-getuser/locals-getuser.html">
 
 <dom-module id="locals-home">
   <template>
@@ -305,6 +306,20 @@ LOCALS
     height: var(--avatararea-height);
   }
 
+  .avatar {
+    width:140px;
+    height: 140px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: transparent;
+  }
+
+  .avatar img {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
 
 </style>
 
@@ -325,11 +340,16 @@ LOCALS
       <div class="container">
         <div class="main">
           <div class="avatararea">
-            <locals-avatar renderstate="visual" on-tap="toProfile"  id="mainhome" sizeview="{{sizeview}}"></locals-avatar>
+            <!-- <locals-avatar renderstate="visual" on-tap="toProfile"  id="mainhome" sizeview="{{sizeview}}"></locals-avatar>
+             -->
+             <div class="avatar" id="avatar" on-tap="toProfile">
+               <img src="{{_getipfsurl(userdata.avatar)}}" observe="userdata.avatar">
+             </div>
+            <locals-getuser userdata="{{userdata}}" web3="{{web3}}" account="{{account}}"></locals-getuser>
           </div>
           <div class="totalinfo">
             <div class="accountinfo">
-              <p class="account">{{username}}</p>
+              <p class="account">{{userdata.username}}</p>
             </div>
             <div class="balanceinfo">
               <div class="balance" on-tap="toWallet">
@@ -339,13 +359,15 @@ LOCALS
                 <template is="dom-if" if="{{balanceloaded}}">
                   <h1>{{localcoinbalance}}</h1>
                   <locals-icon class="localcoinamount" verysmall icon="localcoin" iconcolor="blue"></locals-icon>
+
                 </template>
+
               </div>
             </div>
           </div>
 
           <!-- <locals-verification-validator></locals-verification-validator> -->
-        
+
         </div>
 
 
@@ -702,7 +724,20 @@ LOCALS
     this.topicshown = !this.topicshown;
 
 
+  },
+
+  _getipfsurl: function(hash){
+  this._initipfs();
+  return this.ipfs_url + hash;
+},
+
+_initipfs: function(){
+  if (!this.ipfs_url){
+    this.ipfs_url = new Polymer.IronMetaQuery({
+        key: 'ipfs_url'
+      }).value;
   }
+}
 
 });
 })();

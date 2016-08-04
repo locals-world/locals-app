@@ -1,0 +1,133 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-localstorage/iron-localstorage.html">
+
+<dom-module id="locals-getuser">
+  <template>
+
+  <iron-localstorage
+      id="localsuserdata"
+      value="{{userdatacache}}"
+      on-iron-localstorage-load="userdatacacheloaded"
+      on-iron-localstorage-load-empty="userdatacacheloadedempty">
+    </iron-localstorage>
+  </template>
+  <script>
+  (function() {
+    'use strict';
+
+    Polymer({
+      is: 'locals-getuser',
+
+      properties: {
+        web3: {
+          type: Object,
+          observer: '_web3'
+        },
+        account: {
+          type: String,
+          observer: '_contract'
+        },
+        userdata: {
+          type: Object,
+          notify:true
+        },
+      },
+
+        _contract: function(){
+          this.$.localsuserdata.name = 'userdatacache-' + this.account;
+        },
+
+        _web3: function(){
+          this.loadcontract();
+        },
+
+        userdatacacheloaded: function(){
+          if (this.$.localsuserdata.name === ""){
+            return;
+          }
+          this.cacheready = true;
+          this.userdata = this.userdatacache;
+        },
+
+        userdatacacheloadedempty: function(){
+          console.log('userdatacacheloadedempty');
+          if (this.$.localsuserdata.name === ""){
+            return;
+          }
+          //this.userdatacache = {};
+          this.cacheready = true;
+          this.loadcontract();
+        },
+
+        loadcontract: function() {
+          // if the cache has not been loaded...
+          if (this.cacheready && !this.userdatacache) {
+
+            // and if I have all thing needed to read a contract....
+            if (this.web3 && this.account) {
+              try {
+                var self = this;
+                this.profilecontract = "0xD424834A70E044Dd07E013Ee57715Fec668D65eE";
+                var account = app.helpers.fixaddress(self.account);
+                app.helpers.getfile('../../contracts/localsUser.json', function(err, contractjson) {
+                  var MyContract = self.web3.eth.contract(contractjson.abi);
+                  self.blocktubeUsercontractInstance = MyContract.at("0xD424834A70E044Dd07E013Ee57715Fec668D65eE");
+                  console.log('retrieving user ', account);
+                  self.clipuserprofilehash = self.blocktubeUsercontractInstance.getProfileHash.call(account);
+                  //self.clipuserprofilehash = self.blocktubeUsercontractInstance.getProfileHash.call(self.contract);
+                  console.log('got? ', self.clipuserprofilehash);
+                  if (!self.ipfsclient) {
+                    self.ipfsapihost = new Polymer.IronMetaQuery({
+                      key: 'ipfs_read'
+                    }).value;
+                    self.ipfsclient = window.ipfsAPI(self.ipfsapihost);
+                  }
+                  var buf = '';
+
+                  self.ipfsclient.cat(self.clipuserprofilehash, function(err, res) {
+                    if (err) {
+                      return;
+                    }
+                    res
+                      .on('error', function(err) {
+                        throw (err);
+                      })
+                      .on('data', function(data) {
+                        buf += data;
+                      })
+                      .on('end', function() {
+                        var ipfsData = JSON.parse(buf);
+                        console.log(ipfsData);
+                        self.userdatacache = ipfsData;
+                      });
+                  });
+                });
+              } catch (e) {
+                console.log(e);
+              }
+            }
+          }
+        },
+
+
+        attached: function() {
+
+        },
+
+
+
+
+    });
+  })();
+  </script>
+</dom-module>

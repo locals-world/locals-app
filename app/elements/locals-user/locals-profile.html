@@ -333,16 +333,16 @@ locals-object {
       <!--     <div class="avatararea"> -->
       <!-- <locals-avatar renderstate="visual" id="avatar"></locals-avatar> -->
 
-      <ipfs-upload hidefileinput hash="{{hash}}" id="ipfsupload" host="/ip4/109.123.70.141/tcp/5001" >
+      <!-- <ipfs-upload hidefileinput hash="{{hash}}" id="ipfsupload" host="/ip4/109.123.70.141/tcp/5001" >
         <img style="width: 140px; height: 140px;" src="{{_getipfsurl(hash.hash)}}" observe="hash.hash">
-      </ipfs-upload>
-    </div>
+      </ipfs-upload> -->
+    <!-- </div> -->
 
-    <div class="totalinfo">
-      <div class="avatar" id="avatar">
+    <!-- <div class="totalinfo"> -->
+
+      <ipfs-upload hidefileinput hash="{{hash}}" id="ipfsupload" host="/ip4/109.123.70.141/tcp/5001" ><div class="avatar" id="avatar">
       <img src="{{_getipfsurl(hash.hash)}}" observe="hash.hash">
-      </div>
-      <ipfs-upload hash="{{hash}}" id="ipfsupload" host="/ip4/109.123.70.141/tcp/5001" ></ipfs-upload>
+      </div></ipfs-upload>
 
       <locals-input class="inputprofile" label="Username" type="text" bind-value="{{username}}" center inputvalue="{{username}}"></locals-input>
 
@@ -549,5 +549,4 @@ locals-object {
       });
     })();
     </script>
-    <script src="../../scripts/helpers.js"></script>
   </dom-module>
