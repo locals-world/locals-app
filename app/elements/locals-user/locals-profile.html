@@ -321,7 +321,7 @@ locals-object {
       <!-- <locals-avatar renderstate="visual" id="avatar"></locals-avatar> -->
       <img style="width: 140px; height: 140px;" src="{{_getipfsurl(hash.hash)}}" observe="hash.hash">
       <ipfs-upload hash="{{hash}}" id="ipfsupload" host="/ip4/109.123.70.141/tcp/5001" ></ipfs-upload>
-      <p>{{hash.hash}}</p>
+
     </div>
 
     <div class="totalinfo">
@@ -428,12 +428,20 @@ locals-object {
         },
 
         save: function(){
+          var self = this;
           console.log('ik zal ies iet saven se!', this.username, this.hash.hash);
           // we gaan dat dan eerst ipfs hashen
           var prehash = {'username': this.username, 'avatar': this.hash.hash };
           this.$.ipfsupload.add(JSON.stringify(prehash), function(err, result){
             console.log(err, result);
+            // and save the thing at den blockchain
+            var sethash = result[0].Hash;
+            self.saveProfile(sethash);
           });
+        },
+
+        saveProfile: function(e){
+          console.log(e);
         },
 
         _getipfsurl: function(hash){
