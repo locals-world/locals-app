@@ -320,9 +320,19 @@ locals-object {
       <div class="container">
         <div class="main">
           <div class="avatararea">
+          <iron-pages id="avatarsection" selected="{{avatarsectionselected}}">
+          <section>
             <locals-avatar renderstate="inprofile" id="avatar"></locals-avatar>
-            <locals-avatar renderstate="editstate" class="editor"></locals-avatar>
+            <button on-tap="changeit">edit</button>
+          </section>
+          <section>
+            <locals-avatar renderstate="editstate" on-go-back="changeit2"></locals-avatar>
+          </section>
 
+          </iron-pages>
+
+<!--             <locals-avatar renderstate="editstate" class="editor"></locals-avatar>
+ -->
           </div>
 
 
@@ -437,8 +447,15 @@ locals-object {
       },
 
       ready: function(){
+        this.avatarsectionselected = 0;
       },
 
+      changeit: function(){
+        this.avatarsectionselected = 1;
+      },
+      changeit2: function(){
+        this.avatarsectionselected = 0;
+      },
       _data: function(){
       },
 
