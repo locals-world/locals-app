@@ -84,8 +84,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   .main {
     width: 100%;
     max-width: 90vw;
-    @apply(--layout-horizontal);
-    @apply(--layout-wrap);
+    @apply(--layout-vertical);
+    @apply(--layout-center-center);
   }
 
   .tussenschot {
@@ -118,12 +118,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     padding: 0px;
   }
 
+  .avatar {
+    width:140px;
+    height: 140px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: transparent;
+  }
+
+  .avatar img {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
   .totalinfo {
-    width: var(--totalinfo-width);
+    width: 100%;
     @apply(--layout-flex);
     @apply(--layout-vertical);
     @apply(--layout-start);
     @apply(--layout-center-justified);
+    background-color: red;
   }
 
 
@@ -288,13 +303,11 @@ iron-selector {
   to {transform: rotate(360deg);}
 }
 
-#avatar {
-  width: 140px;
-  height: 140px;
-}
+
 
 .inputprofile {
   width: 100%;
+  max-width: 400px;
 }
 
 .editor {
@@ -317,7 +330,7 @@ locals-object {
 </div>
 <div class="container">
   <div class="main">
-    <div class="avatararea">
+      <!--     <div class="avatararea"> -->
       <!-- <locals-avatar renderstate="visual" id="avatar"></locals-avatar> -->
 
       <ipfs-upload hidefileinput hash="{{hash}}" id="ipfsupload" host="/ip4/109.123.70.141/tcp/5001" >
@@ -326,13 +339,21 @@ locals-object {
     </div>
 
     <div class="totalinfo">
+      <div class="avatar" id="avatar">
+      <img src="{{_getipfsurl(hash.hash)}}" observe="hash.hash">
+      </div>
+      <ipfs-upload hash="{{hash}}" id="ipfsupload" host="/ip4/109.123.70.141/tcp/5001" ></ipfs-upload>
+
       <locals-input class="inputprofile" label="Username" type="text" bind-value="{{username}}" center inputvalue="{{username}}"></locals-input>
-    </div>
 
-    <button on-tap="save">SAVE THIS SHIT</button>
+<!--     </div> -->
+
+
 
     <div class="whitespace"></div>
     <div class="whitespace"></div>
+        <button on-tap="save">SAVE THIS SHIT</button>
+
   </div>
 
 </div>
