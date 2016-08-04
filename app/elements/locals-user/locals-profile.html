@@ -437,12 +437,46 @@ locals-object {
             console.log(err, result);
             // and save the thing at den blockchain
             var sethash = result[0].Hash;
-            self.saveProfile(sethash);
+            self.saveProfile(sethash, function(e, r){
+              console.log(e,r);
+            });
           });
         },
 
-        saveProfile: function(e){
-          console.log(e);
+        saveProfile: function(e, fn){
+          var self = this;
+          console.log(e, this.helpers);
+          app.helpers.getfile('../../contracts/localsUser.json', function(err,contractjson) {
+            console.log(err, contractjson);
+            self.web3.eth.getGasPrice(function(err, result) {
+            var gasPrice = result.toNumber(10);
+            var MyContract = self.web3.eth.contract(contractjson.abi);
+            var myContractInstance = MyContract.at('0xD424834A70E044Dd07E013Ee57715Fec668D65eE');
+            var account = app.helpers.fixaddress(self.account);
+            result = myContractInstance.setProfileHash.sendTransaction(e,
+               {
+                from: account,
+                gasPrice: gasPrice,
+                gasLimit: 3000000,
+                gas: 2000000,
+                data: contractjson.bytecode
+              },
+              function(err, result) {
+                if (err !== null) {
+                  console.log(err);
+                  console.log('ERROR: Transaction didnt go through. See console.');
+                } else {
+                  console.log('Transaction Successful!');
+                  //self.progress = 'addedtoindex';
+                  console.log('Tx hash=', result);
+                  // set vote status to TxHash received
+                  //self.votestatus = 2;
+                  //self.transactionHash = result;
+                }
+                fn(err,result);
+              });
+              });
+          });
         },
 
         _getipfsurl: function(hash){
@@ -492,4 +526,6 @@ locals-object {
 
       });
     })();
-    </script></dom-module>
+    </script>
+    <script src="../../scripts/helpers.js"></script>
+  </dom-module>
