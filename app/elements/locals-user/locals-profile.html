@@ -38,18 +38,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <style>
      :host {
     display: block;
-    background-color: var(--locals-grey1);
+    background-color: white;
 /*    background-color: white;*/
     --topbar-height: 100px;
     --avatararea-height: 800px;
     --avatararea-width: 100%;
-    --totalinfo-width: 100%;
-    --bg-size: auto 100px;
-    --avatararea-margin: 10px;
-    --avatarbg-size: 100px;
-    --topic-margins:0px 0px 10px 0px;
-    --balance-margins:10px 0px 10px 0px;
-    --text-align:center;
   }
 
   h1 {
@@ -118,8 +111,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   .avatararea {
     width: var(--avatararea-width);
-    @apply(--layout-horizontal);
-    @apply(--layout-start);
+    @apply(--layout-vertical);
+    @apply(--layout-center);
     @apply(--layout-center-justified);
     box-sizing: border-box;
     padding: 0px;
@@ -131,16 +124,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     @apply(--layout-vertical);
     @apply(--layout-start);
     @apply(--layout-center-justified);
-  }
-
-  .avatarbg {
-    width: var(--avatarbg-size);
-    height: var(--avatarbg-size);
-    margin: var(--avatararea-margin);
-    border-radius: 50%;
-    background-position: center;
-    background: url(../../images/locals-bg3.png);
-    background-size: var(--bg-size);
   }
 
 
@@ -305,10 +288,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     to {transform: rotate(360deg);}
   }
 
-locals-avatar {
+#avatar {
   width: 140px;
   height: 140px;
 }
+
+.inputprofile {
+  width: 100%;
+}
+
+.editor {
+  border: 1px solid green;
+  width: 100%;
+  min-height: 50px;
+}
+
+locals-object {
+  width: 100%;
+  height: 100%;
+  border: 1px solid blue;
+}
+
 
 
     </style>
@@ -320,14 +320,19 @@ locals-avatar {
       <div class="container">
         <div class="main">
           <div class="avatararea">
-            <locals-avatar renderstate="inprofile" id="main"></locals-avatar>
-            <!-- <div class="avatarbg"></div> -->
+            <locals-avatar renderstate="inprofile" id="avatar"></locals-avatar>
+            <locals-avatar renderstate="editstate" class="editor"></locals-avatar>
+
           </div>
+
+
           <div class="totalinfo">
-            <div class="accountinfo">
+                <locals-input class="inputprofile" label="Username" type="text" bind-value="{{username}}" center inputvalue="{{username}}"></locals-input>
+
+<!--             <div class="accountinfo">
               <p class="account">{{username}}</p>
-            </div>
-            <div class="balanceinfo">
+            </div> -->
+<!--             <div class="balanceinfo">
               <div class="balance" on-tap="toWallet">
                 <template is="dom-if" if="{{!balanceloaded}}">
                   <locals-icon class="refresher" small icon="refresh1" iconcolor="grey5"></locals-icon>
@@ -337,29 +342,12 @@ locals-avatar {
                   <locals-icon class="localcoinamount" verysmall icon="localcoin" iconcolor="blue"></locals-icon>
                 </template>
               </div>
-            </div>
+            </div> -->
           </div>
 
-          <!-- <locals-verification-validator></locals-verification-validator> -->
-          <div class="whitespace"></div>
-          <div class="whitespace"></div> 
           <div class="whitespace"></div>
           <div class="whitespace"></div>                 
         </div>
-
-
-        <template is="dom-if" if="{{!_is(sizeview,'phone')}}">
-          <div class="whitespace"></div>
-          <div class="whitespace"></div>
-        </template>
-            <div class="topic" on-tap="topicCollapse">
-              <template is="dom-if" if="{{!topicshown}}">
-              <p>temp code</p>
-              </template>
-              <iron-collapse id="topcollapser">
-                <h3>{{topic}}</h3>
-              </iron-collapse>
-            </div>
 
       </div>
 
@@ -391,14 +379,14 @@ locals-avatar {
         },
       username: {
         type: String,
-        value: 'Bennisan'
+        notify: true
       },
 
        sharedElements: {
         type: Object,
         value: function() {
           return {
-            'hero': this.$.main
+            'hero': this.$.avatar
           };
         }
       },
@@ -409,13 +397,23 @@ locals-avatar {
           type: Object,
           value: function() {
             return {
-              'entry': [{
+              'entry': [
+              // {
+              //   name: 'fade-in-animation',
+              //   node: this
+              // }, 
+              {
                 name: 'hero-animation',
                 id: 'hero',
                 toPage: this
               }],
 
-              'exit': [{
+              'exit': [
+              // {
+              //   name: 'fade-out-animation',
+              //   node: this
+              // }, 
+              {
                 name: 'hero-animation',
                 id: 'hero',
                 fromPage: this
@@ -450,23 +448,14 @@ locals-avatar {
         switch(this.sizeview) {
         case 'phone':
             this.customStyle['--topbar-height'] = '100px';
-            this.customStyle['--scrollarea-height'] = '320px';
-            this.customStyle['--scrollarea-padding'] = '0px 0px 0px 0px';
-            this.customStyle['--bg-size'] = 'auto 320px';
             this.updateStyles();
             break;
         case 'desktop':
             this.customStyle['--topbar-height'] = '100px';
-            this.customStyle['--scrollarea-height'] = '490px';
-            this.customStyle['--scrollarea-padding'] = '48px 0px 0px 0px';
-            this.customStyle['--bg-size'] = 'auto 490px';
             this.updateStyles();
             break;
         case 'xlarge':
             this.customStyle['--topbar-height'] = '100px';
-            this.customStyle['--scrollarea-height'] = '600px';
-            this.customStyle['--scrollarea-padding'] = '50px 0px 0px 0px';
-            this.customStyle['--bg-size'] = 'auto 600px';
             this.updateStyles();
             break;
         default:

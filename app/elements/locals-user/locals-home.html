@@ -299,10 +299,11 @@ LOCALS
     from {transform: rotate(0deg);}
     to {transform: rotate(360deg);}
   }
-locals-avatar {
-  width: 120px;
-  height: 120px;
-}
+
+  locals-avatar {
+    width: var(--avatararea-height);
+    height: var(--avatararea-height);
+  }
 
 
 </style>
@@ -454,6 +455,7 @@ locals-avatar {
 
     username: {
       type: String,
+      notify:true,
       value: 'Bennisan'
     },
 
@@ -610,8 +612,8 @@ locals-avatar {
       this.customStyle['--avatararea-width'] = '100%';
       this.customStyle['--avatararea-margin'] = '10px';
       this.customStyle['--totalinfo-width'] = '100%';
-      this.customStyle['--avatarbg-size'] = '100px';
-      this.customStyle['--bg-size'] = 'auto 100px';
+      // this.customStyle['--avatarbg-size'] = '100px';
+      // this.customStyle['--bg-size'] = 'auto 100px';
       this.customStyle['--topic-margins'] = '0px 0px 10px 0px';
       this.customStyle['--balance-margins'] = '10px 0px 20px 0px';
       this.customStyle['--text-align'] = 'center';
@@ -623,8 +625,8 @@ locals-avatar {
       this.customStyle['--avatararea-width'] = '200px';
       this.customStyle['--avatararea-margin'] = '11px';
       this.customStyle['--totalinfo-width'] = 'auto';
-      this.customStyle['--avatarbg-size'] = '110px';
-      this.customStyle['--bg-size'] = 'auto 110px';
+      // this.customStyle['--avatarbg-size'] = '110px';
+      // this.customStyle['--bg-size'] = 'auto 110px';
       this.customStyle['--topic-margins'] = '0px 0px 20px 0px';
       this.customStyle['--balance-margins'] = '5px 0px 0px 0px';
       this.customStyle['--text-align'] = 'left';
@@ -636,8 +638,8 @@ locals-avatar {
       this.customStyle['--avatararea-width'] = '200px';
       this.customStyle['--avatararea-margin'] = '15px';
       this.customStyle['--totalinfo-width'] = 'auto';
-      this.customStyle['--avatarbg-size'] = '150px';
-      this.customStyle['--bg-size'] = 'auto 150px';
+      // this.customStyle['--avatarbg-size'] = '150px';
+      // this.customStyle['--bg-size'] = 'auto 150px';
       this.customStyle['--topic-margins'] = '0px 0px 20px 0px';
       this.customStyle['--balance-margins'] = '5px 0px 0px 0px';
       this.customStyle['--text-align'] = 'left';
