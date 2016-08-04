@@ -379,9 +379,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       toWaiting: function(){
         var self = this;
+        //debugger;
         this.whisper = document.querySelector('locals-whisperer');
         this.handler = document.querySelector('locals-verification-validator');
         console.log('wallet: ',this.whisper.topic);
+        debugger;
         this.whisper.whisperpost(this.pincode, JSON.stringify({
                 'command': 'requestpubkey',
                 'from': this.whisper.topic,
