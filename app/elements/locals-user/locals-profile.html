@@ -35,11 +35,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <dom-module id="locals-profile">
   <template>
-    <style>
-     :host {
+  <style>
+  :host {
     display: block;
     background-color: white;
-/*    background-color: white;*/
+    /*    background-color: white;*/
     --topbar-height: 100px;
     --avatararea-height: 800px;
     --avatararea-width: 100%;
@@ -159,134 +159,134 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     line-height: 24px;
     @apply(--opensans-light);
     color: var(--locals-grey7);
-/*    white-space: nowrap;
+    /*    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;*/
     text-align: var(--text-align);
     margin: 20px 0px 0px 0px;
   }
 
-/*  .username {
-    font-size: 12px;
-    line-height: 16px;
-    color: var(--locals-grey5);
-    @apply(--opensans-reg);
-  }
+  /*  .username {
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--locals-grey5);
+  @apply(--opensans-reg);
+}
 */
 
-  .balanceinfo {
-    margin: var(--balance-margins);
-    width: var(--totalinfo-width);
-    @apply(--layout-horizontal);
-    @apply(--layout-center-center);
-  }
+.balanceinfo {
+  margin: var(--balance-margins);
+  width: var(--totalinfo-width);
+  @apply(--layout-horizontal);
+  @apply(--layout-center-center);
+}
 
 
 
-  .balance {
-    color: var(--locals-darkgrey);
-    @apply(--layout-horizontal);
-    @apply(--layout-end);
-    @apply(--layout-wrap);
-    width: auto;
-  }
+.balance {
+  color: var(--locals-darkgrey);
+  @apply(--layout-horizontal);
+  @apply(--layout-end);
+  @apply(--layout-wrap);
+  width: auto;
+}
 
-  .balance:hover {
-    cursor: pointer;
-  }
-  .balance h1 {
-    margin: 0px;
-    color: var(--locals-blue);
-  }
-
-
-  .topic {
-    width: 90%;
-    @apply(--layout-vertical);
-    @apply(--layout-end);
-    @apply(--layout-center-justified);
-    margin: var(--topic-margins);
-  }
-
-  .topic p {
-    width: auto;
-    color: var(--locals-grey7);
-    font-size: 12px;
-    text-decoration: underline;
-    margin: 0px 0px 0px 0px;
-  }
+.balance:hover {
+  cursor: pointer;
+}
+.balance h1 {
+  margin: 0px;
+  color: var(--locals-blue);
+}
 
 
-  .topic h3 {
-    width: auto;
-    color: var(--locals-grey7);
-    font-size: 18px;
-    margin: 5px 0px 5px 0px;
-  }
-  .localcoinamount {
-    margin: 0px 0px 7px 6px;
-  }
+.topic {
+  width: 90%;
+  @apply(--layout-vertical);
+  @apply(--layout-end);
+  @apply(--layout-center-justified);
+  margin: var(--topic-margins);
+}
 
-  locals-verification-validator {
-    width: 0px;
-    height: 0px;
-    opacity: 0;
-  }
-
-  .refresher {
-    margin: 10px 0px 10px 0px;
-    -webkit-animation-name: rotate;
-    -webkit-animation-duration: 1s;
-    -webkit-animation-iteration-count: infinite;
-    -webkit-animation-timing-function: linear;
-    -moz-animation-name: rotate;
-    -moz-animation-duration: 1s;
-    -moz-animation-iteration-count: infinite;
-    -moz-animation-timing-function: linear;
-    animation-name: rotate;
-    animation-duration: 1s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-  }
-
-  iron-selector {
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  .total {
-    width: 100%;
-    @apply(--layout-vertical);
-    @apply(--layout-center-center);
-  }
-
-  .renderitem {
-    width: 100%;
-  }
-
-  .dialogues {
-    @apply(--layout-horizontal);
-    @apply(--layout-center-center);
-    margin: 0px 10px 0px 10px;
-    font-size: 12px;
-  }
+.topic p {
+  width: auto;
+  color: var(--locals-grey7);
+  font-size: 12px;
+  text-decoration: underline;
+  margin: 0px 0px 0px 0px;
+}
 
 
+.topic h3 {
+  width: auto;
+  color: var(--locals-grey7);
+  font-size: 18px;
+  margin: 5px 0px 5px 0px;
+}
+.localcoinamount {
+  margin: 0px 0px 7px 6px;
+}
 
-  @-webkit-keyframes rotate {
-    from {-webkit-transform: rotate(0deg);}
-    to {-webkit-transform: rotate(360deg);}
-  }
+locals-verification-validator {
+  width: 0px;
+  height: 0px;
+  opacity: 0;
+}
 
-  @-moz-keyframes rotate {
-    from {-moz-transform: rotate(0deg);}
-    to {-moz-transform: rotate(360deg);}
-  }
+.refresher {
+  margin: 10px 0px 10px 0px;
+  -webkit-animation-name: rotate;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  -moz-animation-name: rotate;
+  -moz-animation-duration: 1s;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-timing-function: linear;
+  animation-name: rotate;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
 
-  @keyframes rotate {
-    from {transform: rotate(0deg);}
-    to {transform: rotate(360deg);}
-  }
+iron-selector {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.total {
+  width: 100%;
+  @apply(--layout-vertical);
+  @apply(--layout-center-center);
+}
+
+.renderitem {
+  width: 100%;
+}
+
+.dialogues {
+  @apply(--layout-horizontal);
+  @apply(--layout-center-center);
+  margin: 0px 10px 0px 10px;
+  font-size: 12px;
+}
+
+
+
+@-webkit-keyframes rotate {
+  from {-webkit-transform: rotate(0deg);}
+  to {-webkit-transform: rotate(360deg);}
+}
+
+@-moz-keyframes rotate {
+  from {-moz-transform: rotate(0deg);}
+  to {-moz-transform: rotate(360deg);}
+}
+
+@keyframes rotate {
+  from {transform: rotate(0deg);}
+  to {transform: rotate(360deg);}
+}
 
 #avatar {
   width: 140px;
@@ -309,80 +309,67 @@ locals-object {
   border: 1px solid blue;
 }
 
+</style>
 
-
-    </style>
-
-    <div class="topbar">
-        <p class="flex" on-tap="change"></p>
-        <locals-button bgrgba="0,0,0,0" icon="declinenew" on-tap="toHome" small id="exitbtn"></locals-button>
+<div class="topbar">
+  <p class="flex" on-tap="change"></p>
+  <locals-button bgrgba="0,0,0,0" icon="declinenew" on-tap="toHome" small id="exitbtn"></locals-button>
+</div>
+<div class="container">
+  <div class="main">
+    <div class="avatararea">
+      <!-- <locals-avatar renderstate="visual" id="avatar"></locals-avatar> -->
+      <img style="width: 140px; height: 140px;" src="{{_getipfsurl(hash.hash)}}" observe="hash.hash">
+      <ipfs-upload hash="{{hash}}" id="ipfsupload" host="/ip4/109.123.70.141/tcp/5001" ></ipfs-upload>
+      <p>{{hash.hash}}</p>
     </div>
-      <div class="container">
-        <div class="main">
-          <div class="avatararea">
-            <locals-avatar renderstate="inprofile" id="avatar"></locals-avatar>
-            <locals-avatar renderstate="editstate" class="editor"></locals-avatar>
 
-          </div>
+    <div class="totalinfo">
+      <locals-input class="inputprofile" label="Username" type="text" bind-value="{{username}}" center inputvalue="{{username}}"></locals-input>
+    </div>
 
+    <button on-tap="save">SAVE THIS SHIT</button>
 
-          <div class="totalinfo">
-                <locals-input class="inputprofile" label="Username" type="text" bind-value="{{username}}" center inputvalue="{{username}}"></locals-input>
+    <div class="whitespace"></div>
+    <div class="whitespace"></div>
+  </div>
 
-<!--             <div class="accountinfo">
-              <p class="account">{{username}}</p>
-            </div> -->
-<!--             <div class="balanceinfo">
-              <div class="balance" on-tap="toWallet">
-                <template is="dom-if" if="{{!balanceloaded}}">
-                  <locals-icon class="refresher" small icon="refresh1" iconcolor="grey5"></locals-icon>
-                </template>
-                <template is="dom-if" if="{{balanceloaded}}">
-                  <h1>{{localcoinbalance}}</h1>
-                  <locals-icon class="localcoinamount" verysmall icon="localcoin" iconcolor="blue"></locals-icon>
-                </template>
-              </div>
-            </div> -->
-          </div>
-
-          <div class="whitespace"></div>
-          <div class="whitespace"></div>                 
-        </div>
-
-      </div>
+</div>
 
 
 
 </template>
 <script>
-  (function() {
-    'use strict';
+(function() {
+  'use strict';
 
-    Polymer({
-      is: 'locals-profile',
+  Polymer({
+    is: 'locals-profile',
     behaviors: [
       Polymer.NeonSharedElementAnimatableBehavior
     ],
-      properties: {
-        objectdata: {
-          type: Object,
-          observer: '_objectdata'
-        },
-        key: {
-          type: String,
-          observer: '_key'
-        },
+    properties: {
+      objectdata: {
+        type: Object,
+        observer: '_objectdata'
+      },
 
-        sizeview: {
-          type: String,
-          observer: '_sizeview'
-        },
+      key: {
+        type: String,
+        observer: '_key'
+      },
+
+      sizeview: {
+        type: String,
+        observer: '_sizeview'
+      },
+
       username: {
         type: String,
         notify: true
       },
 
-       sharedElements: {
+      sharedElements: {
         type: Object,
         value: function() {
           return {
@@ -391,17 +378,15 @@ locals-object {
         }
       },
 
-
-
-     animationConfig: {
-          type: Object,
-          value: function() {
-            return {
-              'entry': [
+      animationConfig: {
+        type: Object,
+        value: function() {
+          return {
+            'entry': [
               // {
               //   name: 'fade-in-animation',
               //   node: this
-              // }, 
+              // },
               {
                 name: 'hero-animation',
                 id: 'hero',
@@ -409,71 +394,93 @@ locals-object {
               }],
 
               'exit': [
-              // {
-              //   name: 'fade-out-animation',
-              //   node: this
-              // }, 
-              {
-                name: 'hero-animation',
-                id: 'hero',
-                fromPage: this
-              }]
+                // {
+                //   name: 'fade-out-animation',
+                //   node: this
+                // },
+                {
+                  name: 'hero-animation',
+                  id: 'hero',
+                  fromPage: this
+                }]
 
-              // 'exit': [{
-              //   name: 'fade-out-animation',
-              //   node: this
-              // }, {
-              //   name: 'hero-animation',
-              //   id: 'hero',
-              //   fromPage: this
-              // }]
-            };
+                // 'exit': [{
+                //   name: 'fade-out-animation',
+                //   node: this
+                // }, {
+                //   name: 'hero-animation',
+                //   id: 'hero',
+                //   fromPage: this
+                // }]
+              };
+            }
           }
+
+
+
+
+        },
+
+        ready: function(){
+        },
+
+        _data: function(){
+        },
+
+        save: function(){
+          console.log('ik zal ies iet saven se!', this.username, this.hash.hash);
+          // we gaan dat dan eerst ipfs hashen
+          var prehash = {'username': this.username, 'avatar': this.hash.hash };
+          this.$.ipfsupload.add(JSON.stringify(prehash), function(err, result){
+            console.log(err, result);
+          });
+        },
+
+        _getipfsurl: function(hash){
+        //debugger;
+        this._initipfs();
+        return this.ipfs_url + hash;
+      },
+
+      _initipfs: function(){
+        if (!this.ipfs_url){
+          this.ipfs_url = new Polymer.IronMetaQuery({
+              key: 'ipfs_url'
+            }).value;
+        }
+      },
+
+        // },
+        _sizeview: function(){
+          switch(this.sizeview) {
+            case 'phone':
+            this.customStyle['--topbar-height'] = '100px';
+            this.updateStyles();
+            break;
+            case 'desktop':
+            this.customStyle['--topbar-height'] = '100px';
+            this.updateStyles();
+            break;
+            case 'xlarge':
+            this.customStyle['--topbar-height'] = '100px';
+            this.updateStyles();
+            break;
+            default:
+            console.log('!!! ** Niks');
+          }
+        },
+
+        toHome: function(){
+          this.fire('to-home');
+        },
+
+        _objectdata: function(){
+        },
+
+        _key: function(){
         }
 
 
-
-
-      },
-
-      ready: function(){
-      },
-
-      _data: function(){
-      },
-
-
-      // },
-      _sizeview: function(){
-        switch(this.sizeview) {
-        case 'phone':
-            this.customStyle['--topbar-height'] = '100px';
-            this.updateStyles();
-            break;
-        case 'desktop':
-            this.customStyle['--topbar-height'] = '100px';
-            this.updateStyles();
-            break;
-        case 'xlarge':
-            this.customStyle['--topbar-height'] = '100px';
-            this.updateStyles();
-            break;
-        default:
-        console.log('!!! ** Niks');
-        }
-      },
-
-    toHome: function(){
-        this.fire('to-home');
-    },
-
-    _objectdata: function(){
-    },
-
-    _key: function(){
-    }
-
-
-    });
-  })();
-  </script></dom-module>
+      });
+    })();
+    </script></dom-module>
