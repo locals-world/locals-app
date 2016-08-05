@@ -26,8 +26,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/locals-button/locals-button.html">
 <link rel="import" href="../../bower_components/locals-lsapi/locals-lsapi.html">
 <link rel="import" href="../../bower_components/locals-icon/locals-icon.html">
-<link rel="import" href="../../bower_components/locals-objectrender/locals-objectrender.html">
-<link rel="import" href="../../bower_components/locals-store/locals-store.html">
 <link rel="import" href="../../bower_components/locals-style/locals-style.html">
 <link rel="import" href="../../bower_components/locals-whisperer/locals-whisperer.html">
 
@@ -124,12 +122,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     border-radius: 50%;
     overflow: hidden;
     background-color: transparent;
+
   }
 
   .avatar img {
     width: 100%;
     height: 100%;
     border: none;
+
   }
 
   .totalinfo {
@@ -307,7 +307,7 @@ iron-selector {
 
 .inputprofile {
   width: 100%;
-  max-width: 400px;
+  max-width: 300px;
 }
 
 .editor {
@@ -316,11 +316,100 @@ iron-selector {
   min-height: 50px;
 }
 
-locals-object {
-  width: 100%;
-  height: 100%;
-  border: 1px solid blue;
-}
+  .avatarrandomize {
+    width: 140px;
+    @apply(--layout-horizontal);
+    @apply(--layout-center);
+    @apply(--layout-end-justified);
+    margin: -40px 0px 0px 0px;
+  }
+
+  .avatarrandomize locals-icon {
+    border-radius: 50%;
+    background-color: var(--locals-white);
+    box-sizing: border-box;
+    padding: 10px;
+    margin: 0px;
+  }
+
+
+/*  .avatarstuff {
+    width: 100%;
+    @apply(--layout-horizontal);
+    @apply(--layout-center-center);
+    margin: 10px 0px 30px 0px;
+  }
+
+  .avatarstuff p {
+    color: var(--locals-blue);
+  }
+*/
+  .uploadlink {
+    width: 100%;
+    @apply(--layout-vertical);
+    @apply(--layout-center-center);
+    margin: 0px 0px 30px 0px;
+
+  }
+
+  .uploadlink p {
+    width: auto;
+    font-size: 12px;
+    text-decoration: underline;
+    margin: 0px 0px 0px 0px;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    color: var(--locals-blue);
+  }
+
+  .uploadlink p:hover {
+    cursor: pointer;
+  }
+
+  #therest {
+    width: 100%;
+    @apply(--layout-vertical);
+    @apply(--layout-center);
+  }
+
+
+     .refresher {
+/*        transition: all 1s linear;*/
+      -webkit-animation: none;
+      -moz-animation: none;
+      animation: none;
+     }
+
+
+
+     .spinonce {
+      -webkit-animation: rotate 0.5s linear infinite;
+      -moz-animation: rotate 0.5s linear infinite;
+      animation: rotate 0.5s linear infinite;
+
+     }
+
+
+
+      @-webkit-keyframes rotate {
+          from {-webkit-transform: rotate(0deg);}
+          to {-webkit-transform: rotate(180deg);}
+      }
+
+      @-moz-keyframes rotate {
+          from {-moz-transform: rotate(0deg);}
+          to {-moz-transform: rotate(180deg);}
+      }
+
+      @keyframes rotate {
+          from {transform: rotate(0deg);}
+          to {transform: rotate(180deg);}
+      }
+
+
+
 
 </style>
 
@@ -340,9 +429,22 @@ locals-object {
 
     <!-- <div class="totalinfo"> -->
 
-      <ipfs-upload hidefileinput hash="{{hash}}" id="ipfsupload" host="/ip4/109.123.70.141/tcp/5001" ><div class="avatar" id="avatar">
-      <img src="{{avatarurl}}">
-      </div></ipfs-upload>
+        <div class="avatar" id="avatar">
+          <img src="{{avatarurl}}">
+        </div>
+
+      <div id="therest">
+
+      <div class="avatarrandomize">
+          <locals-icon class$="refresher {{spinclass}}" icon="refresh1" iconcolor="blue" verysmall on-tap="refreshBalance"></locals-icon>
+      </div>
+
+
+<!--           <locals-icon class$="refresher {{spinclass}}" icon="refresh1" iconcolor="grey5" small on-tap="refreshBalance"></locals-icon> -->
+        <ipfs-upload hidefileinput hash="{{hash}}" id="ipfsupload" host="/ip4/109.123.70.141/tcp/5001" >
+        <div class="uploadlink">
+        <p>Upload image</p>
+        </div></ipfs-upload>
 
       <locals-input class="inputprofile" label="Username" type="text" bind-value="{{username}}" center inputvalue="{{userdata.username}}"></locals-input>
 
@@ -351,9 +453,8 @@ locals-object {
 
 
     <div class="whitespace"></div>
-    <div class="whitespace"></div>
-        <button on-tap="save">SAVE</button>
-
+      <locals-button on-tap="save" bg="blue" icon="v" txtcolor="white" small></locals-button>
+      </div>
   </div>
 
 </div>
@@ -410,10 +511,10 @@ locals-object {
         value: function() {
           return {
             'entry': [
-              // {
-              //   name: 'fade-in-animation',
-              //   node: this
-              // },
+              {
+                name: 'fade-in-animation',
+                node: this.$.therest
+              },
               {
                 name: 'hero-animation',
                 id: 'hero',
@@ -421,10 +522,10 @@ locals-object {
               }],
 
               'exit': [
-                // {
-                //   name: 'fade-out-animation',
-                //   node: this
-                // },
+                {
+                  name: 'fade-out-animation',
+                  node: this.$.therest
+                },
                 {
                   name: 'hero-animation',
                   id: 'hero',
@@ -450,6 +551,7 @@ locals-object {
 
 
         ready: function(){
+        this.spinclass = '';
 
           // Change avatar listener
           var self = this;
@@ -464,6 +566,7 @@ locals-object {
         },
 
         _userdata: function(){
+          console.log(this.userdata);
           this.avatarurl = this._getipfsurl(this.userdata.avatar);
           this.currentavatar = this.userdata.avatar;
         },
@@ -517,7 +620,6 @@ locals-object {
                   console.log('Transaction Successful!');
                   //self.progress = 'addedtoindex';
                   console.log('Tx hash=', result);
-                  self.fire('to-home');
                   // set vote status to TxHash received
                   //self.votestatus = 2;
                   //self.transactionHash = result;
@@ -570,7 +672,18 @@ locals-object {
         },
 
         _key: function(){
-        }
+        },
+
+
+      refreshBalance:function() {
+        this.spinclass = 'spinonce';
+
+        /* Hier de refreshfunctie?*/
+        var self = this;
+        setTimeout(function(){
+            self.spinclass = '';
+        },500)
+      },
 
 
       });
