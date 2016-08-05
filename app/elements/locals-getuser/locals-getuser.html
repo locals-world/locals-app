@@ -81,7 +81,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         loadcontract: function() {
           // if the cache has not been loaded...
-          if (this.cacheready && !this.userdatacache) {
+          // if (this.cacheready && !this.userdatacache) {
 
             // and if I have all thing needed to read a contract....
             if (this.web3 && this.account) {
@@ -127,7 +127,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 console.log(e);
               }
             }
-          }
+          // }
         },
 
         userlookup: function(account, fn) {
