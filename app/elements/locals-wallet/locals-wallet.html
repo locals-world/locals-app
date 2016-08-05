@@ -402,7 +402,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             break;
           case 'sendpubkey':
             console.log('Send localcoin to ',message.pubkey);
-<<<<<<< HEAD
             this.transfer(this.amount,app.helpers.fixaddress(message.pubkey),function(err,result){
               self.whisper.whisperpost(m.from, JSON.stringify({
               'command': 'confirmtransfer',
@@ -412,11 +411,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             break;
           case 'confirmtransfer':
             // TODO : show transfer in history...
-=======
-            // TODO : hiere transactie uitvoeren dat ge LC stuurt naar message.pubkey...
-
-            this.transfer(this.amount,app.helpers.fixaddress(message.pubkey));
->>>>>>> 01520c8f0ffb90baab8e0a8274bf36f44a2b4ba9
+            console.log('transfer confirmed...',message.amount,'received');
             break;
           default:
             console.log('unknown message',message);
