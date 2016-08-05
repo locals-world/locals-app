@@ -269,8 +269,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <iron-collapse id="sendcoins">
         <template is="dom-if" if="{{_is(sendcoinstate,'first')}}">
           <div class="whitespace"></div>
-          <locals-input class="sendinput" autofocus bind-value="{{amount}}" label="Amount"></locals-input>
-          <locals-input class="sendinput" autofocus bind-value="{{pincode}}" label="To"></locals-input>
+          <locals-input class="sendinput" autofocus value="" bind-value="{{amount}}" label="Amount"></locals-input>
+          <locals-input class="sendinput" autofocus value="" bind-value="{{pincode}}" label="To"></locals-input>
           <locals-confirm on-cancel="togglesendcoins" on-confirm="toWaiting" type="next"></locals-confirm>
         </template>
 
@@ -297,9 +297,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div class="tussenschot"></div>
       <div class="totalpart">
         <template is="dom-repeat" items="{{history}}">
-          <locals-getuser userdata="{{userdata}}" web3="{{web3}}" account="{{item.receiver}}"></locals-getuser>
+          <locals-getuser userdata="[[userdata]]" web3="{{web3}}" account="[[item.receiver]]"></locals-getuser>
           <p class="temp">&Delta;<span>{{item.amount}}</span><span>{{item.receiver}}</span></p>
-          <span>{{userdata.username}}</span>
+          <span>[[userdata.username]]</span>
         </template>
       </div>
 
@@ -485,7 +485,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       transfer: function(amount,pubkey,cb){
-        debugger;
+        //debugger;
         // we gaan dan wat geld versjassen
         this.web3wallet = document.querySelector('web3-wallet');
         //this.amount = 1;
@@ -518,6 +518,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           });
           //this.web3.send(this.partnerpubkey, this.amount);
         });
+        this.sendcoinstate = 'first';
       },
 
     toHome: function() {
