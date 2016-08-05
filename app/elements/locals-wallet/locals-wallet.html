@@ -297,8 +297,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div class="tussenschot"></div>
       <div class="totalpart">
         <template is="dom-repeat" items="{{history}}">
-          <!-- <locals-getuser userdata="[[userdata]]" web3="{{web3}}" account="0xF365459300446bDcCd601f6f137B71Da25fE4E63"></locals-getuser> -->
-          <p class="temp">&Delta;<span>{{item.amount}}</span><span>{{item.receiver}}</span></p>
+
+          <p>[[_getUsername(item.receiver)]]</p>
+          <!-- <p class="temp">&Delta;<span>{{item.amount}}</span><span>{{item.receiver}}</span></p> -->
         </template>
       </div>
 
@@ -400,6 +401,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         });
       },
 
+      _getUsername: function(account,cb){
+       var getuser = document.querySelector("locals-getuser");
+       var userinfo = getuser.userlookup(account, function(info){
+         console.log('wallet kent users: ', info.username);
+         cb(info.username);
+       });
+     },
+
       handlewhispermessage: function(m) {
         var self = this;
         var message = JSON.parse(m.message);
@@ -420,9 +429,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 'amount': self.amount * 100
               }));
             });
-            this.push('history', {
-              'amount': this.amount * 100, 'receiver': message.pubkey
-            });
+            var username = self._getUsername(message.pubkey,function(username){
+                self.push('history', {
+             'amount': this.amount * 100, 'receiver': username
+           });
+              });
             break;
           case 'confirmtransfer':
             // TODO : show transfer in history...
@@ -479,7 +490,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         var account = this.fixaddress(this.account);
         var coinbalance = myContractInstance.balanceOf(account);
-        this.localcoinbalance = coinbalance / 100;
+        this.localcoinbalance = (coinbalance / 100).toFixed(2);
         // console.log('localcoinbalance: ', coinbalance);
         this.balanceloaded = true;
         this.fire('balance-loaded');
