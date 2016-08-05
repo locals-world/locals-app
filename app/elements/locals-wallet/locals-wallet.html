@@ -377,24 +377,51 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.sendcoinstate = 'first';
       },
 
+      attached: function(){
+        var self=this;
+        this.whisper = document.querySelector('locals-whisperer');
+        //debugger;
+        this.whisper.addEventListener('message-received', function(e){
+          console.log('got pub key: ', e.detail);
+          self.handlewhispermessage(e.detail);
+          // self.partnerpubkey = e.detail;
+          // self.transfer();
+        });
+      },
+
+      handlewhispermessage: function(m){
+        var message = JSON.parse(m.message);
+        var whisper = document.querySelector('locals-whisperer');
+        switch (message.command){
+          case 'requestpubkeyforlocalstransfer':
+            this.whisper.whisperpost(m.from, JSON.stringify({
+              'command': 'sendpubkey',
+              'pubkey' : this.account
+            }));
+            break;
+          case 'sendpubkey':
+            console.log('Send localcoin to ',message.pubkey);
+            // TODO : hiere transactie uitvoeren dat ge LC stuurt naar message.pubkey...
+            debugger;
+            self.transfer(self.amount,message.pubkey);
+            break;
+          default:
+            console.log('unknown message',message);
+        }
+      },
+
       toWaiting: function(){
         var self = this;
         //debugger;
         this.whisper = document.querySelector('locals-whisperer');
-        this.handler = document.querySelector('locals-verification-validator');
+        //this.handler = document.querySelector('locals-verification-validator');
         console.log('wallet: ',this.whisper.topic);
-        debugger;
+        //debugger;
         this.whisper.whisperpost(this.pincode, JSON.stringify({
-                'command': 'requestpubkey',
-                'from': this.whisper.topic,
-                'data': null
+                'command': 'requestpubkeyforlocalstransfer',
               }));
         this.state = 'waiting';
-        this.handler.addEventListener('pub-key', function(e){
-          console.log('got pub key: ', e.detail);
-          self.partnerpubkey = e.detail;
-          self.transfer();
-        });
+      
 
         this.sendcoinstate = 'second';
       },
@@ -433,7 +460,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         });
       },
 
-      transfer: function(){
+      transfer: function(amount,pubkey){
         // we gaan dan wat geld versjassen
         this.web3wallet = document.querySelector('web3-wallet');
         //this.amount = 1;
@@ -449,7 +476,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           var MyContract = self.web3wallet.web3.eth.contract(self.contractjson.abi);
           var myContractInstance = MyContract.at(self.contractaddr);
             console.log('doing transfer to: ', self.partnerpubkey, 'from: ', self.web3wallet.account);
-            myContractInstance.transfer.sendTransaction(self.partnerpubkey, self.amount, {
+            myContractInstance.transfer.sendTransaction(pubkey, amount, {
               from: self.fixaddress(self.web3wallet.account),
               gasPrice: gasPrice,
               gasLimit: 3000000,
