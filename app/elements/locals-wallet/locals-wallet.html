@@ -296,7 +296,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </div>
       <div class="tussenschot"></div>
       <div class="totalpart">
-        <p class="temp">Hier komt de historiek van transacties.</p>
+        <template is="dom-repeat" items="{{history}}">
+          <p class="temp">{{item.descr}}</p>
+        </template>
       </div>
 
 <!--     <div>
@@ -353,6 +355,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           value: true
         },
 
+        history: {
+          type: Array,
+          value: [{'descr': 'Transaction history'}]
+        },
 
         contractaddr: {
           type: String,
@@ -379,6 +385,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       attached: function(){
         var self=this;
+
         this.whisper = document.querySelector('locals-whisperer');
         //debugger;
         this.whisper.addEventListener('message-received', function(e){
@@ -389,32 +396,37 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         });
       },
 
-      handlewhispermessage: function(m){
+      handlewhispermessage: function(m) {
         var self = this;
         var message = JSON.parse(m.message);
         var whisper = document.querySelector('locals-whisperer');
-        switch (message.command){
+        switch (message.command) {
           case 'requestpubkeyforlocalstransfer':
             this.whisper.whisperpost(m.from, JSON.stringify({
               'command': 'sendpubkey',
-              'pubkey' : this.account
+              'pubkey': this.account
             }));
             break;
           case 'sendpubkey':
-            console.log('Send localcoin to ',message.pubkey);
-            this.transfer(this.amount,app.helpers.fixaddress(message.pubkey),function(err,result){
+            console.log('Send localcoin to ', message.pubkey);
+            this.transfer(this.amount, app.helpers.fixaddress(message.pubkey), function(err, result) {
+              console.log('Transfer started. Sending confirmation to ',m.from);
               self.whisper.whisperpost(m.from, JSON.stringify({
-              'command': 'confirmtransfer',
-              'amount' : this.amount
-            }));
+                'command': 'confirmtransfer',
+                'amount': this.amount
+              }));
+            });
+            var msg = this.amount + ' sent to ' + message.pubkey;
+            this.push('history', {
+              'descr': msg
             });
             break;
           case 'confirmtransfer':
             // TODO : show transfer in history...
-            console.log('transfer confirmed...',message.amount,'received');
+            console.log('transfer confirmed...', message.amount, 'received');
             break;
           default:
-            console.log('unknown message',message);
+            console.log('unknown message', message);
         }
       },
 
