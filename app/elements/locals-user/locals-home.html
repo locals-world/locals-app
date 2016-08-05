@@ -301,14 +301,10 @@ LOCALS
     to {transform: rotate(360deg);}
   }
 
-  locals-avatar {
-    width: var(--avatararea-height);
-    height: var(--avatararea-height);
-  }
 
   .avatar {
-    width:140px;
-    height: 140px;
+    width: var(--avatararea-height);
+    height: var(--avatararea-height);
     border-radius: 50%;
     overflow: hidden;
     background-color: transparent;
@@ -319,6 +315,9 @@ LOCALS
     height: 100%;
     border: none;
   }
+
+
+
 
 
 </style>
@@ -340,9 +339,9 @@ LOCALS
       <div class="container">
         <div class="main">
           <div class="avatararea">
-            <!-- <locals-avatar renderstate="visual" on-tap="toProfile"  id="mainhome" sizeview="{{sizeview}}"></locals-avatar>
+            <!-- <locals-avatar renderstate="visual" on-tap="toProfile"  id="avatar" sizeview="{{sizeview}}"></locals-avatar>
              -->
-             <div class="avatar" id="avatar" on-tap="toProfile">
+             <div class="avatar" on-tap="toProfile" id="avatar">
                <img src="{{_getipfsurl(userdata.avatar)}}" observe="userdata.avatar">
              </div>
           </div>
@@ -565,9 +564,9 @@ LOCALS
   },
 
   toProfile: function(){
-  var mainhome = document.querySelector('#mainhome');
+  var avatar = document.querySelector('#avatar');
     this.sharedElements = {
-      'hero': mainhome,
+      'hero': avatar,
     };
 
   this.animationConfig = {
