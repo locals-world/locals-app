@@ -319,7 +319,7 @@ iron-selector {
     width: 140px;
     @apply(--layout-horizontal);
     @apply(--layout-center);
-    @apply(--layout-end-justified); 
+    @apply(--layout-end-justified);
     margin: -40px 0px 0px 0px;
   }
 
@@ -566,6 +566,7 @@ iron-selector {
         },
 
         _userdata: function(){
+          console.log(this.userdata);
           this.avatarurl = this._getipfsurl(this.userdata.avatar);
           this.currentavatar = this.userdata.avatar;
         },
