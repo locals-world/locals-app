@@ -258,12 +258,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <div class="whitespace"></div>
         <template is="dom-if" if="{{collsclosed}}">
           <template is="dom-if" if="{{_is(sizeview,'phone')}}">
-            <locals-button small txtbtn txtcolor="blue" on-tap="togglesendcoins"><div class="inbutton">send <locals-icon class="coinbtn" verysmall icon="localcoin" iconcolor="blue"></locals-icon></div></locals-button>
-            <locals-button small txtbtn txtcolor="blue" on-tap="togglereceivecoins"><div class="inbutton">receive <locals-icon class="coinbtn" verysmall icon="localcoin" iconcolor="blue"></locals-icon></div></locals-button>
+            <locals-button small txtbtn txtcolor="blue" on-tap="togglesendcoins"><div class="inbutton">send</div></locals-button>
+            <locals-button small txtbtn txtcolor="blue" on-tap="togglereceivecoins"><div class="inbutton">receive</div></locals-button>
           </template>
           <template is="dom-if" if="{{!_is(sizeview,'phone')}}">
-            <locals-button txtbtn txtcolor="blue" on-tap="togglesendcoins"><div class="inbutton">send <locals-icon class="coinbtn" verysmall icon="localcoin" iconcolor="blue"></locals-icon></div></locals-button>
-            <locals-button txtbtn txtcolor="blue" on-tap="togglereceivecoins"><div class="inbutton">receive <locals-icon class="coinbtn" verysmall icon="localcoin" iconcolor="blue"></locals-icon></div></locals-button>
+            <locals-button txtbtn txtcolor="blue" on-tap="togglesendcoins"><div class="inbutton">send</div></locals-button>
+            <locals-button txtbtn txtcolor="blue" on-tap="togglereceivecoins"><div class="inbutton">receive</div></locals-button>
           </template>
         </template>
         <iron-collapse id="sendcoins">
