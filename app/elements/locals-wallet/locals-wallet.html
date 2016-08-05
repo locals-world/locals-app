@@ -409,20 +409,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             break;
           case 'sendpubkey':
             console.log('Send localcoin to ', message.pubkey);
-            this.transfer(this.amount * 10, app.helpers.fixaddress(message.pubkey), function(err, result) {
+            this.transfer(this.amount * 100, app.helpers.fixaddress(message.pubkey), function(err, result) {
               console.log('Transfer started. Sending confirmation to ',m.from);
               self.whisper.whisperpost(m.from, JSON.stringify({
                 'command': 'confirmtransfer',
-                'amount': self.amount
+                'amount': self.amount * 100
               }));
             });
             this.push('history', {
-              'amount': this.amount, 'receiver': message.pubkey
+              'amount': this.amount * 100, 'receiver': message.pubkey
             });
             break;
           case 'confirmtransfer':
             // TODO : show transfer in history...
             console.log('transfer confirmed...', message.amount, 'received');
+            this.push('history', {
+              'amount': this.amount * 100, 'receiver': message.pubkey
+            });
             break;
           default:
             console.log('unknown message', message);
