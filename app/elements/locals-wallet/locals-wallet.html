@@ -402,7 +402,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           case 'sendpubkey':
             console.log('Send localcoin to ',message.pubkey);
             // TODO : hiere transactie uitvoeren dat ge LC stuurt naar message.pubkey...
-            //this.transfer(this.amount,message.pubkey);
+
             this.transfer(this.amount,app.helpers.fixaddress(message.pubkey));
             break;
           default:
@@ -476,7 +476,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
           var MyContract = self.web3wallet.web3.eth.contract(self.contractjson.abi);
           var myContractInstance = MyContract.at(self.contractaddr);
-            console.log('doing transfer to: ', self.partnerpubkey, 'from: ', self.web3wallet.account);
+            console.log('doing transfer of ',amount,' LC to: ', pubkey, 'from: ', self.web3wallet.account);
             myContractInstance.transfer.sendTransaction(pubkey, amount, {
               from: self.fixaddress(self.web3wallet.account),
               gasPrice: gasPrice,
