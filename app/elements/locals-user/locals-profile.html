@@ -453,7 +453,7 @@ iron-selector {
 
 
     <div class="whitespace"></div>
-      <locals-button on-tap="save" bg="blue" icon="v" txtcolor="white" small></locals-button>
+      <locals-button id="savebtn" on-tap="save" bg="blue" icon="v" txtcolor="white" small></locals-button>
       </div>
   </div>
 
@@ -576,6 +576,7 @@ iron-selector {
 
         save: function(){
           var self = this;
+          this.$.savebtn.disabled = true;
           console.log('ik zal ies iet saven se!', this.username, this.currentavatar);
           // Localcache aanpassen
           var usercache = document.querySelector("#localsuserdata");
@@ -589,6 +590,7 @@ iron-selector {
             var sethash = result[0].Hash;
             self.saveProfile(sethash, function(e, r){
               console.log(e,r);
+              self.toHome();
             });
           });
         },
