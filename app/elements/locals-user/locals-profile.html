@@ -324,6 +324,11 @@ locals-object {
 
 </style>
 
+<iron-localstorage
+    id="localsuserdata"
+    value="{{userdatacache}}">
+  </iron-localstorage>
+
 <div class="topbar">
   <p class="flex" on-tap="change"></p>
   <locals-button bgrgba="0,0,0,0" icon="declinenew" on-tap="toHome" small id="exitbtn"></locals-button>
@@ -453,6 +458,8 @@ locals-object {
         save: function(){
           var self = this;
           console.log('ik zal ies iet saven se!', this.username, this.hash.hash);
+          // We gaan de localstorage cache eerst updaten
+          this.userdatacache = {"username": this.username, "avatar": this.hash.hash };
           // we gaan dat dan eerst ipfs hashen
           var prehash = {'username': this.username, 'avatar': this.hash.hash };
           this.$.ipfsupload.add(JSON.stringify(prehash), function(err, result){
@@ -467,6 +474,7 @@ locals-object {
 
         saveProfile: function(e, fn){
           var self = this;
+
           console.log(e, this.helpers);
           app.helpers.getfile('../../contracts/localsUser.json', function(err,contractjson) {
             console.log(err, contractjson);

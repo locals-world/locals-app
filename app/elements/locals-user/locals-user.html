@@ -247,9 +247,6 @@ LOCALS
     >
   </locals-p2pchat>
 
-
-
-
   <locals-lsapi
     verbose id="lsapi"
     data="{{data}}" on-wrong-password="_wrongpassword" on-correct-password="_gotpassword"></locals-lsapi>
@@ -287,6 +284,7 @@ LOCALS
     route="/:menu"
     menu="{{appMenu}}"
   ></excess-route>
+
   <locals-getuser userdata="{{userdata}}" web3="{{web3}}" account="{{account}}"></locals-getuser>
 
   <neon-animated-pages selected="{{appMenu}}" attr-for-selected="route">
