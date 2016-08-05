@@ -41,6 +41,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: Object,
           notify:true
         },
+        userdatacache: {
+          type: Object,
+          observer: '_userdatacache'
+        }
       },
 
         _contract: function(){
@@ -56,6 +60,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             return;
           }
           this.cacheready = true;
+          this.userdata = this.userdatacache;
+          this.loadcontract();
+        },
+
+        _userdatacache: function(){
+          console.log('userdatacache changed');
           this.userdata = this.userdatacache;
         },
 
@@ -108,7 +118,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                       .on('end', function() {
                         var ipfsData = JSON.parse(buf);
                         console.log(ipfsData);
-                        self.userdatacache = ipfsData;
+                        var localcache = document.querySelector('#localsuserdata');
+                        localcache.value = ipfsData;
                       });
                   });
                 });

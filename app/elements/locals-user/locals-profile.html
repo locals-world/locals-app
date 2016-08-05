@@ -429,7 +429,7 @@ iron-selector {
     <!-- <div class="totalinfo"> -->
 
         <div class="avatar" id="avatar">
-          <img src="{{_getipfsurl(userdata.avatar)}}" observe="userdata.avatar">
+          <img src="{{avatarurl)}}" observe="userdata.avatar">
         </div>
 
       <div id="therest">
@@ -492,6 +492,11 @@ iron-selector {
         notify: true
       },
 
+      userdata: {
+        type: Object,
+        observer: '_userdata'
+      },
+
       sharedElements: {
         type: Object,
         value: function() {
@@ -548,6 +553,21 @@ iron-selector {
         ready: function(){
         this.spinclass = '';
 
+          // Change avatar listener
+          var self = this;
+          this.$.ipfsupload.addEventListener('ipfs-hash-received', function(e){
+            console.log(e.detail.hash);
+            self.currentavatar = e.detail.hash;
+            self.avatarurl = self._getipfsurl(self.currentavatar);
+          });
+        },
+
+        attached: function() {
+        },
+
+        _userdata: function(){
+          this.avatarurl = this._getipfsurl(this.userdata.avatar);
+          this.currentavatar = this.userdata.avatar;
         },
 
         _data: function(){
@@ -555,9 +575,13 @@ iron-selector {
 
         save: function(){
           var self = this;
-          console.log('ik zal ies iet saven se!', this.username, this.hash.hash);
+          console.log('ik zal ies iet saven se!', this.username, this.currentavatar);
+          // Localcache aanpassen
+          var usercache = document.querySelector("#localsuserdata");
+          usercache.value = {'username': self.username, 'avatar': self.currentavatar };
+
           // we gaan dat dan eerst ipfs hashen
-          var prehash = {'username': this.username, 'avatar': this.hash.hash };
+          var prehash = {'username': this.username, 'avatar': this.currentavatar };
           this.$.ipfsupload.add(JSON.stringify(prehash), function(err, result){
             console.log(err, result);
             // and save the thing at den blockchain
@@ -570,6 +594,7 @@ iron-selector {
 
         saveProfile: function(e, fn){
           var self = this;
+
           console.log(e, this.helpers);
           app.helpers.getfile('../../contracts/localsUser.json', function(err,contractjson) {
             console.log(err, contractjson);
