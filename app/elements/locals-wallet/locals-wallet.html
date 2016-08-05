@@ -269,8 +269,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <iron-collapse id="sendcoins">
         <template is="dom-if" if="{{_is(sendcoinstate,'first')}}">
           <div class="whitespace"></div>
-          <locals-input class="sendinput" autofocus value="" bind-value="{{amount}}" label="Amount"></locals-input>
-          <locals-input class="sendinput" autofocus value="" bind-value="{{pincode}}" label="To"></locals-input>
+          <locals-input class="sendinput" autofocus type="number" bind-value="{{amount}}" label="Amount"></locals-input>
+          <locals-input class="sendinput" autofocus type="number" bind-value="{{pincode}}" label="To"></locals-input>
           <locals-confirm on-cancel="togglesendcoins" on-confirm="toWaiting" type="next"></locals-confirm>
         </template>
 
