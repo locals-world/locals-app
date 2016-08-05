@@ -402,8 +402,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           case 'sendpubkey':
             console.log('Send localcoin to ',message.pubkey);
             // TODO : hiere transactie uitvoeren dat ge LC stuurt naar message.pubkey...
-            debugger;
-            self.transfer(self.amount,message.pubkey);
+            this.transfer(this.amount,message.pubkey);
             break;
           default:
             console.log('unknown message',message);
@@ -461,6 +460,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       transfer: function(amount,pubkey){
+        debugger;
         // we gaan dan wat geld versjassen
         this.web3wallet = document.querySelector('web3-wallet');
         //this.amount = 1;
