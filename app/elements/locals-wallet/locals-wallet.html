@@ -409,11 +409,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             break;
           case 'sendpubkey':
             console.log('Send localcoin to ', message.pubkey);
-            this.transfer(this.amount, app.helpers.fixaddress(message.pubkey), function(err, result) {
+            this.transfer(this.amount * 10, app.helpers.fixaddress(message.pubkey), function(err, result) {
               console.log('Transfer started. Sending confirmation to ',m.from);
               self.whisper.whisperpost(m.from, JSON.stringify({
                 'command': 'confirmtransfer',
-                'amount': this.amount
+                'amount': self.amount
               }));
             });
             var msg = this.amount + ' sent to ' + message.pubkey;
