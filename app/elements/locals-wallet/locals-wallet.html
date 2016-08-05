@@ -449,7 +449,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               console.log('Transfer started. Sending confirmation to ',m.from);
               self.whisper.whisperpost(m.from, JSON.stringify({
                 'command': 'confirmtransfer',
-                'amount': self.amount * 100
+                'amount': self.amount * 100,
+                'pubkey' : message.pubkey
               }));
             });
             var username = self._getUsername(message.pubkey,function(username, avatarurl){
