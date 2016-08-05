@@ -296,7 +296,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </div>
       <div class="tussenschot"></div>
       <div class="totalpart">
-        <p class="temp">Hier komt de historiek van transacties.</p>
+        <template is="dom-repeat" items="{{history}}">
+          <p class="temp">{{item.descr}}</p>
+        </template>
       </div>
 
 <!--     <div>
@@ -353,6 +355,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           value: true
         },
 
+        history: {
+          type: Array,
+          value: [{'descr': 'Transaction history'}]
+        },
 
         contractaddr: {
           type: String,
@@ -379,6 +385,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       attached: function(){
         var self=this;
+
         this.whisper = document.querySelector('locals-whisperer');
         //debugger;
         this.whisper.addEventListener('message-received', function(e){
@@ -402,8 +409,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           case 'sendpubkey':
             console.log('Send localcoin to ',message.pubkey);
             // TODO : hiere transactie uitvoeren dat ge LC stuurt naar message.pubkey...
-
             this.transfer(this.amount,app.helpers.fixaddress(message.pubkey));
+            var msg = this.amount + ' sent to ' + message.pubkey;
+            this.push('history', {'descr': msg});
             break;
           default:
             console.log('unknown message',message);
