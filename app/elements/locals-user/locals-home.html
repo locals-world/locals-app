@@ -27,6 +27,7 @@ LOCALS
 <link rel="import" href="../../bower_components/locals-verification/locals-verification-validator.html">
 <link rel="import" href="../../bower_components/locals-verification/locals-verification-localstorage.html">
 <link rel="import" href="../../bower_components/locals-whisperer/locals-whisperer.html">
+<link rel="import" href="../locals-getuser/locals-getuser.html">
 
 <dom-module id="locals-home">
   <template>
@@ -299,10 +300,24 @@ LOCALS
     from {transform: rotate(0deg);}
     to {transform: rotate(360deg);}
   }
-locals-avatar {
-  width: 120px;
-  height: 120px;
-}
+
+
+  .avatar {
+    width: var(--avatararea-height);
+    height: var(--avatararea-height);
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: transparent;
+  }
+
+  .avatar img {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+
+
 
 
 </style>
@@ -315,8 +330,8 @@ locals-avatar {
           <locals-button icon="menu" iconcolor="darkgrey" on-tap="firetoggle" small bgrgba="0,0,0,0"></locals-button>
         </div>
         <div class="dialogues" on-tap="toDialogue">
-          <p>1</p>
-          <locals-icon icon="babbles" verysmall iconcolor="darkgrey"></locals-icon>
+<!--           <p>1</p>
+ -->          <locals-icon icon="babbles" small iconcolor="grey3"></locals-icon>
         </div>
         <p class="flex"></p>
         <locals-button icon="plus" on-tap="toStore" small></locals-button>
@@ -324,11 +339,15 @@ locals-avatar {
       <div class="container">
         <div class="main">
           <div class="avatararea">
-            <locals-avatar renderstate="visual" on-tap="toProfile"  id="mainhome" sizeview="{{sizeview}}"></locals-avatar>
+            <!-- <locals-avatar renderstate="visual" on-tap="toProfile"  id="avatar" sizeview="{{sizeview}}"></locals-avatar>
+             -->
+             <div class="avatar" on-tap="toProfile" id="avatar">
+               <img src="{{_getipfsurl(userdata.avatar)}}" observe="userdata.avatar">
+             </div>
           </div>
           <div class="totalinfo">
             <div class="accountinfo">
-              <p class="account">{{username}}</p>
+              <p class="account">{{userdata.username}}</p>
             </div>
             <div class="balanceinfo">
               <div class="balance" on-tap="toWallet">
@@ -338,13 +357,15 @@ locals-avatar {
                 <template is="dom-if" if="{{balanceloaded}}">
                   <h1>{{localcoinbalance}}</h1>
                   <locals-icon class="localcoinamount" verysmall icon="localcoin" iconcolor="blue"></locals-icon>
+
                 </template>
+
               </div>
             </div>
           </div>
 
           <!-- <locals-verification-validator></locals-verification-validator> -->
-        
+
         </div>
 
 
@@ -454,6 +475,7 @@ locals-avatar {
 
     username: {
       type: String,
+      notify:true,
       value: 'Bennisan'
     },
 
@@ -542,9 +564,9 @@ locals-avatar {
   },
 
   toProfile: function(){
-  var mainhome = document.querySelector('#mainhome');
+  var avatar = document.querySelector('#avatar');
     this.sharedElements = {
-      'hero': mainhome,
+      'hero': avatar,
     };
 
   this.animationConfig = {
@@ -610,8 +632,8 @@ locals-avatar {
       this.customStyle['--avatararea-width'] = '100%';
       this.customStyle['--avatararea-margin'] = '10px';
       this.customStyle['--totalinfo-width'] = '100%';
-      this.customStyle['--avatarbg-size'] = '100px';
-      this.customStyle['--bg-size'] = 'auto 100px';
+      // this.customStyle['--avatarbg-size'] = '100px';
+      // this.customStyle['--bg-size'] = 'auto 100px';
       this.customStyle['--topic-margins'] = '0px 0px 10px 0px';
       this.customStyle['--balance-margins'] = '10px 0px 20px 0px';
       this.customStyle['--text-align'] = 'center';
@@ -623,8 +645,8 @@ locals-avatar {
       this.customStyle['--avatararea-width'] = '200px';
       this.customStyle['--avatararea-margin'] = '11px';
       this.customStyle['--totalinfo-width'] = 'auto';
-      this.customStyle['--avatarbg-size'] = '110px';
-      this.customStyle['--bg-size'] = 'auto 110px';
+      // this.customStyle['--avatarbg-size'] = '110px';
+      // this.customStyle['--bg-size'] = 'auto 110px';
       this.customStyle['--topic-margins'] = '0px 0px 20px 0px';
       this.customStyle['--balance-margins'] = '5px 0px 0px 0px';
       this.customStyle['--text-align'] = 'left';
@@ -636,8 +658,8 @@ locals-avatar {
       this.customStyle['--avatararea-width'] = '200px';
       this.customStyle['--avatararea-margin'] = '15px';
       this.customStyle['--totalinfo-width'] = 'auto';
-      this.customStyle['--avatarbg-size'] = '150px';
-      this.customStyle['--bg-size'] = 'auto 150px';
+      // this.customStyle['--avatarbg-size'] = '150px';
+      // this.customStyle['--bg-size'] = 'auto 150px';
       this.customStyle['--topic-margins'] = '0px 0px 20px 0px';
       this.customStyle['--balance-margins'] = '5px 0px 0px 0px';
       this.customStyle['--text-align'] = 'left';
@@ -700,7 +722,20 @@ locals-avatar {
     this.topicshown = !this.topicshown;
 
 
+  },
+
+  _getipfsurl: function(hash){
+  this._initipfs();
+  return this.ipfs_url + hash;
+},
+
+_initipfs: function(){
+  if (!this.ipfs_url){
+    this.ipfs_url = new Polymer.IronMetaQuery({
+        key: 'ipfs_url'
+      }).value;
   }
+}
 
 });
 })();
