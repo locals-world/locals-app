@@ -324,11 +324,6 @@ locals-object {
 
 </style>
 
-<iron-localstorage
-    id="localsuserdata"
-    value="{{userdatacache}}">
-  </iron-localstorage>
-
 <div class="topbar">
   <p class="flex" on-tap="change"></p>
   <locals-button bgrgba="0,0,0,0" icon="declinenew" on-tap="toHome" small id="exitbtn"></locals-button>
@@ -346,7 +341,7 @@ locals-object {
     <!-- <div class="totalinfo"> -->
 
       <ipfs-upload hidefileinput hash="{{hash}}" id="ipfsupload" host="/ip4/109.123.70.141/tcp/5001" ><div class="avatar" id="avatar">
-      <img src="{{_getipfsurl(userdata.avatar)}}" observe="userdata.avatar">
+      <img src="{{avatarurl}}">
       </div></ipfs-upload>
 
       <locals-input class="inputprofile" label="Username" type="text" bind-value="{{username}}" center inputvalue="{{userdata.username}}"></locals-input>
@@ -394,6 +389,11 @@ locals-object {
       username: {
         type: String,
         notify: true
+      },
+
+      userdata: {
+        type: Object,
+        observer: '_userdata'
       },
 
       sharedElements: {
@@ -450,6 +450,22 @@ locals-object {
 
 
         ready: function(){
+
+          // Change avatar listener
+          var self = this;
+          this.$.ipfsupload.addEventListener('ipfs-hash-received', function(e){
+            console.log(e.detail.hash);
+            self.currentavatar = e.detail.hash;
+            self.avatarurl = self._getipfsurl(self.currentavatar);
+          });
+        },
+
+        attached: function() {
+        },
+
+        _userdata: function(){
+          this.avatarurl = this._getipfsurl(this.userdata.avatar);
+          this.currentavatar = this.userdata.avatar;
         },
 
         _data: function(){
@@ -457,11 +473,13 @@ locals-object {
 
         save: function(){
           var self = this;
-          console.log('ik zal ies iet saven se!', this.username, this.hash.hash);
-          // We gaan de localstorage cache eerst updaten
-          this.userdatacache = {"username": this.username, "avatar": this.hash.hash };
+          console.log('ik zal ies iet saven se!', this.username, this.currentavatar);
+          // Localcache aanpassen
+          var usercache = document.querySelector("#localsuserdata");
+          usercache.value = {'username': self.username, 'avatar': self.currentavatar };
+
           // we gaan dat dan eerst ipfs hashen
-          var prehash = {'username': this.username, 'avatar': this.hash.hash };
+          var prehash = {'username': this.username, 'avatar': this.currentavatar };
           this.$.ipfsupload.add(JSON.stringify(prehash), function(err, result){
             console.log(err, result);
             // and save the thing at den blockchain
