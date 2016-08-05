@@ -297,7 +297,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div class="tussenschot"></div>
       <div class="totalpart">
         <template is="dom-repeat" items="{{history}}">
-          <p class="temp">{{item.descr}}</p>
+          <p class="temp">{{item.amount}} <span>{{item.receiver}}</span></p>
         </template>
       </div>
 
@@ -416,9 +416,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 'amount': self.amount
               }));
             });
-            var msg = this.amount + ' sent to ' + message.pubkey;
             this.push('history', {
-              'descr': msg
+              'amount': this.amount, 'receiver': message.pubkey
             });
             break;
           case 'confirmtransfer':
