@@ -460,10 +460,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             break;
           case 'confirmtransfer':
             // TODO : show transfer in history...
+            var self = this;
             console.log('transfer confirmed...', message.amount, 'received');
-            this.push('history', {
-              'amount': this.amount * 100, 'receiver': message.pubkey
-            });
+            var username = self._getUsername(message.pubkey,function(username, avatarurl){
+                self.push('history', {
+             'amount': self.amount, 'receiver': username, 'avatar': avatarurl
+           });
+              });
             break;
           default:
             console.log('unknown message', message);
