@@ -215,6 +215,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
 
+      .avatar {
+        width:70px;
+        height: 70px;
+        border-radius: 50%;
+        overflow: hidden;
+        background-color: transparent;
+
+      }
+
+      .avatar img {
+        width: 100%;
+        height: 100%;
+        border: none;
+
+      }
+
+
 
 
 
@@ -297,8 +314,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div class="tussenschot"></div>
       <div class="totalpart">
         <template is="dom-repeat" items="{{history}}">
-
-          <p>[[_getUsername(item.receiver)]]</p>
+          <div class="avatar" id="avatar">
+            <img src="{{item.avatar}}">
+          </div>
+          <p><span>{{item.receiver}}</span> &Delta;<span>{{item.amount}}</span></p>
           <!-- <p class="temp">&Delta;<span>{{item.amount}}</span><span>{{item.receiver}}</span></p> -->
         </template>
       </div>
@@ -359,8 +378,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         history: {
           type: Array,
-          value: [{'amount': 10, 'receiver': '5e443950acaa29b01d1493ab436e3556af1283bb'},
-        {'amount': 10, 'receiver': '0xF365459300446bDcCd601f6f137B71Da25fE4E63'}]
+          value: []
         },
 
 
@@ -391,6 +409,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       attached: function(){
         var self=this;
 
+        this._initipfs();
+
         this.whisper = document.querySelector('locals-whisperer');
         //debugger;
         this.whisper.addEventListener('message-received', function(e){
@@ -401,11 +421,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         });
       },
 
-      _getUsername: function(account,cb){
+      _getUsername: function(account, cb){
        var getuser = document.querySelector("locals-getuser");
+       var self = this;
        var userinfo = getuser.userlookup(account, function(info){
          console.log('wallet kent users: ', info.username);
-         cb(info.username);
+         var ipfsurl = self._getipfsurl(info.avatar, function(result){
+           cb(info.username, result);
+         });
        });
      },
 
@@ -429,9 +452,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 'amount': self.amount * 100
               }));
             });
-            var username = self._getUsername(message.pubkey,function(username){
+            var username = self._getUsername(message.pubkey,function(username, avatarurl){
                 self.push('history', {
-             'amount': this.amount * 100, 'receiver': username
+             'amount': self.amount, 'receiver': username, 'avatar': avatarurl
            });
               });
             break;
@@ -446,6 +469,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             console.log('unknown message', message);
         }
       },
+
+      _getipfsurl: function(hash, cb){
+      //debugger;
+      this._initipfs();
+      cb(this.ipfs_url + hash);
+    },
+
+    _initipfs: function(){
+      if (!this.ipfs_url){
+        this.ipfs_url = new Polymer.IronMetaQuery({
+            key: 'ipfs_url'
+          }).value;
+      }
+    },
 
       toWaiting: function(){
         var self = this;
