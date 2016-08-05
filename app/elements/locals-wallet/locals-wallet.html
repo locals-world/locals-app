@@ -297,7 +297,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div class="tussenschot"></div>
       <div class="totalpart">
         <template is="dom-repeat" items="{{history}}">
-          <p class="temp">{{item.amount}} <span>{{item.receiver}}</span></p>
+          <locals-getuser userdata="{{userdata}}" web3="{{web3}}" account="{{item.receiver}}"></locals-getuser>
+          <p class="temp">&Delta;<span>{{item.amount}}</span><span>{{item.receiver}}</span></p>
+          <span>{{userdata.username}}</span>
         </template>
       </div>
 
