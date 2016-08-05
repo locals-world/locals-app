@@ -402,7 +402,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           case 'sendpubkey':
             console.log('Send localcoin to ',message.pubkey);
             // TODO : hiere transactie uitvoeren dat ge LC stuurt naar message.pubkey...
-            this.transfer(this.amount,message.pubkey);
+            this.transfer(this.amount,app.helpers.fixaddress(message.pubkey));
             break;
           default:
             console.log('unknown message',message);
