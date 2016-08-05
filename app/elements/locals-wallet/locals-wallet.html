@@ -297,9 +297,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div class="tussenschot"></div>
       <div class="totalpart">
         <template is="dom-repeat" items="{{history}}">
-          <locals-getuser userdata="[[userdata]]" web3="{{web3}}" account="[[item.receiver]]"></locals-getuser>
+          <!-- <locals-getuser userdata="[[userdata]]" web3="{{web3}}" account="0xF365459300446bDcCd601f6f137B71Da25fE4E63"></locals-getuser> -->
           <p class="temp">&Delta;<span>{{item.amount}}</span><span>{{item.receiver}}</span></p>
-          <span>[[userdata.username]]</span>
         </template>
       </div>
 
@@ -359,8 +358,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         history: {
           type: Array,
-          value: [{'descr': 'Transaction history'}]
+          value: [{'amount': 10, 'receiver': '5e443950acaa29b01d1493ab436e3556af1283bb'},
+        {'amount': 10, 'receiver': '0xF365459300446bDcCd601f6f137B71Da25fE4E63'}]
         },
+
+
 
         contractaddr: {
           type: String,
