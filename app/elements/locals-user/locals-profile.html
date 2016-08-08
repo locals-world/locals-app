@@ -157,38 +157,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     display: none;
   }
 
-
-  .accountinfo {
-    width: var(--totalinfo-width);
-    @apply(--layout-vertical);
-    @apply(--layout-center-center);
-    box-sizing: border-box;
-    padding: 0px;
-  }
-
-
-  .account {
-    width: auto;
-    max-width: 100%;
-    font-size: 20px;
-    line-height: 24px;
-    @apply(--opensans-light);
-    color: var(--locals-grey7);
-    /*    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;*/
-    text-align: var(--text-align);
-    margin: 20px 0px 0px 0px;
-  }
-
-  /*  .username {
-  font-size: 12px;
-  line-height: 16px;
-  color: var(--locals-grey5);
-  @apply(--opensans-reg);
-}
-*/
-
 .balanceinfo {
   margin: var(--balance-margins);
   width: var(--totalinfo-width);
@@ -391,6 +359,20 @@ iron-selector {
      }
 
 
+     .accountinfo {
+      width: 200px;
+      margin: 30px 0px 20px 0px;
+      text-align: center;
+     }
+
+     .accountinfo p {
+      font-size: 13px;
+      line-height: 16px;
+      color: var(--locals-darkgrey);
+      font-family: Opensanslight;
+      word-wrap: break-word;
+
+     }
 
       @-webkit-keyframes rotate {
           from {-webkit-transform: rotate(0deg);}
@@ -448,7 +430,7 @@ iron-selector {
 
 <!--     </div> -->
 
-
+    <div class="accountinfo"><p>{{account}}</p></div>
 
     <div class="whitespace"></div>
       <locals-button id="savebtn" on-tap="save" bg="blue" icon="v" txtcolor="white" small></locals-button>
