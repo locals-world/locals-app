@@ -215,6 +215,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
 
+      .avatar {
+        width:70px;
+        height: 70px;
+        border-radius: 50%;
+        overflow: hidden;
+        background-color: transparent;
+
+      }
+
+      .avatar img {
+        width: 100%;
+        height: 100%;
+        border: none;
+
+      }
+
+
 
 
 
@@ -258,19 +275,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <div class="whitespace"></div>
         <template is="dom-if" if="{{collsclosed}}">
           <template is="dom-if" if="{{_is(sizeview,'phone')}}">
-            <locals-button small txtbtn txtcolor="blue" on-tap="togglesendcoins"><div class="inbutton">send <locals-icon class="coinbtn" verysmall icon="localcoin" iconcolor="blue"></locals-icon></div></locals-button>
-            <locals-button small txtbtn txtcolor="blue" on-tap="togglereceivecoins"><div class="inbutton">receive <locals-icon class="coinbtn" verysmall icon="localcoin" iconcolor="blue"></locals-icon></div></locals-button>
+            <locals-button small txtbtn txtcolor="blue" on-tap="togglesendcoins"><div class="inbutton">send</div></locals-button>
+            <locals-button small txtbtn txtcolor="blue" on-tap="togglereceivecoins"><div class="inbutton">receive</div></locals-button>
           </template>
           <template is="dom-if" if="{{!_is(sizeview,'phone')}}">
-            <locals-button txtbtn txtcolor="blue" on-tap="togglesendcoins"><div class="inbutton">send <locals-icon class="coinbtn" verysmall icon="localcoin" iconcolor="blue"></locals-icon></div></locals-button>
-            <locals-button txtbtn txtcolor="blue" on-tap="togglereceivecoins"><div class="inbutton">receive <locals-icon class="coinbtn" verysmall icon="localcoin" iconcolor="blue"></locals-icon></div></locals-button>
+            <locals-button txtbtn txtcolor="blue" on-tap="togglesendcoins"><div class="inbutton">send</div></locals-button>
+            <locals-button txtbtn txtcolor="blue" on-tap="togglereceivecoins"><div class="inbutton">receive</div></locals-button>
           </template>
         </template>
         <iron-collapse id="sendcoins">
         <template is="dom-if" if="{{_is(sendcoinstate,'first')}}">
           <div class="whitespace"></div>
-          <locals-input class="sendinput" autofocus bind-value="{{amount}}" label="Amount"></locals-input>
-          <locals-input class="sendinput" autofocus bind-value="{{pincode}}" label="To"></locals-input>
+          <locals-input class="sendinput" autofocus type="number" bind-value="{{amount}}" label="Amount"></locals-input>
+          <locals-input class="sendinput" autofocus type="number" bind-value="{{pincode}}" label="To"></locals-input>
           <locals-confirm on-cancel="togglesendcoins" on-confirm="toWaiting" type="next"></locals-confirm>
         </template>
 
@@ -296,7 +313,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </div>
       <div class="tussenschot"></div>
       <div class="totalpart">
-        <p class="temp">Hier komt de historiek van transacties.</p>
+        <template is="dom-repeat" items="{{history}}">
+          <div class="avatar" id="avatar">
+            <img src="{{item.avatar}}">
+          </div>
+          <p><span>{{item.receiver}}</span> &Delta;<span>{{item.amount}}</span></p>
+          <!-- <p class="temp">&Delta;<span>{{item.amount}}</span><span>{{item.receiver}}</span></p> -->
+        </template>
       </div>
 
 <!--     <div>
@@ -353,6 +376,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           value: true
         },
 
+        history: {
+          type: Array,
+          value: []
+        },
+
+
 
         contractaddr: {
           type: String,
@@ -377,24 +406,100 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.sendcoinstate = 'first';
       },
 
+      attached: function(){
+        var self=this;
+
+        this._initipfs();
+
+        this.whisper = document.querySelector('locals-whisperer');
+        //debugger;
+        this.whisper.addEventListener('message-received', function(e){
+          console.log('got pub key: ', e.detail);
+          self.handlewhispermessage(e.detail);
+          // self.partnerpubkey = e.detail;
+          // self.transfer();
+        });
+      },
+
+      _getUsername: function(account, cb){
+       var getuser = document.querySelector("locals-getuser");
+       var self = this;
+       var userinfo = getuser.userlookup(account, function(info){
+         console.log('wallet kent users: ', info.username);
+         var ipfsurl = self._getipfsurl(info.avatar, function(result){
+           cb(info.username, result);
+         });
+       });
+     },
+
+      handlewhispermessage: function(m) {
+        var self = this;
+        var message = JSON.parse(m.message);
+        var whisper = document.querySelector('locals-whisperer');
+        switch (message.command) {
+          case 'requestpubkeyforlocalstransfer':
+            this.whisper.whisperpost(m.from, JSON.stringify({
+              'command': 'sendpubkey',
+              'pubkey': this.account
+            }));
+            break;
+          case 'sendpubkey':
+            console.log('Send localcoin to ', message.pubkey);
+            this.transfer(this.amount * 100, app.helpers.fixaddress(message.pubkey), function(err, result) {
+              console.log('Transfer started. Sending confirmation to ',m.from);
+              self.whisper.whisperpost(m.from, JSON.stringify({
+                'command': 'confirmtransfer',
+                'amount': self.amount * 100,
+                'pubkey' : app.helpers.fixaddress(self.address),
+              }));
+            });
+            var username = self._getUsername(message.pubkey,function(username, avatarurl){
+                self.push('history', {
+             'amount': self.amount, 'receiver': username, 'avatar': avatarurl
+           });
+              });
+            break;
+          case 'confirmtransfer':
+            // TODO : show transfer in history...
+            var self = this;
+            console.log('transfer confirmed...', message.amount, 'received');
+            var username = self._getUsername(message.pubkey,function(username, avatarurl){
+                self.push('history', {
+             'amount': self.amount, 'receiver': username, 'avatar': avatarurl
+           });
+              });
+            break;
+          default:
+            console.log('unknown message', message);
+        }
+      },
+
+      _getipfsurl: function(hash, cb){
+      //debugger;
+      this._initipfs();
+      cb(this.ipfs_url + hash);
+    },
+
+    _initipfs: function(){
+      if (!this.ipfs_url){
+        this.ipfs_url = new Polymer.IronMetaQuery({
+            key: 'ipfs_url'
+          }).value;
+      }
+    },
+
       toWaiting: function(){
         var self = this;
         //debugger;
         this.whisper = document.querySelector('locals-whisperer');
-        this.handler = document.querySelector('locals-verification-validator');
+        //this.handler = document.querySelector('locals-verification-validator');
         console.log('wallet: ',this.whisper.topic);
-        debugger;
+        //debugger;
         this.whisper.whisperpost(this.pincode, JSON.stringify({
-                'command': 'requestpubkey',
-                'from': this.whisper.topic,
-                'data': null
+                'command': 'requestpubkeyforlocalstransfer',
               }));
         this.state = 'waiting';
-        this.handler.addEventListener('pub-key', function(e){
-          console.log('got pub key: ', e.detail);
-          self.partnerpubkey = e.detail;
-          self.transfer();
-        });
+
 
         this.sendcoinstate = 'second';
       },
@@ -426,14 +531,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         var account = this.fixaddress(this.account);
         var coinbalance = myContractInstance.balanceOf(account);
-        this.localcoinbalance = coinbalance / 100;
+        this.localcoinbalance = (coinbalance / 100).toFixed(2);
         // console.log('localcoinbalance: ', coinbalance);
         this.balanceloaded = true;
         this.fire('balance-loaded');
         });
       },
 
-      transfer: function(){
+      transfer: function(amount,pubkey,cb){
+        //debugger;
         // we gaan dan wat geld versjassen
         this.web3wallet = document.querySelector('web3-wallet');
         //this.amount = 1;
@@ -448,8 +554,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
           var MyContract = self.web3wallet.web3.eth.contract(self.contractjson.abi);
           var myContractInstance = MyContract.at(self.contractaddr);
-            console.log('doing transfer to: ', self.partnerpubkey, 'from: ', self.web3wallet.account);
-            myContractInstance.transfer.sendTransaction(self.partnerpubkey, self.amount, {
+            console.log('doing transfer of ',amount,' LC to: ', pubkey, 'from: ', self.web3wallet.account);
+            myContractInstance.transfer.sendTransaction(pubkey, amount, {
               from: self.fixaddress(self.web3wallet.account),
               gasPrice: gasPrice,
               gasLimit: 3000000,
@@ -458,11 +564,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               console.log(err, result);
               var coinbalance = myContractInstance.balanceOf(self.fixaddress(self.web3wallet.account));
                 self.localcoinbalance = coinbalance;
+                if (cb){
+                  cb(err,result);
+                }
             });
 
           });
           //this.web3.send(this.partnerpubkey, this.amount);
         });
+        this.sendcoinstate = 'first';
       },
 
     toHome: function() {

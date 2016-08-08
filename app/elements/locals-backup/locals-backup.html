@@ -13,24 +13,430 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <dom-module id="locals-backup">
   <template>
-    <style>
-      :host {
-        display: block;
-        padding: 20px;
-        background-color: white;
-        height: 100%;
+  <style>
+  :host {
+    display: block;
+    background-color: white;
+    /*    background-color: white;*/
+    --topbar-height: 100px;
+    --avatararea-height: 800px;
+    --avatararea-width: 100%;
+  }
+
+  h1 {
+    @apply(--locals-font-h1);
+  }
+
+  h3 {
+    @apply(--locals-font-h3);
+  }
+
+  p {
+    @apply(--locals-font-body1);
+    @apply(--opensans-reg);
+    color: var(--locals-grey7);
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  .topbar {
+    width: 100%;
+    background-color: white;
+    height: var(--topbar-height);
+    @apply(--layout-horizontal);
+    @apply(--layout-center);
+    box-sizing: border-box;
+    padding: 10px 20px 10px 10px;
+  }
+
+  .container {
+    width: 100%;
+    @apply(--layout-vertical);
+    @apply(--layout-center);
+    @apply(--layout-start-justified);
+    background-color: white;
+  }
+
+  .main {
+    width: 100%;
+    max-width: 90vw;
+    @apply(--layout-vertical);
+    @apply(--layout-center-center);
+  }
+
+  .tussenschot {
+    width: 100%;
+    height: 1px;
+    background-color: rgba(0,0,0,0.05);
+  }
+
+  .whitespace {
+    width: 100%;
+    height: 2vh;
+    min-height: 20px;
+  }
+
+  .absolutepos {
+    position: absolute;
+  }
+
+  .flex {
+    @apply(--layout-horizontal);
+    @apply(--layout-flex);
+  }
+
+  .avatararea {
+    width: var(--avatararea-width);
+    @apply(--layout-vertical);
+    @apply(--layout-center);
+    @apply(--layout-center-justified);
+    box-sizing: border-box;
+    padding: 0px;
+  }
+
+  .avatar {
+    width:140px;
+    height: 140px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: transparent;
+
+  }
+
+  .avatar img {
+    width: 100%;
+    height: 100%;
+    border: none;
+
+  }
+
+  .totalinfo {
+    width: 100%;
+    @apply(--layout-flex);
+    @apply(--layout-vertical);
+    @apply(--layout-start);
+    @apply(--layout-center-justified);
+    background-color: red;
+  }
+
+
+  .menuicon {
+    cursor: pointer;
+    height: 60px;
+    width: 60px;
+    @apply(--layout-horizontal);
+    @apply(--layout-center-center);
+  }
+
+  #test {
+    width: 50px;
+    height: 20px;
+    background-color: green;
+    display: none;
+  }
+
+
+  .accountinfo {
+    width: var(--totalinfo-width);
+    @apply(--layout-vertical);
+    @apply(--layout-center-center);
+    box-sizing: border-box;
+    padding: 0px;
+  }
+
+
+  .account {
+    width: auto;
+    max-width: 100%;
+    font-size: 20px;
+    line-height: 24px;
+    @apply(--opensans-light);
+    color: var(--locals-grey7);
+    /*    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;*/
+    text-align: var(--text-align);
+    margin: 20px 0px 0px 0px;
+  }
+
+  /*  .username {
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--locals-grey5);
+  @apply(--opensans-reg);
+}
+*/
+
+.balanceinfo {
+  margin: var(--balance-margins);
+  width: var(--totalinfo-width);
+  @apply(--layout-horizontal);
+  @apply(--layout-center-center);
+}
+
+
+
+.balance {
+  color: var(--locals-darkgrey);
+  @apply(--layout-horizontal);
+  @apply(--layout-end);
+  @apply(--layout-wrap);
+  width: auto;
+}
+
+.balance:hover {
+  cursor: pointer;
+}
+.balance h1 {
+  margin: 0px;
+  color: var(--locals-blue);
+}
+
+
+.topic {
+  width: 90%;
+  @apply(--layout-vertical);
+  @apply(--layout-end);
+  @apply(--layout-center-justified);
+  margin: var(--topic-margins);
+}
+
+.topic p {
+  width: auto;
+  color: var(--locals-grey7);
+  font-size: 12px;
+  text-decoration: underline;
+  margin: 0px 0px 0px 0px;
+}
+
+
+.topic h3 {
+  width: auto;
+  color: var(--locals-grey7);
+  font-size: 18px;
+  margin: 5px 0px 5px 0px;
+}
+.localcoinamount {
+  margin: 0px 0px 7px 6px;
+}
+
+locals-verification-validator {
+  width: 0px;
+  height: 0px;
+  opacity: 0;
+}
+
+.refresher {
+  margin: 10px 0px 10px 0px;
+  -webkit-animation-name: rotate;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  -moz-animation-name: rotate;
+  -moz-animation-duration: 1s;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-timing-function: linear;
+  animation-name: rotate;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+iron-selector {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.total {
+  width: 100%;
+  @apply(--layout-vertical);
+  @apply(--layout-center-center);
+}
+
+.renderitem {
+  width: 100%;
+}
+
+.dialogues {
+  @apply(--layout-horizontal);
+  @apply(--layout-center-center);
+  margin: 0px 10px 0px 10px;
+  font-size: 12px;
+}
+
+
+
+@-webkit-keyframes rotate {
+  from {-webkit-transform: rotate(0deg);}
+  to {-webkit-transform: rotate(360deg);}
+}
+
+@-moz-keyframes rotate {
+  from {-moz-transform: rotate(0deg);}
+  to {-moz-transform: rotate(360deg);}
+}
+
+@keyframes rotate {
+  from {transform: rotate(0deg);}
+  to {transform: rotate(360deg);}
+}
+
+
+
+.inputprofile {
+  width: 100%;
+  max-width: 300px;
+}
+
+.editor {
+  border: 1px solid green;
+  width: 100%;
+  min-height: 50px;
+}
+
+  .avatarrandomize {
+    width: 140px;
+    @apply(--layout-horizontal);
+    @apply(--layout-center);
+    @apply(--layout-end-justified);
+    margin: -40px 0px 0px 0px;
+  }
+
+  .avatarrandomize locals-icon {
+    border-radius: 50%;
+    background-color: var(--locals-white);
+    box-sizing: border-box;
+    padding: 10px;
+    margin: 0px;
+  }
+
+
+/*  .avatarstuff {
+    width: 100%;
+    @apply(--layout-horizontal);
+    @apply(--layout-center-center);
+    margin: 10px 0px 30px 0px;
+  }
+
+  .avatarstuff p {
+    color: var(--locals-blue);
+  }
+*/
+  .uploadlink {
+    width: 100%;
+    @apply(--layout-vertical);
+    @apply(--layout-center-center);
+    margin: 0px 0px 30px 0px;
+
+  }
+
+  .uploadlink p {
+    width: auto;
+    font-size: 12px;
+    text-decoration: underline;
+    margin: 0px 0px 0px 0px;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    color: var(--locals-blue);
+  }
+
+  .uploadlink p:hover {
+    cursor: pointer;
+  }
+
+  #therest {
+    width: 100%;
+    @apply(--layout-vertical);
+    @apply(--layout-center);
+  }
+
+
+     .refresher {
+/*        transition: all 1s linear;*/
+      -webkit-animation: none;
+      -moz-animation: none;
+      animation: none;
+     }
+
+
+
+     .spinonce {
+      -webkit-animation: rotate 0.5s linear infinite;
+      -moz-animation: rotate 0.5s linear infinite;
+      animation: rotate 0.5s linear infinite;
+
+     }
+
+
+
+      @-webkit-keyframes rotate {
+          from {-webkit-transform: rotate(0deg);}
+          to {-webkit-transform: rotate(180deg);}
       }
-    </style>
+
+      @-moz-keyframes rotate {
+          from {-moz-transform: rotate(0deg);}
+          to {-moz-transform: rotate(180deg);}
+      }
+
+      @keyframes rotate {
+          from {transform: rotate(0deg);}
+          to {transform: rotate(180deg);}
+      }
+
+
+
+
+</style>
+
     <iron-localstorage name="lo-data" value="{{lodata}}"></iron-localstorage>
     <iron-localstorage name="locals-password" value="{{lopassword}}"></iron-localstorage>
     <iron-localstorage name="locals-wallet" value="{{lowallet}}"></iron-localstorage>
+
+    <div class="topbar">
+      <p class="flex" on-tap="change"></p>
+      <locals-button bgrgba="0,0,0,0" icon="declinenew" on-tap="toHome" small id="exitbtn"></locals-button>
+    </div>
+    <div class="container">
+      <div class="main">
+          <!--     <div class="avatararea"> -->
+          <!-- <locals-avatar renderstate="visual" id="avatar"></locals-avatar> -->
+
+          <!-- <ipfs-upload hidefileinput hash="{{hash}}" id="ipfsupload" host="/ip4/109.123.70.141/tcp/5001" >
+            <img style="width: 140px; height: 140px;" src="{{_getipfsurl(hash.hash)}}" observe="hash.hash">
+          </ipfs-upload> -->
+        <!-- </div> -->
+
+        <!-- <div class="totalinfo"> -->
+
+
+        <h1>Export</h1>
     <paper-button raised on-tap="createbackup">create backup</paper-button>
     <div id="container"></div>
+
+    <div class="whitespace"></div>
+    <div class="whitespace"></div>
+    <div class="whitespace"></div>
 
     <h1>Import</h1>
     <input type="file" id="upload" />
     <paper-input label="Password" hidden="{{passwdfield}}" type="password" bind-value="{{password}}"></paper-input>
     <paper-button on-tap="save" raised hidden="{{buttonhidden}}">Save to localstorage</paper-button>
+    <div id="therest">
+
+
+
+  <div class="whitespace"></div>
+    </div>
+</div>
+
+</div>
+
+
   </template>
   <script>
   (function() {
@@ -74,6 +480,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       },
 
+      toHome: function(){
+        this.fire('to-home');
+      },
+
       createbackup: function(){
         var filecontents = {};
         filecontents.lodata = this.lodata;
@@ -94,7 +504,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       importfile: function(e){
         //console.log(e.target.files[0]);
         var reader = new FileReader();
-        
+
         reader.onload = function() {
           jsonthingy = reader.result;
           jsonthingy = JSON.parse(jsonthingy);

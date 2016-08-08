@@ -269,12 +269,12 @@ LOCALS
       <locals-icon class="localcoinamount" small icon="localcoin" iconcolor="grey5"></locals-icon>
       </template>
     </div>
-      <p>{{account}}</p>
+      <!-- <p>{{account}}</p> -->
 
 <!--     <a href="/#/wallet" on-tap="toWallet" class="detailslink">balance details</a> -->
   </div>
   <div class="drawerpart">
-    <a href="/#/backup" class="detailslink">backup account</a>
+    <a on-tap="toBackupClosedrawer" class="detailslink">backup account</a>
   </div>
 </div>
 
@@ -318,7 +318,7 @@ LOCALS
 
     <!-- backup your wallet -->
     <neon-animatable route="backup">
-      <locals-backup></locals-backup>
+      <locals-backup on-to-home="toHome" sizeview="{{sizeview}}"></locals-backup>
     </neon-animatable>
 
     <!-- verification : verify someone else's validation -->
@@ -530,6 +530,15 @@ LOCALS
         this.entryAnimation = 'fade-in-animation';
         this.exitAnimation = 'fade-out-animation';
         Excess.RouteManager.transitionTo('/wallet');
+        this.entryAnimation = 'fade-in-animation';
+        this.exitAnimation = 'fade-out-animation';
+        this.$.drawer.togglePanel();
+      },
+
+      toBackupClosedrawer: function(){
+        this.entryAnimation = 'fade-in-animation';
+        this.exitAnimation = 'fade-out-animation';
+        Excess.RouteManager.transitionTo('/backup');
         this.entryAnimation = 'fade-in-animation';
         this.exitAnimation = 'fade-out-animation';
         this.$.drawer.togglePanel();

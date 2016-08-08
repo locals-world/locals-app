@@ -81,7 +81,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         loadcontract: function() {
           // if the cache has not been loaded...
-          if (this.cacheready && !this.userdatacache) {
+          // if (this.cacheready && !this.userdatacache) {
 
             // and if I have all thing needed to read a contract....
             if (this.web3 && this.account) {
@@ -127,7 +127,55 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 console.log(e);
               }
             }
-          }
+          // }
+        },
+
+        userlookup: function(account, fn) {
+          // if the cache has not been loaded...
+
+            // and if I have all thing needed to read a contract....
+            if (this.web3 && account) {
+              try {
+                var self = this;
+                this.profilecontract = "0xD424834A70E044Dd07E013Ee57715Fec668D65eE";
+                var account = app.helpers.fixaddress(account);
+                app.helpers.getfile('../../contracts/localsUser.json', function(err, contractjson) {
+                  var MyContract = self.web3.eth.contract(contractjson.abi);
+                  self.blocktubeUsercontractInstance = MyContract.at("0xD424834A70E044Dd07E013Ee57715Fec668D65eE");
+                  console.log('retrieving user ', account);
+                  self.clipuserprofilehash = self.blocktubeUsercontractInstance.getProfileHash.call(account);
+                  //self.clipuserprofilehash = self.blocktubeUsercontractInstance.getProfileHash.call(self.contract);
+                  console.log('got? ', self.clipuserprofilehash);
+                  if (!self.ipfsclient) {
+                    self.ipfsapihost = new Polymer.IronMetaQuery({
+                      key: 'ipfs_read'
+                    }).value;
+                    self.ipfsclient = window.ipfsAPI(self.ipfsapihost);
+                  }
+                  var buf = '';
+
+                  self.ipfsclient.cat(self.clipuserprofilehash, function(err, res) {
+                    if (err) {
+                      return;
+                    }
+                    res
+                      .on('error', function(err) {
+                        throw (err);
+                      })
+                      .on('data', function(data) {
+                        buf += data;
+                      })
+                      .on('end', function() {
+                        var ipfsData = JSON.parse(buf);
+                        console.log('Userfound:',ipfsData);
+                        fn(ipfsData);
+                      });
+                  });
+                });
+              } catch (e) {
+                console.log(e);
+              }
+            }
         },
 
 
