@@ -291,7 +291,8 @@ LOCALS
 
 <!--   <neon-animated-pages selected="{{appMenu}}" attr-for-selected="route" entry-animation="{{entryAnimation}}" exit-animation="{{exitAnimation}}"> -->
     <!-- home -->
-    <locals-home route="home" data="{{data}}" userdata="{{userdata}}" localcoinbalance="{{locbalans}}" on-to-store="toStore" on-to-verification="toVerification" account="{{account}}" balance="{{balance}}" web3="{{web3}}" keystore="{{keystore}}" on-to-wallet="toWallet" on-toggle-drawer="drawertoggle" sizeview="{{sizeview}}" balanceloaded="{{balanceloaded}}" on-to-detail="toDetail"  topic="{{topic}}" on-to-dialogue="toDialogue" on-to-profile="toProfile"></locals-home>
+    <locals-home route="home" data="{{data}}" userdata="{{userdata}}" localcoinbalance="{{locbalans}}" on-to-store="toStore" on-to-verification="toVerification" account="{{account}}" balance="{{balance}}" web3="{{web3}}" keystore="{{keystore}}" on-to-wallet="toWallet" on-toggle-drawer="drawertoggle" sizeview="{{sizeview}}" balanceloaded="{{balanceloaded}}" on-to-detail="toDetail" msglength="{{msglength}}" topic="{{topic}}"" on-to-dialogue="toDialogue" on-to-profile="toProfile">
+    </locals-home>
 <!--      <locals-home route="home" data="{{data}}" on-to-detail="toDetail" on-to-store="toStore" on-to-verification="toVerification" on-toggle-drawer="drawertoggle" sizeview="{{sizeview}}"></locals-home> -->
 
     <!-- profile -->
@@ -327,7 +328,7 @@ LOCALS
     <!-- wallet: transfer funds -->
     <locals-wallet topic="{{topic}}" on-to-home="toHome" route="wallet" web3="{{web3}}" ethbalance="{{ethbalans}}" localcoinbalance="{{locbalans}}" account="{{account}}" sizeview="{{sizeview}}" on-balance-loaded="balanceLoad"></locals-wallet>
 
-    <locals-dialogue route="dialogue" on-to-home="toHome"></locals-dialogue>
+    <locals-dialogue route="dialogue" on-to-home="toHome" msglength="{{msglength}}"></locals-dialogue>
 
   </neon-animated-pages>
 
