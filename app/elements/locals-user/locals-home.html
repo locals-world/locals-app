@@ -38,7 +38,7 @@ LOCALS
     background-color: var(--locals-grey1);
 /*    background-color: white;*/
     --topbar-height: 100px;
-    --avatararea-height: 800px;
+    --avatar-size: 110px;
     --avatararea-width: 100%;
     --totalinfo-width: 100%;
     --bg-size: auto 100px;
@@ -47,6 +47,7 @@ LOCALS
     --topic-margins:0px 0px 10px 0px;
     --balance-margins:10px 0px 10px 0px;
     --text-align:center;
+    --main-display:inline-block;
   }
 
   h1 {
@@ -90,7 +91,8 @@ LOCALS
     max-width: 90vw;
     @apply(--layout-horizontal);
     @apply(--layout-wrap);
-    display: inline-block;
+    display: var(--main-display);
+
   }
 
   .tussenschot {
@@ -120,7 +122,7 @@ LOCALS
     @apply(--layout-center-justified);
     box-sizing: border-box;
     padding: 0px;
-    /*display: inline-block;*/
+    margin: 0px 0px 10px 0px;
   }
 
   .totalinfo {
@@ -129,7 +131,6 @@ LOCALS
     @apply(--layout-vertical);
     @apply(--layout-start);
     @apply(--layout-center-justified);
-    /*display: inline-block;*/
   }
 
   .avatarbg {
@@ -306,8 +307,8 @@ LOCALS
 
 
   .avatar {
-    width: var(--avatararea-height);
-    height: var(--avatararea-height);
+    width: var(--avatar-size);
+    height: var(--avatar-size);
     border-radius: 50%;
     overflow: hidden;
     background-color: transparent;
@@ -378,7 +379,7 @@ LOCALS
         </template>
             <div class="topic" on-tap="topicCollapse">
               <template is="dom-if" if="{{!topicshown}}">
-              <p>temp code</p>
+              <p>shortcode</p>
               </template>
               <iron-collapse id="topcollapser">
                 <h3>{{topic}}</h3>
@@ -631,12 +632,11 @@ LOCALS
     switch(this.sizeview) {
       case 'phone':
       this.customStyle['--topbar-height'] = '100px';
-      this.customStyle['--avatararea-height'] = '120px';
+      this.customStyle['--avatar-size'] = '110px';
       this.customStyle['--avatararea-width'] = '100%';
       this.customStyle['--avatararea-margin'] = '10px';
       this.customStyle['--totalinfo-width'] = '100%';
-      // this.customStyle['--avatarbg-size'] = '100px';
-      // this.customStyle['--bg-size'] = 'auto 100px';
+      this.customStyle['--main-display'] = 'inline-block';
       this.customStyle['--topic-margins'] = '0px 0px 10px 0px';
       this.customStyle['--balance-margins'] = '10px 0px 20px 0px';
       this.customStyle['--text-align'] = 'center';
@@ -644,12 +644,11 @@ LOCALS
       break;
       case 'desktop':
       this.customStyle['--topbar-height'] = '100px';
-      this.customStyle['--avatararea-height'] = '132px';
+      this.customStyle['--avatar-size'] = '132px';
       this.customStyle['--avatararea-width'] = '200px';
       this.customStyle['--avatararea-margin'] = '11px';
       this.customStyle['--totalinfo-width'] = 'auto';
-      // this.customStyle['--avatarbg-size'] = '110px';
-      // this.customStyle['--bg-size'] = 'auto 110px';
+      this.customStyle['--main-display'] = 'flex';
       this.customStyle['--topic-margins'] = '0px 0px 20px 0px';
       this.customStyle['--balance-margins'] = '5px 0px 0px 0px';
       this.customStyle['--text-align'] = 'left';
@@ -657,7 +656,9 @@ LOCALS
       break;
       case 'xlarge':
       this.customStyle['--topbar-height'] = '100px';
-      this.customStyle['--avatararea-height'] = '180px';
+      this.customStyle['--avatar-size'] = '180px';
+      this.customStyle['--main-display'] = 'flex';
+
       this.customStyle['--avatararea-width'] = '200px';
       this.customStyle['--avatararea-margin'] = '15px';
       this.customStyle['--totalinfo-width'] = 'auto';
