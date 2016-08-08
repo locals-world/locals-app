@@ -319,9 +319,8 @@ iron-selector {
   .avatarrandomize {
     width: 140px;
     @apply(--layout-horizontal);
-    @apply(--layout-center);
-    @apply(--layout-end-justified);
-    margin: -40px 0px 0px 0px;
+    @apply(--layout-center-center);
+    margin: -15px 0px 30px 0px;
   }
 
   .avatarrandomize locals-icon {
@@ -428,23 +427,22 @@ iron-selector {
     <!-- </div> -->
 
     <!-- <div class="totalinfo"> -->
+        <ipfs-upload hidefileinput hash="{{hash}}" id="ipfsupload" host="/ip4/109.123.70.141/tcp/5001" >
 
         <div class="avatar" id="avatar">
           <img src="{{avatarurl}}">
         </div>
+      </ipfs-upload>
+
 
       <div id="therest">
 
       <div class="avatarrandomize">
-          <locals-icon class$="refresher {{spinclass}}" icon="refresh1" iconcolor="blue" verysmall on-tap="refreshBalance"></locals-icon>
+          <locals-icon class$="refresher {{spinclass}}" icon="refresh1" iconcolor="blue" small on-tap="refreshBalance"></locals-icon>
       </div>
 
 
 <!--           <locals-icon class$="refresher {{spinclass}}" icon="refresh1" iconcolor="grey5" small on-tap="refreshBalance"></locals-icon> -->
-        <ipfs-upload hidefileinput hash="{{hash}}" id="ipfsupload" host="/ip4/109.123.70.141/tcp/5001" >
-        <div class="uploadlink">
-        <p>Upload image</p>
-        </div></ipfs-upload>
 
       <locals-input class="inputprofile" label="Username" type="text" bind-value="{{username}}" center inputvalue="{{userdata.username}}"></locals-input>
 
