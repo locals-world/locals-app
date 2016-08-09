@@ -392,7 +392,7 @@ LOCALS
 <!--         <iron-selector> -->
           <template is="dom-repeat" items="{{dataset}}">
             <div class="total">
-              <locals-objectrender class="renderitem" sizeview="{{sizeview}}" on-detail-tapped="gotodetail" key="{{item.component.name}}" contractaddress="{{item.contractaddress}}" objectdata="{{item}}" renderstate="closed">
+              <locals-objectrender class="renderitem" sizeview="{{sizeview}}" on-detail-tapped="gotodetail" key="{{item.component.name}}" contractaddress="{{item.contractaddress}}" status="{{item.status}}" objectdata="{{item}}" renderstate="closed">
               </locals-objectrender>
               <div class="lijntje"></div>
             </div>
@@ -624,7 +624,7 @@ LOCALS
   },
 
   _data: function(){
-    console.log('****** HOME has data: ',this.data.collection);
+    //console.log('****** HOME has data: ',this.data.collection);
     this.dataset = this.object2array(this.data.collection);
     console.log('This dataset: ', this.dataset);
     this.dataset = this.dataset.reverse();
