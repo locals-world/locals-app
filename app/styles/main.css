@@ -8,12 +8,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 */
 
 body {
-  background: white;
+  background: #808080;
   margin: 0px;
   padding: 0px;
-  background-image: url(../images/locals-loader3.gif);
+  background-image: url(../images/loading-triangle.png);
   background-repeat: no-repeat;
-  background-position: 50% -50%; 
+  background-position: 50% -20%;
+/*  background-size: auto auto; */
 /*min-height: 100vh;
 */}
 
