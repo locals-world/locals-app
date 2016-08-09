@@ -85,6 +85,9 @@ contract localsClub {
   string public clubname;
   string public clubicon;
 
+  uint public numMembers;
+  address[] public members;
+
 	struct clubMember {
 		string nickName;
 		bool active;
@@ -108,6 +111,8 @@ contract localsClub {
     if(msg.sender!=creator) throw;
 		clubMembers[_newmember].nickName = _nickName;
 		clubMembers[_newmember].active = true;
+    members.push(_newmember);
+    numMembers = members.length;
     MemberAdded(clubname, _nickName, _newmember);
 	}
 

@@ -460,8 +460,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             break;
           case 'confirmtransfer':
             // TODO : show transfer in history...
-            console.log('transfer confirmed...', message.amount, 'received');
+            console.log('transfer confirmed...', message.amount / 100, 'received');
+            var dia = document.querySelector('#dia');
+            var stringske = 'Transfer confirmed ' + message.amount / 100 + 'Δ';
+            dia.push('msg', {'title': 'Notifications', 'content': stringske});
             var username = self._getUsername(message.pubkey,function(username, avatarurl){
+
                 self.push('history', {
              'amount': self.amount, 'receiver': username, 'avatar': avatarurl
            });

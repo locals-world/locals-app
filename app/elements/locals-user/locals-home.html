@@ -392,7 +392,7 @@ LOCALS
 <!--         <iron-selector> -->
           <template is="dom-repeat" items="{{dataset}}">
             <div class="total">
-              <locals-objectrender class="renderitem" sizeview="{{sizeview}}" on-detail-tapped="gotodetail" key="{{item.component.name}}" objectdata="{{item}}" renderstate="closed">
+              <locals-objectrender class="renderitem" sizeview="{{sizeview}}" on-detail-tapped="gotodetail" key="{{item.component.name}}" contractaddress="{{item.contractaddress}}" objectdata="{{item}}" renderstate="closed">
               </locals-objectrender>
               <div class="lijntje"></div>
             </div>
@@ -560,7 +560,7 @@ LOCALS
 
     // console.log('Ga naar detail',e.detail,target);
     // this.fire('to-detail', {object: e.detail, item: target});
-
+    console.log('to-detail: ', e.detail);
     this.fire('to-detail', {object: e.detail});
     document.querySelector('#maincanvas').scrollTop = 0;
     // setTimeout(function(){ document.querySelector('#maincanvas').scrollTop = 0; }, 200);
@@ -627,6 +627,7 @@ LOCALS
     console.log('****** HOME has data: ',this.data.collection);
     this.dataset = this.object2array(this.data.collection);
     console.log('This dataset: ', this.dataset);
+    this.dataset = this.dataset.reverse();
   },
 
   _sizeview: function(){
