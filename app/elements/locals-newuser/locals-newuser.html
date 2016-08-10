@@ -119,7 +119,7 @@ LOCALS
         }
         100% {
           opacity: 1;
-        } 
+        }
       }
 
     .intro {
@@ -163,7 +163,7 @@ LOCALS
 
 
   /* phone */
-  @media all and (min-width: 0) and (max-width: 400px) and (orientation: portrait) { 
+  @media all and (min-width: 0) and (max-width: 400px) and (orientation: portrait) {
 
     .maintitle h5 {
     -webkit-margin-before:20px;
@@ -202,7 +202,7 @@ LOCALS
 
   /* between phone and desktop */
 
-  @media all and (min-width: 401px) and (max-width: 950px) { 
+  @media all and (min-width: 401px) and (max-width: 950px) {
 
       .intro {
       padding-bottom:30px;
@@ -227,7 +227,7 @@ LOCALS
 }
 
   /* desktop-large */
-  @media all and (min-width: 951px) and (max-width: 1600px) { 
+  @media all and (min-width: 951px) and (max-width: 1600px) {
     .maintitle h5 {
     -webkit-margin-before:0px;
     -webkit-margin-after:0px;
@@ -251,7 +251,7 @@ LOCALS
 
   }
   /* desktop-xlarge */
-  @media all and (min-width: 1601px) { 
+  @media all and (min-width: 1601px) {
     .maintitle h5 {
       @apply(--opensans-light);
 
@@ -275,23 +275,20 @@ LOCALS
 
   }
 
-
-
-
     </style>
 
     <neon-animated-pages attr-for-selected="state" selected="{{state}}" entry-animation="slide-from-right-animation" exit-animation="slide-left-animation">
       <neon-animatable state="0">
 
-       <iron-localstorage 
+       <iron-localstorage
       id="localstorage"
-      name="lo-init" 
+      name="lo-init"
       value="{{loinit}}">
 
     </iron-localstorage>
 
-    <iron-localstorage 
-      id="localstorage_data" 
+    <iron-localstorage
+      id="localstorage_data"
       name="lo-data" value="{{encdata}}" >
     </iron-localstorage>
 
@@ -408,7 +405,7 @@ LOCALS
     },
 
     syncuser: function() {
-        
+
       },
 
       restart: function(){

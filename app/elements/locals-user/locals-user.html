@@ -27,6 +27,7 @@ LOCALS
 <link rel="import" href="../../bower_components/locals-verification/locals-verification.html">
 <link rel="import" href="../../bower_components/locals-verification/locals-verification-handler.html">
 <link rel="import" href="../../bower_components/locals-whisperer/locals-whisperer.html">
+<link rel="import" href="../../bower_components/iron-a11y-keys/iron-a11y-keys.html">
 
 <link rel="import" href="../locals-dialogue/locals-dialogue.html">
 
@@ -294,7 +295,7 @@ LOCALS
     <locals-home
       route="home"
       data="{{data}}"
-      userdata="{{userdata}}" 
+      userdata="{{userdata}}"
       localcoinbalance="{{locbalans}}" on-to-store="toStore" on-to-verification="toVerification" account="{{account}}" balance="{{balance}}" web3="{{web3}}" keystore="{{keystore}}" on-to-wallet="toWallet" on-toggle-drawer="drawertoggle" sizeview="{{sizeview}}" balanceloaded="{{balanceloaded}}" on-to-detail="toDetail" msglength="[[msglength]]" topic="{{topic}}" on-to-dialogue="toDialogue" on-to-profile="toProfile">
     </locals-home>
 <!--      <locals-home route="home" data="{{data}}" on-to-detail="toDetail" on-to-store="toStore" on-to-verification="toVerification" on-toggle-drawer="drawertoggle" sizeview="{{sizeview}}"></locals-home> -->
@@ -312,7 +313,9 @@ LOCALS
     <neon-animatable route="enterpass">
     <div class="pascanvas">
     <div class="enterpass">
-      <locals-input label="password" type="password" bind-value="{{passwd}}" center></locals-input>
+      <iron-a11y-keys id="a11y" target="[[target]]" keys="enter"
+                    on-keys-pressed="setPass"></iron-a11y-keys>
+      <locals-input id="inputpass" label="password" type="password" bind-value="{{passwd}}" center></locals-input>
       <template is="dom-if" if="{{wrongpass}}">
         <p class="redtxt">You entered the wrong pass</p>
       </template>
@@ -352,6 +355,13 @@ LOCALS
           type: Object,
           notify: true,
           observer: '_web3'
+        },
+
+        target: {
+          type: Object,
+          value: function() {
+            return this.$.inputpass;
+          }
         },
 
 
@@ -436,6 +446,7 @@ LOCALS
       },
 
       attached: function(){
+
         this.nolocalcoin = true;
         this.hidestore = true;
         this.storeicon = 'plus';
@@ -494,6 +505,7 @@ LOCALS
           if(this.$.lsapi.privatekey){
             console.log("ISSEM FOUT???????", this.wrongpass);
           this.wrongpass = true;
+
           }
 
       },

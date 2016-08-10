@@ -438,7 +438,8 @@ color: var(--locals-blue);
 
       userdata: {
         type: Object,
-        observer: '_userdata'
+        observer: '_userdata',
+        notify: true
       },
 
       sharedElements: {
@@ -510,9 +511,9 @@ color: var(--locals-blue);
         },
 
         _userdata: function(){
-          console.log(this.userdata);
+          console.log("Userdata: ",this.userdata);
           this.avatarurl = this._getipfsurl(this.userdata.avatar);
-          this.currentavatar = this.userdata.avatar;
+          //this.currentavatar = this.userdata.avatar;
         },
 
         _data: function(){
@@ -620,10 +621,11 @@ color: var(--locals-blue);
           _key: function(){
           },
 
-
           refreshBalance:function() {
             this.spinclass = 'spinonce';
-
+            var getuser = document.querySelector("locals-getuser");
+            getuser.randomize();
+            //this._userdata();
             /* Hier de refreshfunctie?*/
             var self = this;
             setTimeout(function(){

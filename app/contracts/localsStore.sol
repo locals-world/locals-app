@@ -109,7 +109,7 @@ contract localsClub {
 	// Add a member to the club and make em active
 	function addMember(address _newmember, string _nickName) {
     //if(msg.sender!=creator) throw;
-    if(clubMembers[_newmember]) throw;
+    if(clubMembers[_newmember].active) throw;
 		clubMembers[_newmember].nickName = _nickName;
 		clubMembers[_newmember].active = true;
     members.push(_newmember);
