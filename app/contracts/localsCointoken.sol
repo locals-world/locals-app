@@ -110,9 +110,9 @@ contract MyToken is owned {
     }
 
     /* This unnamed function is called whenever someone tries to send ether to it */
-    function () {
+    /*function () {
         throw;     // Prevents accidental sending of ether
-    }
+    }*/
 
     /* Kill function, for debug purposes (I don't want a mist wallet full of token contracts :) */
     function kill() { if (msg.sender == owner) suicide(owner); }

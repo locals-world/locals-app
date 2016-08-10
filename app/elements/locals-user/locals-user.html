@@ -27,11 +27,8 @@ LOCALS
 <link rel="import" href="../../bower_components/locals-verification/locals-verification.html">
 <link rel="import" href="../../bower_components/locals-verification/locals-verification-handler.html">
 <link rel="import" href="../../bower_components/locals-whisperer/locals-whisperer.html">
-<<<<<<< HEAD
 <link rel="import" href="../../bower_components/iron-a11y-keys/iron-a11y-keys.html">
-=======
 <link rel="import" href="../locals-topup/locals-topup.html">
->>>>>>> origin/master
 
 <link rel="import" href="../locals-dialogue/locals-dialogue.html">
 
@@ -290,7 +287,7 @@ LOCALS
     menu="{{appMenu}}"
     submenu={{appSubmenu}}
   ></excess-route>
-<!-- 
+<!--
   <excess-route
     route="/topup/:code"
     menu="{{appMenu2}}"
@@ -469,6 +466,7 @@ LOCALS
         var passwd = sessionStorage.getItem("lopassword");
         if (passwd){
           this.passwd = passwd;
+          Excess.RouteManager.transitionTo('/home');
         }else{
           Excess.RouteManager.transitionTo('/enterpass');
         }
@@ -503,6 +501,7 @@ LOCALS
         sessionStorage.setItem('lopassword', this.passwd);
         this.$.lsapi.privatekey = this.passwd;
         this.$.web3wallet.password = this.passwd;
+        Excess.RouteManager.transitionTo('/home');
       },
 
       _gotpassword: function(){
