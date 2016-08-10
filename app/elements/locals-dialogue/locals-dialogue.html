@@ -65,7 +65,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         box-sizing: border-box;
         padding: 10px 20px 10px 20px;
       }
- 
+
       .flex {
         @apply(--layout-horizontal);
         @apply(--layout-flex);
@@ -80,13 +80,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <div class="topbar">
       <p class="flex" on-tap="change"></p>
+      <p>{{msglength}}</p>
       <locals-button bgrgba="0,0,0,0" icon="declinenew" on-tap="toHome" small id="exitbtn"></locals-button>
     </div>
 
     <div class="total">
-      <div class="msg">
-        <h1>{{msg}}</h1>
-      </div>
+      <template is="dom-repeat" items="{{msg}}">
+        <div class="msg">
+          <h1>{{item.content}}</h1>
+        </div>
+      </template>
     </div>
 
   </template>
@@ -99,12 +102,63 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       properties: {
         msg: {
-          type: String
+          type: Array,
+          value: [],
+          observer: '_msg',
+          notify: true
+        },
+        msglength: {
+          type: Number,
+          notify: true
         }
       },
 
       ready: function () {
-        this.msg = "Zeg, wilde gij na feitelijk lid worre van da clubske hiete?"
+        this.push('msg', {'title': 'Notifications', 'content': 'Lorem ipsum.'});
+      },
+
+      attached: function(){
+        var whisperer = document.querySelector("#whisper");
+        this.wallet = document.querySelector("web3-wallet");
+        console.log(whisperer);
+        var self = this;
+        whisperer.addEventListener('message-received', function(e){
+          self.handlewhispermessage(e.detail);
+        });
+      },
+
+      _msg: function(){
+        this.msglength = this.msg.length;
+        this.msglength++;
+      },
+
+      handlewhispermessage: function(m) {
+        var self = this;
+        var message = JSON.parse(m.message);
+        var whisper = document.querySelector('#whisper');
+        var myaccount = app.helpers.fixaddress(self.wallet.account);
+        switch (message.command) {
+          case 'requestpubkeyforclub':
+            whisper.whisperpost(m.from, JSON.stringify({
+              'command': 'pubkeyforclub',
+              'pubkey': myaccount
+            }));
+            break;
+          case 'addclub':
+              console.log('im about to add this club to your data', message.data);
+              var newclubdata = JSON.parse(message.data);
+              var lsapi = document.querySelector("#lsapi");
+              lsapi.data.collection[newclubdata.key] = newclubdata;
+              lsapi.writeData();
+              // whisper.whisperpost(m.from, JSON.stringify({
+              //   'command': 'pubkeyforclub',
+              //   'pubkey': myaccount
+              // }));
+              break;
+
+          default:
+            console.log('unknown message', message);
+        }
       },
 
       toHome: function() {

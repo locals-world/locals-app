@@ -449,8 +449,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               console.log('Transfer started. Sending confirmation to ',m.from);
               self.whisper.whisperpost(m.from, JSON.stringify({
                 'command': 'confirmtransfer',
-                'amount': self.amount * 100,
-                'pubkey' : app.helpers.fixaddress(self.address),
+                'amount': self.amount * 100
               }));
             });
             var username = self._getUsername(message.pubkey,function(username, avatarurl){
@@ -461,9 +460,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             break;
           case 'confirmtransfer':
             // TODO : show transfer in history...
-            var self = this;
-            console.log('transfer confirmed...', message.amount, 'received');
+            console.log('transfer confirmed...', message.amount / 100, 'received');
+            var dia = document.querySelector('#dia');
+            var stringske = 'Transfer confirmed ' + message.amount / 100 + 'Δ';
+            dia.push('msg', {'title': 'Notifications', 'content': stringske});
             var username = self._getUsername(message.pubkey,function(username, avatarurl){
+
                 self.push('history', {
              'amount': self.amount, 'receiver': username, 'avatar': avatarurl
            });
