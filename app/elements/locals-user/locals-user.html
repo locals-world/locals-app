@@ -27,7 +27,11 @@ LOCALS
 <link rel="import" href="../../bower_components/locals-verification/locals-verification.html">
 <link rel="import" href="../../bower_components/locals-verification/locals-verification-handler.html">
 <link rel="import" href="../../bower_components/locals-whisperer/locals-whisperer.html">
+<<<<<<< HEAD
 <link rel="import" href="../../bower_components/iron-a11y-keys/iron-a11y-keys.html">
+=======
+<link rel="import" href="../locals-topup/locals-topup.html">
+>>>>>>> origin/master
 
 <link rel="import" href="../locals-dialogue/locals-dialogue.html">
 
@@ -282,9 +286,15 @@ LOCALS
 <div main class="main" id="maincanvas">
 
   <excess-route
-    route="/:menu"
+    route="/:menu/:submenu?"
     menu="{{appMenu}}"
+    submenu={{appSubmenu}}
   ></excess-route>
+<!-- 
+  <excess-route
+    route="/topup/:code"
+    menu="{{appMenu2}}"
+  ></excess-route> -->
 
   <locals-getuser userdata="{{userdata}}" web3="{{web3}}" account="{{account}}"></locals-getuser>
 
@@ -328,6 +338,11 @@ LOCALS
     <neon-animatable route="backup">
       <locals-backup on-to-home="toHome" sizeview="{{sizeview}}"></locals-backup>
     </neon-animatable>
+
+    <neon-animatable route="topup">
+      <locals-topup web3="{{web3}}" account="{{account}}" code="{{appSubmenu}}"></locals-topup>
+    </neon-animatable>
+
 
     <!-- verification : verify someone else's validation -->
     <locals-verification-validator route="verification" on-to-home="toHome" sizeview="{{sizeview}}" mode="list" topic="{{topic}}" progress="{{progress}}" web3="{{web3}}" account="{{account}}"></locals-verification-validator>
@@ -496,7 +511,10 @@ LOCALS
         this.$.web3wallet.password = this.passwd;
         console.log('go home');
         sessionStorage.setItem('lopassword', this.passwd);
+        //debugger;
+        if (window.location.hash === ''){
           Excess.RouteManager.transitionTo('/home');
+        }
       },
 
       _wrongpassword: function(){
