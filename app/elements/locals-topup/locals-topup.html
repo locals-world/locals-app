@@ -1,0 +1,181 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="locals-topup">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <template is="dom-if" if="!{{txhash}}">
+      <div>
+        Claiming code
+        <span>{{code}}</span>
+      </div>
+      <template is="dom-if" if="{{expired}}">
+        <div>Sorry - this code has expired...</div>
+        <a href="#/home">Home</a>
+      </template>
+    </template>
+    <template is="dom-if" if="{{txhash}}">
+      <div>You have claimed your code. Welcome to Locals !</div>
+      <a href="#/home">Home</a>
+    </template>
+
+  </template>
+  <script>
+  (function() {
+    'use strict';
+
+    Polymer({
+      is: 'locals-topup',
+
+      properties: {
+        expired: {
+          type: Boolean,
+          value: false
+        },
+        code: {
+          type: String
+        },
+        web3: {
+          type : Object,
+          observer: '_dataready'          
+        },
+        account: {
+          type: String,
+          observer: '_dataready'
+        }
+      },
+
+      _dataready: function(){
+
+        if (!this.web3 || !this.account || !this.code){
+          return;
+        }
+
+        console.log('claim code',this.code);
+
+
+          app.helpers.getfile('../../contracts/localscoinToken.json', function(err, contractjson) {
+            this.btppcontractjson = contractjson;
+
+         var secretSeed = lightwallet.keystore.generateRandomSeed();
+
+          lightwallet.keystore.deriveKeyFromPassword('test', function(err, pwDerivedKey) {
+
+            this.publickey = lightwallet.keystore._computeAddressFromPrivKey(this.code);
+            console.log('calculated pubkey', this.publickey);
+
+          console.log('TODO: call claim() from contract', this.prepaidcontractaddress);
+          console.log('using keypair ', this.publickey, this.privatekey);
+          console.log('recepient of funds =>', this.account);
+
+            //this.push('addresses',pubkey);
+
+            //this.address = pubkey;
+            //this.publickey = '0xf1b39a55a3e8e0c277e08190238772743ad85337';
+
+            var keystore = new lightwallet.keystore(secretSeed, pwDerivedKey);
+            //keystore.generateNewAddress(pwDerivedKey, 1);
+
+            keystore.importPrivateKey(this.code,pwDerivedKey);
+
+            // now try to transfer something from this account to another
+              var web3Provider = new HookedWeb3Provider({
+              host: new Polymer.IronMetaQuery({
+                key: 'ethnode'
+              }).value,
+              transaction_signer: keystore
+            });
+
+            this.localscointokencontractaddress = new Polymer.IronMetaQuery({
+                key: 'localscointokencontractaddress'
+              }).value
+
+            this.web3local = new Web3();
+            this.web3local.setProvider(web3Provider);
+
+            keystore.passwordProvider = function(callback) {
+              callback(null, 'test');
+            };
+
+
+            // do the claim
+
+
+
+        var self = this;
+        self.web3local.eth.getGasPrice(function(err, result) {
+          var gasPrice = result.toNumber(10);
+          var MyContract = self.web3local.eth.contract(self.btppcontractjson.abi);
+          var myContractInstance = MyContract.at(self.localscointokencontractaddress);
+          //debugger;
+          myContractInstance.balanceOf.call(app.helpers.fixaddress(self.publickey), {
+            from: app.helpers.fixaddress(self.publickey),
+            gasPrice: gasPrice,
+            gasLimit: 3000000,
+            gas: 2000000,
+            data: self.btppcontractjson.bytecode
+          }, function(err, balance) {
+            if (!err) {
+              var LCbalance = balance.toNumber(10);
+              if (LCbalance === 0){
+                self.expired = true;
+              }else{
+
+              console.log('Balance is', LCbalance,'send to',self.account);
+
+          myContractInstance.transfer(LCbalance/2,app.helpers.fixaddress(self.account), {
+            from: app.helpers.fixaddress(self.publickey),
+            gasPrice: gasPrice,
+            gasLimit: 3000000,
+            gas: 2000000,
+            data: self.btppcontractjson.bytecode
+          }, function(err, txhash) {
+            if (!err) {
+              self.txhash = txhash;
+            } else {
+              console.log('error:', err);
+            }
+          });
+
+
+
+
+
+
+              }
+              
+
+            } else {
+              console.log('error:', err);
+            }
+          });
+        });
+
+
+
+
+
+          
+          }.bind(this));
+
+           }.bind(this));
+
+
+      }
+    });
+  })();
+  </script>
+</dom-module>

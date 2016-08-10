@@ -8,7 +8,7 @@
     "platinum-elements": "PolymerElements/platinum-elements#^1.1.0",
     "neon-elements": "PolymerElements/neon-elements#^1.0.0",
     "page": "visionmedia/page.js#~1.6.3",
-    "web3-wallet": "^0.0.13",
+    "web3-wallet": "https://github.com/BlockTube/web3-wallet.git",
     "node-uuid": "^1.4.7",
     "jsencrypt": "^2.2.0",
     "locals-sync": "https://github.com/locals-world/locals-elements-sync.git",
