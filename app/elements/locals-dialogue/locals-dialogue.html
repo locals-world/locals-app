@@ -144,6 +144,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               'pubkey': myaccount
             }));
             break;
+          case 'addclub':
+              console.log('im about to add this club to your data', message.data);
+              var newclubdata = JSON.parse(message.data);
+              var lsapi = document.querySelector("#lsapi");
+              lsapi.data.collection[newclubdata.key] = newclubdata;
+              lsapi.writeData();
+              // whisper.whisperpost(m.from, JSON.stringify({
+              //   'command': 'pubkeyforclub',
+              //   'pubkey': myaccount
+              // }));
+              break;
 
           default:
             console.log('unknown message', message);
