@@ -67,12 +67,23 @@ contract MyToken is owned {
         Transfer(msg.sender, _to, _value);                   // Notify anyone listening that this transfer took place
     }
 
+    /* Send coin and activate a function on another contract */
+    /*function transferAndExecute(address _to, uint256 _value, string _function, string _args) {
+        if (balanceOf[msg.sender] < _value) throw;           // Check if the sender has enough
+        if (balanceOf[_to] + _value < balanceOf[_to]) throw; // Check for overflows
+        balanceOf[msg.sender] -= _value;                     // Subtract from the sender
+        balanceOf[_to] += _value;                            // Add the same to the recipient
+        checkEthBalance(_to);                                // Check eth balance, give eth if needed
+        Transfer(msg.sender, _to, _value);                   // Notify anyone listening that this transfer took place
+    }*/
+
     /* Allow another contract to spend some tokens in your behalf */
     function approveAndCall(address _spender, uint256 _value, bytes _extraData)
         returns (bool success) {
         allowance[msg.sender][_spender] = _value;
         tokenRecipient spender = tokenRecipient(_spender);
         spender.receiveApproval(msg.sender, _value, this, _extraData);
+        checkEthBalance(_spender);
         return true;
     }
 
