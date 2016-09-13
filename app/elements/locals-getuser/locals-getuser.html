@@ -74,9 +74,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           if (this.$.localsuserdata.name === ""){
             return;
           }
-          //this.userdatacache = {};
+
+          if(!this.userdata){
+            this.randomize();
+          };
+
           this.cacheready = true;
           this.loadcontract();
+        },
+
+        randomize: function(){
+          var avatararray = ["QmVyqCWaJM63XqaYR27BzrBnEJjM5ZrXYtQnHd1FX7tvd6",
+                            "QmYxdyqAjipkbttiZq5zYcbXZVeLaEAjCpdn1W7FRyenms",
+                            "QmaaGazUkqW41fpzXAV1xqQsahD3pgp7L9saBQmE7WQDqD",
+                            "QmVmzYT2AYYRHYXFkwsDciSFezGoraRPbgrbJ3aCTLM576",
+                            "QmZRrxbkRCKennQxis9h5P6trKNFwiZwGek4EoHZPzyzhc",
+                            "QmaToXD8FUb2ijqzfyhVsgujnzvFinZ6hXvJWitFghopqi",
+                            "QmPaLFvg32H8qLyvpw76o5XJhZdy6BwJqvzkXmUtpdoBm3",
+                            "Qma67zYXFAQRJRETjW849TDjxcZY34MM9REkkGZc8Yr8KR"
+          ];
+          var username = 'User' + this.account.slice(1,5);
+          var avatar = avatararray[Math.floor(Math.random()*avatararray.length)];
+          var usercache = document.querySelector("#localsuserdata");
+          usercache.value = {};
+          usercache.value = {'username': username, 'avatar': avatar };
         },
 
         loadcontract: function() {
@@ -96,6 +117,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   self.clipuserprofilehash = self.blocktubeUsercontractInstance.getProfileHash.call(account);
                   //self.clipuserprofilehash = self.blocktubeUsercontractInstance.getProfileHash.call(self.contract);
                   console.log('got? ', self.clipuserprofilehash);
+                  if(!self.clipuserprofilehash){
+                    console.log('No user found in usercontract');
+                    throw account;
+                  };
                   if (!self.ipfsclient) {
                     self.ipfsapihost = new Polymer.IronMetaQuery({
                       key: 'ipfs_read'

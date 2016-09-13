@@ -157,132 +157,128 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     display: none;
   }
 
-.balanceinfo {
-  margin: var(--balance-margins);
-  width: var(--totalinfo-width);
-  @apply(--layout-horizontal);
-  @apply(--layout-center-center);
-}
+  .balanceinfo {
+    margin: var(--balance-margins);
+    width: var(--totalinfo-width);
+    @apply(--layout-horizontal);
+    @apply(--layout-center-center);
+  }
 
 
 
-.balance {
-  color: var(--locals-darkgrey);
-  @apply(--layout-horizontal);
-  @apply(--layout-end);
-  @apply(--layout-wrap);
-  width: auto;
-}
+  .balance {
+    color: var(--locals-darkgrey);
+    @apply(--layout-horizontal);
+    @apply(--layout-end);
+    @apply(--layout-wrap);
+    width: auto;
+  }
 
-.balance:hover {
-  cursor: pointer;
-}
-.balance h1 {
-  margin: 0px;
-  color: var(--locals-blue);
-}
-
-
-.topic {
-  width: 90%;
-  @apply(--layout-vertical);
-  @apply(--layout-end);
-  @apply(--layout-center-justified);
-  margin: var(--topic-margins);
-}
-
-.topic p {
-  width: auto;
-  color: var(--locals-grey7);
-  font-size: 12px;
-  text-decoration: underline;
-  margin: 0px 0px 0px 0px;
-}
+  .balance:hover {
+    cursor: pointer;
+  }
+  .balance h1 {
+    margin: 0px;
+    color: var(--locals-blue);
+  }
 
 
-.topic h3 {
-  width: auto;
-  color: var(--locals-grey7);
-  font-size: 18px;
-  margin: 5px 0px 5px 0px;
-}
-.localcoinamount {
-  margin: 0px 0px 7px 6px;
-}
+  .topic {
+    width: 90%;
+    @apply(--layout-vertical);
+    @apply(--layout-end);
+    @apply(--layout-center-justified);
+    margin: var(--topic-margins);
+  }
 
-locals-verification-validator {
-  width: 0px;
-  height: 0px;
-  opacity: 0;
-}
-
-.refresher {
-  margin: 10px 0px 10px 0px;
-  -webkit-animation-name: rotate;
-  -webkit-animation-duration: 1s;
-  -webkit-animation-iteration-count: infinite;
-  -webkit-animation-timing-function: linear;
-  -moz-animation-name: rotate;
-  -moz-animation-duration: 1s;
-  -moz-animation-iteration-count: infinite;
-  -moz-animation-timing-function: linear;
-  animation-name: rotate;
-  animation-duration: 1s;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
-}
-
-iron-selector {
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.total {
-  width: 100%;
-  @apply(--layout-vertical);
-  @apply(--layout-center-center);
-}
-
-.renderitem {
-  width: 100%;
-}
-
-.dialogues {
-  @apply(--layout-horizontal);
-  @apply(--layout-center-center);
-  margin: 0px 10px 0px 10px;
-  font-size: 12px;
-}
+  .topic p {
+    width: auto;
+    color: var(--locals-grey7);
+    font-size: 12px;
+    text-decoration: underline;
+    margin: 0px 0px 0px 0px;
+  }
 
 
+  .topic h3 {
+    width: auto;
+    color: var(--locals-grey7);
+    font-size: 18px;
+    margin: 5px 0px 5px 0px;
+  }
+  .localcoinamount {
+    margin: 0px 0px 7px 6px;
+  }
 
-@-webkit-keyframes rotate {
-  from {-webkit-transform: rotate(0deg);}
-  to {-webkit-transform: rotate(360deg);}
-}
+  locals-verification-validator {
+    width: 0px;
+    height: 0px;
+    opacity: 0;
+  }
 
-@-moz-keyframes rotate {
-  from {-moz-transform: rotate(0deg);}
-  to {-moz-transform: rotate(360deg);}
-}
+  .refresher {
+    margin: 10px 0px 10px 0px;
+    -webkit-animation-name: rotate;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-name: rotate;
+    -moz-animation-duration: 1s;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+    animation-name: rotate;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
 
-@keyframes rotate {
-  from {transform: rotate(0deg);}
-  to {transform: rotate(360deg);}
-}
+  iron-selector {
+    width: 100%;
+    box-sizing: border-box;
+  }
 
+  .total {
+    width: 100%;
+    @apply(--layout-vertical);
+    @apply(--layout-center-center);
+  }
 
+  .renderitem {
+    width: 100%;
+  }
 
-.inputprofile {
-  width: 100%;
-  max-width: 300px;
-}
+  .dialogues {
+    @apply(--layout-horizontal);
+    @apply(--layout-center-center);
+    margin: 0px 10px 0px 10px;
+    font-size: 12px;
+  }
 
-.editor {
-  border: 1px solid green;
-  width: 100%;
-  min-height: 50px;
-}
+  @-webkit-keyframes rotate {
+    from {-webkit-transform: rotate(0deg);}
+    to {-webkit-transform: rotate(360deg);}
+  }
+
+  @-moz-keyframes rotate {
+    from {-moz-transform: rotate(0deg);}
+    to {-moz-transform: rotate(360deg);}
+  }
+
+  @keyframes rotate {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
+  }
+
+  .inputprofile {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .editor {
+    border: 1px solid green;
+    width: 100%;
+    min-height: 50px;
+  }
 
   .avatarrandomize {
     width: 140px;
@@ -300,97 +296,89 @@ iron-selector {
   }
 
 
-/*  .avatarstuff {
-    width: 100%;
-    @apply(--layout-horizontal);
-    @apply(--layout-center-center);
-    margin: 10px 0px 30px 0px;
-  }
+  /*  .avatarstuff {
+  width: 100%;
+  @apply(--layout-horizontal);
+  @apply(--layout-center-center);
+  margin: 10px 0px 30px 0px;
+}
 
-  .avatarstuff p {
-    color: var(--locals-blue);
-  }
+.avatarstuff p {
+color: var(--locals-blue);
+}
 */
-  .uploadlink {
-    width: 100%;
-    @apply(--layout-vertical);
-    @apply(--layout-center-center);
-    margin: 0px 0px 30px 0px;
+.uploadlink {
+  width: 100%;
+  @apply(--layout-vertical);
+  @apply(--layout-center-center);
+  margin: 0px 0px 30px 0px;
 
-  }
+}
 
-  .uploadlink p {
-    width: auto;
-    font-size: 12px;
-    text-decoration: underline;
-    margin: 0px 0px 0px 0px;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -webkit-user-select: none;
-    user-select: none;
-    color: var(--locals-blue);
-  }
+.uploadlink p {
+  width: auto;
+  font-size: 12px;
+  text-decoration: underline;
+  margin: 0px 0px 0px 0px;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  color: var(--locals-blue);
+}
 
-  .uploadlink p:hover {
-    cursor: pointer;
-  }
+.uploadlink p:hover {
+  cursor: pointer;
+}
 
-  #therest {
-    width: 100%;
-    @apply(--layout-vertical);
-    @apply(--layout-center);
-  }
+#therest {
+  width: 100%;
+  @apply(--layout-vertical);
+  @apply(--layout-center);
+}
 
+.refresher {
+  /*        transition: all 1s linear;*/
+  -webkit-animation: none;
+  -moz-animation: none;
+  animation: none;
+}
 
-     .refresher {
-/*        transition: all 1s linear;*/
-      -webkit-animation: none;
-      -moz-animation: none;
-      animation: none;
-     }
+.spinonce {
+  -webkit-animation: rotate 0.5s linear infinite;
+  -moz-animation: rotate 0.5s linear infinite;
+  animation: rotate 0.5s linear infinite;
 
+}
 
+.accountinfo {
+  width: 200px;
+  margin: 30px 0px 20px 0px;
+  text-align: center;
+}
 
-     .spinonce {
-      -webkit-animation: rotate 0.5s linear infinite;
-      -moz-animation: rotate 0.5s linear infinite;
-      animation: rotate 0.5s linear infinite;
+.accountinfo p {
+  font-size: 13px;
+  line-height: 16px;
+  color: var(--locals-darkgrey);
+  font-family: Opensanslight;
+  word-wrap: break-word;
+}
 
-     }
+@-webkit-keyframes rotate {
+  from {-webkit-transform: rotate(0deg);}
+  to {-webkit-transform: rotate(180deg);}
+}
 
+@-moz-keyframes rotate {
+  from {-moz-transform: rotate(0deg);}
+  to {-moz-transform: rotate(180deg);}
+}
 
-     .accountinfo {
-      width: 200px;
-      margin: 30px 0px 20px 0px;
-      text-align: center;
-     }
-
-     .accountinfo p {
-      font-size: 13px;
-      line-height: 16px;
-      color: var(--locals-darkgrey);
-      font-family: Opensanslight;
-      word-wrap: break-word;
-
-     }
-
-      @-webkit-keyframes rotate {
-          from {-webkit-transform: rotate(0deg);}
-          to {-webkit-transform: rotate(180deg);}
-      }
-
-      @-moz-keyframes rotate {
-          from {-moz-transform: rotate(0deg);}
-          to {-moz-transform: rotate(180deg);}
-      }
-
-      @keyframes rotate {
-          from {transform: rotate(0deg);}
-          to {transform: rotate(180deg);}
-      }
-
-
-
+@keyframes rotate {
+  from {transform: rotate(0deg);}
+  to {transform: rotate(180deg);}
+}
 
 </style>
 
@@ -400,46 +388,22 @@ iron-selector {
 </div>
 <div class="container">
   <div class="main">
-      <!--     <div class="avatararea"> -->
-      <!-- <locals-avatar renderstate="visual" id="avatar"></locals-avatar> -->
-
-      <!-- <ipfs-upload hidefileinput hash="{{hash}}" id="ipfsupload" host="/ip4/109.123.70.141/tcp/5001" >
-        <img style="width: 140px; height: 140px;" src="{{_getipfsurl(hash.hash)}}" observe="hash.hash">
-      </ipfs-upload> -->
-    <!-- </div> -->
-
-    <!-- <div class="totalinfo"> -->
-        <ipfs-upload hidefileinput hash="{{hash}}" id="ipfsupload" host="/ip4/109.123.70.141/tcp/5001" >
-
-        <div class="avatar" id="avatar">
-          <img src="{{avatarurl}}">
-        </div>
-      </ipfs-upload>
-
-
-      <div id="therest">
-
+    <ipfs-upload hidefileinput hash="{{hash}}" id="ipfsupload" host="/ip4/109.123.70.141/tcp/5001" >
+      <div class="avatar" id="avatar">
+        <img src="{{avatarurl}}">
+      </div>
+    </ipfs-upload>
+    <div id="therest">
       <div class="avatarrandomize">
-          <locals-icon class$="refresher {{spinclass}}" icon="refresh1" iconcolor="blue" small on-tap="refreshBalance"></locals-icon>
+        <locals-icon class$="refresher {{spinclass}}" icon="refresh1" iconcolor="blue" small on-tap="refreshBalance"></locals-icon>
       </div>
-
-
-<!--           <locals-icon class$="refresher {{spinclass}}" icon="refresh1" iconcolor="grey5" small on-tap="refreshBalance"></locals-icon> -->
-
       <locals-input class="inputprofile" label="Username" type="text" bind-value="{{username}}" center inputvalue="{{userdata.username}}"></locals-input>
-
-<!--     </div> -->
-
-    <div class="accountinfo"><p>{{account}}</p></div>
-
-    <div class="whitespace"></div>
+      <div class="accountinfo"><p>{{account}}</p></div>
+      <div class="whitespace"></div>
       <locals-button id="savebtn" on-tap="save" bg="blue" icon="v" txtcolor="white" small></locals-button>
-      </div>
+    </div>
   </div>
-
 </div>
-
-
 
 </template>
 <script>
@@ -474,7 +438,8 @@ iron-selector {
 
       userdata: {
         type: Object,
-        observer: '_userdata'
+        observer: '_userdata',
+        notify: true
       },
 
       sharedElements: {
@@ -531,7 +496,7 @@ iron-selector {
 
 
         ready: function(){
-        this.spinclass = '';
+          this.spinclass = '';
 
           // Change avatar listener
           var self = this;
@@ -546,9 +511,9 @@ iron-selector {
         },
 
         _userdata: function(){
-          console.log(this.userdata);
+          console.log("Userdata: ",this.userdata);
           this.avatarurl = this._getipfsurl(this.userdata.avatar);
-          this.currentavatar = this.userdata.avatar;
+          //this.currentavatar = this.userdata.avatar;
         },
 
         _data: function(){
@@ -582,93 +547,94 @@ iron-selector {
           app.helpers.getfile('../../contracts/localsUser.json', function(err,contractjson) {
             console.log(err, contractjson);
             self.web3.eth.getGasPrice(function(err, result) {
-            var gasPrice = result.toNumber(10);
-            var MyContract = self.web3.eth.contract(contractjson.abi);
-            var myContractInstance = MyContract.at('0xD424834A70E044Dd07E013Ee57715Fec668D65eE');
-            var account = app.helpers.fixaddress(self.account);
-            result = myContractInstance.setProfileHash.sendTransaction(e,
-               {
-                from: account,
-                gasPrice: gasPrice,
-                gasLimit: 3000000,
-                gas: 2000000,
-                data: contractjson.bytecode
-              },
-              function(err, result) {
-                if (err !== null) {
-                  console.log(err);
-                  console.log('ERROR: Transaction didnt go through. See console.');
-                } else {
-                  console.log('Transaction Successful!');
-                  //self.progress = 'addedtoindex';
-                  console.log('Tx hash=', result);
-                  // set vote status to TxHash received
-                  //self.votestatus = 2;
-                  //self.transactionHash = result;
-                }
-                fn(err,result);
+              var gasPrice = result.toNumber(10);
+              var MyContract = self.web3.eth.contract(contractjson.abi);
+              var myContractInstance = MyContract.at('0xD424834A70E044Dd07E013Ee57715Fec668D65eE');
+              var account = app.helpers.fixaddress(self.account);
+              result = myContractInstance.setProfileHash.sendTransaction(e,
+                {
+                  from: account,
+                  gasPrice: gasPrice,
+                  gasLimit: 3000000,
+                  gas: 2000000,
+                  data: contractjson.bytecode
+                },
+                function(err, result) {
+                  if (err !== null) {
+                    console.log(err);
+                    console.log('ERROR: Transaction didnt go through. See console.');
+                  } else {
+                    console.log('Transaction Successful!');
+                    //self.progress = 'addedtoindex';
+                    console.log('Tx hash=', result);
+                    // set vote status to TxHash received
+                    //self.votestatus = 2;
+                    //self.transactionHash = result;
+                  }
+                  fn(err,result);
+                });
               });
-              });
-          });
-        },
+            });
+          },
 
-        _getipfsurl: function(hash){
-        //debugger;
-        this._initipfs();
-        return this.ipfs_url + hash;
-      },
+          _getipfsurl: function(hash){
+            //debugger;
+            this._initipfs();
+            return this.ipfs_url + hash;
+          },
 
-      _initipfs: function(){
-        if (!this.ipfs_url){
-          this.ipfs_url = new Polymer.IronMetaQuery({
-              key: 'ipfs_url'
-            }).value;
-        }
-      },
+          _initipfs: function(){
+            if (!this.ipfs_url){
+              this.ipfs_url = new Polymer.IronMetaQuery({
+                key: 'ipfs_url'
+              }).value;
+            }
+          },
 
-        // },
-        _sizeview: function(){
-          switch(this.sizeview) {
-            case 'phone':
-            this.customStyle['--topbar-height'] = '100px';
-            this.updateStyles();
-            break;
-            case 'desktop':
-            this.customStyle['--topbar-height'] = '100px';
-            this.updateStyles();
-            break;
-            case 'xlarge':
-            this.customStyle['--topbar-height'] = '100px';
-            this.updateStyles();
-            break;
-            default:
-            console.log('!!! ** Niks');
-          }
-        },
+          // },
+          _sizeview: function(){
+            switch(this.sizeview) {
+              case 'phone':
+              this.customStyle['--topbar-height'] = '100px';
+              this.updateStyles();
+              break;
+              case 'desktop':
+              this.customStyle['--topbar-height'] = '100px';
+              this.updateStyles();
+              break;
+              case 'xlarge':
+              this.customStyle['--topbar-height'] = '100px';
+              this.updateStyles();
+              break;
+              default:
+              console.log('!!! ** Niks');
+            }
+          },
 
-        toHome: function(){
-          this.fire('to-home');
-        },
+          toHome: function(){
+            this.fire('to-home');
+          },
 
-        _objectdata: function(){
-        },
+          _objectdata: function(){
+          },
 
-        _key: function(){
-        },
+          _key: function(){
+          },
+
+          refreshBalance:function() {
+            this.spinclass = 'spinonce';
+            var getuser = document.querySelector("locals-getuser");
+            getuser.randomize();
+            //this._userdata();
+            /* Hier de refreshfunctie?*/
+            var self = this;
+            setTimeout(function(){
+              self.spinclass = '';
+            },500)
+          },
 
 
-      refreshBalance:function() {
-        this.spinclass = 'spinonce';
-
-        /* Hier de refreshfunctie?*/
-        var self = this;
-        setTimeout(function(){
-            self.spinclass = '';
-        },500)
-      },
-
-
-      });
-    })();
-    </script>
-  </dom-module>
+        });
+      })();
+      </script>
+    </dom-module>

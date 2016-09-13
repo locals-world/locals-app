@@ -277,6 +277,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <template is="dom-if" if="{{_is(sizeview,'phone')}}">
             <locals-button small txtbtn txtcolor="blue" on-tap="togglesendcoins"><div class="inbutton">send</div></locals-button>
             <locals-button small txtbtn txtcolor="blue" on-tap="togglereceivecoins"><div class="inbutton">receive</div></locals-button>
+            <!-- <locals-button small txtbtn txtcolor="blue" on-tap="provision"><div class="inbutton">provision</div></locals-button> -->
           </template>
           <template is="dom-if" if="{{!_is(sizeview,'phone')}}">
             <locals-button txtbtn txtcolor="blue" on-tap="togglesendcoins"><div class="inbutton">send</div></locals-button>
@@ -393,6 +394,60 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         },
         ethbalance: {
           type: Number
+        },
+
+        pubkeys: {
+          type: Array,
+          value: [
+         '0xcc27abf2528c7d37247f6faa4665314937dd8bd6',
+         '0x539e9a8234ccdb48219dd69d6895231577877725',
+         '0x2b037cd081eb9715c29ba144eb8eae286deccdfa',
+         '0x12e2e8873e12e314e15e1c373a2bcd87543fef79',
+         '0xbfe3fc7058f722b26d49a520c62f97764a58181f',
+         '0x1ca4d1730facd0f3dfc1728fe0f1f951dc2fb7e4',
+         '0x85daad51861607f1c8eb3844852c868f2a7ec8d9',
+         '0x0652fdcbc99082195293a0a2220a4bb4b1b674a0',
+         '0xab19d8249b6713af6f18c6b4ab964147b36241d9',
+         '0x4f2dcf703652a55ed8bc1d4fc183ea08bee965f9',
+         '0x31ef48bdf4afd5324eb1fb7f2595e3dd967f3489',
+         '0x73e06a693f455e731b5116a4f441c29dc8cdd269',
+         '0x8a21e09865bd6e5d018ceecde422d1c8bb465835',
+         '0xae581423e0a94bad286b0926357a0999bd858d75',
+         '0x1cd4faaf03717d4b68f63d077fa0b8134f4c2e46',
+         '0x26bd23c3cf1d3877024d7dad3c8fef71796b3f65',
+         '0x89636d1470f9d29e70ef606e3f2484ab1c588472',
+         '0x4fa535145725c698e0cbca8b91e28afcf9d79be3',
+         '0x452205ca702f3444034a11e266a39ee096ffd063',
+         '0x19436c4a2619f8889e14908a6716825538d2a421',
+         '0xb0a442efdf385a1c408f394e96be9d6b0da6ec50',
+         '0xbf6df8ba333cee3754aa2636f278f01722b82eea',
+         '0x82d2445c7dff4c35f3d09c3542b690f616ae9caf',
+         '0x67606d59432f5fef62078f6ee68677df7418940f',
+         '0x3fe98ec5bed5b4847af468a7b0944f9ab4444e71',
+         '0x5e9df8b07db4b20de39d9dae2a9712538e22ec36',
+         '0x894373f6edfcf9cef4628ab9a16169177b740416',
+         '0xa43fb7eab26ce75d2faa8f8de6b8ff062268d7ff',
+         '0xec7df12ebb888e1cd022255289d53669d56d763f',
+         '0x31e03f63b26939e8e1a3c327b6286534aeff1d2c',
+         '0x565d43c7b18826fe0d0dc509969c084f02293019',
+         '0x1532a6d08afad52661cfd4a81ebf94b143a4f72d',
+         '0xe2d77a795d959cd91b77df6e716a245c2e74874c',
+         '0xc3cfc391fc8cf026d89cb125c30fd49b0f0f0290',
+         '0x176b49348b60e3a469c2cc9b3b93678320b15bae',
+         '0x03b9b659b8597b21e00bf838ae5d019aef7367c7',
+         '0xd1678c8cd8c1279383f222a6ab44ff6139240b46',
+         '0x3a6f7f490240e26777ecdab268f77baa2c6f714c',
+         '0x31dc70687705e6e2e49ad4759474e7564aef0efe',
+         '0xd2fc3949a76bc3e26be529badadb3a454df8b746',
+         '0xcd04c4c4e7e7f02b8964e6468929591b0b1a9bd0',
+         '0x1d6715f032ff41dc4ee3c0935c86533bed9004b0',
+         '0x29d693f40d02742bbf7d94d38e32e6b5fb552025',
+         '0x476e18e94c7977df7170ecdf98956119572e07a4',
+         '0xb5aaa79a6c8301b68b9bd0588aa3f0de49ce22ce',
+         '0x09770b4c0fa5794c85e2b3c340a3c7f35df56855',
+         '0x3e2bab1676b7b0aa3c7ef3ce40cb84b3098b63db',
+         '0x2304d369204e7ab6497396934146f03454d74b16',
+         '0xa54fd10ab7a38c56fc5e8d8dc5838fe812b47e7e']
         }
       },
 
@@ -430,6 +485,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
            cb(info.username, result);
          });
        });
+     },
+
+     provision: function(){
+       var pubkeys = this.pubkeys;
+       for (var i = 0; i < pubkeys.length; i++) {
+         //console.log(pubkeys[i]);
+         this.transfer(10 * 100, app.helpers.fixaddress(pubkeys[i]), function(err, result) {
+           console.log('Sent 10lc to '+ pubkeys[i]);
+         });
+       }
      },
 
       handlewhispermessage: function(m) {
