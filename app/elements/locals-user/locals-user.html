@@ -399,7 +399,7 @@ LOCALS
 
         tokenaddr: {
           type: String,
-          value: '0xe94a4e5615E5d1BAfbDBc8a221D9b0995f67A752'
+          //value: '0xe94a4e5615E5d1BAfbDBc8a221D9b0995f67A752'
         },
 
         localsuseraddr: {
@@ -482,6 +482,10 @@ LOCALS
 
         this.ethnode = new Polymer.IronMetaQuery({
           key: 'ethnode'
+        }).value;
+
+         this.tokenaddr = new Polymer.IronMetaQuery({
+          key: 'localscointokencontractaddress'
         }).value;
 
         console.log('Meta query: ', this.ethnode);

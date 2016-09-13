@@ -1,24 +1,9 @@
 // Currently deployed at 0xa69153562474B1dFf2ab79b7fdB75d55f659Ea56
-contract owned {
-    address public owner;
-
-    function owned() {
-        owner = msg.sender;
-    }
-
-    modifier onlyOwner {
-        if (msg.sender != owner) throw;
-        _
-    }
-
-    function transferOwnership(address newOwner) onlyOwner {
-        owner = newOwner;
-    }
-}
+import "./owned.sol";
 
 contract tokenRecipient { function receiveApproval(address _from, uint256 _value, address _token, bytes _extraData); }
 
-contract MyToken is owned {
+contract localsReptoken is owned {
     /* Public variables of the token */
     string public name;
     string public symbol;
@@ -38,7 +23,7 @@ contract MyToken is owned {
     event Transfer(address indexed from, address indexed to, uint256 value);
 
     /* Initializes contract with initial supply tokens to the creator of the contract */
-    function MyToken(
+    function localsReptoken(
         uint256 initialSupply,
         string tokenName,
         uint8 decimalUnits,

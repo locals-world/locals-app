@@ -136,7 +136,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
               console.log('Balance is', LCbalance,'send to',self.account);
 
-          myContractInstance.transfer(LCbalance/2,app.helpers.fixaddress(self.account), {
+          myContractInstance.transfer(app.helpers.fixaddress(self.account),LCbalance, {
             from: app.helpers.fixaddress(self.publickey),
             gasPrice: gasPrice,
             gasLimit: 3000000,

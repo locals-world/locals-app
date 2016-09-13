@@ -8,3 +8,24 @@ Locals is the tool belt to interact with, create and sustain a local community. 
 Locals aims to bring decentralised technology to a mainstream audience by using an inuitive user interface and colourful visual style. Without having any knowledge of blockchain technology, Locals’ users can easily interact with smart contracts on the Ethereum blockchain.
 ![](https://raw.githubusercontent.com/locals-world/locals-project/master/promo-images/smartcontracts-locals.png)
 
+
+#Getting started
+
+## Truffle 
+### Deploying the contracts
+
+``cd truffle``
+
+Now check your truffle.js + the host to see if you are on the testnet or the mainnet or testrpc
+(You also will need the wallet.json that will be used to create the contracts. This wallet's first account needs the neccesary GAS to complete the transactions )
+
+``truffle compile``
+
+``truffle migrate`` ( or ``truffle migate --reset`` if you want to start over)
+
+### minting tokens
+(You will need the wallet.json that will be used to create the contracts. This wallet's first account needs the neccesary GAS to complete the transactions )
+
+`` truffle exec ./scripts/mint.js <0x___destination_account__> <amount of tokens>``
+
+

@@ -1,0 +1,26 @@
+{
+  "name": "locals-foundation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "truffle.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/locals-world/locals-foundation.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/locals-world/locals-foundation/issues"
+  },
+  "homepage": "https://github.com/locals-world/locals-foundation#readme",
+  "dependencies": {
+    "eth-lightwallet": "^1.0.1",
+    "hooked-web3-provider": "^1.0.0"
+  }
+}

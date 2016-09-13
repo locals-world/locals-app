@@ -386,7 +386,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         contractaddr: {
           type: String,
-          value: '0xe94a4e5615E5d1BAfbDBc8a221D9b0995f67A752'
+          //value: '0xe94a4e5615E5d1BAfbDBc8a221D9b0995f67A752'
         },
         localcoinbalance: {
           type: Number,
@@ -452,7 +452,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       ready: function(){
-        this.contractaddr = '0xe94a4e5615E5d1BAfbDBc8a221D9b0995f67A752';
         this.getLocalbalance();
         var self = this;
         window.setInterval(function(){
@@ -474,6 +473,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           // self.partnerpubkey = e.detail;
           // self.transfer();
         });
+
+        this.contractaddr = new Polymer.IronMetaQuery({
+            key: 'localscointokencontractaddress'
+        }).value;
       },
 
       _getUsername: function(account, cb){
@@ -595,9 +598,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           var MyContract = self.web3wallet.web3.eth.contract(self.contractjson.abi);
           var myContractInstance = MyContract.at(self.contractaddr);
 
+          console.log('localcoin address',self.contractaddr);
+
 
         var account = this.fixaddress(this.account);
         var coinbalance = myContractInstance.balanceOf(account);
+
+          console.log('balance of account',account,'is',coinbalance.toFixed(2));
+
+
         this.localcoinbalance = (coinbalance / 100).toFixed(2);
         // console.log('localcoinbalance: ', coinbalance);
         this.balanceloaded = true;

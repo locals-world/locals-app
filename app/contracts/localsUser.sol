@@ -1,11 +1,11 @@
-contract LocalsUser {
+contract localsUser {
 
 	address owner;
 	mapping(address => string) public users;
 
 	event userAdded(address who, string hash);
 
-	function blocktubeUser(){
+	function localsUser(){
 	    owner = msg.sender;
 	}
 

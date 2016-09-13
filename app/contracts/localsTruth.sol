@@ -1,12 +1,12 @@
 // Currently deployed at 0xD03B921AcF364cf8e240aEd920a539C53FF988CC
 
-
+import "./localsCointoken.sol";
 contract localsTruth {
 
     address public owner;
     
     // Which tokencontract to use
-    MyToken public token;
+    localsCointoken public token;
 
     // the address of the tokencontract to use
     address public tokenaddr;
@@ -47,7 +47,7 @@ contract localsTruth {
             return 'msg sender already verified this.';
         }
         
-        var tokencontract = MyToken(tokenaddr);
+        var tokencontract = localsCointoken(tokenaddr);
 
         uint numval = hashes[_thehash].numVerifications;
         hashes[_thehash].verifications[msg.sender] = true;

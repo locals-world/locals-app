@@ -1,6 +1,6 @@
+import "./owned.sol";
 
-
-contract LocalsService is owned {
+contract localsService is owned {
 
   struct ServiceAddress {
     string entryName;
@@ -10,7 +10,7 @@ contract LocalsService is owned {
   mapping (address => string) toName;
 mapping (string => address) toAddress;
 
-  function LocalsService(){
+  function localsService(){
     toName[this] = 'base';
 		toAddress['base'] = this;
   }
