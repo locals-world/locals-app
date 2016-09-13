@@ -286,8 +286,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <iron-collapse id="sendcoins">
         <template is="dom-if" if="{{_is(sendcoinstate,'first')}}">
           <div class="whitespace"></div>
-          <locals-input class="sendinput" autofocus type="number" bind-value="{{amount}}" label="Amount"></locals-input>
-          <locals-input class="sendinput" autofocus type="number" bind-value="{{pincode}}" label="To"></locals-input>
+          <locals-input class="sendinput" autofocus type="number" inputvalue="{{amount}}" bind-value="{{amount}}" label="Amount"></locals-input>
+          <locals-input class="sendinput" autofocus type="number" inputvalue="{{pincode}}" bind-value="{{pincode}}" label="To"></locals-input>
           <locals-confirm on-cancel="togglesendcoins" on-confirm="toWaiting" type="next"></locals-confirm>
         </template>
 
@@ -506,6 +506,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.sendcoinstate = 'second';
       },
 
+      clearInputs: function(){
+        this.pincode = '';
+        this.amount = '';
+        console.log("Cleared inputs!!!!!! PINCODE=",this.pincode,' & AMOUNT=',this.amount);
+      },
+
       refreshBalance:function() {
         this.spinclass = 'spinonce';
         this.getLocalbalance();
@@ -574,6 +580,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           });
           //this.web3.send(this.partnerpubkey, this.amount);
         });
+
+
+        this.clearInputs();
+        var sendcoins = document.querySelector('#sendcoins');
+        sendcoins.toggle();
+        this.collsclosed=!this.collsclosed;
+
         this.sendcoinstate = 'first';
       },
 

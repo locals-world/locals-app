@@ -333,11 +333,10 @@ LOCALS
         <div class="menuicon">
           <locals-button icon="menu" iconcolor="darkgrey" on-tap="firetoggle" small bgrgba="0,0,0,0"></locals-button>
         </div>
-        <div class="dialogues" on-tap="toDialogue">
-<!--           <p>1</p>
--->          <locals-icon icon="babbles" small iconcolor="grey3"></locals-icon>
+<!--         <div class="dialogues" on-tap="toDialogue">
+          <locals-icon icon="babbles" small iconcolor="grey3"></locals-icon>
 <p>{{msglength}}</p>
-        </div>
+        </div> -->
         <p class="flex"></p>
         <locals-button icon="plus" on-tap="toStore" small></locals-button>
       </div>
@@ -646,7 +645,7 @@ LOCALS
       break;
       case 'desktop':
       this.customStyle['--topbar-height'] = '100px';
-      this.customStyle['--avatar-size'] = '132px';
+      this.customStyle['--avatar-size'] = '120px';
       this.customStyle['--avatararea-width'] = '200px';
       this.customStyle['--avatararea-margin'] = '11px';
       this.customStyle['--totalinfo-width'] = 'auto';
@@ -658,7 +657,7 @@ LOCALS
       break;
       case 'xlarge':
       this.customStyle['--topbar-height'] = '100px';
-      this.customStyle['--avatar-size'] = '180px';
+      this.customStyle['--avatar-size'] = '120px';
       this.customStyle['--main-display'] = 'flex';
 
       this.customStyle['--avatararea-width'] = '200px';
