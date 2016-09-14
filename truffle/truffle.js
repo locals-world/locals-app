@@ -10,8 +10,7 @@
 
   // get the first account in this wallet
   var account = global_keystore.getAddresses()[0];
-  console.log('Main account is ', account);
-
+  
   // create the provider
   var provider = new HookedWeb3Provider({
     //host: 'http://109.123.70.141:8545',
