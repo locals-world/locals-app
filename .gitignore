@@ -10,8 +10,11 @@ tmp_combined.txt
 app/elements/locals-user/locals-home.html
 
 app/elements/locals-user/locals-home.html
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 truffle/build
 =======
 .DS_Store
 >>>>>>> Stashed changes
+=======
+>>>>>>> origin/master
