@@ -58,7 +58,7 @@ contract localsStore is owned {
 
 	}
 
-  function createAssociation(uint _minimumQuorum, uint _debatingPeriodInMinutes, token _sharesTokenAddress) returns address associationAddress {
+  function createAssociation(uint _minimumQuorum, uint _debatingPeriodInMinutes, token _sharesTokenAddress) returns (address associationAddress) {
 
     var tokencontract = localsCointoken(tokenaddr);
 
@@ -87,6 +87,61 @@ contract localsStore is owned {
   function kill() { if (msg.sender == owner) suicide(owner); }
 
 }
+
+// Here we start the item contracts
+contract localsClub {
+
+	address public creator;
+  string public clubname;
+  string public clubicon;
+  string public token;
+
+  uint public numMembers;
+  address[] public members;
+
+	struct clubMember {
+		string nickName;
+		bool active;
+	}
+
+  event MemberAdded(string _clubname, string _nickName, address _newmember);
+  event MemberDissed(string _clubname, address _newmember);
+
+	mapping (address => clubMember) public clubMembers;
+
+	function localsClub(address _creator, string _nickName, string _clubicon, string _clubname){
+		creator = _creator;
+    clubname = _clubname;
+    clubicon = _clubicon;
+		clubMembers[_creator].nickName = _nickName;
+		clubMembers[_creator].active = true;
+	}
+
+	// Add a member to the club and make em active
+	function addMember(address _newmember, string _nickName) {
+    //if(msg.sender!=creator) throw;
+    if(clubMembers[_newmember].active) throw;
+		clubMembers[_newmember].nickName = _nickName;
+		clubMembers[_newmember].active = true;
+    members.push(_newmember);
+    numMembers = members.length;
+    MemberAdded(clubname, _nickName, _newmember);
+	}
+
+	// Set a member to active = false
+	function disMember(address _newmember){
+    if(msg.sender!=creator) throw;
+		clubMembers[_newmember].active = false;
+    MemberDissed(clubname, _newmember);
+	}
+
+  // When someone just sends value to the contract
+  function () {
+    throw;
+  }
+
+}
+
 
 contract token { mapping (address => uint256) public balanceOf;  }
 
@@ -237,57 +292,4 @@ contract Association is owned {
         // Fire Events
         ProposalTallied(proposalNumber, result, quorum, p.proposalPassed);
     }
-
-// Here we start the item contracts
-contract localsClub {
-
-	address public creator;
-  string public clubname;
-  string public clubicon;
-  string public token;
-
-  uint public numMembers;
-  address[] public members;
-
-	struct clubMember {
-		string nickName;
-		bool active;
-	}
-
-  event MemberAdded(string _clubname, string _nickName, address _newmember);
-  event MemberDissed(string _clubname, address _newmember);
-
-	mapping (address => clubMember) public clubMembers;
-
-	function localsClub(address _creator, string _nickName, string _clubicon, string _clubname){
-		creator = _creator;
-    clubname = _clubname;
-    clubicon = _clubicon;
-		clubMembers[_creator].nickName = _nickName;
-		clubMembers[_creator].active = true;
-	}
-
-	// Add a member to the club and make em active
-	function addMember(address _newmember, string _nickName) {
-    //if(msg.sender!=creator) throw;
-    if(clubMembers[_newmember].active) throw;
-		clubMembers[_newmember].nickName = _nickName;
-		clubMembers[_newmember].active = true;
-    members.push(_newmember);
-    numMembers = members.length;
-    MemberAdded(clubname, _nickName, _newmember);
-	}
-
-	// Set a member to active = false
-	function disMember(address _newmember){
-    if(msg.sender!=creator) throw;
-		clubMembers[_newmember].active = false;
-    MemberDissed(clubname, _newmember);
-	}
-
-  // When someone just sends value to the contract
-  function () {
-    throw;
-  }
-
 }
