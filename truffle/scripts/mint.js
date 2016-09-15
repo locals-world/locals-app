@@ -9,9 +9,13 @@ module.exports = function(callback) {
 
 	console.log('token contract is at', localsCointoken.address);
 	console.log('minting ', amount, 'tokens to', target);
+	console.log('current provider',localsCointoken.currentProvider);
 
-	lc.mintToken(target, amount).then(function(a,b) {
-		console.log('minting complete. TXhash=',a);
+	lc.mintToken(target, amount).then(function(a, b) {
+		console.log('minting complete. TXhash=', a);
 		callback();
+	}).catch(function(e) {
+		// There was an error! Handle it.
+		console.log('error', e);
 	});
 };
