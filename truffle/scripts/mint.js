@@ -10,8 +10,8 @@ module.exports = function(callback) {
 	console.log('token contract is at', localsCointoken.address);
 	console.log('minting ', amount, 'tokens to', target);
 
-	lc.mintToken(target, amount).then(function() {
-		console.log('minting complete.');
+	lc.mintToken(target, amount).then(function(a,b) {
+		console.log('minting complete. TXhash=',a);
 		callback();
 	});
 };
