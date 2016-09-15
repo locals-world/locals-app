@@ -14,6 +14,10 @@ Locals aims to bring decentralised technology to a mainstream audience by using 
 ## Truffle 
 ### Deploying the contracts
 
+Make sure to install the latest dev snapshot of truffle 
+
+``sudo npm install -g https://github.com/ConsenSys/truffle``
+
 ``cd truffle``
 
 Now check your truffle.js + the host to see if you are on the testnet or the mainnet or testrpc
