@@ -14,9 +14,9 @@
   // create the provider
   var provider = new HookedWeb3Provider({
     //host: 'http://109.123.70.141:8545',
-    //host: 'http://localhost:8545',
-    host: 'https://morden.infura.io/fNrdKYnEHWqldP4JnWZp',
-//    host: 'https://mainnet.infura.io/fNrdKYnEHWqldP4JnWZp',
+    host: 'http://localhost:8545',
+    //host: 'https://morden.infura.io/fNrdKYnEHWqldP4JnWZp',
+    //host: 'https://mainnet.infura.io/fNrdKYnEHWqldP4JnWZp',
     transaction_signer: global_keystore
   });
 
