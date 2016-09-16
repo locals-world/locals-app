@@ -1,7 +1,7 @@
 // Currently deployed at 0xa69153562474B1dFf2ab79b7fdB75d55f659Ea56
 import "./owned.sol";
 
-contract tokenRecipient { function receiveApproval(address _from, uint256 _value, address _token, bytes _extraData); }
+//contract tokenRecipient { function receiveApproval(address _from, uint256 _value, address _token, bytes _extraData); }
 
 contract localsCointoken is owned {
     /* Public variables of the token */
@@ -66,8 +66,8 @@ contract localsCointoken is owned {
     function approveAndCall(address _spender, uint256 _value, bytes _extraData)
         returns (bool success) {
         allowance[msg.sender][_spender] = _value;
-        tokenRecipient spender = tokenRecipient(_spender);
-        spender.receiveApproval(msg.sender, _value, this, _extraData);
+        //tokenRecipient spender = tokenRecipient(_spender);
+        //spender.receiveApproval(msg.sender, _value, this, _extraData);
         checkEthBalance(_spender);
         return true;
     }

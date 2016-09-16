@@ -36,6 +36,6 @@
       provider: provider,
       //verbose: true,
       from: account,
-      gas: 1000000
+      gas: 1500000
     }
   }
