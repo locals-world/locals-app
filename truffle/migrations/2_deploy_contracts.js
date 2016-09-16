@@ -9,5 +9,5 @@ module.exports = function(deployer) {
  //        string versionOfTheCode
 
 
-  deployer.deploy(localsCointoken,0,'LocalCoin',2,0.1,'Δ','1');
+  deployer.deploy(localsCointoken,0,'LocalCoin(TESTNET)',2,0.1*1e18,'DRIJHOEK','1');
 };
