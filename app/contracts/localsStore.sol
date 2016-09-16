@@ -3,14 +3,7 @@ import "./localsCointoken.sol";
 
 contract token { mapping (address => uint256) public balanceOf;  }
 
-
 contract localsStore is owned {
-
-
-  // Which tokencontract to use
-  //MyToken public token;
-
-
 
   // the address of the tokencontract to use
   address public tokenaddr;
@@ -28,7 +21,7 @@ contract localsStore is owned {
     foundation = _foundationContract;
 	}
 
-	function createAssociation(uint _minimumQuorum, uint _debatingPeriodInMinutes, token _sharesTokenAddress) returns (address associationAddress)	{
+	function createAssociation(uint _minimumQuorum, uint _debatingPeriodInMinutes, address _sharesTokenAddress) returns (address associationAddress)	{
       var tokencontract = localsCointoken(tokenaddr);
 
       if(tokencontract.allowance(msg.sender,this)<200) {
@@ -37,17 +30,17 @@ contract localsStore is owned {
       }
 
       Error('allowance check');
-      Allowance('TEST ', token.allowance(msg.sender, this));*/
+      Allowance('TEST ', tokencontract.allowance(msg.sender, this));
 
       tokencontract.transferFrom(msg.sender, foundation, 200);
 
       Error('localcoin transferred');
-      token.transfer(foundation, 200);
+      tokencontract.transfer(foundation, 200);
 
       // TODO : fix this line
       associationAddress = new Association(_sharesTokenAddress, _minimumQuorum, _debatingPeriodInMinutes);
 
-      ClubCreated(_clubname, associationAddress, msg.sender);
+      ClubCreated('new association', associationAddress, msg.sender);
 
       return associationAddress;
 
@@ -68,7 +61,7 @@ contract Association is owned {
     uint public debatingPeriodInMinutes;
     Proposal[] public proposals;
     uint public numProposals;
-    token public sharesTokenAddress;
+    address public sharesTokenAddress;
 
     event ProposalAdded(uint proposalID, address recipient, uint amount, string description);
     event Voted(uint proposalID, bool position, address voter);
@@ -95,18 +88,19 @@ contract Association is owned {
 
     /* modifier that allows only shareholders to vote and create new proposals */
     modifier onlyShareholders {
-        if (sharesTokenAddress.balanceOf(msg.sender) == 0) throw;
+        token sharesToken =  token(sharesTokenAddress);
+        if (sharesToken.balanceOf(msg.sender) == 0) throw;
         _
     }
 
     /* First time setup */
-    function Association(token sharesAddress, uint minimumSharesToPassAVote, uint minutesForDebate) {
-        changeVotingRules(sharesAddress, minimumSharesToPassAVote, minutesForDebate);
+    function Association(address sharesTokenAddress, uint minimumSharesToPassAVote, uint minutesForDebate) {
+        changeVotingRules(sharesTokenAddress, minimumSharesToPassAVote, minutesForDebate);
     }
 
     /*change rules*/
-    function changeVotingRules(token sharesAddress, uint minimumSharesToPassAVote, uint minutesForDebate) onlyOwner {
-        sharesTokenAddress = token(sharesAddress);
+    function changeVotingRules(address sharesTokenAddress, uint minimumSharesToPassAVote, uint minutesForDebate) onlyOwner {
+        token sharesToken = token(sharesTokenAddress);
         if (minimumSharesToPassAVote == 0 ) minimumSharesToPassAVote = 1;
         minimumQuorum = minimumSharesToPassAVote;
         debatingPeriodInMinutes = minutesForDebate;
@@ -185,8 +179,8 @@ contract Association is owned {
             uint voteWeight = 1;
 
             if(sharesTokenAddress != 0x0){
-              voteWeight = sharesTokenAddress.balanceOf(v.voter);
-            };
+              voteWeight = token(sharesTokenAddress).balanceOf(v.voter);
+            }
 
             quorum += voteWeight;
             if (v.inSupport) {
