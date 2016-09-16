@@ -4,7 +4,7 @@ import "./owned.sol";
 contract token { mapping (address => uint256) public balanceOf;  }
 
 /* The democracy contract itself */
-contract Association is owned {
+contract localsAssociation is owned {
 
     /* Contract Variables and events */
     uint public minimumQuorum;
@@ -139,7 +139,9 @@ contract Association is owned {
             throw;
         } else if (yea > nay ) {
             /* has quorum and was approved */
-            p.recipient.call.value(p.amount * 1 ether)(transactionBytecode);
+            if (!p.recipient.call.value(p.amount * 1 ether)(transactionBytecode)){
+                throw;
+            }
             p.executed = true;
             p.proposalPassed = true;
         } else {

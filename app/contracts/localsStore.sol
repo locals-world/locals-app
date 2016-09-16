@@ -50,7 +50,8 @@ contract localsStore is owned {
       Error('localcoin transferred');
       //token.transfer(foundation, 200);
 
-      clubAddress = new localsClub(msg.sender, _nickname, _clubicon, _clubname, _token);
+      // TODO : fix this line
+      //clubAddress = new localsClub(msg.sender, _nickname, _clubicon, _clubname, _token);
 
       ClubCreated(_clubname, clubAddress, msg.sender);
 
@@ -75,7 +76,8 @@ contract localsStore is owned {
     Error('localcoin transferred');
     //token.transfer(foundation, 200);
 
-    associationAddress = new Association(_minimumQuorum, _debatingPeriodInMinutes, _sharesTokenAddress);
+      // TODO : fix this line
+//    associationAddress = new Association(_minimumQuorum, _debatingPeriodInMinutes, _sharesTokenAddress);
 
     ClubCreated('association', associationAddress, msg.sender);
 
@@ -282,7 +284,9 @@ contract Association is owned {
             throw;
         } else if (yea > nay ) {
             /* has quorum and was approved */
-            p.recipient.call.value(p.amount * 1 ether)(transactionBytecode);
+            if (!p.recipient.call.value(p.amount * 1 ether)(transactionBytecode)){
+              throw;
+            }
             p.executed = true;
             p.proposalPassed = true;
         } else {

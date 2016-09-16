@@ -231,13 +231,13 @@ var SolidityEvent = require("web3/lib/web3/event.js");
 
   Contract.new = function() {
     if (this.currentProvider == null) {
-      throw new Error("localsStore error: Please call setProvider() first before calling new().");
+      throw new Error("localsAssociation error: Please call setProvider() first before calling new().");
     }
 
     var args = Array.prototype.slice.call(arguments);
 
     if (!this.unlinked_binary) {
-      throw new Error("localsStore error: contract binary not set. Can't deploy new instance.");
+      throw new Error("localsAssociation error: contract binary not set. Can't deploy new instance.");
     }
 
     var regex = /__[^_]+_+/g;
@@ -256,7 +256,7 @@ var SolidityEvent = require("web3/lib/web3/event.js");
         return name != arr[index + 1];
       }).join(", ");
 
-      throw new Error("localsStore contains unresolved libraries. You must deploy and link the following libraries before you can deploy a new version of localsStore: " + unlinked_libraries);
+      throw new Error("localsAssociation contains unresolved libraries. You must deploy and link the following libraries before you can deploy a new version of localsAssociation: " + unlinked_libraries);
     }
 
     var self = this;
@@ -297,7 +297,7 @@ var SolidityEvent = require("web3/lib/web3/event.js");
 
   Contract.at = function(address) {
     if (address == null || typeof address != "string" || address.length != 42) {
-      throw new Error("Invalid address passed to localsStore.at(): " + address);
+      throw new Error("Invalid address passed to localsAssociation.at(): " + address);
     }
 
     var contract_class = this.web3.eth.contract(this.abi);
@@ -308,7 +308,7 @@ var SolidityEvent = require("web3/lib/web3/event.js");
 
   Contract.deployed = function() {
     if (!this.address) {
-      throw new Error("Cannot find deployed address: localsStore not deployed or address not set.");
+      throw new Error("Cannot find deployed address: localsAssociation not deployed or address not set.");
     }
 
     return this.at(this.address);
@@ -350,30 +350,91 @@ var SolidityEvent = require("web3/lib/web3/event.js");
   "default": {
     "abi": [
       {
+        "constant": true,
+        "inputs": [
+          {
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "name": "proposals",
+        "outputs": [
+          {
+            "name": "recipient",
+            "type": "address"
+          },
+          {
+            "name": "amount",
+            "type": "uint256"
+          },
+          {
+            "name": "description",
+            "type": "string"
+          },
+          {
+            "name": "votingDeadline",
+            "type": "uint256"
+          },
+          {
+            "name": "executed",
+            "type": "bool"
+          },
+          {
+            "name": "proposalPassed",
+            "type": "bool"
+          },
+          {
+            "name": "numberOfVotes",
+            "type": "uint256"
+          },
+          {
+            "name": "proposalHash",
+            "type": "bytes32"
+          }
+        ],
+        "type": "function"
+      },
+      {
         "constant": false,
         "inputs": [
           {
-            "name": "_nickname",
-            "type": "string"
+            "name": "proposalNumber",
+            "type": "uint256"
           },
           {
-            "name": "_clubname",
-            "type": "string"
-          },
+            "name": "transactionBytecode",
+            "type": "bytes"
+          }
+        ],
+        "name": "executeProposal",
+        "outputs": [
           {
-            "name": "_clubicon",
-            "type": "string"
-          },
+            "name": "result",
+            "type": "int256"
+          }
+        ],
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "sharesTokenAddress",
+        "outputs": [
           {
-            "name": "_token",
+            "name": "",
             "type": "address"
           }
         ],
-        "name": "createClub",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "numProposals",
         "outputs": [
           {
-            "name": "clubAddress",
-            "type": "address"
+            "name": "",
+            "type": "uint256"
           }
         ],
         "type": "function"
@@ -386,13 +447,45 @@ var SolidityEvent = require("web3/lib/web3/event.js");
         "type": "function"
       },
       {
+        "constant": false,
+        "inputs": [
+          {
+            "name": "sharesAddress",
+            "type": "address"
+          },
+          {
+            "name": "minimumSharesToPassAVote",
+            "type": "uint256"
+          },
+          {
+            "name": "minutesForDebate",
+            "type": "uint256"
+          }
+        ],
+        "name": "changeVotingRules",
+        "outputs": [],
+        "type": "function"
+      },
+      {
         "constant": true,
         "inputs": [],
-        "name": "foundation",
+        "name": "debatingPeriodInMinutes",
         "outputs": [
           {
             "name": "",
-            "type": "address"
+            "type": "uint256"
+          }
+        ],
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "minimumQuorum",
+        "outputs": [
+          {
+            "name": "",
+            "type": "uint256"
           }
         ],
         "type": "function"
@@ -410,13 +503,30 @@ var SolidityEvent = require("web3/lib/web3/event.js");
         "type": "function"
       },
       {
-        "constant": true,
-        "inputs": [],
-        "name": "tokenaddr",
+        "constant": false,
+        "inputs": [
+          {
+            "name": "beneficiary",
+            "type": "address"
+          },
+          {
+            "name": "etherAmount",
+            "type": "uint256"
+          },
+          {
+            "name": "JobDescription",
+            "type": "string"
+          },
+          {
+            "name": "transactionBytecode",
+            "type": "bytes"
+          }
+        ],
+        "name": "newProposal",
         "outputs": [
           {
-            "name": "",
-            "type": "address"
+            "name": "proposalID",
+            "type": "uint256"
           }
         ],
         "type": "function"
@@ -425,23 +535,68 @@ var SolidityEvent = require("web3/lib/web3/event.js");
         "constant": false,
         "inputs": [
           {
-            "name": "_minimumQuorum",
+            "name": "proposalNumber",
             "type": "uint256"
           },
           {
-            "name": "_debatingPeriodInMinutes",
-            "type": "uint256"
-          },
-          {
-            "name": "_sharesTokenAddress",
-            "type": "address"
+            "name": "supportsProposal",
+            "type": "bool"
           }
         ],
-        "name": "createAssociation",
+        "name": "vote",
         "outputs": [
           {
-            "name": "associationAddress",
+            "name": "voteID",
+            "type": "uint256"
+          }
+        ],
+        "type": "function"
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "name": "sharesAddress",
             "type": "address"
+          },
+          {
+            "name": "minimumSharesToPassAVote",
+            "type": "uint256"
+          },
+          {
+            "name": "minutesForDebate",
+            "type": "uint256"
+          }
+        ],
+        "name": "Association",
+        "outputs": [],
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "name": "proposalNumber",
+            "type": "uint256"
+          },
+          {
+            "name": "beneficiary",
+            "type": "address"
+          },
+          {
+            "name": "etherAmount",
+            "type": "uint256"
+          },
+          {
+            "name": "transactionBytecode",
+            "type": "bytes"
+          }
+        ],
+        "name": "checkProposalCode",
+        "outputs": [
+          {
+            "name": "codeChecksOut",
+            "type": "bool"
           }
         ],
         "type": "function"
@@ -459,62 +614,30 @@ var SolidityEvent = require("web3/lib/web3/event.js");
         "type": "function"
       },
       {
-        "inputs": [
-          {
-            "name": "_tokenContract",
-            "type": "address"
-          },
-          {
-            "name": "_foundationContract",
-            "type": "address"
-          }
-        ],
-        "type": "constructor"
-      },
-      {
         "anonymous": false,
         "inputs": [
           {
             "indexed": false,
-            "name": "_log",
-            "type": "string"
-          },
-          {
-            "indexed": false,
-            "name": "_newclub",
-            "type": "address"
-          }
-        ],
-        "name": "Log",
-        "type": "event"
-      },
-      {
-        "anonymous": false,
-        "inputs": [
-          {
-            "indexed": false,
-            "name": "_error",
-            "type": "string"
-          }
-        ],
-        "name": "Error",
-        "type": "event"
-      },
-      {
-        "anonymous": false,
-        "inputs": [
-          {
-            "indexed": false,
-            "name": "_msg",
-            "type": "string"
-          },
-          {
-            "indexed": false,
-            "name": "_balance",
+            "name": "proposalID",
             "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "name": "recipient",
+            "type": "address"
+          },
+          {
+            "indexed": false,
+            "name": "amount",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "name": "description",
+            "type": "string"
           }
         ],
-        "name": "Allowance",
+        "name": "ProposalAdded",
         "type": "event"
       },
       {
@@ -522,96 +645,175 @@ var SolidityEvent = require("web3/lib/web3/event.js");
         "inputs": [
           {
             "indexed": false,
-            "name": "_clubname",
-            "type": "string"
+            "name": "proposalID",
+            "type": "uint256"
           },
           {
             "indexed": false,
-            "name": "_newClub",
-            "type": "address"
+            "name": "position",
+            "type": "bool"
           },
           {
             "indexed": false,
-            "name": "_creator",
+            "name": "voter",
             "type": "address"
           }
         ],
-        "name": "ClubCreated",
+        "name": "Voted",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": false,
+            "name": "proposalID",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "name": "result",
+            "type": "int256"
+          },
+          {
+            "indexed": false,
+            "name": "quorum",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "name": "active",
+            "type": "bool"
+          }
+        ],
+        "name": "ProposalTallied",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": false,
+            "name": "minimumQuorum",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "name": "debatingPeriodInMinutes",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "name": "sharesTokenAddress",
+            "type": "address"
+          }
+        ],
+        "name": "ChangeOfRules",
         "type": "event"
       }
     ],
-    "unlinked_binary": "0x6060604081815280610724833960a09052516080516000805433600160a060020a0319918216178255600180548216909417909355600280549093169091179091556106d490819061005090396000f3606060405236156100615760e060020a6000350463163e7d36811461006357806341c0e1b5146101f057806341fbb050146102185780638da5cb5b1461022a578063bce934a91461023c578063dd2f727d1461024e578063f2fde38b1461031d575b005b61033e6004808035906020019082018035906020019191908080601f01602080910402602001604051908101604052809392919081815260200183838082843750506040805160208835808b0135601f8101839004830284018301909452838352979998604498929750919091019450909250829150840183828082843750506040805160209735808a0135601f81018a90048a0283018a01909352828252969897606497919650602491909101945090925082915084018382808284375094965050933593505050506001546040805160e160020a636eb1769f02815233600160a060020a039081166004830152308116602483015291516000939092169160c891839163dd62ed3e91604481810192602092909190829003018189876161da5a03f115610002575050604051519190911015905061035b57604080516020808252601b908201527f4c6f63616c436f696e20616c6c6f77616e636520746f6f206c6f7700000000008183015290516000805160206106b48339815191529181900360600190a1610002565b61006160005433600160a060020a039081169116141561051357600054600160a060020a0316ff5b61033e600254600160a060020a031681565b61033e600054600160a060020a031681565b61033e600154600160a060020a031681565b61033e6004356024356044356001546040805160e160020a636eb1769f02815233600160a060020a039081166004830152308116602483015291516000939092169160c891839163dd62ed3e91604481810192602092909190829003018189876161da5a03f115610002575050604051519190911015905061051557604080516020808252601b908201527f4c6f63616c436f696e20616c6c6f77616e636520746f6f206c6f7700000000008183015290516000805160206106b48339815191529181900360600190a1610002565b61006160043560005433600160a060020a0390811691161461069257610002565b60408051600160a060020a03929092168252519081900360200190f35b604080516020808252600f908201527f616c6c6f77616e636520636865636b00000000000000000000000000000000008183015290516000805160206106b48339815191529181900360600190a16040805160025460e060020a6323b872dd028252600160a060020a033381166004840152908116602483015260c860448301529151918316916323b872dd9160648181019260209290919082900301816000876161da5a03f1156100025750506040805160208082526015908201527f6c6f63616c636f696e207472616e7366657272656400000000000000000000008183015290516000805160206106b483398151915292509081900360600190a17ffd348a0770e4820c1d2a70df37313c3610bd7aaeb23fba56f155548c9e141f29858333604051808060200184600160a060020a0316815260200183600160a060020a031681526020018281038252858181518152602001915080519060200190808383829060006004602084601f0104600302600f01f150905090810190601f1680156104fb5780820380516001836020036101000a031916815260200191505b5094505050505060405180910390a150949350505050565b565b604080516020808252600f908201527f616c6c6f77616e636520636865636b00000000000000000000000000000000008183015290516000805160206106b48339815191529181900360600190a16040805160025460e060020a6323b872dd028252600160a060020a033381166004840152908116602483015260c860448301529151918316916323b872dd9160648181019260209290919082900301816000876161da5a03f1156100025750506040805160208082526015908201527f6c6f63616c636f696e207472616e7366657272656400000000000000000000008183015290516000805160206106b483398151915292509081900360600190a160408051600160a060020a0384811660208301523316818301526060808252600b908201527f6173736f63696174696f6e000000000000000000000000000000000000000000608082015290517ffd348a0770e4820c1d2a70df37313c3610bd7aaeb23fba56f155548c9e141f299181900360a00190a1509392505050565b6000805473ffffffffffffffffffffffffffffffffffffffff191682179055505608c379a0afcc32b1a39302f7cb8073359698411ab5fd6e3edb2c02c0b5fba8aa",
+    "unlinked_binary": "0x606060405260008054600160a060020a03191633179055610edf806100246000396000f3606060405236156100ae5760e060020a6000350463013cf08b81146100b0578063237e9492146101e957806327ebcf0e14610328578063400e39491461033a57806341c0e1b514610343578063520910471461036c57806369bd3436146103945780638160f0b51461039d5780638da5cb5b146103a6578063b1050da5146103b8578063c9d27afe146104a9578063e816f76f14610518578063eceb29451461052f578063f2fde38b1461060c575b005b61062d60043560038054829081101561000257506000526009027fc2575a0e9e593c00f959f8c92f12db2869c3395a3b0502d05e2516446f71f85b8101547fc2575a0e9e593c00f959f8c92f12db2869c3395a3b0502d05e2516446f71f85e8201547fc2575a0e9e593c00f959f8c92f12db2869c3395a3b0502d05e2516446f71f85f8301547fc2575a0e9e593c00f959f8c92f12db2869c3395a3b0502d05e2516446f71f85c8401547fc2575a0e9e593c00f959f8c92f12db2869c3395a3b0502d05e2516446f71f8608501547fc2575a0e9e593c00f959f8c92f12db2869c3395a3b0502d05e2516446f71f861860154600160a060020a03959095169591947fc2575a0e9e593c00f959f8c92f12db2869c3395a3b0502d05e2516446f71f85d909201939260ff8181169361010090920416919088565b60408051602060248035600481810135601f81018590048502860185019096528585526106f895813595919460449492939092019181908401838280828437509496505050505050506000600060006000600060006000600060036000508a81548110156100025750815260098a027fc2575a0e9e593c00f959f8c92f12db2869c3395a3b0502d05e2516446f71f85b01815060038101549097504210806102955750600487015460ff165b8061031e57508660000160009054906101000a9004600160a060020a031687600101600050548a6040518084600160a060020a0316606060020a0281526014018381526020018280519060200190808383829060006004602084601f0104600302600f01f150905001935050505060405180910390206000191687600601600050546000191614155b1561073b57610002565b61070a600554600160a060020a031681565b6106f860045481565b6100ae600054600160a060020a0390811633909116141561094e57600054600160a060020a0316ff5b6100ae6004356024356044355b60005433600160a060020a0390811691161461095057610002565b6106f860025481565b6106f860015481565b61070a600054600160a060020a031681565b604080516020604435600481810135601f81018490048402850184019095528484526106f8948135946024803595939460649492939101918190840183828082843750506040805160209735808a0135601f81018a90048a0283018a01909352828252969897608497919650602490910194509092508291508401838280828437509496505050505050506040805160055460e060020a6370a0823102825233600160a060020a039081166004840152925160009384939216916370a08231916024828101926020929190829003018187876161da5a03f115610002575050604051518214159050610b4557610002565b6106f86004356024356040805160055460e060020a6370a0823102825233600160a060020a039081166004840152925160009384939216916370a08231916024828101926020929190829003018187876161da5a03f115610002575050604051518214159050610d2857610002565b6100ae6004356024356044356109c7838383610379565b604080516020606435600481810135601f81018490048402850184019095528484526107279481359460248035956044359560849492019190819084018382808284375094965050505050505060006000600360005086815481101561000257906000526020600020906009020160005090508484846040518084600160a060020a0316606060020a0281526014018381526020018280519060200190808383829060006004602084601f0104600302600f01f1509050019350505050604051809103902060001916816006016000505460001916149150610b3c565b6100ae60043560005433600160a060020a03908116911614610eca57610002565b60408051600160a060020a038a1681526020810189905260608101879052851515608082015284151560a082015260c0810184905260e08101839052610100918101828152885460026001821615850260001901909116049282018390529091610120830190899080156106e25780601f106106b7576101008083540402835291602001916106e2565b820191906000526020600020905b8154815290600101906020018083116106c557829003601f168201915b5050995050505050505050505060405180910390f35b60408051918252519081900360200190f35b60408051600160a060020a03929092168252519081900360200190f35b604080519115158252519081900360200190f35b600095506000945060009350600092505b60078701548310156107ef57600787018054849081101561000257906000526020600020900160005060055460408051835460e060020a6370a082310282526101009004600160a060020a03908116600483015291519395509116916370a082319160248181019260209290919082900301816000876161da5a03f1156100025750506040515183549781019790925060ff161590506107fd5793840193610802565b600154861161080e57610002565b928301925b6001929092019161074c565b838511156108bb578660000160009054906101000a9004600160a060020a0316600160a060020a03168760010160005054670de0b6b3a7640000028a604051808280519060200190808383829060006004602084601f0104600302600f01f150905090810190601f1680156108975780820380516001836020036101000a031916815260200191505b5091505060006040518083038185876185025a03f192505050151561093157610002565b60048701805460ff191660011761ff00191690555b6040805160048901548c8252602082018b9052818301899052610100900460ff161515606082015290517fd220b7272a8b6d0d7d6bcdace67b936a8f175e6d5c1b3ee438b72256b32ab3af9181900360800190a15050505050505092915050565b60048701805460ff191660011761ff0019166101001790556108d0565b565b60058054600160a060020a03191684179055600082141561097057600191505b600182905560028190556005546040805184815260208101849052600160a060020a039290921682820152517f68259880819f96f54b67d672fefc666565de06099c91b57a689a42073ba090c99181900360600190a15b505050565b50508585846040518084600160a060020a0316606060020a0281526014018381526020018280519060200190808383829060006004602084601f0104600302600f01f150905001935050505060405180910390208160060160005081905550600260005054603c024201816003016000508190555060008160040160006101000a81548160ff0219169083021790555060008160040160016101000a81548160ff02191690830217905550600081600501600050819055507f646fec02522b41e7125cfc859a64fd4f4cefd5dc3b6237ca0abe251ded1fa881828787876040518085815260200184600160a060020a03168152602001838152602001806020018281038252838181518152602001915080519060200190808383829060006004602084601f0104600302600f01f150905090810190601f168015610b245780820380516001836020036101000a031916815260200191505b509550505050505060405180910390a1600182016004555b50949350505050565b6003805460018101808355909190828015829011610b7c57600902816009028360005260206000209182019101610b7c9190610c18565b505060038054929450918491508110156100025790600052602060002090600902016000508054600160a060020a031916871781556001818101879055855160028381018054600082815260209081902096975091959481161561010002600019011691909104601f90810182900484019391890190839010610cf857805160ff19168380011785555b506109cc929150610ce0565b50506009015b80821115610cf4578054600160a060020a03191681556000600182810182905560028381018054848255909281161561010002600019011604601f819010610cc657505b5060006003830181905560048301805461ffff1916905560058301819055600683018190556007830180548282559082526020909120610c12918101905b80821115610cf457805474ffffffffffffffffffffffffffffffffffffffffff19168155600101610c9a565b601f016020900490600052602060002090810190610c5c91905b80821115610cf45760008155600101610ce0565b5090565b82800160010185558215610c06579182015b82811115610c06578251826000505591602001919060010190610d0a565b60038054859081101561000257505050600160a060020a0333166000908152600984027fc2575a0e9e593c00f959f8c92f12db2869c3395a3b0502d05e2516446f71f86381016020526040909120547fc2575a0e9e593c00f959f8c92f12db2869c3395a3b0502d05e2516446f71f85b919091019060ff16151560011415610daf57610002565b60078101805460018101808355909190828015829011610de257818360005260206000209182019101610de29190610c9a565b50506040805180820190915285815233602082015260078401805493955090929091508490811015610002579060005260206000209001600050815181546020938401516101000274ffffffffffffffffffffffffffffffffffffffff001960ff19928316909317929092169190911790915533600160a060020a0316600081815260088501845260409081902080549093166001908117909355918501600585015581518781528615159381019390935282820152517f86abfce99b7dd908bec0169288797f85049ec73cbe046ed9de818fab3a497ae09181900360600190a15092915050565b60008054600160a060020a031916821790555056",
     "events": {
-      "0x1dfffa052d4a63bd70f14b863e128979d1c59e3589a0a3beb2633a120047042d": {
+      "0x646fec02522b41e7125cfc859a64fd4f4cefd5dc3b6237ca0abe251ded1fa881": {
         "anonymous": false,
         "inputs": [
           {
             "indexed": false,
-            "name": "_log",
-            "type": "string"
-          },
-          {
-            "indexed": false,
-            "name": "_newclub",
-            "type": "address"
-          }
-        ],
-        "name": "Log",
-        "type": "event"
-      },
-      "0x08c379a0afcc32b1a39302f7cb8073359698411ab5fd6e3edb2c02c0b5fba8aa": {
-        "anonymous": false,
-        "inputs": [
-          {
-            "indexed": false,
-            "name": "_error",
-            "type": "string"
-          }
-        ],
-        "name": "Error",
-        "type": "event"
-      },
-      "0x9b603bfe78b1927b278d00e606c4e5fb177ef8d0e5b885cab821a70bf1223c36": {
-        "anonymous": false,
-        "inputs": [
-          {
-            "indexed": false,
-            "name": "_msg",
-            "type": "string"
-          },
-          {
-            "indexed": false,
-            "name": "_balance",
+            "name": "proposalID",
             "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "name": "recipient",
+            "type": "address"
+          },
+          {
+            "indexed": false,
+            "name": "amount",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "name": "description",
+            "type": "string"
           }
         ],
-        "name": "Allowance",
+        "name": "ProposalAdded",
         "type": "event"
       },
-      "0xfd348a0770e4820c1d2a70df37313c3610bd7aaeb23fba56f155548c9e141f29": {
+      "0x86abfce99b7dd908bec0169288797f85049ec73cbe046ed9de818fab3a497ae0": {
         "anonymous": false,
         "inputs": [
           {
             "indexed": false,
-            "name": "_clubname",
-            "type": "string"
+            "name": "proposalID",
+            "type": "uint256"
           },
           {
             "indexed": false,
-            "name": "_newClub",
-            "type": "address"
+            "name": "position",
+            "type": "bool"
           },
           {
             "indexed": false,
-            "name": "_creator",
+            "name": "voter",
             "type": "address"
           }
         ],
-        "name": "ClubCreated",
+        "name": "Voted",
+        "type": "event"
+      },
+      "0xd220b7272a8b6d0d7d6bcdace67b936a8f175e6d5c1b3ee438b72256b32ab3af": {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": false,
+            "name": "proposalID",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "name": "result",
+            "type": "int256"
+          },
+          {
+            "indexed": false,
+            "name": "quorum",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "name": "active",
+            "type": "bool"
+          }
+        ],
+        "name": "ProposalTallied",
+        "type": "event"
+      },
+      "0x68259880819f96f54b67d672fefc666565de06099c91b57a689a42073ba090c9": {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": false,
+            "name": "minimumQuorum",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "name": "debatingPeriodInMinutes",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "name": "sharesTokenAddress",
+            "type": "address"
+          }
+        ],
+        "name": "ChangeOfRules",
         "type": "event"
       }
     },
-    "updated_at": 1474014850636,
+    "updated_at": 1474014850558,
     "links": {}
   }
 };
@@ -697,7 +899,7 @@ var SolidityEvent = require("web3/lib/web3/event.js");
     Contract.links[name] = address;
   };
 
-  Contract.contract_name   = Contract.prototype.contract_name   = "localsStore";
+  Contract.contract_name   = Contract.prototype.contract_name   = "localsAssociation";
   Contract.generated_with  = Contract.prototype.generated_with  = "3.2.0";
 
   // Allow people to opt-in to breaking changes now.
@@ -737,6 +939,6 @@ var SolidityEvent = require("web3/lib/web3/event.js");
   } else {
     // There will only be one version of this contract in the browser,
     // and we can use that.
-    window.localsStore = Contract;
+    window.localsAssociation = Contract;
   }
 })();
