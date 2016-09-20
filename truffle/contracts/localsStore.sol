@@ -37,8 +37,21 @@ contract localsStore is owned {
       Error('localcoin transferred');
       tokencontract.transfer(foundation, 200);
 
+      // Deploy new token contract and use the address in the association
+
+      /*
+      uint256 initialSupply,
+      string tokenName,
+      uint8 decimalUnits,
+      uint256 _minEthbalance,
+      string tokenSymbol,
+      string versionOfTheCode
+      */
+
+      var newtokencontract = new localsCointoken(10000, 'newToken', 2, 1, 'T', '0.1');
+
       // TODO : fix this line
-      associationAddress = new Association(_sharesTokenAddress, _minimumQuorum, _debatingPeriodInMinutes);
+      associationAddress = new Association(newtokencontract, _minimumQuorum, _debatingPeriodInMinutes);
 
       ClubCreated('new association', associationAddress, msg.sender);
 
