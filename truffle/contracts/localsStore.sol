@@ -21,7 +21,7 @@ contract localsStore is owned {
     foundation = _foundationContract;
 	}
 
-	function createAssociation(uint _minimumQuorum, uint _debatingPeriodInMinutes, address _sharesTokenAddress) returns (address associationAddress)	{
+	function createAssociation(uint _minimumQuorum, uint _debatingPeriodInMinutes) returns (address associationAddress)	{
       var tokencontract = localsCointoken(tokenaddr);
 
       if(tokencontract.allowance(msg.sender,this)<200) {
@@ -48,7 +48,7 @@ contract localsStore is owned {
       string versionOfTheCode
       */
 
-      var newtokencontract = new localsCointoken(10000, 'newToken', 2, 1, 'T', '0.1');
+      var newtokencontract = new localsCointoken(10000, 'newToken', 2, 0.2 ether, 'T', '0.1');
 
       // TODO : fix this line
       associationAddress = new Association(newtokencontract, _minimumQuorum, _debatingPeriodInMinutes);

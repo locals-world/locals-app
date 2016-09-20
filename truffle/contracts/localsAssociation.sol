@@ -43,7 +43,7 @@ contract localsAssociation is owned {
     }
 
     /* First time setup */
-    function Association(token sharesAddress, uint minimumSharesToPassAVote, uint minutesForDebate) {
+    function localsAssociation(token sharesAddress, uint minimumSharesToPassAVote, uint minutesForDebate) {
         changeVotingRules(sharesAddress, minimumSharesToPassAVote, minutesForDebate);
     }
 

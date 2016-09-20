@@ -41,6 +41,7 @@
   },
   "resolutions": {
     "web3-wallet": "^0.0.13",
-    "locals-button": "0.0.9"
+    "locals-button": "0.0.9",
+    "ipfs-upload": "^0.0.14"
   }
 }

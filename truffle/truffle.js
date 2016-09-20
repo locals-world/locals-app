@@ -2,7 +2,7 @@
   var HookedWeb3Provider = require("hooked-web3-provider");
   var fs = require('fs');
   var config = {
-    walletfile: '../scripts/wallet2.json',
+    walletfile: '../scripts/wallet.json',
     walletpassword: 'test'
   };
 
@@ -19,8 +19,8 @@
   };
 
 
-  console.log(lightwallet.keystore);
-  process.exit();
+  ///console.log(lightwallet.keystore);
+  ///process.exit();
 
   lightwallet.keystore.deriveKeyFromPassword('test', function(err, pwDerivedKey) {
 
@@ -38,9 +38,9 @@
 
   // create the provider
   provider = new HookedWeb3Provider({
-    //host: 'http://109.123.70.141:8545',
+    host: 'http://109.123.70.141:8545',
     //host: 'http://localhost:8545',
-    host: 'https://morden.infura.io/fNrdKYnEHWqldP4JnWZp',
+    //host: 'https://morden.infura.io/fNrdKYnEHWqldP4JnWZp',
     //host: 'https://mainnet.infura.io/fNrdKYnEHWqldP4JnWZp',
     transaction_signer: global_keystore
   });
@@ -60,6 +60,6 @@
       provider: provider,
       //verbose: true,
       from: account,
-      gas: 1500000
+      gas: 2500000
     }
   }
